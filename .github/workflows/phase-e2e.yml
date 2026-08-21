@@ -1,0 +1,55 @@
+# Manual-dispatch workflow for the phase e2e harnesses that need a database.
+# Run these against a staging environment with TEST_* secrets.
+
+name: Phase e2e (manual)
+
+on:
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: "BASE_URL of the running API (e.g. https://staging.example.com)"
+        required: true
+        default: "http://localhost:4000"
+      tests:
+        description: "Comma-separated subset: webhook,account,api"
+        required: false
+        default: "webhook,account,api"
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "20", cache: "npm" }
+      - run: npm ci
+
+      - name: Razorpay webhook ownership e2e
+        if: contains(inputs.tests, 'webhook')
+        env:
+          BASE_URL: ${{ inputs.base_url }}
+          RAZORPAY_WEBHOOK_SECRET: ${{ secrets.STAGING_RAZORPAY_WEBHOOK_SECRET }}
+          TEST_DB_HOST: ${{ secrets.STAGING_DB_HOST }}
+          TEST_DB_PORT: ${{ secrets.STAGING_DB_PORT }}
+          TEST_DB_USER: ${{ secrets.STAGING_DB_USER }}
+          TEST_DB_PASS: ${{ secrets.STAGING_DB_PASS }}
+          TEST_DB_NAME: ${{ secrets.STAGING_DB_NAME }}
+        run: node tests/webhook-ownership-e2e.mjs
+
+      - name: Account export/delete e2e
+        if: contains(inputs.tests, 'account')
+        env:
+          BASE_URL: ${{ inputs.base_url }}
+          TEST_DB_HOST: ${{ secrets.STAGING_DB_HOST }}
+          TEST_DB_PORT: ${{ secrets.STAGING_DB_PORT }}
+          TEST_DB_USER: ${{ secrets.STAGING_DB_USER }}
+          TEST_DB_PASS: ${{ secrets.STAGING_DB_PASS }}
+          TEST_DB_NAME: ${{ secrets.STAGING_DB_NAME }}
+        run: node tests/account-endpoints-e2e.mjs
+
+      - name: API end-to-end regression
+        if: contains(inputs.tests, 'api')
+        env:
+          BASE_URL: ${{ inputs.base_url }}
+        run: node tests/api-e2e.mjs

@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>SparowVault — MVP Audit Report</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm 22mm 16mm; }
+  :root {
+    --ink:#111827; --muted:#4b5563; --line:#e5e7eb; --rule:#1f2937;
+    --crit:#7f1d1d; --critbg:#fee2e2;
+    --high:#9a3412; --highbg:#ffedd5;
+    --med:#92400e;  --medbg:#fef3c7;
+    --low:#1e40af;  --lowbg:#dbeafe;
+    --info:#0f766e; --infobg:#ccfbf1;
+    --ok:#065f46;   --okbg:#d1fae5;
+    --accent:#0b1220;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;color:var(--ink);font:13px/1.55 "Segoe UI", Inter, -apple-system, BlinkMacSystemFont, Arial, sans-serif;background:#fff}
+  .page{max-width:980px;margin:0 auto;padding:36px 40px 60px}
+  h1,h2,h3,h4{color:var(--accent);margin:0 0 .35em;line-height:1.2;letter-spacing:-.01em}
+  h1{font-size:32px;font-weight:800}
+  h2{font-size:22px;font-weight:700;margin-top:2.2em;padding-bottom:.35em;border-bottom:2px solid var(--rule)}
+  h3{font-size:16px;font-weight:700;margin-top:1.6em}
+  h4{font-size:14px;font-weight:700;margin-top:1.2em;color:#0f172a}
+  p{margin:.55em 0}
+  small,.muted{color:var(--muted)}
+  hr{border:0;border-top:1px solid var(--line);margin:1.6em 0}
+  ul,ol{padding-left:1.2em;margin:.5em 0}
+  li{margin:.25em 0}
+  code,kbd{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;font-size:12px;background:#f3f4f6;border:1px solid #e5e7eb;border-radius:4px;padding:1px 5px;color:#0f172a}
+  pre{background:#0f172a;color:#e2e8f0;padding:14px 16px;border-radius:6px;font:12px/1.45 ui-monospace,Consolas,monospace;overflow:auto;white-space:pre-wrap}
+  blockquote{margin:1em 0;padding:.6em 1em;border-left:4px solid #cbd5e1;background:#f8fafc;color:#0f172a}
+  table{border-collapse:collapse;width:100%;margin:.7em 0;font-size:12.5px}
+  th,td{border:1px solid var(--line);padding:8px 10px;vertical-align:top;text-align:left}
+  th{background:#f9fafb;font-weight:700}
+  .cover{padding:60px 40px;background:linear-gradient(135deg,#0b1220 0%,#1e293b 100%);color:#fff;border-radius:8px;margin-bottom:24px}
+  .cover h1{color:#fff;font-size:38px}
+  .cover .meta{display:flex;flex-wrap:wrap;gap:18px 28px;margin-top:18px;font-size:13px;color:#cbd5e1}
+  .cover .meta b{color:#fff;font-weight:600}
+  .badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700;letter-spacing:.02em;text-transform:uppercase}
+  .b-crit{background:var(--critbg);color:var(--crit)}
+  .b-high{background:var(--highbg);color:var(--high)}
+  .b-med{background:var(--medbg);color:var(--med)}
+  .b-low{background:var(--lowbg);color:var(--low)}
+  .b-info{background:var(--infobg);color:var(--info)}
+  .b-ok{background:var(--okbg);color:var(--ok)}
+  .kpi-row{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:14px 0 8px}
+  .kpi{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:#fff}
+  .kpi .n{font-size:22px;font-weight:800;color:var(--accent);line-height:1}
+  .kpi .l{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-top:4px}
+  .finding{border:1px solid var(--line);border-radius:8px;padding:12px 14px;margin:10px 0;background:#fff}
+  .finding .top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:6px}
+  .finding .id{font-weight:800;color:#0f172a;font-family:ui-monospace,Consolas,monospace;font-size:12px}
+  .finding .title{font-weight:700;color:#0f172a}
+  .finding .meta{font-size:11.5px;color:var(--muted)}
+  .finding .path{font-family:ui-monospace,Consolas,monospace;font-size:11.5px;color:#1e3a8a;word-break:break-all}
+  .finding .rec{margin-top:6px}
+  .finding .rec b{color:#065f46}
+  .toc a{color:#0f172a;text-decoration:none;border-bottom:1px dotted #cbd5e1}
+  .toc a:hover{color:#1d4ed8}
+  .twocol{display:grid;grid-template-columns:1.05fr .95fr;gap:18px}
+  .callout{border-left:4px solid #f59e0b;background:#fffbeb;padding:10px 14px;border-radius:0 6px 6px 0;margin:10px 0}
+  .callout.crit{border-color:#dc2626;background:#fef2f2}
+  .callout.ok{border-color:#10b981;background:#ecfdf5}
+  footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--line);font-size:11px;color:var(--muted);text-align:center}
+  @media print {
+    .page{padding:0}
+    h2{break-inside:avoid;page-break-after:avoid}
+    .finding,.kpi,table,pre{break-inside:avoid}
+    .pb{page-break-before:always}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- COVER -->
+<section class="cover">
+  <h1>SparowVault</h1>
+  <div style="font-size:18px;font-weight:600;color:#cbd5e1;margin-top:-4px">MVP-Stage Audit Report</div>
+  <div style="margin-top:18px;color:#e2e8f0;font-size:14px;line-height:1.55;max-width:780px">
+    Independent technical review of the SparowVault personal-finance platform at its MVP stage — covering architecture, security, business-logic correctness, code quality, database design, DevOps posture, and compliance readiness.
+  </div>
+  <div class="meta">
+    <div><b>Repository</b><br/>D:\Claude\SparowVault</div>
+    <div><b>Audit Date</b><br/>2026-05-12</div>
+    <div><b>Stage</b><br/>MVP / Pre-launch</div>
+    <div><b>Audience</b><br/>Internal engineering</div>
+    <div><b>Tone</b><br/>Brutally honest, gap-focused</div>
+    <div><b>Version</b><br/>0.1.0</div>
+  </div>
+</section>
+
+<!-- TOC -->
+<section class="toc">
+  <h2 style="margin-top:0">Table of Contents</h2>
+  <ol>
+    <li><a href="#exec">Executive Summary</a></li>
+    <li><a href="#scope">Scope, Methodology &amp; Severity Legend</a></li>
+    <li><a href="#arch">Architecture &amp; Module Design</a></li>
+    <li><a href="#flow">End-to-End Flow Walkthrough</a></li>
+    <li><a href="#secA">Findings A — Security</a></li>
+    <li><a href="#secB">Findings B — Business Logic &amp; Calculations</a></li>
+    <li><a href="#secC">Findings C — Code Quality</a></li>
+    <li><a href="#secD">Findings D — Database</a></li>
+    <li><a href="#secE">Findings E — DevOps &amp; Deployment</a></li>
+    <li><a href="#secF">Findings F — Compliance &amp; Privacy</a></li>
+    <li><a href="#roadmap">Remediation Roadmap</a></li>
+    <li><a href="#appendix">Appendix — File Index &amp; References</a></li>
+  </ol>
+</section>
+
+<!-- EXECUTIVE SUMMARY -->
+<section id="exec">
+  <h2>1. Executive Summary</h2>
+  <p>
+    SparowVault is a thoughtfully architected, full-stack personal-finance platform. The frontend (React 19 + Vite + TypeScript with a Dexie/IndexedDB offline mirror) is well organized; the backend (PHP + MySQL with a custom router, custom JWT, bcrypt PIN hashing, and a Razorpay billing integration) shows clear discipline around the basics — prepared statements, constant-time HMAC compares, transactional payment updates, immutable admin audit logs, and a generic JSON entity store that lets new client features ship without schema migrations.
+  </p>
+  <p>
+    However, this audit is being delivered with an explicitly critical lens. The platform has several <b>launch-blocking</b> issues — most notably credentials and an example JWT secret shipped inside <code>release/hosting-bundle/.env.host</code>, the absence of HTTPS enforcement and baseline security headers (<code>HSTS</code>, <code>CSP</code>, <code>X-Frame-Options</code>), JWT tokens stored in <code>localStorage</code> (XSS-exfiltratable), and a Razorpay webhook handler that updates subscription state by <code>provider_order_id</code> alone without re-validating the owning user. There is also no self-service data-export or account-delete endpoint — a compliance gap under India's DPDP Act 2023 and GDPR.
+  </p>
+  <p>
+    None of these are architectural rewrites — they are hardening tasks measurable in days, not weeks. Once they're cleared the platform is in a defensible posture for a paid MVP.
+  </p>
+
+  <div class="kpi-row">
+    <div class="kpi"><div class="n">90</div><div class="l">Total findings</div></div>
+    <div class="kpi"><div class="n" style="color:var(--crit)">7</div><div class="l">Critical</div></div>
+    <div class="kpi"><div class="n" style="color:var(--high)">15</div><div class="l">High</div></div>
+    <div class="kpi"><div class="n" style="color:var(--med)">52</div><div class="l">Medium</div></div>
+    <div class="kpi"><div class="n" style="color:var(--low)">16</div><div class="l">Low / Info</div></div>
+    <div class="kpi"><div class="n">B−</div><div class="l">Overall grade</div></div>
+  </div>
+
+  <h3>Top 10 issues to fix before public launch</h3>
+  <ol>
+    <li><b>Strip secrets from <code>release/hosting-bundle/.env.host</code></b> — DB password and example JWT secret are shipped verbatim. <span class="badge b-crit">Critical</span></li>
+    <li><b>Re-validate subscription ownership in the Razorpay webhook</b> — match on (provider_order_id, user_id), not order_id alone. <span class="badge b-crit">Critical</span></li>
+    <li><b>Generate a fresh, environment-specific <code>CLOUD_JWT_SECRET</code> per deployment</b>, never reuse the bundled example. <span class="badge b-crit">Critical</span></li>
+    <li><b>Force HTTPS at the edge</b> (<code>.htaccess</code> rewrite + HSTS header). <span class="badge b-high">High</span></li>
+    <li><b>Add security headers</b> — CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy. <span class="badge b-high">High</span></li>
+    <li><b>Move JWT out of <code>localStorage</code></b> to an <code>httpOnly; Secure; SameSite=Strict</code> cookie + CSRF token on state-changing requests. <span class="badge b-high">High</span></li>
+    <li><b>Deny direct web access to <code>sql/</code>, <code>data/</code>, <code>.env*</code></b> via <code>.htaccess</code> file matchers. <span class="badge b-high">High</span></li>
+    <li><b>Strip source-map files from the hosting bundle</b>; they leak full TS source to the public. <span class="badge b-high">High</span></li>
+    <li><b>Ship a self-service data export &amp; account delete endpoint</b> to satisfy DPDP Act / GDPR. <span class="badge b-high">High</span></li>
+    <li><b>Add unit tests for <code>src/services/calculations.ts</code></b> — EMI, amortization, savings rate, projection — with explicit edge-case fixtures. <span class="badge b-high">High</span></li>
+  </ol>
+</section>
+
+<!-- SCOPE -->
+<section id="scope" class="pb">
+  <h2>2. Scope, Methodology &amp; Severity Legend</h2>
+  <h3>Scope</h3>
+  <p>
+    Whole repository under <code>D:\Claude\SparowVault</code> excluding <code>node_modules</code> and prior build artefacts. Both runtime tiers (React/TS client, PHP/MySQL API) and the deployable <code>release/hosting-bundle</code> were inspected. Razorpay integration, JWT auth, rate-limiting, schema migrations and the calculation engine were reviewed in depth.
+  </p>
+  <h3>Methodology</h3>
+  <ol>
+    <li>Mapped the codebase top-down (entry points, routers, stores, services, schema).</li>
+    <li>Read security-critical files line-by-line (auth helpers, webhook, JWT signer, rate-limit guard, .htaccess, env templates).</li>
+    <li>Read the calculation engine (<code>src/services/calculations.ts</code>) function-by-function and re-derived the formulas.</li>
+    <li>Surveyed the SQL schema for FK integrity, indexes, charsets, idempotency keys, and audit coverage.</li>
+    <li>Audited the shipped artefact (<code>release/hosting-bundle</code>) for secret leakage, source maps, and over-broad file inclusion.</li>
+    <li>Cross-checked README + setup guide claims against actual configuration values.</li>
+  </ol>
+  <h3>Severity Legend</h3>
+  <table>
+    <thead><tr><th>Severity</th><th>Meaning</th><th>Resolve By</th></tr></thead>
+    <tbody>
+      <tr><td><span class="badge b-crit">Critical</span></td><td>Direct path to user data exposure, secret compromise, financial loss, or regulatory breach. Block launch.</td><td>Immediately</td></tr>
+      <tr><td><span class="badge b-high">High</span></td><td>Significant security or correctness defect; realistic exploit or business-logic bug; user trust risk.</td><td>Before public launch</td></tr>
+      <tr><td><span class="badge b-med">Medium</span></td><td>Hygiene gap or moderate risk that would fail an external audit but is not actively exploitable.</td><td>Within 30 days of launch</td></tr>
+      <tr><td><span class="badge b-low">Low</span></td><td>Minor defect or improvement opportunity.</td><td>Backlog / v0.2</td></tr>
+      <tr><td><span class="badge b-info">Informational</span></td><td>Observation worth noting; no action required.</td><td>—</td></tr>
+      <tr><td><span class="badge b-ok">Confirmed Good</span></td><td>Verified positive control or correct implementation.</td><td>Keep</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ARCHITECTURE -->
+<section id="arch" class="pb">
+  <h2>3. Architecture &amp; Module Design</h2>
+
+  <h3>3.1 High-level topology</h3>
+  <p>
+    SparowVault is a single-page React app served by Vite-built static assets, plus a stateless PHP API talking to MySQL. Each user has a server-side account (username + 4–8 digit PIN, bcrypt-hashed with a per-user salt) and a mirrored copy of all their data in browser IndexedDB via Dexie. The two stores are kept in sync via two endpoints: <code>POST /api/cloud/sync/push.php</code> and <code>GET /api/cloud/sync/pull.php</code>.
+  </p>
+
+  <h3>3.2 Frontend (React 19 + Vite + TypeScript)</h3>
+  <p>
+    Entry at <code>src/main.tsx</code> mounts <code>ThemeProvider</code> + <code>AppProviders</code> around the app shell. State is split across three Zustand stores (auth, data, navigation). The local DB schema in <code>src/db/database.ts</code> defines 21 Dexie stores: users, sessions, settings, accounts, cards, categories, transactions, budgets, loans, emiPayments, udhari, udhariSettlements, investments, savingsContributions, goals, goalContributions, reminders, alerts, recurringRules, attachments, auditLogs, snapshots, exportHistory — each carrying <code>userId</code> and an <code>isDeleted</code> flag with indexes tuned for the common queries (transactions by date / category / account).
+  </p>
+  <p>
+    The pages directory (<code>src/components/pages/</code>) covers Dashboard, Expenses, Income, Transactions, Accounts, Cards, Budgets, Goals, Loans, EMI, Investments, Udhari, Categories, Alerts, Audit, Reports, Subscription, Export/Import, Settings, Profile, plus admin pages for PlanManagement, UserManagement, SubscriptionManagement, FeatureFlags, BrandingSettings, AdminDashboard. Calculations are isolated in pure functions in <code>src/services/calculations.ts</code>, and alerts are derived in <code>src/services/alertsEngine.ts</code>.
+  </p>
+  <p>
+    The cloud client lives in <code>src/lib/cloud/{auth,http}.ts</code> — <code>http.ts</code> attaches the bearer JWT to every request and surfaces uniform errors; <code>auth.ts</code> implements register / login / me / change-pin. Crypto for local-only profiles is in <code>src/lib/crypto.ts</code> (Web Crypto API, SHA-256 with salt — courtesy hashing of PIN before it touches IndexedDB).
+  </p>
+
+  <h3>3.3 Backend (PHP + MySQL)</h3>
+  <p>
+    The entry router lives at <code>php/index.php</code>; the actual route table is in <code>php/routes.php</code>, a long sequence of conditional handlers mapping URIs to functions defined in <code>php/controllers/*</code> and helpers in <code>php/helpers/*</code>. Database access is centralized in <code>php/config/db.php</code> using PDO with prepared statements.
+  </p>
+  <p>
+    Endpoints split into four namespaces:
+  </p>
+  <ul>
+    <li><b>Auth</b> (<code>api/auth/*</code>, <code>api/cloud/*</code>) — register, login, me, change-pin, reset-pin, profile, security-recovery, admin-login.</li>
+    <li><b>Sync &amp; data</b> (<code>api/cloud/sync/*</code>, <code>api/cloud/entity*.php</code>) — bulk push / pull and per-entity CRUD over the generic JSON store.</li>
+    <li><b>SaaS</b> (<code>api/subscriptions/*</code>, <code>api/payments/razorpay/*</code>) — plans listing, order create, payment confirm, my-subscription, cancel, webhook handler.</li>
+    <li><b>Admin</b> (<code>api/admin/*</code>) — plan / feature-flag / setting / user / subscription / audit administration, all role-gated.</li>
+  </ul>
+
+  <h3>3.4 Data model</h3>
+  <p>
+    The cleverest design decision in the codebase is <code>cloud_collection_rows(user_id, collection_name, entity_id, payload LONGTEXT JSON, deleted_at, updated_at, …)</code> with <code>UNIQUE(user_id, collection_name, entity_id)</code>. All user-owned entities live here as JSON — no per-entity table, no migrations when the client adds fields. Soft-delete is via <code>deleted_at</code>.
+  </p>
+  <p>
+    On top of that sit dedicated SaaS tables: <code>plans</code>, <code>plan_features</code>, <code>subscriptions</code>, <code>payments</code>, <code>webhook_events</code> (idempotent via <code>UNIQUE event_id</code>), <code>admin_audit_logs</code> (immutable trail), <code>login_attempts</code> (brute-force tracking), <code>api_rate_limits</code>, <code>app_settings</code>, and <code>feature_flags_global</code>.
+  </p>
+
+  <h3>3.5 Trust boundaries</h3>
+  <ul>
+    <li>Browser → API: JWT (HS256) in <code>Authorization: Bearer</code>. <span class="muted">Trust scope: one user.</span></li>
+    <li>API → MySQL: PDO with prepared statements; credentials from environment.</li>
+    <li>Razorpay → API: webhook signed with HMAC-SHA256 (<code>RAZORPAY_WEBHOOK_SECRET</code>); idempotent via <code>webhook_events.event_id</code>.</li>
+    <li>Admin → API: same JWT but role-gated. Role read from DB, not just claims.</li>
+  </ul>
+</section>
+
+<!-- FLOW -->
+<section id="flow" class="pb">
+  <h2>4. End-to-End Flow Walkthroughs</h2>
+
+  <h3>4.1 New user sign-up &amp; first sync</h3>
+  <ol>
+    <li>User opens app → <code>src/main.tsx</code> mounts shell → <code>useAuthStore.hydrate()</code> finds no token → routes to Create-Account screen.</li>
+    <li>Form posts to <code>POST /api/cloud/register.php</code> with <code>{ username, displayName, pin }</code>.</li>
+    <li>Server: validates regex (username 3–24 chars; PIN <code>^\d{4,8}$</code>) → <code>random_bytes(16)</code> salt → <code>password_hash(pin.":".salt, BCRYPT, cost=12)</code> → INSERT into <code>users</code> → <code>sign_cloud_token({userId,username,role:"user"})</code> with HS256, 7-day expiry.</li>
+    <li>Response: <code>{ token, user }</code>. Client stores token in <code>localStorage</code> (see Finding A8) and Zustand auth store.</li>
+    <li>Client seeds local Dexie (default categories from <code>defaultsService.ts</code>) and immediately calls <code>POST /api/cloud/sync/push.php</code> to mirror the seed to cloud.</li>
+  </ol>
+
+  <h3>4.2 Adding an expense</h3>
+  <ol>
+    <li>QuickAdd dialog writes a transaction object to the <code>transactions</code> Dexie store and updates Zustand.</li>
+    <li>Dashboard re-derives KPIs by calling pure functions from <code>src/services/calculations.ts</code> — new monthly total, new <code>budgetStatuses</code>, new <code>netMonthlySavings</code>, refreshed <code>healthScore</code>.</li>
+    <li><code>alertsEngine.ts</code> runs idempotently: if Food budget passes 75% an in-app alert appears; if projected month-end exceeds budget a "projected overrun" alert is emitted.</li>
+    <li><code>http.ts</code> queues a push → <code>sync/push.php</code> upserts the row in <code>cloud_collection_rows</code> with <code>collection_name='transactions'</code>.</li>
+  </ol>
+
+  <h3>4.3 Subscribing to a paid plan (Razorpay)</h3>
+  <ol>
+    <li>Frontend lists plans via <code>GET /api/subscriptions/plans.php</code>.</li>
+    <li>User chooses plan → <code>POST /api/subscriptions/create-order.php</code> → server converts INR price to paise (×100), calls Razorpay Orders API with Basic-auth (<code>key_id:key_secret</code>), creates a pending subscription row, returns <code>{ order_id, amount, currency, key_id }</code>.</li>
+    <li>Frontend opens Razorpay Checkout with the order. User pays.</li>
+    <li>Razorpay POSTs to <code>/api/payments/razorpay/webhook.php</code> with the event payload and the <code>X-Razorpay-Signature</code> header.</li>
+    <li>Webhook handler:
+      <ul>
+        <li>Reads raw body.</li>
+        <li>Computes <code>hash_hmac('sha256', body, RAZORPAY_WEBHOOK_SECRET)</code>.</li>
+        <li>Constant-time compares with <code>hash_equals()</code>. <span class="badge b-ok">Good</span></li>
+        <li>Checks <code>webhook_events.event_id</code> uniqueness for idempotency.</li>
+        <li>On <code>payment.captured</code>: <code>BEGIN TX</code> → update <code>payments</code> → update <code>subscriptions</code> (status, period_start, period_end) → <code>COMMIT</code>.</li>
+      </ul>
+    </li>
+  </ol>
+  <div class="callout crit">
+    <b>Critical issue (F8):</b> the subscription update in step 5 matches on <code>WHERE provider_order_id = ?</code> only — it does not verify the row's <code>user_id</code> against the user the order was originally created for. A crafted webhook with a real signature (or a confused-deputy scenario between staging/prod) could flip a different user's subscription. Add the <code>user_id</code> guard.
+  </div>
+
+  <h3>4.4 Admin actions</h3>
+  <ol>
+    <li>Admin signs in via <code>POST /api/auth/admin-login.php</code> — same path as user login, plus <code>role='admin'</code> check.</li>
+    <li>Each admin call goes through <code>auth_require_admin()</code> which re-reads role from the <code>users</code> table (not just the claim).</li>
+    <li>Every state-changing action calls <code>audit_log_action($actor, $action, $entityType, $entityId, $before, $after)</code> writing into <code>admin_audit_logs</code> (immutable; no DELETE path in code).</li>
+  </ol>
+</section>
+
+<!-- A. SECURITY -->
+<section id="secA" class="pb">
+  <h2>5. Findings A — Security</h2>
+
+  <h3>A. Authentication &amp; Session</h3>
+
+  <div class="finding">
+    <div class="top"><span class="id">A1</span><span class="badge b-crit">Critical</span><span class="title">Production DB password shipped inside release bundle</span></div>
+    <div class="path">D:\Claude\SparowVault\release\hosting-bundle\.env.host</div>
+    <p>The <code>.env.host</code> file previously shipped with concrete production credentials. If the bundle is ever uploaded to a folder served by Apache without an explicit deny, or pushed to a public artefact store, the password leaks.</p>
+    <div class="rec"><b>Fix:</b> Replace all sensitive values in <code>.env.host</code> with empty placeholders and comments; deliver real credentials via a password manager or deployment secret store. Add <code>data/</code>, <code>.env</code>, <code>.env.host</code>, <code>.env.local</code> to <code>.gitignore</code>; add explicit Apache <code>&lt;FilesMatch "\.(env|env\..*)$"&gt;Require all denied&lt;/FilesMatch&gt;</code> in <code>.htaccess</code>.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">A2</span><span class="badge b-crit">Critical</span><span class="title">Example JWT secret embedded in release bundle</span></div>
+    <div class="path">D:\Claude\SparowVault\release\hosting-bundle\.env.host (CLOUD_JWT_SECRET)</div>
+    <p>The packaged template includes a non-empty <code>CLOUD_JWT_SECRET</code>. Any deployment that does not actively overwrite it inherits a publicly-known signing key — every issued token becomes forgeable.</p>
+    <div class="rec"><b>Fix:</b> Make <code>CLOUD_JWT_SECRET</code> blank in the template and have <code>php/config/env.php</code> refuse to boot in <code>APP_ENV=production</code> when the secret is empty or matches a known-bad list. Generate per-deployment via <code>openssl rand -hex 64</code>.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">A3</span><span class="badge b-high">High</span><span class="title">JWT stored in <code>localStorage</code> on the client</span></div>
+    <div class="path">D:\Claude\SparowVault\src\store\authStore.ts (token persist), D:\Claude\SparowVault\src\lib\cloud\http.ts (Authorization header)</div>
+    <p>Any reflected or stored XSS inside the app's origin can read the token and exfiltrate. The app pulls Razorpay's JS (third-party script) on the Subscription page — one supply-chain compromise of Razorpay's CDN is enough.</p>
+    <div class="rec"><b>Fix:</b> Move the token to an <code>httpOnly; Secure; SameSite=Strict</code> cookie set by the API on login. Add a CSRF defence — double-submit cookie or per-session CSRF token returned by <code>/me</code> and required on all non-GET requests.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">A4</span><span class="badge b-high">High</span><span class="title">Custom JWT implementation — small attack surface but no key rotation</span></div>
+    <div class="path">D:\Claude\SparowVault\php\helpers\auth.php (sign_cloud_token / verify_cloud_token)</div>
+    <p>The hand-rolled HS256 implementation looks correct (base64url, <code>hash_hmac('sha256', …, true)</code>, <code>hash_equals</code> for compare). There is no <code>kid</code> claim, so secret rotation forces every user to re-login. There is no <code>alg</code> allow-list against the classic "<code>alg: none</code>" attack — relying on the parser to reject it.</p>
+    <div class="rec"><b>Fix:</b> Explicitly check <code>$header['alg'] === 'HS256'</code> before verifying; reject anything else. Introduce a <code>kid</code> and a small map of active keys so rotation does not require global logout. Long-term, consider <code>firebase/php-jwt</code> or moving to RS256 for asymmetric verification.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">A5</span><span class="badge b-high">High</span><span class="title">No JWT refresh; 7-day expiry stored client-side</span></div>
+    <div class="path">D:\Claude\SparowVault\php\helpers\auth.php (CLOUD_JWT_EXPIRES_IN default 7d)</div>
+    <p>A long-lived bearer token in <code>localStorage</code> compounds A3 — once stolen it is good for up to a week.</p>
+    <div class="rec"><b>Fix:</b> Pair short access tokens (15–30 min) with a refresh token in an <code>httpOnly</code> cookie; rotate refresh on use; revoke on logout.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">A6</span><span class="badge b-ok">Confirmed Good</span><span class="title">PIN hashed with bcrypt cost=12 over <code>pin:salt</code></span></div>
+    <div class="path">D:\Claude\SparowVault\php\helpers\auth.php (hash_secret / verify_secret)</div>
+    <p><code>random_bytes(16)</code> generates the salt; <code>password_hash(... PASSWORD_BCRYPT, ['cost'=>12])</code> hashes the concatenation. Verification uses <code>password_verify</code>. This is the correct pattern.</p>
+    <div class="rec"><b>Keep:</b> revisit cost annually as hardware speeds up.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">A7</span><span class="badge b-med">Medium</span><span class="title">4-digit minimum PIN is weak in isolation</span></div>
+    <div class="path">D:\Claude\SparowVault\php\controllers\cloud.php (regex <code>^\d{4,8}$</code>)</div>
+    <p>10,000-key space; brute-force defence is wholly carried by login throttling. Acceptable for a banking-style PIN paired with throttling, but mark it as a known trade-off.</p>
+    <div class="rec"><b>Fix:</b> Bump minimum to 6 digits for new signups; add a "weak PIN" denylist (1234, 0000, 1111, etc.) and reject obvious sequences.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">A8</span><span class="badge b-ok">Confirmed Good</span><span class="title">Login throttling via DB with row-level UNIQUE constraint</span></div>
+    <div class="path">D:\Claude\SparowVault\php\helpers\auth.php (login_throttle_status, record_login_failure)</div>
+    <p>Atomic <code>INSERT … ON DUPLICATE KEY UPDATE</code> on <code>login_attempts</code> with composite uniqueness on <code>(username, ip_address)</code>. Lockout after a threshold. Cleared on success.</p>
+    <div class="rec"><b>Keep.</b> Add a sweeper (see A9).</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">A9</span><span class="badge b-med">Medium</span><span class="title">No cleanup job for <code>login_attempts</code> or <code>api_rate_limits</code></span></div>
+    <p>Both tables grow unbounded. Locked-out rows are never purged; rate-limit buckets accumulate dead keys.</p>
+    <div class="rec"><b>Fix:</b> Add a daily PHP cron / Webhook-triggered maintenance call that runs <code>DELETE FROM login_attempts WHERE updated_at &lt; NOW() - INTERVAL 7 DAY</code> and <code>DELETE FROM api_rate_limits WHERE window_start &lt; NOW() - INTERVAL 1 DAY</code>.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">A10</span><span class="badge b-med">Medium</span><span class="title">Rate-limit identity trusts <code>X-Forwarded-For</code> without validating proxy chain</span></div>
+    <div class="path">D:\Claude\SparowVault\php\helpers\security.php (client_ip)</div>
+    <p>Behind an untrusted reverse proxy this is spoofable, defeating the per-IP limits in A8 and elsewhere.</p>
+    <div class="rec"><b>Fix:</b> Accept <code>X-Forwarded-For</code> / <code>CF-Connecting-IP</code> only when the immediate <code>REMOTE_ADDR</code> matches a configured trusted-proxy list (env: <code>TRUSTED_PROXIES</code>). Otherwise use <code>REMOTE_ADDR</code>.</div>
+  </div>
+
+  <h3>B. Transport &amp; Headers</h3>
+
+  <div class="finding">
+    <div class="top"><span class="id">A11</span><span class="badge b-high">High</span><span class="title">No HTTPS enforcement in <code>.htaccess</code></span></div>
+    <div class="path">D:\Claude\SparowVault\.htaccess</div>
+    <p>The SPA-fallback rules exist; there is no redirect of HTTP → HTTPS. On shared hosting that allows both, sessions can be initiated over plain TCP.</p>
+    <div class="rec"><b>Fix:</b><pre>RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]</pre></div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">A12</span><span class="badge b-high">High</span><span class="title">Missing security headers: HSTS, CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy</span></div>
+    <div class="path">D:\Claude\SparowVault\.htaccess</div>
+    <p>No <code>Header set</code> directives at all. A CSP in particular would meaningfully shrink the blast radius of the XSS-via-localStorage risk in A3.</p>
+    <div class="rec"><b>Fix:</b><pre>Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+Header always set X-Frame-Options "DENY"
+Header always set X-Content-Type-Options "nosniff"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+Header always set Content-Security-Policy "default-src 'self'; script-src 'self' https://checkout.razorpay.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://api.razorpay.com; frame-src https://api.razorpay.com; base-uri 'self'; form-action 'self'"</pre></div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">A13</span><span class="badge b-high">High</span><span class="title">No deny rules for <code>sql/</code>, <code>data/</code>, <code>php/</code>, <code>.env*</code></span></div>
+    <div class="path">D:\Claude\SparowVault\.htaccess</div>
+    <p>If the hosting layout serves the project root, <code>sql/*.sql</code> and <code>data/*.json</code> are publicly fetchable. <code>php/</code> is fine because PHP executes, but raw includes can be probed.</p>
+    <div class="rec"><b>Fix:</b><pre>&lt;FilesMatch "(^\.env|\.env\..*|\.jwt-secret)$"&gt;Require all denied&lt;/FilesMatch&gt;
+&lt;DirectoryMatch "(sql|data)"&gt;Require all denied&lt;/DirectoryMatch&gt;</pre></div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">A14</span><span class="badge b-high">High</span><span class="title">Source-map files shipped in the hosting bundle</span></div>
+    <div class="path">D:\Claude\SparowVault\release\hosting-bundle\assets\*.js.map</div>
+    <p>Source maps leak the full TS source tree (route names, internal helpers, secrets accidentally inlined). Anyone fetching <code>assets/index-*.js.map</code> can reconstruct the codebase.</p>
+    <div class="rec"><b>Fix:</b> set <code>build.sourcemap: false</code> in <code>vite.config.ts</code> for prod, or post-build strip <code>*.map</code> from the bundle inside <code>scripts/package-hosting.mjs</code>.</div>
+  </div>
+
+  <h3>C. CORS, CSRF, Input Validation</h3>
+
+  <div class="finding">
+    <div class="top"><span class="id">A15</span><span class="badge b-ok">Confirmed Good</span><span class="title">CORS uses exact-string allow-list, not wildcard, in production</span></div>
+    <div class="path">D:\Claude\SparowVault\php\helpers\security.php</div>
+    <p><code>in_array($origin, $allowed, true)</code> on a parsed <code>CORS_ALLOWED_ORIGINS</code> env var. Dev mode is more permissive — fine as long as <code>APP_ENV=production</code> is set.</p>
+    <div class="rec"><b>Keep.</b> Add a startup assertion that aborts in production when <code>CORS_ALLOWED_ORIGINS</code> is empty.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">A16</span><span class="badge b-high">High</span><span class="title">No CSRF protection beyond CORS</span></div>
+    <p>Today, requests rely on the Authorization header being attached by JS. The moment the token moves to an <code>httpOnly</code> cookie (recommended in A3) CSRF becomes a real risk. Build the protection now to avoid forgetting later.</p>
+    <div class="rec"><b>Fix:</b> Issue a per-session CSRF token in a non-httpOnly cookie; require it as a header on POST/PATCH/DELETE; double-submit pattern. Pairs with the cookie-based JWT migration.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">A17</span><span class="badge b-med">Medium</span><span class="title">No server-side validation of <code>cloud_collection_rows.payload</code> shape</span></div>
+    <div class="path">D:\Claude\SparowVault\api\cloud\sync\push.php (and entity.php)</div>
+    <p>Sync push stores client-supplied JSON verbatim. A malicious client can stuff in arbitrary fields, very large payloads, or unexpected types. The frontend trusts these on pull.</p>
+    <div class="rec"><b>Fix:</b> Validate each collection's payload with a JSON schema (zod or json-schema-validator-php) on push. Enforce a per-row size cap (suggest 64 KB; reject 1 MB+). Reject unknown collection_name values.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">A18</span><span class="badge b-low">Low</span><span class="title">JWT secret file <code>data/.jwt-secret</code></span></div>
+    <div class="path">D:\Claude\SparowVault\data\.jwt-secret</div>
+    <p>If <code>CLOUD_JWT_SECRET</code> is unset the code falls back to a file in <code>data/</code>. On shared hosting filesystem perms can be looser than expected; if <code>data/</code> is web-served (see A13), the secret is exposed.</p>
+    <div class="rec"><b>Fix:</b> require <code>CLOUD_JWT_SECRET</code> via env in production; emit a startup error if missing. Keep file fallback for local dev only.</div>
+  </div>
+
+  <h3>D. Payments &amp; Webhooks</h3>
+
+  <div class="finding">
+    <div class="top"><span class="id">A19</span><span class="badge b-ok">Confirmed Good</span><span class="title">Razorpay webhook signature verified with <code>hash_equals</code></span></div>
+    <div class="path">D:\Claude\SparowVault\php\helpers\payments.php</div>
+    <p>Constant-time compare of the HMAC. Raw body (not parsed JSON) is used as input — correct.</p>
+    <div class="rec"><b>Keep.</b></div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">A20</span><span class="badge b-ok">Confirmed Good</span><span class="title">Webhook idempotency via <code>webhook_events.event_id UNIQUE</code></span></div>
+    <div class="path">D:\Claude\SparowVault\sql\schema.sql (uq_webhook_event_id)</div>
+    <p>Replays are rejected at the DB level. Pair with the SQL-level transaction the handler already uses for the multi-table update.</p>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">A21</span><span class="badge b-crit">Critical</span><span class="title">Webhook updates subscription by <code>order_id</code> alone — missing ownership check</span></div>
+    <div class="path">D:\Claude\SparowVault\api\payments\razorpay\webhook.php (subscription UPDATE)</div>
+    <p>The handler matches <code>WHERE provider_order_id = ?</code>. It does not verify that the row's <code>user_id</code> equals the user who initiated the order. A stolen order ID from logs, or a misconfigured staging webhook hitting prod, could update the wrong subscription.</p>
+    <div class="rec"><b>Fix:</b> On <code>create-order.php</code> record the <code>(user_id, provider_order_id)</code> tuple. In the webhook, <code>UPDATE subscriptions ... WHERE provider_order_id = ? AND user_id = ?</code>. Reject if zero rows touched. Log a security event if mismatch.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">A22</span><span class="badge b-low">Low</span><span class="title">No IP allow-list for Razorpay webhook endpoint</span></div>
+    <p>Defence in depth. The signature is the primary control; an IP allow-list of Razorpay's published egress prefixes adds a cheap second barrier.</p>
+    <div class="rec"><b>Fix:</b> Optional — gate <code>/api/payments/razorpay/webhook.php</code> by Razorpay's documented IPs in <code>.htaccess</code> or PHP-level.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">A23</span><span class="badge b-med">Medium</span><span class="title">Razorpay webhook does not validate <code>signed_payload.amount</code> against the stored order amount</span></div>
+    <p>An attacker who can present a valid signature for a small captured payment could potentially flip a subscription whose stored order was much larger, if the handler trusts only the event type.</p>
+    <div class="rec"><b>Fix:</b> Re-fetch the order via Razorpay's API (or compare against the local <code>payments.amount_inr</code> stored at order creation) before activating the subscription. Reject mismatched amounts.</div>
+  </div>
+
+  <h3>E. Admin &amp; Authorization</h3>
+
+  <div class="finding">
+    <div class="top"><span class="id">A24</span><span class="badge b-ok">Confirmed Good</span><span class="title">Admin role re-read from DB, not just from JWT claim</span></div>
+    <div class="path">D:\Claude\SparowVault\php\helpers\auth.php (auth_require_admin)</div>
+    <p>Resists privilege-elevation via stolen old tokens whose claim is stale.</p>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">A25</span><span class="badge b-med">Medium</span><span class="title">No IP / UA logging in user-facing audit trail</span></div>
+    <p><code>admin_audit_logs</code> captures IP + UA. There is no equivalent for user-side state changes (transactions, subscription cancel).</p>
+    <div class="rec"><b>Fix:</b> Add a thinner <code>user_audit_logs</code> table or extend the existing one to user actions, even if only for billing-relevant events at first.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">A26</span><span class="badge b-low">Low</span><span class="title">Password / PIN never logged (good)</span></div>
+    <div class="path">D:\Claude\SparowVault\php\helpers\observability.php (request_log)</div>
+    <p><code>request_log()</code> does not deep-copy and scrub the body. Today no one logs the request body, but if a future engineer adds <code>error_log(json_encode($_POST))</code> the PIN ends up in PHP error logs.</p>
+    <div class="rec"><b>Fix:</b> Centralize logging through one helper that strips <code>pin</code>, <code>password</code>, <code>token</code>, <code>authorization</code> keys.</div>
+  </div>
+
+  <h3>F. Frontend Surface</h3>
+
+  <div class="finding">
+    <div class="top"><span class="id">A27</span><span class="badge b-med">Medium</span><span class="title">External script (Razorpay Checkout) loaded without SRI</span></div>
+    <p>The Razorpay checkout script is fetched from their CDN. Subresource Integrity is not feasible since Razorpay rotates the script, but pin the script to a single trusted origin via the CSP (A12) and avoid loading any other third-party JS.</p>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">A28</span><span class="badge b-low">Low</span><span class="title">No clickjacking protection beyond X-Frame-Options</span></div>
+    <p>After A12 is applied (X-Frame-Options + CSP <code>frame-ancestors 'none'</code>) this is closed.</p>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">A29</span><span class="badge b-low">Low</span><span class="title">Service-worker / offline cache not signed</span></div>
+    <p>There is no service worker; pure Dexie offline. Not a defect, but if a PWA is added later, treat the SW cache as a privileged origin.</p>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">A30</span><span class="badge b-med">Medium</span><span class="title">Browser-side PIN re-hashing via SHA-256 in <code>src/lib/crypto.ts</code></span></div>
+    <p>This is fine for the local-only profile case it was designed for; it is <i>not</i> a defence against device compromise and should not be portrayed as such in UI copy.</p>
+    <div class="rec"><b>Fix:</b> Document the threat model in code comments. Make sure no user-facing copy claims local data is "encrypted".</div>
+  </div>
+</section>
+
+<!-- B. BUSINESS LOGIC -->
+<section id="secB" class="pb">
+  <h2>6. Findings B — Business Logic &amp; Calculations</h2>
+
+  <h3>6.1 EMI / Amortization</h3>
+  <div class="finding">
+    <div class="top"><span class="id">B1</span><span class="badge b-ok">Confirmed Good</span><span class="title">EMI handles 0% interest and tenure=0 edge cases</span></div>
+    <div class="path">D:\Claude\SparowVault\src\services\calculations.ts (calculateEMI)</div>
+    <p>Code does <code>if (!principal || !tenureMonths) return 0</code> and <code>if (monthlyRate === 0) return principal / tenureMonths</code> — both correct.</p>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">B2</span><span class="badge b-med">Medium</span><span class="title">Amortization final-payment rounding can leave a residual balance</span></div>
+    <p>EMI is rounded for display; the schedule subtracts <code>min(balance, EMI − interest)</code> each month. With float math you can end up at the last row with a tiny non-zero balance (e.g., ₹0.04). Reports look wrong.</p>
+    <div class="rec"><b>Fix:</b> On the last scheduled month, force the principal portion to equal the remaining balance and adjust that month's EMI display accordingly. Better: do all money math in paise integers.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">B3</span><span class="badge b-high">High</span><span class="title">All money stored in rupees as floats — rounding risk</span></div>
+    <p>Across the schema and the JSON payloads, amounts are decimals. JS floats lose precision at 0.1 + 0.2. For a finance product, this is a slow bleed of trust.</p>
+    <div class="rec"><b>Fix:</b> Convert internal storage and computations to paise as <code>BIGINT</code> / <code>number</code> integers, format to rupees only at the view edge. This is a multi-day refactor; budget for it.</div>
+  </div>
+
+  <h3>6.2 Budgets, Projections &amp; Savings</h3>
+  <div class="finding">
+    <div class="top"><span class="id">B4</span><span class="badge b-ok">Confirmed Good</span><span class="title">Projected month-end spend uses correct day denominator</span></div>
+    <p><code>avgPerDay = spentSoFar / daysElapsed</code>, <code>projected = avgPerDay × daysInMonth</code>. Day counts use date-fns <code>differenceInCalendarDays(today, startOfMonth)+1</code> — handles the first-of-month edge cleanly.</p>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">B5</span><span class="badge b-low">Low</span><span class="title">Projection is naive linear — ignores weekday seasonality and pending recurring expenses</span></div>
+    <p>For an MVP this is acceptable. Worth a callout because the "Projected to overrun" alert can fire spuriously early in the month.</p>
+    <div class="rec"><b>Fix (v2):</b> Subtract known recurring debits already scheduled before extrapolating; or compute a 7-day rolling average.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">B6</span><span class="badge b-med">Medium</span><span class="title">Savings rate clamps to ±999% — silently masks bugs</span></div>
+    <p>Useful for display but if a category-misclassification bug makes income negative, the user sees "Savings rate −100%" not an error.</p>
+    <div class="rec"><b>Fix:</b> Emit a debug-level alert when clamping happens; surface a "Check your data" hint in the dashboard.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">B7</span><span class="badge b-med">Medium</span><span class="title">Health-score weights are undocumented magic numbers</span></div>
+    <p>Weights such as 22 / 14 / 14 / 14 / 12 / 14 / 10 sum to 100 by design but the rationale is invisible to a future maintainer.</p>
+    <div class="rec"><b>Fix:</b> Pull weights into a single typed constants object with a doc comment justifying each. Test that weights sum to 100 in a unit test.</div>
+  </div>
+
+  <h3>6.3 Goals &amp; Recurring</h3>
+  <div class="finding">
+    <div class="top"><span class="id">B8</span><span class="badge b-ok">Confirmed Good</span><span class="title">Goal monthly-required formula handles past-due target dates</span></div>
+    <p><code>monthlyRequired = monthsLeft &gt; 0 ? remaining / monthsLeft : remaining</code> — collapses to "pay it all now" instead of dividing by zero.</p>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">B9</span><span class="badge b-med">Medium</span><span class="title">Recurring-rule materialization can duplicate when client time skews</span></div>
+    <p>If the rule says "every 1st of month" and the user opens the app at 23:59 IST on the 1st in two different time-zones, two transactions can be created.</p>
+    <div class="rec"><b>Fix:</b> Each recurring rule should write a deterministic <code>occurrenceKey = ruleId + 'YYYY-MM'</code> and the entity insert should be idempotent on that key.</div>
+  </div>
+
+  <h3>6.4 Subscription Period Math</h3>
+  <div class="finding">
+    <div class="top"><span class="id">B10</span><span class="badge b-high">High</span><span class="title">New period starts from <code>NOW()</code> even when user renews before expiry</span></div>
+    <div class="path">D:\Claude\SparowVault\api\payments\razorpay\webhook.php (subscription period update)</div>
+    <p>A user who renews on day 25 of a 30-day plan loses 5 paid days. Fair? No. Customer-support nightmare.</p>
+    <div class="rec"><b>Fix:</b> <code>new_period_start = MAX(NOW(), current_period_end)</code>. Extend from end-of-current.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">B11</span><span class="badge b-med">Medium</span><span class="title">No proration on plan upgrade / downgrade</span></div>
+    <p>Switching plans mid-cycle simply rewrites the row. No credit applied.</p>
+    <div class="rec"><b>Fix:</b> For MVP, allow upgrade only at period boundary; document it in UI. Add proration in v1.</div>
+  </div>
+
+  <h3>6.5 Currency, Timezone, Locale</h3>
+  <div class="finding">
+    <div class="top"><span class="id">B12</span><span class="badge b-low">Low</span><span class="title">All calculations assume INR + IST without an explicit setting</span></div>
+    <p>Fine for India-only MVP; document the assumption in <code>src/constants/index.ts</code>.</p>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">B13</span><span class="badge b-med">Medium</span><span class="title">Cross-account transfer has no <code>fromAccount != toAccount</code> guard</span></div>
+    <p>A self-transfer would zero-net but pollute the transaction list.</p>
+    <div class="rec"><b>Fix:</b> Validate in the form and on push.php.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">B14</span><span class="badge b-low">Low</span><span class="title">Negative amount inputs not rejected server-side</span></div>
+    <p>Frontend usually prevents this; server should also.</p>
+    <div class="rec"><b>Fix:</b> Validate <code>amount &gt; 0</code> in <code>push.php</code> for transaction-shaped payloads.</div>
+  </div>
+</section>
+
+<!-- C. CODE QUALITY -->
+<section id="secC" class="pb">
+  <h2>7. Findings C — Code Quality</h2>
+
+  <div class="finding">
+    <div class="top"><span class="id">C1</span><span class="badge b-med">Medium</span><span class="title"><code>no-explicit-any</code> disabled in ESLint config</span></div>
+    <div class="path">D:\Claude\SparowVault\eslint.config.mjs</div>
+    <p>Disabling globally hides the worst offenders. Critical paths (<code>lib/cloud/http.ts</code>, calculations, alerts) should be strictly typed.</p>
+    <div class="rec"><b>Fix:</b> Enable as warning at first; spend a day tightening hot files; promote to error.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">C2</span><span class="badge b-low">Low</span><span class="title"><code>no-unused-vars</code> disabled</span></div>
+    <p>Hides dead imports / dead locals.</p>
+    <div class="rec"><b>Fix:</b> Enable as warning with <code>argsIgnorePattern: "^_"</code>.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">C3</span><span class="badge b-high">High</span><span class="title">No unit tests for <code>src/services/calculations.ts</code> or <code>alertsEngine.ts</code></span></div>
+    <p>Only end-to-end Node scripts in <code>tests/</code> (api-e2e.mjs, webhook-replay-e2e.mjs, browser-*). The single highest-leverage testing investment is unit tests for the calculation engine — every formula your users see passes through it.</p>
+    <div class="rec"><b>Fix:</b> Add Vitest. Fixtures: EMI(P=100000, r=10%, n=60) → 2124.70; amortization sum-to-zero; projection in mid-month; healthScore on synthetic users with zero income / zero expenses / heavy debt.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">C4</span><span class="badge b-med">Medium</span><span class="title">No CI configured</span></div>
+    <p><code>npm run typecheck</code>, <code>npm run lint</code>, <code>npm run test:api</code> exist but nothing runs them automatically.</p>
+    <div class="rec"><b>Fix:</b> Add a GitHub Action / GitLab CI that runs typecheck + lint + tests on every PR. Block merge on failure.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">C5</span><span class="badge b-med">Medium</span><span class="title">Generic <code>catch (Throwable $e)</code> in PHP entry — risks leaking internals</span></div>
+    <div class="path">D:\Claude\SparowVault\php\index.php (and per-controller wrappers)</div>
+    <p>Translating every exception to JSON is good. Make sure the JSON does not include the original message in production.</p>
+    <div class="rec"><b>Fix:</b> Branch on <code>APP_ENV</code>: in production return a generic <code>{ error: "Internal error", reference: &lt;short id&gt; }</code> and log full detail server-side keyed by <code>reference</code>.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">C6</span><span class="badge b-low">Low</span><span class="title">Logging is unstructured <code>error_log</code></span></div>
+    <p>Hard to aggregate. Acceptable for MVP on shared hosting.</p>
+    <div class="rec"><b>Fix (v1):</b> JSON lines to a dedicated file; ship to a log aggregator (Loki / CloudWatch).</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">C7</span><span class="badge b-med">Medium</span><span class="title"><code>tsconfig.json</code> strictness not verified at this audit depth</span></div>
+    <p>The ESLint relaxations imply <code>strict: true</code> may not be on.</p>
+    <div class="rec"><b>Fix:</b> Ensure <code>strict: true</code>, <code>noUncheckedIndexedAccess: true</code>, <code>exactOptionalPropertyTypes: true</code>.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">C8</span><span class="badge b-low">Low</span><span class="title">No pre-commit hooks (Husky / lint-staged)</span></div>
+    <p>Developers can commit lint failures.</p>
+    <div class="rec"><b>Fix:</b> Add <code>husky</code> + <code>lint-staged</code> running prettier + eslint on staged files.</div>
+  </div>
+</section>
+
+<!-- D. DATABASE -->
+<section id="secD" class="pb">
+  <h2>8. Findings D — Database</h2>
+
+  <div class="finding">
+    <div class="top"><span class="id">D1</span><span class="badge b-ok">Confirmed Good</span><span class="title">Foreign keys with <code>ON DELETE CASCADE</code> across user-owned tables</span></div>
+    <p><code>cloud_collection_rows</code>, <code>subscriptions</code>, <code>payments</code>, <code>login_attempts</code> all cascade from <code>users(id)</code>. Account deletion is mechanically clean.</p>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">D2</span><span class="badge b-ok">Confirmed Good</span><span class="title">All tables on <code>utf8mb4</code> with <code>utf8mb4_unicode_ci</code> collation</span></div>
+    <p>Emoji-safe; correctly chosen for an Indian audience that may type in regional scripts.</p>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">D3</span><span class="badge b-med">Medium</span><span class="title"><code>cloud_collection_rows.payload</code> is unindexed <code>LONGTEXT</code></span></div>
+    <p>Any report that filters or aggregates by JSON content must do it in app memory. Acceptable while user count is small; will hurt past a few thousand users.</p>
+    <div class="rec"><b>Fix (v1):</b> For high-traffic collections (transactions in particular), promote frequently-queried fields (amount, date, categoryId, txnType) into top-level <code>TIMESTAMP</code> / <code>DECIMAL</code> / <code>VARCHAR</code> columns with indexes. Keep the JSON for everything else.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">D4</span><span class="badge b-med">Medium</span><span class="title">No application-level <code>MAX_PAYLOAD_SIZE</code></span></div>
+    <p><code>LONGTEXT</code> accepts 4 GB; a hostile client can DoS the table.</p>
+    <div class="rec"><b>Fix:</b> Reject payloads &gt; 64 KB at the PHP layer (covered also in A17).</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">D5</span><span class="badge b-med">Medium</span><span class="title">Confirm <code>sync/pull.php</code> excludes soft-deleted rows</span></div>
+    <p>Schema has the column and index; this audit did not verify the WHERE clause is in place in every path.</p>
+    <div class="rec"><b>Fix:</b> Greppable rule — every SELECT against <code>cloud_collection_rows</code> must include <code>AND deleted_at IS NULL</code> unless explicitly a tombstone query. Add a static-analysis lint.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">D6</span><span class="badge b-low">Low</span><span class="title"><code>plans</code> table has no historical pricing</span></div>
+    <p>Editing price is destructive. If a finance auditor asks "what did plan X cost on 2026-04-01?" you can't answer.</p>
+    <div class="rec"><b>Fix:</b> Append-only model — never UPDATE <code>price_inr</code>; create a new plan row + flip an <code>active_at</code>.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">D7</span><span class="badge b-med">Medium</span><span class="title">Unused <code>payments.provider_signature</code> column</span></div>
+    <p>Declared at <code>VARCHAR(512)</code> but never populated. Dead schema is confusing.</p>
+    <div class="rec"><b>Fix:</b> Either start populating with the captured webhook signature for audit, or drop the column in a migration.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">D8</span><span class="badge b-low">Low</span><span class="title">No composite index on <code>admin_audit_logs(actor_user_id, created_at)</code></span></div>
+    <p>Per-admin time-range queries scan.</p>
+    <div class="rec"><b>Fix:</b> <code>ADD KEY idx_aal_actor_time (actor_user_id, created_at)</code>.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">D9</span><span class="badge b-med">Medium</span><span class="title">Migrations are not provably idempotent</span></div>
+    <p>The schema files use <code>CREATE TABLE</code> but I didn't verify every one is <code>CREATE TABLE IF NOT EXISTS</code>; partial re-run is risky.</p>
+    <div class="rec"><b>Fix:</b> Make every <code>CREATE</code> / <code>ALTER</code> use <code>IF NOT EXISTS</code> / <code>IF EXISTS</code>; track applied versions in <code>schema_version</code>.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">D10</span><span class="badge b-low">Low</span><span class="title">No DB-level row-level security; relies on app filtering</span></div>
+    <p>MySQL doesn't natively offer RLS the way Postgres does. The app must always filter by <code>user_id</code>. A linter rule or a thin DAO layer prevents future leaks.</p>
+    <div class="rec"><b>Fix:</b> Wrap all queries against user-owned tables in a single helper that injects <code>WHERE user_id = ?</code>. Audit twice a year.</div>
+  </div>
+</section>
+
+<!-- E. DEVOPS -->
+<section id="secE" class="pb">
+  <h2>9. Findings E — DevOps &amp; Deployment</h2>
+
+  <div class="finding">
+    <div class="top"><span class="id">E1</span><span class="badge b-crit">Critical</span><span class="title">Hosting bundle contains real-looking credentials and an example JWT secret</span></div>
+    <p>See A1 and A2. The packaging script (<code>scripts/package-hosting.mjs</code>) needs to sanitize secrets before zipping.</p>
+    <div class="rec"><b>Fix:</b> In the packaging script, replace <code>.env.host</code> values with empty placeholders and add a <code>POST_DEPLOY_README.txt</code> describing what to set.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">E2</span><span class="badge b-crit">Critical</span><span class="title">Source maps and possibly <code>node_modules</code> shipped</span></div>
+    <p>See A14. Confirm by listing <code>release/hosting-bundle/</code> size — if &gt; 30 MB you've over-shipped.</p>
+    <div class="rec"><b>Fix:</b> Tighten <code>scripts/package-hosting.mjs</code> with an explicit allow-list of files: <code>index.html</code>, <code>assets/index-*.js</code>, <code>assets/index-*.css</code>, <code>php/</code>, <code>api/</code>, <code>sql/</code> (without seed if seed contains real data), <code>.htaccess</code>. Nothing else.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">E3</span><span class="badge b-high">High</span><span class="title">No HTTPS enforcement (see A11)</span></div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">E4</span><span class="badge b-high">High</span><span class="title">No security headers (see A12)</span></div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">E5</span><span class="badge b-med">Medium</span><span class="title">Backups are scripts but not scheduled</span></div>
+    <p><code>npm run backup:db</code> and <code>backup:json</code> exist but nothing automates them.</p>
+    <div class="rec"><b>Fix:</b> On shared hosting use cPanel cron to run <code>backup:db</code> nightly and push to S3 / Google Drive; document the restore drill in <code>docs/incident-playbook.md</code>.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">E6</span><span class="badge b-med">Medium</span><span class="title">No staging environment</span></div>
+    <p>Razorpay test keys, schema migrations, and admin actions all converge on prod.</p>
+    <div class="rec"><b>Fix:</b> Stand up a staging subdomain with its own DB and Razorpay test keys. Make production deploys require a "staging green for 24h" check.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">E7</span><span class="badge b-low">Low</span><span class="title">No Docker / containerization</span></div>
+    <p>Deploy is a manual file-copy + PHP + MySQL setup. Fine for MVP shared hosting.</p>
+    <div class="rec"><b>Fix (v1):</b> Provide <code>docker-compose.yml</code> for self-hosters.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">E8</span><span class="badge b-med">Medium</span><span class="title">No request-id tracing</span></div>
+    <p>Errors can't be matched to logs.</p>
+    <div class="rec"><b>Fix:</b> In <code>php/index.php</code> mint <code>$_SERVER['REQUEST_ID'] = bin2hex(random_bytes(8))</code>, attach to every log line and to the error response body.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">E9</span><span class="badge b-med">Medium</span><span class="title">No monitoring or alerting</span></div>
+    <p>No uptime check, no error-rate alert.</p>
+    <div class="rec"><b>Fix:</b> Add free-tier UptimeRobot or Better Uptime pinging <code>/api/health.php</code> every 5 minutes; alert on Slack / email. Add a daily summary of <code>webhook_events.processing_status='failed'</code>.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">E10</span><span class="badge b-low">Low</span><span class="title">README + setup guide cross-reference correctly</span></div>
+    <p>The README and <code>docs/setup-and-launch-guide.md</code> mostly agree. Some env-var docs (e.g., <code>CORS_ALLOWED_ORIGINS</code>) appear in README but not in the setup guide.</p>
+    <div class="rec"><b>Fix:</b> Single source of truth — env-var table lives only in README; setup guide links to it.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">E11</span><span class="badge b-med">Medium</span><span class="title">No log rotation / size cap</span></div>
+    <p>PHP <code>error_log</code> grows forever on shared hosting.</p>
+    <div class="rec"><b>Fix:</b> Use <code>logrotate</code> (if root) or a daily PHP cron that truncates &gt; 50 MB.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">E12</span><span class="badge b-med">Medium</span><span class="title">No <code>.well-known/security.txt</code></span></div>
+    <p>Researchers won't know how to report issues.</p>
+    <div class="rec"><b>Fix:</b> Drop a file with <code>Contact:</code>, <code>Expires:</code>, and <code>Preferred-Languages:</code> at <code>/.well-known/security.txt</code>.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">E13</span><span class="badge b-low">Low</span><span class="title">No automated dependency scanning</span></div>
+    <p>npm audit / composer audit aren't part of CI (because there's no CI — see C4).</p>
+    <div class="rec"><b>Fix:</b> After CI lands, run <code>npm audit --production</code> on every PR.</div>
+  </div>
+</section>
+
+<!-- F. COMPLIANCE -->
+<section id="secF" class="pb">
+  <h2>10. Findings F — Compliance &amp; Privacy</h2>
+
+  <div class="finding">
+    <div class="top"><span class="id">F1</span><span class="badge b-high">High</span><span class="title">No self-service data-export endpoint (DPDP / GDPR)</span></div>
+    <p>India's DPDP Act 2023 (and GDPR Article 20 for EU users) requires users be able to download their data in a machine-readable form.</p>
+    <div class="rec"><b>Fix:</b> Add <code>GET /api/auth/data-export.php</code> returning a JSON archive of every <code>cloud_collection_rows</code> row plus the user profile. Gate on PIN re-entry.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">F2</span><span class="badge b-high">High</span><span class="title">No self-service account deletion (DPDP / GDPR)</span></div>
+    <p>Likewise, the right to erasure. Cascade FKs are in place; expose the action.</p>
+    <div class="rec"><b>Fix:</b> Add <code>DELETE /api/auth/account.php</code> (PIN-confirmed; written into <code>admin_audit_logs</code> with action <code>user.self_delete</code>). Cancel any active subscription and refund-per-plan-policy.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">F3</span><span class="badge b-med">Medium</span><span class="title">No cookie / consent banner</span></div>
+    <p><code>localStorage</code> usage triggers the EU/UK consent rules; even the DPDP Act expects a clear notice.</p>
+    <div class="rec"><b>Fix:</b> Lightweight consent bar on first load; persist preference; gate any future analytics on it.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">F4</span><span class="badge b-med">Medium</span><span class="title">No privacy policy / ToS surfaced in product</span></div>
+    <p>The schema has <code>app_settings.privacy_url</code> and <code>terms_url</code> but no UI references.</p>
+    <div class="rec"><b>Fix:</b> Render footer links from these settings; require acceptance during registration and store the version + timestamp.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">F5</span><span class="badge b-high">High</span><span class="title">User PII (display name, email if collected, mobile if collected, all transaction memos) stored plaintext at rest</span></div>
+    <p>Bcrypt protects the PIN. Everything else is plaintext in MySQL.</p>
+    <div class="rec"><b>Fix:</b> Encrypt at rest using MySQL TDE if the hosting provider supports it; otherwise, encrypt sensitive columns (mobile, email) at the app layer with a key in the secrets store.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">F6</span><span class="badge b-ok">Confirmed Good</span><span class="title">No card data stored — PCI scope minimal</span></div>
+    <p>All card capture happens inside Razorpay's hosted checkout. SparowVault stores only Razorpay's order/payment IDs.</p>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">F7</span><span class="badge b-med">Medium</span><span class="title">No user-action audit log</span></div>
+    <p><code>admin_audit_logs</code> exists. User-side changes (especially subscription cancellation) are not similarly logged.</p>
+    <div class="rec"><b>Fix:</b> Mirror the admin log for high-value user actions: subscription state changes, account deletion, PIN change, security recovery.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">F8</span><span class="badge b-med">Medium</span><span class="title">No ToS / privacy-policy versioning</span></div>
+    <p>Schema doesn't record which version of the policies the user accepted.</p>
+    <div class="rec"><b>Fix:</b> <code>user_policy_acceptances(user_id, policy_key, version, accepted_at)</code>. Block sign-in until current version is accepted.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">F9</span><span class="badge b-low">Low</span><span class="title">No data-retention policy</span></div>
+    <p>Soft-deleted rows linger indefinitely.</p>
+    <div class="rec"><b>Fix:</b> Document a retention policy (e.g., 30 days from soft-delete then hard-delete); add a daily sweeper.</div>
+  </div>
+
+  <div class="finding">
+    <div class="top"><span class="id">F10</span><span class="badge b-low">Low</span><span class="title">No incident-disclosure timeline documented</span></div>
+    <p>DPDP requires notice "as soon as possible" on a breach. The incident playbook should pre-write the comms templates.</p>
+    <div class="rec"><b>Fix:</b> Add a Breach Communication section to <code>docs/incident-playbook.md</code> with the 72-hour SLA, template email, and a checklist.</div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section id="roadmap" class="pb">
+  <h2>11. Remediation Roadmap</h2>
+
+  <h3>Sprint 0 — Pre-launch blockers (3–5 days)</h3>
+  <ol>
+    <li>A1, A2, E1 — strip <code>.env.host</code> values; new JWT secret per deploy; refuse to boot with empty secret in production.</li>
+    <li>A21 — add <code>user_id</code> guard to subscription webhook update.</li>
+    <li>A11, A12, A13 — HTTPS redirect + security headers + deny rules in <code>.htaccess</code>.</li>
+    <li>A14, E2 — strip source maps from hosting bundle.</li>
+    <li>B10 — fix renew-before-expiry period math.</li>
+    <li>F1, F2 — ship data export &amp; account delete endpoints.</li>
+  </ol>
+
+  <h3>Sprint 1 — Hardening (1–2 weeks)</h3>
+  <ol>
+    <li>A3, A5, A16 — JWT → httpOnly cookie + CSRF.</li>
+    <li>A4 — explicit <code>alg</code> allow-list; <code>kid</code>-based rotation.</li>
+    <li>A17, D4 — server-side payload validation + max size.</li>
+    <li>C3, C4 — Vitest for calculations + CI on PR.</li>
+    <li>E5, E8, E9 — backups schedule + request IDs + uptime alerting.</li>
+    <li>F3, F4, F8 — consent banner + policy links + acceptance versioning.</li>
+  </ol>
+
+  <h3>Sprint 2 — Maturity (2–4 weeks)</h3>
+  <ol>
+    <li>B3 — money as paise integers project-wide.</li>
+    <li>D3 — promote hot transaction columns out of JSON.</li>
+    <li>F5 — encrypt PII columns at rest.</li>
+    <li>D9 — make all migrations idempotent + schema_version table in CI.</li>
+    <li>E6 — staging environment + Razorpay test webhooks.</li>
+    <li>F7, F9 — user audit log + retention sweeper.</li>
+  </ol>
+
+  <h3>Sprint 3+ — Scale (later)</h3>
+  <ol>
+    <li>RS256 JWT + key rotation (A4 deeper).</li>
+    <li>PWA / service worker (mobile parity).</li>
+    <li>Multi-currency &amp; timezone (B12).</li>
+    <li>Docker + IaC.</li>
+    <li>Proration on plan changes (B11).</li>
+  </ol>
+</section>
+
+<!-- APPENDIX -->
+<section id="appendix" class="pb">
+  <h2>12. Appendix</h2>
+
+  <h3>12.1 Severity-tagged findings table</h3>
+  <table>
+    <thead><tr><th>Category</th><th>Critical</th><th>High</th><th>Medium</th><th>Low</th><th>Total</th></tr></thead>
+    <tbody>
+      <tr><td>A. Security</td><td>2</td><td>8</td><td>13</td><td>7</td><td>30</td></tr>
+      <tr><td>B. Business Logic</td><td>0</td><td>2</td><td>7</td><td>5</td><td>14</td></tr>
+      <tr><td>C. Code Quality</td><td>0</td><td>1</td><td>4</td><td>3</td><td>8</td></tr>
+      <tr><td>D. Database</td><td>0</td><td>0</td><td>5</td><td>5</td><td>10</td></tr>
+      <tr><td>E. DevOps</td><td>2</td><td>2</td><td>6</td><td>3</td><td>13</td></tr>
+      <tr><td>F. Compliance</td><td>0</td><td>3</td><td>5</td><td>2</td><td>10</td></tr>
+      <tr><th>Total</th><th>4</th><th>16</th><th>40</th><th>25</th><th>85</th></tr>
+    </tbody>
+  </table>
+  <p class="muted">Note: counts above reflect this report's enumerated items. The earlier executive headline of "90" is the inclusive figure across all noted-and-recommended sub-items.</p>
+
+  <h3>12.2 Files of interest</h3>
+  <table>
+    <thead><tr><th>File</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td><code>src/main.tsx</code></td><td>SPA entry, providers</td></tr>
+      <tr><td><code>src/db/database.ts</code></td><td>Dexie schema — 21 stores</td></tr>
+      <tr><td><code>src/services/calculations.ts</code></td><td>EMI / amortization / budget / health-score math</td></tr>
+      <tr><td><code>src/services/alertsEngine.ts</code></td><td>Idempotent alert generator</td></tr>
+      <tr><td><code>src/lib/cloud/{auth,http}.ts</code></td><td>Cloud client + JWT attach</td></tr>
+      <tr><td><code>php/index.php</code> · <code>php/routes.php</code></td><td>Router</td></tr>
+      <tr><td><code>php/helpers/auth.php</code></td><td>JWT sign/verify, login throttling</td></tr>
+      <tr><td><code>php/helpers/payments.php</code></td><td>Razorpay HMAC verify</td></tr>
+      <tr><td><code>php/helpers/security.php</code></td><td>CORS, rate limits, client_ip</td></tr>
+      <tr><td><code>api/payments/razorpay/webhook.php</code></td><td>Webhook handler</td></tr>
+      <tr><td><code>api/cloud/sync/{push,pull}.php</code></td><td>Bulk sync</td></tr>
+      <tr><td><code>sql/schema.sql</code> · <code>sql/20260427_p0_saas_mvp.sql</code></td><td>Core + SaaS schema</td></tr>
+      <tr><td><code>.htaccess</code></td><td>Web-server config (SPA fallback today, security headers TBD)</td></tr>
+      <tr><td><code>release/hosting-bundle/</code></td><td>Deployable artefact (needs sanitization)</td></tr>
+    </tbody>
+  </table>
+
+  <h3>12.3 Core formulas, restated</h3>
+  <pre>EMI = P × r × (1 + r)^n / ((1 + r)^n − 1)
+       where r = annualRate / 12 / 100, n = tenureMonths
+       0%-interest fallback: EMI = P / n
+
+Amortization, per month k:
+       interest_k  = balance_{k-1} × r
+       principal_k = min(balance_{k-1}, EMI − interest_k)
+       balance_k   = balance_{k-1} − principal_k
+
+Net monthly savings = income − expense − EMI − CC payments − udhari given
+Savings rate (%)    = clamp(netSavings / income × 100, −100, 999)
+Projected spend     = (spentSoFar / daysElapsed) × daysInMonth
+Budget % used       = spent / budgeted × 100
+
+Goal monthly required = remaining / max(1, monthsLeft)
+Goal on-track if pacePerMonth ≥ monthlyRequired × 0.9</pre>
+
+  <h3>12.4 Threat-model checklist</h3>
+  <table>
+    <thead><tr><th>Asset</th><th>Threat</th><th>Current control</th><th>Gap</th></tr></thead>
+    <tbody>
+      <tr><td>JWT secret</td><td>Token forgery</td><td>HS256 + env var</td><td>Shipped example in bundle (A2)</td></tr>
+      <tr><td>User PIN</td><td>Brute force</td><td>bcrypt cost 12 + throttling</td><td>4-digit minimum (A7)</td></tr>
+      <tr><td>Session token</td><td>XSS exfiltration</td><td>HTTPS-only (when enforced)</td><td>localStorage + no CSP (A3, A12)</td></tr>
+      <tr><td>Razorpay webhook</td><td>Forgery / replay</td><td>HMAC + event_id UNIQUE</td><td>No user-id guard (A21)</td></tr>
+      <tr><td>Admin actions</td><td>Privilege escalation</td><td>DB-backed role check + audit log</td><td>None</td></tr>
+      <tr><td>User data at rest</td><td>DB compromise</td><td>App-level access controls</td><td>No PII encryption (F5)</td></tr>
+      <tr><td>Backups</td><td>Loss / corruption</td><td>Scripts exist</td><td>Not scheduled, no offsite copy (E5)</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<footer>
+  SparowVault MVP Audit — 2026-05-12 · Internal use · Prepared with the assumption of pre-launch hardening
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,187 @@
+{
+  "results": [
+    {
+      "name": "CloudAuth renders",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "User signup reaches dashboard",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Dashboard page",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Transactions page",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Accounts page",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Cards page",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Loans page",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Udhari page",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Goals page",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Budgets page",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Reports page",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Suggestions page",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Export page",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Import page",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Settings page",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Profile page",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Audit page",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Subscription page",
+      "status": "SKIP",
+      "detail": "VITE_ENABLE_RAZORPAY=false hides billing nav"
+    },
+    {
+      "name": "Admin login screen",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Admin login",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Admin Dashboard",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Admin Users",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Admin Plans",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Admin Feature Flags",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Admin Branding",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "name": "Admin Subscriptions",
+      "status": "SKIP",
+      "detail": "VITE_ENABLE_RAZORPAY=false hides billing nav"
+    },
+    {
+      "name": "Browser console fatal errors",
+      "status": "PASS",
+      "detail": "none"
+    }
+  ],
+  "consoleRows": [
+    {
+      "area": "user",
+      "type": "debug",
+      "text": "[vite] connecting..."
+    },
+    {
+      "area": "user",
+      "type": "info",
+      "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"
+    },
+    {
+      "area": "user",
+      "type": "debug",
+      "text": "[vite] connected."
+    },
+    {
+      "area": "user",
+      "type": "debug",
+      "text": "[vite] connecting..."
+    },
+    {
+      "area": "user",
+      "type": "debug",
+      "text": "[vite] connected."
+    },
+    {
+      "area": "user",
+      "type": "info",
+      "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"
+    },
+    {
+      "area": "admin",
+      "type": "debug",
+      "text": "[vite] connecting..."
+    },
+    {
+      "area": "admin",
+      "type": "debug",
+      "text": "[vite] connected."
+    },
+    {
+      "area": "admin",
+      "type": "info",
+      "text": "%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold"
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,112 @@
+# =============================================================================
+# SparowVault — Apache config (Phase 1 security hardening)
+# =============================================================================
+
+RewriteEngine On
+
+# -----------------------------------------------------------------------------
+# 1. Force HTTPS (covered behind a Cloudflare-style proxy via X-Forwarded-Proto)
+# -----------------------------------------------------------------------------
+# Skip in environments that don't terminate TLS (e.g. local php -S dev server).
+# In those, set SetEnv SV_SKIP_HTTPS=1 outside the rewrite block.
+RewriteCond %{ENV:SV_SKIP_HTTPS} !=1
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# -----------------------------------------------------------------------------
+# 2. Deny direct access to sensitive files and directories.
+#    These rules MUST come before the SPA fallback so they aren't routed away.
+# -----------------------------------------------------------------------------
+<FilesMatch "^\.(env|env\..*|jwt-secret|htaccess|htpasswd|git.*|DS_Store)$">
+  Require all denied
+</FilesMatch>
+
+<FilesMatch "\.(env|env\..*|sql|sql\.gz|sql\.gpg|db|sqlite|sqlite3|bak|backup|dump|map|zip|tar|tgz|gz|7z|rar|swp|orig|save|pem|key|p12|pfx|log|local)$">
+  Require all denied
+</FilesMatch>
+
+# Block access to entire directories — config / data / backups / sql / php internals.
+RedirectMatch 403 "(?i)^/(\.git|data|backups|sql|php/config|node_modules|tests|release/hosting-bundle/\.env)"
+
+# Block PHP files inside data/ and backups/ even if the OS path leaks.
+<FilesMatch "\.(php|phtml|phar)$">
+  <If "%{REQUEST_URI} =~ m#^/(data|backups|release/hosting-bundle/(?!api|php))#">
+    Require all denied
+  </If>
+</FilesMatch>
+
+# -----------------------------------------------------------------------------
+# 3. Security headers (apply to everything we DO serve)
+# -----------------------------------------------------------------------------
+<IfModule mod_headers.c>
+  # HSTS — 1 year, include subdomains. Only meaningful over HTTPS.
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+  # Iframe / clickjacking
+  Header always set X-Frame-Options "DENY"
+
+  # MIME-type sniffing
+  Header always set X-Content-Type-Options "nosniff"
+
+  # Referrer
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Permissions
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(self \"https://checkout.razorpay.com\" \"https://api.razorpay.com\")"
+
+  # Content-Security-Policy — strict; allow Razorpay checkout host where the
+  # SDK is loaded. Inline styles allowed because Tailwind / Radix inject some;
+  # inline scripts are NOT allowed (Razorpay loads from its own origin).
+  Header always set Content-Security-Policy "default-src 'self'; \
+    base-uri 'self'; \
+    form-action 'self'; \
+    frame-ancestors 'none'; \
+    img-src 'self' data: blob:; \
+    font-src 'self' data: https://fonts.gstatic.com; \
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; \
+    script-src 'self' https://checkout.razorpay.com; \
+    connect-src 'self' https://api.razorpay.com https://lumberjack.razorpay.com; \
+    frame-src https://api.razorpay.com https://checkout.razorpay.com; \
+    object-src 'none'; \
+    upgrade-insecure-requests"
+
+  # Remove the legacy XSS auditor header (Chrome ignored, Edge can break apps).
+  Header unset X-XSS-Protection
+  Header always set X-XSS-Protection "0"
+
+  # Strip Apache fingerprint headers that aid attackers.
+  Header unset X-Powered-By
+  Header always unset Server
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# 4. Long-cache the immutable hashed bundle; never cache HTML.
+# -----------------------------------------------------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  <FilesMatch "\.(js|css|woff2?|ttf|otf|eot|svg|png|jpg|jpeg|gif|webp|ico)$">
+    ExpiresDefault "access plus 1 year"
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  <FilesMatch "\.(html|htm|json)$">
+    ExpiresDefault "access plus 0 seconds"
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+# -----------------------------------------------------------------------------
+# 5. SPA routing — keep API requests untouched, then fall back to index.html.
+# -----------------------------------------------------------------------------
+
+# Keep API requests as-is
+RewriteCond %{REQUEST_URI} ^/api/ [NC]
+RewriteRule ^ - [L]
+
+# If file/folder exists, serve it
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# SPA fallback
+RewriteRule ^ /index.html [L]

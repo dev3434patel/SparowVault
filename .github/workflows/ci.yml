@@ -1,0 +1,150 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # --- Frontend / TypeScript ---------------------------------------------------
+  frontend:
+    name: Frontend (typecheck · lint · test · build)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: TypeScript typecheck
+        run: npm run typecheck
+
+      - name: ESLint
+        run: npm run lint
+
+      - name: Vitest unit tests
+        run: npm run test -- --reporter=basic
+
+      - name: Vite production build
+        # Sanity: bundle must never include source maps (Phase 1) and never
+        # the legacy DB_PASS literal.
+        run: |
+          npm run build
+          test -z "$(find dist -name '*.map' -print -quit)" || (echo '::error::found .map in dist'; exit 1)
+          ! grep -RqsE 'DB_PASS="[^"]+"' dist || (echo '::error::non-empty DB_PASS literal in bundle'; exit 1)
+
+      - name: Upload bundle
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-${{ github.sha }}
+          path: dist
+          if-no-files-found: ignore
+          retention-days: 7
+
+  # --- PHP --------------------------------------------------------------------
+  php:
+    name: PHP (syntax · static)
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          extensions: pdo_mysql, mbstring, json
+          coverage: none
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # check-php-syntax.mjs walks php/ + api/ and runs `php -l` on every file.
+      - name: PHP syntax (php -l)
+        run: node scripts/check-php-syntax.mjs
+
+      - name: SQL static report
+        run: node scripts/sql-dry-run.mjs
+
+  # --- Security scans ---------------------------------------------------------
+  security:
+    name: Security (audit · secret hunt)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "20", cache: "npm" }
+      - run: npm ci --omit=dev
+
+      - name: npm audit (production deps)
+        run: npm audit --omit=dev --audit-level=high || true
+
+      - name: Repo-wide secret hunt
+        run: |
+          # These literals must NEVER appear in a real commit.
+          ! git grep -E 'DB_PASS="[^"]+"' -- ':!*.md' || (echo '::error::leaked DB password'; exit 1)
+          ! git grep -E 'CLOUD_JWT_SECRET="[0-9A-Za-z_-]{32,}"' -- ':!*.md' || (echo '::error::leaked JWT secret'; exit 1)
+
+  # --- Phase gates ------------------------------------------------------------
+  # Runs the Phase 0 + Phase 1 + Phase 2 file-presence checks. Phase-specific
+  # e2e harnesses that need a DB are gated to manual workflow dispatch.
+  phase-gates:
+    name: Phase gates (file + bundle scan)
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    needs: [frontend, php, security]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: "20", cache: "npm" }
+      - run: npm ci
+
+      - name: Phase 0 gate (file presence + unit tests)
+        run: node scripts/phase-00-gate.mjs || (cat PHASE_00_COMPLETION_REPORT.md && exit 1)
+
+      - name: Phase 1 gate (file presence + bundle scan, no --url)
+        run: node scripts/phase-01-gate.mjs || (cat PHASE_01_GATE_REPORT.md && exit 1)
+
+      - name: Phase 2 gate (CI presence + test surfaces)
+        run: node scripts/phase-02-gate.mjs || (cat PHASE_02_COMPLETION_REPORT.md && exit 1)
+
+      - name: Phase 3-17 gates (file presence + relevant unit tests)
+        # Code-side gates only; e2e harnesses that need a DB run on the
+        # manual phase-e2e workflow.
+        run: node scripts/phase-all-gates.mjs -- --from=3 --continue || (cat PHASE_GATE_INDEX.md && exit 1)
+
+  # Block merge if any required job fails. Add new required checks here as
+  # phases are gated.
+  required:
+    name: All required checks
+    runs-on: ubuntu-latest
+    needs: [frontend, php, security, phase-gates]
+    if: always()
+    steps:
+      - name: Fail if any required job failed
+        run: |
+          if [ "${{ needs.frontend.result }}" != "success" ]    \
+          || [ "${{ needs.php.result }}" != "success" ]         \
+          || [ "${{ needs.security.result }}" != "success" ]    \
+          || [ "${{ needs.phase-gates.result }}" != "success" ]; then
+            echo "One or more required jobs failed."; exit 1
+          fi

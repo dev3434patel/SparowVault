@@ -1,0 +1,13 @@
+node_modules/
+dist/
+build/
+dist-server/
+out/
+release/
+hosting-bundle/
+FINAL VERSION/
+certification-logs/
+backups/
+data/
+coverage/
+*.tsbuildinfo

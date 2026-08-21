@@ -1,0 +1,356 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* Surfaces */
+  --background: 0 0% 100%;
+  --surface: 210 20% 98.5%;
+  --surface-2: 210 20% 96.5%;
+  --surface-3: 210 16% 93%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 22% 12%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 22% 12%;
+
+  /* Text */
+  --foreground: 222 22% 12%;
+  --muted: 215 16% 47%;
+  --muted-foreground: 215 16% 38%;
+
+  /* Borders / rings */
+  --border: 214 20% 88%;
+  --border-strong: 214 20% 78%;
+  --input: 214 20% 88%;
+  --ring: 221 83% 53%;
+
+  /* Brand / accents */
+  --primary: 221 83% 53%;
+  --primary-foreground: 0 0% 100%;
+  --accent: 255 70% 60%;
+  --accent-foreground: 0 0% 100%;
+
+  /* Semantic colors (Indian finance palette) */
+  --income: 152 65% 35%;
+  --income-soft: 152 60% 92%;
+  --expense: 358 72% 50%;
+  --expense-soft: 358 80% 95%;
+  --warning: 38 92% 48%;
+  --warning-soft: 42 96% 92%;
+  --info: 217 91% 55%;
+  --info-soft: 217 95% 94%;
+  --goal: 266 70% 55%;
+  --goal-soft: 266 80% 95%;
+  --success: 152 65% 35%;
+  --danger: 358 72% 50%;
+
+  /* Charts */
+  --chart-1: 221 83% 53%;
+  --chart-2: 152 65% 40%;
+  --chart-3: 38 92% 50%;
+  --chart-4: 266 70% 58%;
+  --chart-5: 358 72% 55%;
+  --chart-6: 190 82% 42%;
+  --chart-7: 14 85% 55%;
+  --chart-8: 280 60% 55%;
+
+  --radius-sm: 0.4rem;
+  --radius: 0.625rem;
+  --radius-lg: 0.875rem;
+  --radius-xl: 1.1rem;
+
+  --shadow-card: 0 1px 2px rgba(15, 23, 42, 0.04), 0 1px 1px rgba(15, 23, 42, 0.03);
+  --shadow-elevated: 0 10px 30px -10px rgba(15, 23, 42, 0.18), 0 3px 8px -3px rgba(15, 23, 42, 0.08);
+}
+
+.dark {
+  --background: 224 24% 6%;
+  --surface: 224 22% 8%;
+  --surface-2: 224 20% 11%;
+  --surface-3: 224 18% 14%;
+  --card: 224 22% 9%;
+  --card-foreground: 210 30% 96%;
+  --popover: 224 22% 10%;
+  --popover-foreground: 210 30% 96%;
+
+  --foreground: 210 30% 96%;
+  --muted: 215 15% 60%;
+  --muted-foreground: 215 18% 70%;
+
+  --border: 224 16% 18%;
+  --border-strong: 224 14% 26%;
+  --input: 224 16% 18%;
+  --ring: 221 92% 62%;
+
+  --primary: 221 92% 62%;
+  --primary-foreground: 224 24% 6%;
+  --accent: 258 85% 70%;
+  --accent-foreground: 224 24% 6%;
+
+  --income: 152 60% 55%;
+  --income-soft: 152 40% 16%;
+  --expense: 358 80% 66%;
+  --expense-soft: 358 55% 18%;
+  --warning: 38 92% 60%;
+  --warning-soft: 38 50% 16%;
+  --info: 217 92% 65%;
+  --info-soft: 217 60% 18%;
+  --goal: 266 85% 72%;
+  --goal-soft: 266 50% 20%;
+  --success: 152 60% 55%;
+  --danger: 358 80% 66%;
+
+  --chart-1: 221 92% 65%;
+  --chart-2: 152 60% 55%;
+  --chart-3: 38 92% 62%;
+  --chart-4: 266 85% 72%;
+  --chart-5: 358 80% 66%;
+  --chart-6: 190 82% 58%;
+  --chart-7: 14 85% 65%;
+  --chart-8: 280 70% 68%;
+
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 1px 1px rgba(0, 0, 0, 0.2);
+  --shadow-elevated: 0 10px 30px -10px rgba(0, 0, 0, 0.6), 0 3px 8px -3px rgba(0, 0, 0, 0.3);
+}
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-surface: hsl(var(--surface));
+  --color-surface-2: hsl(var(--surface-2));
+  --color-surface-3: hsl(var(--surface-3));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-border: hsl(var(--border));
+  --color-border-strong: hsl(var(--border-strong));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-income: hsl(var(--income));
+  --color-income-soft: hsl(var(--income-soft));
+  --color-expense: hsl(var(--expense));
+  --color-expense-soft: hsl(var(--expense-soft));
+  --color-warning: hsl(var(--warning));
+  --color-warning-soft: hsl(var(--warning-soft));
+  --color-info: hsl(var(--info));
+  --color-info-soft: hsl(var(--info-soft));
+  --color-goal: hsl(var(--goal));
+  --color-goal-soft: hsl(var(--goal-soft));
+  --color-success: hsl(var(--success));
+  --color-danger: hsl(var(--danger));
+  --color-chart-1: hsl(var(--chart-1));
+  --color-chart-2: hsl(var(--chart-2));
+  --color-chart-3: hsl(var(--chart-3));
+  --color-chart-4: hsl(var(--chart-4));
+  --color-chart-5: hsl(var(--chart-5));
+  --color-chart-6: hsl(var(--chart-6));
+  --color-chart-7: hsl(var(--chart-7));
+  --color-chart-8: hsl(var(--chart-8));
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-feature-settings: "cv11", "ss01";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border-strong));
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted));
+  background-clip: content-box;
+  border: 2px solid transparent;
+}
+
+/* Utilities */
+@utility card-surface {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+@utility glass-surface {
+  background: color-mix(in oklab, hsl(var(--card)) 75%, transparent);
+  backdrop-filter: blur(14px) saturate(180%);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+  border: 1px solid hsl(var(--border));
+}
+
+@utility text-muted {
+  color: hsl(var(--muted-foreground));
+}
+
+/* Subtle gradient bg for auth pages */
+.auth-bg {
+  background:
+    radial-gradient(1200px 600px at 10% -10%, color-mix(in oklab, hsl(var(--primary)) 18%, transparent), transparent 60%),
+    radial-gradient(900px 500px at 110% 10%, color-mix(in oklab, hsl(var(--goal)) 14%, transparent), transparent 60%),
+    radial-gradient(700px 400px at 50% 120%, color-mix(in oklab, hsl(var(--income)) 12%, transparent), transparent 60%),
+    hsl(var(--background));
+}
+
+/* Fade-in animation */
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-in-up {
+  animation: fade-in-up 280ms ease-out both;
+}
+
+/* Radix/animate compat helpers */
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes exit {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(4px) scale(0.98);
+  }
+}
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes slideOutLeft {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* Minimal replacements for tailwindcss-animate classes Radix primitives expect */
+.animate-in {
+  animation: enter 160ms ease-out both;
+}
+.animate-out {
+  animation: exit 140ms ease-in both;
+}
+.fade-in-0,
+.fade-out-0,
+.zoom-in-95,
+.zoom-out-95 {
+  /* handled by animate-in/out composite */
+}
+
+/* Number tabular */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Hide number input spinners */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Focus ring */
+.focus-ring {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+.focus-ring:focus-visible {
+  outline-color: hsl(var(--ring));
+}
+
+/* Recharts tooltip override for dark */
+.recharts-default-tooltip {
+  background: hsl(var(--popover)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  border-radius: var(--radius) !important;
+  color: hsl(var(--popover-foreground)) !important;
+  box-shadow: var(--shadow-elevated);
+}
+.recharts-tooltip-label,
+.recharts-tooltip-item {
+  color: hsl(var(--popover-foreground)) !important;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .dashboard-print-root {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+}

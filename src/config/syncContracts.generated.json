@@ -1,0 +1,1733 @@
+{
+  "generatedFrom": "src/config/syncContracts.ts",
+  "contracts": [
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "accounts",
+      "dexieStoreName": "accounts",
+      "serverAllowlistName": "accounts",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "name",
+        "type",
+        "openingBalancePaise",
+        "color",
+        "icon"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion",
+        "institution",
+        "openingBalance",
+        "isInactive"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version",
+        "account_id"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "money fields must be paise integers before sync"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "cards",
+      "dexieStoreName": "cards",
+      "serverAllowlistName": "cards",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "nickname",
+        "bank",
+        "last4",
+        "type",
+        "color"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion",
+        "linkedAccountId",
+        "creditLimitPaise",
+        "statementDay",
+        "dueDay",
+        "interestRate",
+        "isInactive"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version",
+        "card_id",
+        "account_id"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "creditLimitPaise must be a paise integer when present"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "categories",
+      "dexieStoreName": "categories",
+      "serverAllowlistName": "categories",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "name",
+        "appliesTo",
+        "icon",
+        "color"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion",
+        "parentId",
+        "budgetable",
+        "taxRelevant",
+        "gstRelevant",
+        "defaultPaymentMode",
+        "sortOrder",
+        "archived"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version",
+        "category_id"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "appliesTo must be income, expense, or mixed"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "transactions",
+      "dexieStoreName": "transactions",
+      "serverAllowlistName": "transactions",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "date",
+        "type",
+        "amountPaise",
+        "paymentMode",
+        "businessOrPersonal"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion",
+        "amount",
+        "categoryId",
+        "accountId",
+        "toAccountId",
+        "linkedCardId",
+        "linkedLoanId",
+        "linkedGoalId",
+        "linkedUdhariId",
+        "linkedSavingsId",
+        "merchantOrPerson",
+        "description",
+        "needWant",
+        "fixedVariable",
+        "plannedUnplanned",
+        "transactionIntent",
+        "paymentChannel",
+        "fundingInstrument",
+        "linkedOriginalTransactionId",
+        "isReimbursable",
+        "reimbursementPolicy",
+        "costBasisPaise",
+        "transferLinkId",
+        "groupId",
+        "linkedCardEmiPlanId",
+        "feePaise",
+        "taxPaise",
+        "interestPaise",
+        "principalComponentPaise"
+      ],
+      "hotFields": [
+        "amount_paise",
+        "txn_local_date",
+        "txn_month",
+        "txn_type",
+        "payment_mode",
+        "category_id",
+        "account_id",
+        "card_id",
+        "loan_id",
+        "goal_id",
+        "udhari_id",
+        "business_or_personal",
+        "source_device_id",
+        "payload_hash",
+        "schema_version"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "amountPaise must be a positive paise integer",
+        "date must parse to a local transaction date",
+        "paymentMode must be in the supported payment-mode enum",
+        "credit-card expenses require linkedCardId and must not reduce bank cash",
+        "cash-like expenses require accountId",
+        "emi_payment requires linkedLoanId and accountId",
+        "cc_payment requires linkedCardId and accountId",
+        "udhari transaction types require linkedUdhariId, accountId, and merchantOrPerson"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "budgets",
+      "dexieStoreName": "budgets",
+      "serverAllowlistName": "budgets",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "period",
+        "year",
+        "categoryId",
+        "limitPaise",
+        "mode"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion",
+        "month",
+        "amount",
+        "carryForward",
+        "rolloverSavings"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version",
+        "category_id",
+        "amount_paise"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "limitPaise must be a paise integer"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "loans",
+      "dexieStoreName": "loans",
+      "serverAllowlistName": "loans",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "lender",
+        "loanType",
+        "principalPaise",
+        "startDate",
+        "tenureMonths",
+        "annualInterestRate",
+        "emiDueDay",
+        "status"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion",
+        "lifecycleMode",
+        "completedEmis",
+        "remainingEmis",
+        "outstandingPrincipalPaise",
+        "emiPaise",
+        "linkedAccountId",
+        "linkedCardId",
+        "blockedAmount"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version",
+        "loan_id",
+        "account_id",
+        "card_id",
+        "amount_paise"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "principalPaise and outstandingPrincipalPaise must be paise integers when present"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "emiPayments",
+      "dexieStoreName": "emiPayments",
+      "serverAllowlistName": "emis",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "loanId",
+        "dueDate",
+        "amountPaise",
+        "status"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion",
+        "paidDate",
+        "amountPaidPaise",
+        "principalComponentPaise",
+        "interestComponentPaise",
+        "penaltyPaise",
+        "feePaise",
+        "transactionId"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version",
+        "loan_id",
+        "amount_paise",
+        "txn_local_date",
+        "txn_month"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "amount and split fields must be paise integers"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "udhari",
+      "dexieStoreName": "udhari",
+      "serverAllowlistName": "udhari",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "personName",
+        "type",
+        "amountPaise",
+        "givenDate",
+        "status"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion",
+        "phone",
+        "dueDate",
+        "amountSettledPaise",
+        "reminderOn",
+        "context"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version",
+        "udhari_id",
+        "amount_paise",
+        "txn_local_date"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "type must be receivable or payable"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "udhariSettlements",
+      "dexieStoreName": "udhariSettlements",
+      "serverAllowlistName": "udhariSettlements",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "udhariId",
+        "date",
+        "amountPaise"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion",
+        "transactionId",
+        "accountId",
+        "kind"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version",
+        "udhari_id",
+        "account_id",
+        "amount_paise",
+        "txn_local_date",
+        "txn_month"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "settlement amount must be a paise integer"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "investments",
+      "dexieStoreName": "investments",
+      "serverAllowlistName": "investments",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "name",
+        "type",
+        "startDate",
+        "frequency",
+        "amountPaise",
+        "status"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion",
+        "totalContributedPaise",
+        "maturityDate",
+        "expectedReturnRate",
+        "linkedAccountId"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version",
+        "account_id",
+        "amount_paise"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "amount fields must be paise integers"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "savingsContributions",
+      "dexieStoreName": "savingsContributions",
+      "serverAllowlistName": "savingsContribs",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "investmentId",
+        "date",
+        "amountPaise"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion",
+        "transactionId"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version",
+        "amount_paise",
+        "txn_local_date",
+        "txn_month"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "amountPaise must be a positive paise integer"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "goals",
+      "dexieStoreName": "goals",
+      "serverAllowlistName": "goals",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "title",
+        "goalType",
+        "targetAmountPaise",
+        "targetDate",
+        "startedAt",
+        "savedAmountPaise",
+        "priority",
+        "icon",
+        "color",
+        "status"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion",
+        "linkedAccountId",
+        "autoContribution"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version",
+        "goal_id",
+        "account_id",
+        "amount_paise"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "targetAmountPaise and savedAmountPaise must be paise integers"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "goalContributions",
+      "dexieStoreName": "goalContributions",
+      "serverAllowlistName": "goalContribs",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "goalId",
+        "date",
+        "amountPaise"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion",
+        "sourceAccountId",
+        "transactionId"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version",
+        "goal_id",
+        "account_id",
+        "amount_paise",
+        "txn_local_date",
+        "txn_month"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "amountPaise must be a positive paise integer"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "reminders",
+      "dexieStoreName": "reminders",
+      "serverAllowlistName": "reminders",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "kind",
+        "title",
+        "dueDate",
+        "done"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion",
+        "amount",
+        "linkedId",
+        "recurring",
+        "intervalDays"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version",
+        "txn_local_date"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "dueDate must parse as a date"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "alerts",
+      "dexieStoreName": "alerts",
+      "serverAllowlistName": "alerts",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "kind",
+        "severity",
+        "title",
+        "message",
+        "dismissed",
+        "triggeredAt"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion",
+        "linkHref"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "severity must be info, warning, danger, or success"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "recurringRules",
+      "dexieStoreName": "recurringRules",
+      "serverAllowlistName": "recurringRules",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "title",
+        "type",
+        "amountPaise",
+        "paymentMode",
+        "frequency",
+        "nextRunDate",
+        "active"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion",
+        "categoryId",
+        "accountId",
+        "dayOfMonth",
+        "dayOfWeek",
+        "endDate"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version",
+        "category_id",
+        "account_id",
+        "amount_paise",
+        "txn_type",
+        "payment_mode"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "amountPaise must be a positive paise integer"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "attachments",
+      "dexieStoreName": "attachments",
+      "serverAllowlistName": "attachments",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "fileName",
+        "mimeType",
+        "sizeBytes",
+        "linkedType",
+        "linkedId"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "binary payloads are metadata-only in sync rows"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "auditLogs",
+      "dexieStoreName": "auditLogs",
+      "serverAllowlistName": "auditLogs",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "action",
+        "entity",
+        "detail"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion",
+        "entityId"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "client audit logs are user-owned and never admin audit logs"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "snapshots",
+      "dexieStoreName": "snapshots",
+      "serverAllowlistName": "snapshots",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "periodKey"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion",
+        "totalIncome",
+        "totalExpense",
+        "netSavings",
+        "savingsRate",
+        "budgetUsage",
+        "creditUtilization",
+        "healthScore"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version",
+        "txn_month"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "snapshot money values must be deterministic derived values"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "exportHistory",
+      "dexieStoreName": "exportHistory",
+      "serverAllowlistName": "exportHistory",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "scope",
+        "format",
+        "fileName",
+        "rowCount"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion",
+        "fromDate",
+        "toDate"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "export rows must be scoped to authenticated user only"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "settings",
+      "dexieStoreName": "settings",
+      "serverAllowlistName": "settings",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "theme",
+        "financialYearStartMonth",
+        "dateFormat",
+        "currency"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion",
+        "customPaymentModes",
+        "budgetThresholds",
+        "quickAddDefaults",
+        "warningPreferences"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "settings are one row per user/profile"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "transferLinks",
+      "dexieStoreName": "transferLinks",
+      "serverAllowlistName": "transferLinks",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "fromAccountId",
+        "toAccountId",
+        "amountPaise",
+        "transactionId",
+        "status"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion",
+        "channel",
+        "reference",
+        "utr",
+        "feeTransactionId"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version",
+        "account_id",
+        "amount_paise"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "amountPaise must be a positive paise integer"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "creditLimitGroups",
+      "dexieStoreName": "creditLimitGroups",
+      "serverAllowlistName": "creditLimitGroups",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "name",
+        "totalLimitPaise"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion",
+        "issuerName"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version",
+        "amount_paise"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "totalLimitPaise must be a non-negative paise integer"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "cardStatements",
+      "dexieStoreName": "cardStatements",
+      "serverAllowlistName": "cardStatements",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "cardId",
+        "cycleStartDate",
+        "cycleEndDate",
+        "statementDate",
+        "openingBalancePaise",
+        "closingBalancePaise",
+        "minimumDuePaise",
+        "retailSpendPaise",
+        "feesPaise",
+        "interestPaise",
+        "paymentsPaise",
+        "creditsPaise",
+        "status"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version",
+        "card_id",
+        "amount_paise",
+        "txn_local_date",
+        "txn_month"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "statement money fields must be paise integers"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "cardPaymentAllocations",
+      "dexieStoreName": "cardPaymentAllocations",
+      "serverAllowlistName": "cardPaymentAllocations",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "cardId",
+        "transactionId",
+        "amountPaise",
+        "allocatedAt"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion",
+        "statementId"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version",
+        "card_id",
+        "amount_paise"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "amountPaise must be a positive paise integer"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "cardEmiPlans",
+      "dexieStoreName": "cardEmiPlans",
+      "serverAllowlistName": "cardEmiPlans",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "cardId",
+        "purchaseTransactionIds",
+        "principalPaise",
+        "annualRateBps",
+        "tenureMonths",
+        "emiPaise",
+        "startDate",
+        "status",
+        "scheduleStrategy",
+        "calculationVersion"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion",
+        "noCostEmi",
+        "merchantSubsidyPaise"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version",
+        "card_id",
+        "amount_paise",
+        "txn_local_date"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "principalPaise, emiPaise, and merchantSubsidyPaise must be paise integers"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "cardEmiInstallments",
+      "dexieStoreName": "cardEmiInstallments",
+      "serverAllowlistName": "cardEmiInstallments",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "planId",
+        "installmentNo",
+        "dueDate",
+        "emiPaise",
+        "principalPaise",
+        "interestPaise",
+        "feePaise",
+        "taxPaise",
+        "status",
+        "source"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version",
+        "amount_paise",
+        "txn_local_date",
+        "txn_month"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "installment money fields must be paise integers"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "obligations",
+      "dexieStoreName": "obligations",
+      "serverAllowlistName": "obligations",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "sourceType",
+        "sourceId",
+        "occurrenceKey",
+        "title",
+        "dueDate",
+        "amountPaise",
+        "status"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion",
+        "categoryId",
+        "accountId",
+        "cardId"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version",
+        "category_id",
+        "account_id",
+        "card_id",
+        "amount_paise",
+        "txn_local_date",
+        "txn_month"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "amountPaise must be a non-negative paise integer"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "sinkingFunds",
+      "dexieStoreName": "sinkingFunds",
+      "serverAllowlistName": "sinkingFunds",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "name",
+        "targetPaise",
+        "targetDate"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion",
+        "linkedCategoryId",
+        "monthlyRequiredPaise"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version",
+        "category_id",
+        "amount_paise",
+        "txn_local_date"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "targetPaise and monthlyRequiredPaise must be paise integers"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "households",
+      "dexieStoreName": "households",
+      "serverAllowlistName": "households",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "name",
+        "defaultCurrency"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "defaultCurrency must be INR"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "householdMembers",
+      "dexieStoreName": "householdMembers",
+      "serverAllowlistName": "householdMembers",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "householdId",
+        "role",
+        "displayName"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "role must be owner, partner, or viewer"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "householdPermissions",
+      "dexieStoreName": "householdPermissions",
+      "serverAllowlistName": "householdPermissions",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "householdId",
+        "memberId",
+        "canViewTransactions",
+        "canEditTransactions",
+        "canViewBalances"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "permission fields must be 0 or 1"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "fixedIncomeAssets",
+      "dexieStoreName": "fixedIncomeAssets",
+      "serverAllowlistName": "fixedIncomeAssets",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "name",
+        "type",
+        "principalPaise",
+        "rateBps",
+        "startDate",
+        "maturityDate",
+        "status"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion",
+        "linkedAccountId"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version",
+        "account_id",
+        "amount_paise"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "principalPaise must be a non-negative paise integer"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "insurancePolicies",
+      "dexieStoreName": "insurancePolicies",
+      "serverAllowlistName": "insurancePolicies",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "name",
+        "insurer",
+        "premiumPaise",
+        "premiumDueDay",
+        "coveragePaise",
+        "status"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version",
+        "amount_paise"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "premiumPaise and coveragePaise must be non-negative paise integers"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "assetValuations",
+      "dexieStoreName": "assetValuations",
+      "serverAllowlistName": "assetValuations",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "assetType",
+        "label",
+        "valuePaise",
+        "asOfDate"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version",
+        "amount_paise",
+        "txn_local_date"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "valuePaise must be a non-negative paise integer"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "importSources",
+      "dexieStoreName": "importSources",
+      "serverAllowlistName": "importSources",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "name",
+        "kind"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion",
+        "lastImportAt"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "kind must be csv, manual, or aa_ready"
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "migrationBehavior": [
+        "merge-by-id",
+        "soft-delete-aware"
+      ],
+      "collectionName": "reconciliationMatches",
+      "dexieStoreName": "reconciliationMatches",
+      "serverAllowlistName": "reconciliationMatches",
+      "requiredFields": [
+        "id",
+        "userId",
+        "createdAt",
+        "updatedAt",
+        "isDeleted",
+        "version",
+        "leftTransactionId",
+        "status",
+        "confidence"
+      ],
+      "optionalFields": [
+        "tags",
+        "notes",
+        "sourceDeviceId",
+        "schemaVersion",
+        "rightTransactionId"
+      ],
+      "hotFields": [
+        "source_device_id",
+        "payload_hash",
+        "schema_version"
+      ],
+      "validationRules": [
+        "id must be a non-empty string",
+        "userId must match authenticated user_id",
+        "isDeleted must be 0, 1, true, or false",
+        "payload must fit max row JSON size",
+        "confidence must be between 0 and 1"
+      ]
+    }
+  ]
+}

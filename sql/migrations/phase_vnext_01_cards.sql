@@ -1,0 +1,11 @@
+-- vNext sync-contract persistence wiring.
+--
+-- These collections use the existing `cloud_collection_rows` JSON persistence
+-- path and therefore do not need specialized server tables:
+--   transferLinks, creditLimitGroups, cardStatements, cardPaymentAllocations,
+--   cardEmiPlans, cardEmiInstallments, obligations, sinkingFunds, households,
+--   householdMembers, householdPermissions, fixedIncomeAssets,
+--   insurancePolicies, assetValuations, importSources, reconciliationMatches.
+--
+-- Collection validation and the server allowlist are generated from
+-- src/config/syncContracts.ts. No schema changes are required for this phase.

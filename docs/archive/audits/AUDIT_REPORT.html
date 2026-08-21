@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SparowVault — Full Audit Report</title>
+<style>
+  :root {
+    --bg: #0d1117; --surface: #161b22; --surface2: #21262d;
+    --border: #30363d; --text: #e6edf3; --muted: #8b949e;
+    --primary: #58a6ff; --green: #3fb950; --yellow: #d29922;
+    --red: #f85149; --orange: #db6d28; --purple: #bc8cff;
+    --tag-red: #3d1a1a; --tag-red-text: #f85149;
+    --tag-orange: #2d1f0a; --tag-orange-text: #db6d28;
+    --tag-yellow: #2a2011; --tag-yellow-text: #d29922;
+    --tag-green: #0d2818; --tag-green-text: #3fb950;
+    --tag-blue: #0d1f3c; --tag-blue-text: #58a6ff;
+    --tag-purple: #1e1533; --tag-purple-text: #bc8cff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14px; line-height: 1.6; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
+
+  /* Header */
+  .report-header { border-bottom: 1px solid var(--border); padding-bottom: 24px; margin-bottom: 32px; }
+  .report-header h1 { font-size: 26px; font-weight: 700; color: var(--text); }
+  .report-header .meta { color: var(--muted); font-size: 13px; margin-top: 6px; }
+  .report-header .meta span { margin-right: 20px; }
+
+  /* Score bar */
+  .score-section { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 32px; }
+  .score-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; text-align: center; }
+  .score-card .num { font-size: 28px; font-weight: 700; }
+  .score-card .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-top: 4px; }
+  .num.red { color: var(--red); }
+  .num.orange { color: var(--orange); }
+  .num.yellow { color: var(--yellow); }
+  .num.green { color: var(--green); }
+
+  /* Sections */
+  h2 { font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 8px; }
+  p { color: var(--muted); margin-bottom: 8px; }
+  .section { margin-bottom: 40px; }
+
+  /* Issue cards */
+  .issue { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 18px; margin-bottom: 14px; position: relative; }
+  .issue-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+  .issue-id { font-size: 11px; font-weight: 600; color: var(--muted); font-family: monospace; min-width: 60px; padding-top: 2px; }
+  .issue-title { font-size: 15px; font-weight: 600; color: var(--text); flex: 1; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 12px; text-transform: uppercase; letter-spacing: .4px; }
+  .badge.critical { background: var(--tag-red); color: var(--tag-red-text); }
+  .badge.high { background: var(--tag-orange); color: var(--tag-orange-text); }
+  .badge.medium { background: var(--tag-yellow); color: var(--tag-yellow-text); }
+  .badge.low { background: var(--tag-blue); color: var(--tag-blue-text); }
+  .badge.done { background: var(--tag-green); color: var(--tag-green-text); }
+  .badge.info { background: var(--tag-purple); color: var(--tag-purple-text); }
+  .issue-body { color: var(--muted); font-size: 13px; line-height: 1.65; }
+  .issue-body strong { color: var(--text); }
+
+  /* Code blocks */
+  pre { background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 12px 14px; font-size: 12px; font-family: 'SFMono-Regular', Consolas, monospace; overflow-x: auto; color: var(--text); margin: 10px 0; line-height: 1.55; }
+  code { background: var(--surface2); border-radius: 3px; padding: 2px 6px; font-size: 12px; font-family: monospace; color: var(--text); }
+  .red-code { color: var(--red); }
+  .green-code { color: var(--green); }
+  .yellow-code { color: var(--yellow); }
+  .comment { color: #6e7681; }
+
+  /* Fix block */
+  .fix-block { background: #0d2818; border: 1px solid #1a4530; border-radius: 6px; padding: 12px 14px; margin-top: 12px; }
+  .fix-block .fix-label { font-size: 11px; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px; }
+  .fix-block p { color: #a8d5b7; margin: 0; font-size: 13px; }
+
+  /* Two-col layout */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } .score-section { grid-template-columns: repeat(2,1fr); } }
+
+  /* Table */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 16px; }
+  th { background: var(--surface2); color: var(--muted); font-weight: 600; text-align: left; padding: 8px 12px; border: 1px solid var(--border); font-size: 11px; text-transform: uppercase; letter-spacing: .4px; }
+  td { padding: 10px 12px; border: 1px solid var(--border); color: var(--text); vertical-align: top; }
+  tr:nth-child(even) td { background: #0d1117; }
+
+  /* Plan table */
+  .plan-row td:nth-child(3) { color: var(--green); font-weight: 600; }
+
+  /* TOC */
+  .toc { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin-bottom: 32px; }
+  .toc h3 { font-size: 13px; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); margin-bottom: 12px; }
+  .toc ol { padding-left: 20px; }
+  .toc li { margin-bottom: 5px; color: var(--primary); font-size: 13px; }
+  .toc li a { color: var(--primary); text-decoration: none; }
+  .toc li a:hover { text-decoration: underline; }
+
+  /* Info box */
+  .info-box { background: var(--tag-blue); border: 1px solid #1a3a6e; border-radius: 6px; padding: 12px 14px; margin: 12px 0; color: #9ecbff; font-size: 13px; }
+  .warn-box { background: var(--tag-yellow); border: 1px solid #4a3510; border-radius: 6px; padding: 12px 14px; margin: 12px 0; color: #f0c060; font-size: 13px; }
+
+  hr { border: none; border-top: 1px solid var(--border); margin: 32px 0; }
+  ul { padding-left: 18px; color: var(--muted); font-size: 13px; }
+  ul li { margin-bottom: 4px; }
+  ul li strong { color: var(--text); }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ─── HEADER ─── -->
+  <div class="report-header">
+    <h1>🔍 SparowVault — Full Audit Report</h1>
+    <div class="meta">
+      <span>📅 Date: April 28, 2026</span>
+      <span>🔬 Scope: Full-stack (PHP API + React SPA + Admin)</span>
+      <span>🎯 Goal: Senior-level MVP audit with 1:1 solutions</span>
+    </div>
+  </div>
+
+  <!-- ─── SCORE SUMMARY ─── -->
+  <div class="score-section">
+    <div class="score-card">
+      <div class="num red">2</div>
+      <div class="label">🔴 Critical</div>
+    </div>
+    <div class="score-card">
+      <div class="num orange">5</div>
+      <div class="label">🟠 High</div>
+    </div>
+    <div class="score-card">
+      <div class="num yellow">6</div>
+      <div class="label">🟡 Medium</div>
+    </div>
+    <div class="score-card">
+      <div class="num green">4</div>
+      <div class="label">🔵 Low / UX</div>
+    </div>
+  </div>
+
+  <!-- ─── TOC ─── -->
+  <div class="toc">
+    <h3>Contents</h3>
+    <ol>
+      <li><a href="#critical">Critical Bugs (Data Loss + Auth)</a></li>
+      <li><a href="#high">High Priority Issues</a></li>
+      <li><a href="#medium">Medium Priority Issues</a></li>
+      <li><a href="#admin-ui">Admin UI/UX — Full Breakdown</a></li>
+      <li><a href="#user-ui">User Side UI/UX — What Works + Gaps</a></li>
+      <li><a href="#cloud-sync">Phase 2 Cloud Sync — Decision</a></li>
+      <li><a href="#fix-plan">Fix Priority Roadmap (MVP Order)</a></li>
+      <li><a href="#env-checklist">Env &amp; Config Checklist</a></li>
+    </ol>
+  </div>
+
+  <!-- ─── SECTION 1: CRITICAL ─── -->
+  <div class="section" id="critical">
+    <h2>🔴 1. Critical Bugs</h2>
+
+    <!-- C1 -->
+    <div class="issue">
+      <div class="issue-header">
+        <div class="issue-id">C-01</div>
+        <div class="issue-title">Data Disappears on Page Refresh — Root Cause Confirmed</div>
+        <span class="badge critical">critical</span>
+      </div>
+      <div class="issue-body">
+        <p><strong>File:</strong> <code>src/repositories/baseRepo.ts</code> — <code>mirrorLocalList()</code> method</p>
+        <p>This is the exact bug causing data loss on refresh. The flow:</p>
+
+        <pre><span class="comment">// BaseRepo.create() — SILENT FAILURE PATH</span>
+async create(input) {
+  const entity = { ...build entity... };
+  if (this.canRemote()) {
+    try {
+      const created = await cloudRepoCreate(...); <span class="comment">// ← calls /api/cloud/entity.php</span>
+      await this.mirrorLocal(created);            <span class="comment">// saved to cloud + IndexedDB ✅</span>
+      return created;
+    } catch {
+      <span class="red-code">// SWALLOWED — no user feedback, no retry</span>
+    }
+  }
+  await this.table().add(entity);  <span class="comment">// fallback: IndexedDB only</span>
+  return entity;                   <span class="comment">// ← data visible NOW but NOT in cloud</span>
+}
+
+<span class="comment">// On refresh: BaseRepo.list() runs mirrorLocalList()</span>
+private async mirrorLocalList(userId, rows) {
+  const local = await this.table().where("userId").equals(userId).toArray();
+  const remoteIds = new Set(rows.map(r => r.id));  <span class="comment">// ← empty if cloud had no data</span>
+  const toDelete = local.filter(l => !remoteIds.has(l.id)).map(l => l.id);
+  <span class="red-code">if (toDelete.length > 0) await this.table().bulkDelete(toDelete); // ← WIPES LOCAL DATA</span>
+}</pre>
+
+        <p><strong>When does cloudRepoCreate fail?</strong> Network timeout, API returning a PHP error page (non-JSON response), DB connection blip, or the JWT being expired/invalid at the moment of first save. The catch block swallows it silently — user sees data, but it only exists in IndexedDB. On refresh, <code>list()</code> gets empty from cloud and <code>mirrorLocalList</code> destroys IndexedDB records.</p>
+
+        <div class="fix-block">
+          <div class="fix-label">✅ Fix — Two parts required</div>
+          <p><strong>Part 1:</strong> In <code>mirrorLocalList()</code>, never delete local records if the remote array is empty AND local has records for that user. An empty response from cloud is suspicious — it might mean an API error slipped past the catch. At minimum, guard with <code>if (rows.length === 0 &amp;&amp; local.length > 0) return;</code>.<br><br>
+          <strong>Part 2:</strong> In <code>create()</code>, don't silently swallow cloud failures. If the cloud write fails, either (a) mark the entity with a <code>pendingSync: true</code> flag and show a "saved locally, will sync" toast, or (b) throw the error to the caller so the form can inform the user. Silent fallback is the enemy here.</p>
+        </div>
+
+<pre><span class="comment">// Part 1 — Safe mirrorLocalList</span>
+private async mirrorLocalList(userId: ID, rows: T[]) {
+  const local = await this.table().where("userId").equals(userId).toArray();
+  <span class="green-code">if (rows.length === 0 && local.length > 0) return; // don't wipe if cloud empty</span>
+  const remoteIds = new Set(rows.map((r) => r.id));
+  const toDelete = local.filter((l) => !remoteIds.has(l.id)).map((l) => l.id);
+  if (toDelete.length > 0) await this.table().bulkDelete(toDelete);
+  if (rows.length > 0) await this.table().bulkPut(rows);
+}
+
+<span class="comment">// Part 2 — Explicit failure toast in create()</span>
+if (this.canRemote()) {
+  try {
+    const created = await cloudRepoCreate(...);
+    await this.mirrorLocal(created);
+    return created;
+  } catch (e) {
+    <span class="green-code">// Fallback to local but warn user</span>
+    <span class="green-code">console.warn(`Cloud write failed for ${this.cloudCollection}:`, e);</span>
+    <span class="green-code">// optionally: useUIStore.getState().toast({ title: "Saved locally, sync pending", kind: "warning" });</span>
+  }
+}
+await this.table().add(entity);
+return entity;</pre>
+      </div>
+    </div>
+
+    <!-- C2 -->
+    <div class="issue">
+      <div class="issue-header">
+        <div class="issue-id">C-02</div>
+        <div class="issue-title">Auth Hydration Fails When IndexedDB Is Cleared — User Locked Out Despite Valid JWT</div>
+        <span class="badge critical">critical</span>
+      </div>
+      <div class="issue-body">
+        <p><strong>File:</strong> <code>src/store/authStore.ts</code> — <code>hydrate()</code></p>
+        <p>On refresh, <code>hydrate()</code> reads the user from IndexedDB using <code>userRepo.get(session.userId)</code>. If IndexedDB is cleared (browser data clear, incognito, device change), this returns <code>null</code> and the user is forced back to login — even though their JWT token is perfectly valid.</p>
+
+<pre>hydrate: async () => {
+  const session = getLocalSession();           <span class="comment">// sv:session (localStorage) ✅</span>
+  const cloudToken = localStorage.getItem(CLOUD_TOKEN_KEY);  <span class="comment">// sv:cloud_token ✅</span>
+  if (session && cloudToken) {
+    <span class="red-code">current = (await userRepo.get(session.userId)) ?? null; // IndexedDB — can be empty!</span>
+    <span class="comment">// If null → currentUser = null → login screen shown, all data appears gone</span>
+  }
+}</pre>
+
+        <div class="fix-block">
+          <div class="fix-label">✅ Fix — Fallback to /api/cloud/me.php</div>
+          <p>If IndexedDB returns null, call the cloud <code>/api/cloud/me.php</code> endpoint (which is already implemented) to re-hydrate the user identity, then reconstruct the local user record via <code>ensureLocalMirrorProfile()</code>.</p>
+        </div>
+
+<pre>if (session && cloudToken) {
+  current = (await userRepo.get(session.userId)) ?? null;
+  <span class="green-code">if (!current) {</span>
+    <span class="green-code">  // IndexedDB cleared — re-hydrate from cloud</span>
+    <span class="green-code">  try {</span>
+    <span class="green-code">    const me = await cloudMe(); // calls /api/cloud/me.php</span>
+    <span class="green-code">    // re-create local mirror without PIN — user needs to re-enter PIN</span>
+    <span class="green-code">    // OR redirect to cloud sign-in with username pre-filled</span>
+    <span class="green-code">  } catch { /* token invalid, show login */ }</span>
+    <span class="green-code">}</span>
+}</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── SECTION 2: HIGH ─── -->
+  <div class="section" id="high">
+    <h2>🟠 2. High Priority Issues</h2>
+
+    <!-- H1 -->
+    <div class="issue">
+      <div class="issue-header">
+        <div class="issue-id">H-01</div>
+        <div class="issue-title">JWT Secret Is the Literal Placeholder — Security Risk</div>
+        <span class="badge high">high</span>
+      </div>
+      <div class="issue-body">
+        <p><strong>File:</strong> <code>.env</code></p>
+        <pre>CLOUD_JWT_SECRET="replace-with-a-strong-long-random-secret"</pre>
+        <p>This is the exact text from <code>.env.example</code> being used as the actual JWT signing secret. Any attacker who reads the source code (e.g., if the repo is public or if they see the .env.example) can forge valid JWTs for any user.</p>
+        <div class="fix-block">
+          <div class="fix-label">✅ Fix</div>
+          <p>Generate a real secret: <code>openssl rand -hex 48</code> and replace it in <code>.env</code> on the server. Never commit real secrets to the repo.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- H2 -->
+    <div class="issue">
+      <div class="issue-header">
+        <div class="issue-id">H-02</div>
+        <div class="issue-title">APP_ENV Is "development" on Hosting — Wrong CORS + Loose Behavior</div>
+        <span class="badge high">high</span>
+      </div>
+      <div class="issue-body">
+        <p><strong>File:</strong> <code>.env</code> — <code>APP_ENV="development"</code></p>
+        <p>When <code>APP_ENV=development</code>, the CORS security applies <code>Access-Control-Allow-Origin: *</code> (any domain can call your API) instead of the locked-down production behavior. Also, <code>CORS_ALLOWED_ORIGINS</code> is set to localhost addresses which won't match <code>darvikstore.info</code> at all.</p>
+        <div class="fix-block">
+          <div class="fix-label">✅ Fix on Hosting Server</div>
+          <p>In <code>.env</code> on the host: set <code>APP_ENV="production"</code> and update <code>CORS_ALLOWED_ORIGINS="https://darvikstore.info"</code></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- H3 -->
+    <div class="issue">
+      <div class="issue-header">
+        <div class="issue-id">H-03</div>
+        <div class="issue-title">Admin UI — All 5 Pages Are MVP Stub-Level (No Tables, No Labels, Broken Forms)</div>
+        <span class="badge high">high</span>
+      </div>
+      <div class="issue-body">
+        <p>All five admin pages are functional at the API level but the UI is very rough. Full breakdown in Section 4 below.</p>
+      </div>
+    </div>
+
+    <!-- H4 -->
+    <div class="issue">
+      <div class="issue-header">
+        <div class="issue-id">H-04</div>
+        <div class="issue-title">Plan Creation Form Is Incomplete — Only Name Field, Price/Interval Hardcoded</div>
+        <span class="badge high">high</span>
+      </div>
+      <div class="issue-body">
+        <p><strong>File:</strong> <code>src/components/pages/admin/PlanManagementPage.tsx</code></p>
+        <p>The "Create Plan" form only has a <code>name</code> input. It hardcodes <code>price_inr: "499.00"</code>, <code>billing_interval: "monthly"</code>, and <code>trial_days: 7</code>. The backend <code>admin_plans_upsert()</code> validates all fields so partial data will fail validation on the server.</p>
+<pre><span class="red-code">// Current — incomplete</span>
+await saveAdminPlan({
+  code: name.toUpperCase().replace(/\s+/g, "_"),
+  name,
+  price_inr: "499.00",    <span class="red-code">// ← hardcoded!</span>
+  billing_interval: "monthly", <span class="red-code">// ← hardcoded!</span>
+  trial_days: 7,          <span class="red-code">// ← hardcoded!</span>
+  is_active: 1
+});</pre>
+        <div class="fix-block">
+          <div class="fix-label">✅ Fix</div>
+          <p>Add form fields for <code>price_inr</code>, <code>billing_interval</code> (monthly/yearly dropdown), and <code>trial_days</code>. See Section 4 for full redesign plan.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- H5 -->
+    <div class="issue">
+      <div class="issue-header">
+        <div class="issue-id">H-05</div>
+        <div class="issue-title">Rate Limiting Uses File-Based JSON — Race Condition Under Load</div>
+        <span class="badge high">high</span>
+      </div>
+      <div class="issue-body">
+        <p><strong>File:</strong> <code>php/helpers/security.php</code> — <code>rate_limit_guard()</code></p>
+        <p>Rate limiting reads/writes a JSON file (<code>data/rate_limits.json</code>) on every API request. Under concurrent traffic, two requests can read the same file simultaneously, both see count=1, both write count=2 — the limit is never enforced correctly. This is also slow (file I/O on every request).</p>
+        <div class="fix-block">
+          <div class="fix-label">✅ Fix</div>
+          <p>Store rate limit counters in MySQL using the existing DB connection. A single <code>INSERT ... ON DUPLICATE KEY UPDATE attempt_count = attempt_count + 1</code> is atomic. Alternatively, use Redis/APCu if available on your host.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── SECTION 3: MEDIUM ─── -->
+  <div class="section" id="medium">
+    <h2>🟡 3. Medium Priority Issues</h2>
+
+    <!-- M1 -->
+    <div class="issue">
+      <div class="issue-header">
+        <div class="issue-id">M-01</div>
+        <div class="issue-title">Toast "kind: danger" — Type Mismatch Causes Silent Failure</div>
+        <span class="badge medium">medium</span>
+      </div>
+      <div class="issue-body">
+        <p><strong>File:</strong> <code>src/components/pages/admin/UserManagementPage.tsx</code></p>
+        <p>The Toast type in <code>uiStore.ts</code> accepts: <code>"success" | "error" | "info" | "warning"</code>. <code>UserManagementPage</code> passes <code>kind: "danger"</code> which doesn't exist — the toast will render but the danger styling won't apply (could also cause TypeScript errors if strict mode is on).</p>
+        <div class="fix-block">
+          <div class="fix-label">✅ Fix — 2 occurrences in UserManagementPage.tsx</div>
+          <p>Change <code>kind: "danger"</code> → <code>kind: "error"</code> in both places in <code>UserManagementPage.tsx</code>.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- M2 -->
+    <div class="issue">
+      <div class="issue-header">
+        <div class="issue-id">M-02</div>
+        <div class="issue-title">createProfile() Always Throws — Dead Code in authStore</div>
+        <span class="badge medium">medium</span>
+      </div>
+      <div class="issue-body">
+        <p><strong>File:</strong> <code>src/store/authStore.ts</code> — <code>createProfile()</code></p>
+        <p>The function immediately throws <code>"Local profile creation is disabled. Use cloud sign up."</code> The <code>CreateProfile.tsx</code> component calls it but is never rendered in cloud-only mode (the app always routes to <code>CloudAuth</code>). Both the function stub and the <code>CreateProfile</code> component are dead code that adds bundle weight and confusion.</p>
+        <div class="fix-block">
+          <div class="fix-label">✅ Fix</div>
+          <p>Remove <code>CreateProfile.tsx</code> component and the <code>createProfile</code> method from the store. If local profiles are not supported, they shouldn't exist even as stubs.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- M3 -->
+    <div class="issue">
+      <div class="issue-header">
+        <div class="issue-id">M-03</div>
+        <div class="issue-title">Phase 2 Cloud Sync Card — Hidden With CSS But Still in DOM</div>
+        <span class="badge medium">medium</span>
+      </div>
+      <div class="issue-body">
+        <p><strong>File:</strong> <code>src/components/pages/SettingsPage.tsx</code></p>
+        <p>The "Phase-2 Cloud Sync (MySQL)" card has <code>className="md:col-span-2 hidden"</code>. It's invisible to users but is fully rendered, included in the bundle, and causes confusion during code review. All logic for cloud sync already exists inside the repos (via <code>canRemote()</code>) — this manual sync card is redundant.</p>
+        <div class="fix-block">
+          <div class="fix-label">✅ Fix — Remove the entire card block</div>
+          <p>Delete the entire <code>&lt;Card className="md:col-span-2 hidden"&gt;</code> block from <code>SettingsPage.tsx</code>. Cloud sync is already automatic through <code>BaseRepo</code> — no manual push/pull needed for users.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- M4 -->
+    <div class="issue">
+      <div class="issue-header">
+        <div class="issue-id">M-04</div>
+        <div class="issue-title">No loadAll() Trigger After Cloud Pull — UI Doesn't Reflect New Data</div>
+        <span class="badge medium">medium</span>
+      </div>
+      <div class="issue-body">
+        <p><strong>File:</strong> <code>src/components/pages/SettingsPage.tsx</code> — <code>handleCloudPull()</code></p>
+        <p>After pulling cloud data, records are merged into local state with <code>upsertLocal()</code>. However, <code>loadAll(user)</code> is never called, so some derived views (dashboard balances, category counts) won't reflect the newly pulled data until the user navigates away and back.</p>
+        <div class="fix-block">
+          <div class="fix-label">✅ Fix</div>
+          <p>After <code>handleCloudPull</code> completes, call <code>await loadAll(user)</code> (same as done in <code>handleCloudLogin</code> in the same file).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- M5 -->
+    <div class="issue">
+      <div class="issue-header">
+        <div class="issue-id">M-05</div>
+        <div class="issue-title">Schema Mismatch — schema.sql References Old cloud_users Table</div>
+        <span class="badge medium">medium</span>
+      </div>
+      <div class="issue-body">
+        <p><strong>File:</strong> <code>sql/schema.sql</code></p>
+        <p>The original <code>schema.sql</code> still creates a <code>cloud_users</code> table with a foreign key to it in <code>cloud_collection_rows</code>. The newer <code>20260427_all_in_one.sql</code> correctly migrates to a unified <code>users</code> table. If someone installs using the old <code>schema.sql</code>, data will be stored in the wrong table and all API calls will fail.</p>
+        <div class="fix-block">
+          <div class="fix-label">✅ Fix</div>
+          <p>Update <code>schema.sql</code> to match <code>20260427_all_in_one.sql</code> exactly, or delete <code>schema.sql</code> and update the setup guide to use <code>20260427_all_in_one.sql</code> as the canonical install file.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- M6 -->
+    <div class="issue">
+      <div class="issue-header">
+        <div class="issue-id">M-06</div>
+        <div class="issue-title">No Loading or Error State in Admin Pages — Blank Screen on API Failure</div>
+        <span class="badge medium">medium</span>
+      </div>
+      <div class="issue-body">
+        <p><strong>Files:</strong> All 5 admin pages</p>
+        <p>Most admin pages call APIs in <code>useEffect</code> and silently set state to <code>[]</code> or <code>{}</code> on error. There's no spinner while loading, no error banner if the API fails, and no empty state UI. Users will see a blank white page with no indication of what happened.</p>
+        <div class="fix-block">
+          <div class="fix-label">✅ Fix</div>
+          <p>Add <code>loading</code> and <code>error</code> state to each admin page. Show a spinner while fetching, and show an error card with a "Retry" button on failure. The pattern is already done in <code>UserManagementPage</code> (partially) — extend it to all pages.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── SECTION 4: ADMIN UI ─── -->
+  <div class="section" id="admin-ui">
+    <h2>🖥️ 4. Admin UI/UX — Page-by-Page Breakdown</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Page</th>
+          <th>Current State</th>
+          <th>Issues</th>
+          <th>MVP Fix Required</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Admin Dashboard</strong></td>
+          <td>4 cards with raw camelCase keys as titles</td>
+          <td>Titles show <code>mrrEstimateInr</code>, <code>failedPayments</code> — not human readable. No formatting on numbers. No MRR currency symbol. No actor name shown.</td>
+          <td>Map keys to readable labels. Format numbers with ₹ symbol and commas. Add a "Recent Activity" placeholder.</td>
+        </tr>
+        <tr>
+          <td><strong>User Management</strong></td>
+          <td>Text list of users with inline buttons</td>
+          <td>No table headers. No search/filter. No pagination. "Assign plan" shows only first 2 plans as inline buttons with no plan name context. Toast uses wrong kind "danger".</td>
+          <td>Use proper <code>&lt;Table&gt;</code> component with columns: Name, Username, Role, Status, Plan, Actions. Fix toast kind. Show plan name clearly in dropdown, not inline buttons.</td>
+        </tr>
+        <tr>
+          <td><strong>Plan Management</strong></td>
+          <td>Name-only form + plain list</td>
+          <td>Form doesn't collect price, billing interval, or trial days. All 3 are hardcoded. Backend will accept them but UI gives no way to set them. Plan list shows only code + price, no action buttons.</td>
+          <td>Add full form: Name, Code (auto-generated), Price (INR), Interval (monthly/yearly), Trial Days, Active toggle. Add Edit button on existing plans. Show all plan fields in list.</td>
+        </tr>
+        <tr>
+          <td><strong>Subscription Management</strong></td>
+          <td>Raw text list</td>
+          <td>No table. Joins display correctly (display_name, plan_code, status) but as plain text string. No filtering by status. No actions available.</td>
+          <td>Use <code>&lt;Table&gt;</code> with Status badge (coloured by state), plan name, user link. Add filter by status dropdown.</td>
+        </tr>
+        <tr>
+          <td><strong>Feature Flags</strong></td>
+          <td>Switch list — functional</td>
+          <td>No empty state if no flags exist. No loading state. Looks decent but no flag descriptions or grouping.</td>
+          <td>Add loading spinner. Add empty state message. Optionally add a short description next to each flag key.</td>
+        </tr>
+        <tr>
+          <td><strong>Branding Settings</strong></td>
+          <td>6 bare Input fields, no labels</td>
+          <td>All 6 inputs use only <code>placeholder</code> as the label (disappears on typing). No visual hierarchy. No preview of logo/favicon URL. No save feedback.</td>
+          <td>Wrap each input in a <code>&lt;Field label="..." hint="..."&gt;</code>. Use the <code>Field</code> component already in the codebase. Add a "Saved" toast after successful PUT. Show a preview of logo_url as an <code>&lt;img&gt;</code>.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="info-box">
+      <strong>Quick Win for Admin UX:</strong> The <code>&lt;Table&gt;</code>, <code>&lt;Badge&gt;</code>, <code>&lt;Field&gt;</code>, <code>&lt;Card&gt;</code>, <code>&lt;Button&gt;</code> and all other UI components are already built in <code>src/components/ui/</code>. Admin pages just need to use them properly — no new components needed.
+    </div>
+  </div>
+
+  <!-- ─── SECTION 5: USER SIDE ─── -->
+  <div class="section" id="user-ui">
+    <h2>✅ 5. User Side UI/UX — What Works vs What Has Gaps</h2>
+
+    <div class="two-col">
+      <div>
+        <h3 style="color: var(--green); margin-bottom: 10px;">✅ Working Well</h3>
+        <ul>
+          <li><strong>AccountsPage</strong> — Full CRUD, balance calc, opening balance display, responsive grid</li>
+          <li><strong>TransactionsPage</strong> — Search, filter by type/account/category/date, sort, multi-select — solid</li>
+          <li><strong>IncomePage / ExpensesPage</strong> — Fixed type filtering, clean separation</li>
+          <li><strong>Cloud Auth flow</strong> — Register, sign-in, local mirror, initial seed — well-architected</li>
+          <li><strong>BaseRepo dual-mode</strong> — Cloud-first with IndexedDB fallback is a good pattern (once C-01 is fixed)</li>
+          <li><strong>AppShell</strong> — Loading state, page transitions (framer-motion), command palette (Ctrl+K), responsive mobile nav</li>
+          <li><strong>SettingsPage</strong> — Theme, FY month, alert thresholds, custom payment modes, wipe data — all functional</li>
+          <li><strong>LockScreen</strong> — PIN lock/unlock working</li>
+          <li><strong>Alert Engine</strong> — Auto-runs on data load, triggers budget/due/udhari alerts</li>
+          <li><strong>QuickAdd Dialog</strong> — income/expense/transfer quick shortcuts</li>
+          <li><strong>Audit page</strong> — Full audit trail from auditRepo</li>
+        </ul>
+      </div>
+      <div>
+        <h3 style="color: var(--yellow); margin-bottom: 10px;">⚠️ Gaps / Needs Attention</h3>
+        <ul>
+          <li><strong>DashboardPage</strong> — Not reviewed in detail; verify chart data loads correctly after fix C-01</li>
+          <li><strong>GoalsPage</strong> — Goal contributions need validation that amount ≤ remaining target</li>
+          <li><strong>LoansPage / EMI</strong> — Verify EMI auto-generation on loan creation works post C-01 fix</li>
+          <li><strong>CardsPage</strong> — Card billing cycle alerts depend on settings being saved correctly</li>
+          <li><strong>ExportPage</strong> — Export history written to <code>exportHistoryRepo</code> — verify it syncs to cloud</li>
+          <li><strong>ImportPage</strong> — Bulk imports bypass cloud repo (use <code>createMany()</code> which is local-only!) — data loss risk</li>
+          <li><strong>ProfilePage</strong> — PIN change tested? Uses <code>changePin()</code> from authService — does it update cloud?</li>
+          <li><strong>SubscriptionPage</strong> — Razorpay integration requires keys in .env. Test in sandbox mode.</li>
+          <li><strong>ReportsPage</strong> — SafeChart component wraps chart errors — good, but verify data computation</li>
+          <li><strong>Mobile responsiveness</strong> — MobileNav exists, verify all pages scroll correctly on small screens</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="warn-box" style="margin-top: 16px;">
+      <strong>⚠️ ImportPage uses createMany() — Local Only!</strong><br>
+      <code>BaseRepo.createMany()</code> calls <code>this.table().bulkAdd(entities)</code> directly — it <strong>never</strong> calls the cloud API. Any data imported via <code>ImportPage</code> exists only in IndexedDB and will disappear on a new device or if IndexedDB is cleared. This is a separate data-loss path from C-01.
+    </div>
+  </div>
+
+  <!-- ─── SECTION 6: CLOUD SYNC DECISION ─── -->
+  <div class="section" id="cloud-sync">
+    <h2>☁️ 6. Phase 2 Cloud Sync — Decision Required</h2>
+
+    <div class="issue">
+      <div class="issue-header">
+        <div class="issue-id">DECISION</div>
+        <div class="issue-title">The "Phase 2 Cloud Sync" section in Settings doesn't make sense — here's why</div>
+        <span class="badge info">analysis</span>
+      </div>
+      <div class="issue-body">
+        <p>The "Phase-2 Cloud Sync (MySQL)" card in <code>SettingsPage.tsx</code> was originally designed for users to manually log into a separate cloud account and push/pull data. But the app is now <strong>already fully cloud-sync by default</strong> — every create/update/delete in <code>BaseRepo</code> goes to the cloud API automatically via <code>canRemote()</code>.</p>
+
+        <p>The manual push/pull panel was a temporary workaround from an earlier architecture where the app was local-first with optional cloud. That design no longer exists — the app is cloud-first with local cache.</p>
+
+        <strong>Recommendation: REMOVE it from user Settings</strong>
+
+        <p>The cloud sync card:</p>
+        <ul style="margin: 8px 0;">
+          <li>Is already hidden (<code>className="hidden"</code>)</li>
+          <li>Creates confusion — users shouldn't need to manually push/pull</li>
+          <li>Has a duplicate cloud login form that conflicts with the main CloudAuth</li>
+          <li>The underlying <code>handleCloudPush/Pull</code> functions can be kept as admin tools if needed</li>
+        </ul>
+
+        <p>If you want a cloud sync indicator for users, replace it with a simple status badge in the header showing "Synced" / "Syncing..." / "Offline" — read-only, no manual action needed.</p>
+
+        <div class="fix-block">
+          <div class="fix-label">✅ Action: Delete the hidden card, add sync indicator to Header</div>
+          <p>In <code>SettingsPage.tsx</code>: delete the entire last <code>&lt;Card&gt;</code> block (Phase-2 Cloud Sync). In <code>Header.tsx</code>: add a small status dot (green = synced, yellow = pending, red = error) based on whether the last repo operation succeeded.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ─── SECTION 7: FIX ROADMAP ─── -->
+  <div class="section" id="fix-plan">
+    <h2>🗺️ 7. Fix Priority Roadmap (MVP Order)</h2>
+
+    <table class="plan-row">
+      <thead>
+        <tr>
+          <th>Priority</th>
+          <th>Issue</th>
+          <th>Effort</th>
+          <th>File(s) to Change</th>
+          <th>Impact</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="badge critical">P0</span></td>
+          <td>C-01: mirrorLocalList data wipe</td>
+          <td>~15 min</td>
+          <td><code>src/repositories/baseRepo.ts</code></td>
+          <td>Stops all data loss on refresh</td>
+        </tr>
+        <tr>
+          <td><span class="badge critical">P0</span></td>
+          <td>H-01: JWT secret placeholder</td>
+          <td>~2 min</td>
+          <td><code>.env</code> on server</td>
+          <td>Closes auth forgery vulnerability</td>
+        </tr>
+        <tr>
+          <td><span class="badge critical">P0</span></td>
+          <td>H-02: APP_ENV + CORS for production</td>
+          <td>~2 min</td>
+          <td><code>.env</code> on server</td>
+          <td>Correct CORS, production behaviour</td>
+        </tr>
+        <tr>
+          <td><span class="badge high">P1</span></td>
+          <td>C-02: IndexedDB cleared → locked out</td>
+          <td>~2 hrs</td>
+          <td><code>src/store/authStore.ts</code>, <code>src/components/auth/CloudAuth.tsx</code></td>
+          <td>Prevents phantom lockouts on new browsers</td>
+        </tr>
+        <tr>
+          <td><span class="badge high">P1</span></td>
+          <td>createMany local-only (ImportPage)</td>
+          <td>~1 hr</td>
+          <td><code>src/repositories/baseRepo.ts</code></td>
+          <td>Fix bulk import cloud sync</td>
+        </tr>
+        <tr>
+          <td><span class="badge high">P1</span></td>
+          <td>M-01: Toast kind "danger" → "error"</td>
+          <td>~2 min</td>
+          <td><code>admin/UserManagementPage.tsx</code></td>
+          <td>Fix broken error toasts in admin</td>
+        </tr>
+        <tr>
+          <td><span class="badge medium">P2</span></td>
+          <td>M-03: Remove hidden Phase-2 cloud sync card</td>
+          <td>~5 min</td>
+          <td><code>src/components/pages/SettingsPage.tsx</code></td>
+          <td>Code cleanliness, no dead weight</td>
+        </tr>
+        <tr>
+          <td><span class="badge medium">P2</span></td>
+          <td>Admin Dashboard — human readable labels</td>
+          <td>~30 min</td>
+          <td><code>admin/AdminDashboardPage.tsx</code></td>
+          <td>Admin UX usable</td>
+        </tr>
+        <tr>
+          <td><span class="badge medium">P2</span></td>
+          <td>Admin UserManagement — proper table</td>
+          <td>~2 hrs</td>
+          <td><code>admin/UserManagementPage.tsx</code></td>
+          <td>Admin can actually manage users</td>
+        </tr>
+        <tr>
+          <td><span class="badge medium">P2</span></td>
+          <td>Plan Management — full form fields</td>
+          <td>~1 hr</td>
+          <td><code>admin/PlanManagementPage.tsx</code></td>
+          <td>Admin can actually create plans</td>
+        </tr>
+        <tr>
+          <td><span class="badge medium">P2</span></td>
+          <td>Branding Settings — add Field labels</td>
+          <td>~30 min</td>
+          <td><code>admin/BrandingSettingsPage.tsx</code></td>
+          <td>Basic usability</td>
+        </tr>
+        <tr>
+          <td><span class="badge medium">P2</span></td>
+          <td>M-05: schema.sql outdated</td>
+          <td>~15 min</td>
+          <td><code>sql/schema.sql</code></td>
+          <td>Correct install docs</td>
+        </tr>
+        <tr>
+          <td><span class="badge low">P3</span></td>
+          <td>H-05: File-based rate limit → DB</td>
+          <td>~1 hr</td>
+          <td><code>php/helpers/security.php</code></td>
+          <td>Concurrency correctness</td>
+        </tr>
+        <tr>
+          <td><span class="badge low">P3</span></td>
+          <td>M-02: Remove dead createProfile</td>
+          <td>~10 min</td>
+          <td><code>authStore.ts</code>, <code>CreateProfile.tsx</code></td>
+          <td>Code cleanliness</td>
+        </tr>
+        <tr>
+          <td><span class="badge low">P3</span></td>
+          <td>Sync status indicator in Header</td>
+          <td>~1 hr</td>
+          <td><code>src/components/layout/Header.tsx</code></td>
+          <td>User confidence in cloud sync</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ─── SECTION 8: ENV CHECKLIST ─── -->
+  <div class="section" id="env-checklist">
+    <h2>⚙️ 8. .env Config Checklist for Production Hosting</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Variable</th>
+          <th>Current Value</th>
+          <th>Required Value</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>DB_HOST</code></td>
+          <td><code>localhost</code></td>
+          <td>Your MySQL host (e.g. <code>localhost</code> or remote host)</td>
+          <td><span class="badge done">✅ likely ok</span></td>
+        </tr>
+        <tr>
+          <td><code>DB_NAME</code></td>
+          <td><code>money</code></td>
+          <td>Actual DB name on host</td>
+          <td><span class="badge medium">⚠️ verify</span></td>
+        </tr>
+        <tr>
+          <td><code>DB_USER</code></td>
+          <td><code>root</code></td>
+          <td>Non-root DB user (principle of least privilege)</td>
+          <td><span class="badge high">⚠️ change</span></td>
+        </tr>
+        <tr>
+          <td><code>DB_PASS</code></td>
+          <td><code>(empty)</code></td>
+          <td>Strong password</td>
+          <td><span class="badge critical">❌ must set</span></td>
+        </tr>
+        <tr>
+          <td><code>CLOUD_JWT_SECRET</code></td>
+          <td><code>replace-with-a-strong-long-random-secret</code></td>
+          <td><code>openssl rand -hex 48</code></td>
+          <td><span class="badge critical">❌ must change</span></td>
+        </tr>
+        <tr>
+          <td><code>APP_ENV</code></td>
+          <td><code>development</code></td>
+          <td><code>production</code></td>
+          <td><span class="badge critical">❌ must change</span></td>
+        </tr>
+        <tr>
+          <td><code>APP_BASE_URL</code></td>
+          <td><code>http://localhost</code></td>
+          <td><code>https://darvikstore.info</code></td>
+          <td><span class="badge high">⚠️ change</span></td>
+        </tr>
+        <tr>
+          <td><code>CORS_ALLOWED_ORIGINS</code></td>
+          <td><code>http://localhost:5173,http://localhost:4000</code></td>
+          <td><code>https://darvikstore.info</code></td>
+          <td><span class="badge high">⚠️ change</span></td>
+        </tr>
+        <tr>
+          <td><code>RAZORPAY_KEY_ID</code></td>
+          <td><code>(empty)</code></td>
+          <td>Your Razorpay key (sandbox or live)</td>
+          <td><span class="badge medium">⚠️ needed for payments</span></td>
+        </tr>
+        <tr>
+          <td><code>VITE_CLOUD_ONLY_MODE</code></td>
+          <td><code>true</code></td>
+          <td><code>true</code> (correct)</td>
+          <td><span class="badge done">✅ correct</span></td>
+        </tr>
+        <tr>
+          <td><code>VITE_API_BASE_URL</code></td>
+          <td><em>(not set — uses window.location.origin)</em></td>
+          <td>Only needed if API on different domain. Leave unset if same domain.</td>
+          <td><span class="badge done">✅ ok if same domain</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr />
+  <div style="text-align: center; color: var(--muted); font-size: 12px; padding: 16px 0;">
+    SparowVault Audit Report — Generated April 28, 2026 — Senior-level full-stack review
+  </div>
+
+</div>
+</body>
+</html>
