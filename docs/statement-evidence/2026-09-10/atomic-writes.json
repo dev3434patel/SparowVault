@@ -1,5 +1,5 @@
 {
-  "date": "2026-09-10T10:17:05.388Z",
+  "date": "2026-09-21T20:58:17.914Z",
   "isolation": "fresh disposable MariaDB database; four PHP workers",
   "checks": [
     {
@@ -131,63 +131,83 @@
       "pass": true
     },
     {
-      "title": "browser: real account form creates a durable server record",
+      "title": "statement: stale reviewDigest is rejected with no financial writes",
       "pass": true
     },
     {
-      "title": "browser: a 503 create survives cloud refresh with a replayable payload",
+      "title": "statement: digest rejects direction flip and month-crossing date edits relative to stale hash",
       "pass": true
     },
     {
-      "title": "browser: sync review renders without overflow at desktop and mobile sizes",
+      "title": "statement: omitted offsetting pair is rejected when independent evidence mismatches",
       "pass": true
     },
     {
-      "title": "browser: actual browser process restart preserves IndexedDB payload",
+      "title": "statement: complete fixture with matching evidence posts and writes importSources",
       "pass": true
     },
     {
-      "title": "browser: two-tab reconnect drains queue and persists exactly one server row",
+      "title": "statement: confirmed match persists reconciliationMatches without duplicating money",
       "pass": true
     },
     {
-      "title": "browser: validation rejection opens actionable sync review",
+      "title": "card statement: liability arithmetic posts purchases and matches bank repayment once",
       "pass": true
     },
     {
-      "title": "browser: pending-change download contains the recoverable rejected payload",
+      "title": "goal contrib: earmark notes accepted; funded_transfer without transaction rejected",
       "pass": true
     },
     {
-      "title": "browser: confirmed server-version resolution clears a rejected queue item",
+      "title": "contribution: 400 meal + 200 return = 200 expense, -200 cash, zero income",
       "pass": true
     },
     {
-      "title": "browser: no uncaught application errors during durability workflows",
+      "title": "contribution: concurrent returns cannot exceed remaining expense",
       "pass": true
     },
     {
-      "title": "statement browser: encrypted PDF asks for password, rejects wrong password, extracts with correct one",
+      "title": "contribution: category, scope, date, income type and missing original are rejected",
       "pass": true
     },
     {
-      "title": "statement browser: mobile review is contained and header upload remains reachable",
+      "title": "statement: OCR confirmation is required server-side and contribution preserves provenance",
       "pass": true
     },
     {
-      "title": "statement browser: confirmed decisions import correct amounts and no PDF/password leaves the browser",
+      "title": "security: logout revokes captured bearer token but not another session",
       "pass": true
     },
     {
-      "title": "statement browser: all five synthetic bank headings and multipage statements extract",
+      "title": "security: recovery requires PIN and survives PIN changes; old sessions are revoked",
       "pass": true
     },
     {
-      "title": "statement browser: image-only PDFs are blocked without guessed financial entries",
+      "title": "security: cookie mutations require CSRF, GET me does not rotate a valid token",
       "pass": true
     },
     {
-      "title": "statement browser: malformed non-PDF is rejected and no uncaught errors occurred",
+      "title": "security: concurrent PIN changes cannot both overwrite the same credential",
+      "pass": true
+    },
+    {
+      "title": "security: forced PIN change blocks financial access until credential replacement",
+      "pass": true
+    },
+    {
+      "title": "security: dev server refuses source, configuration, backup and dependency paths",
+      "pass": true
+    },
+    {
+      "title": "security: untrusted and opaque origins never receive credentialed CORS",
+      "pass": true
+    },
+    {
+      "title": "security: spoofed forwarded IP headers cannot evade the login limit",
+      "pass": true
+    },
+    {
+      "title": "backup: private consistent dump restores every table's full contents in an isolated database",
       "pass": true
     }
   ]

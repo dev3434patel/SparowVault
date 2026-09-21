@@ -255,10 +255,17 @@ try {
     }
   }
 } finally {
-  for (const process of children) {
-    if (process.exitCode !== null || process.signalCode !== null) continue;
-    const closed = once(process, "close");
-    try { globalThis.process.kill(-process.pid, "SIGTERM"); await closed; } catch { /* already stopped */ }
+  for (const child of children) {
+    if (child.exitCode !== null || child.signalCode !== null) continue;
+    const closed = once(child, "close");
+    try {
+      if (process.platform === "win32") {
+        spawn("taskkill", ["/pid", String(child.pid), "/t", "/f"], { stdio: "ignore" });
+      } else {
+        globalThis.process.kill(-child.pid, "SIGTERM");
+      }
+      await Promise.race([closed, new Promise((resolve) => setTimeout(resolve, 8000))]);
+    } catch { /* already stopped */ }
   }
   if (db) await db.end();
   if (databaseCreated) await admin.query(`DROP DATABASE IF EXISTS \`${name}\``);

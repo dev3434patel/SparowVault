@@ -22,12 +22,13 @@ import {
 } from "@/components/ui/Select";
 import { useDataStore } from "@/store/dataStore";
 import { useAuthStore } from "@/store/authStore";
-import { goalRepo, goalContribRepo } from "@/repositories";
-import type { Goal } from "@/types";
+import { goalRepo, goalContribRepo, transactionRepo } from "@/repositories";
+import type { Account, Goal } from "@/types";
 import { useUIStore } from "@/store/uiStore";
 import { confirm } from "@/store/uiStore";
 import { goalSchema } from "@/services/validators";
 import { buildGoalIntel, goalPriorityTier } from "@/services/goalEngine";
+import { fundedGoalTransferEffect, goalEarmarkEffect } from "@/services/statements/goalFunding";
 import { format } from "date-fns";
 import {
   Pencil,
@@ -82,10 +83,81 @@ export function GoalsPage() {
     toast({ title: "Goal removed", kind: "info" });
   }
 
-  async function contribute(g: Goal, amount: number) {
+  async function contribute(g: Goal, amount: number, mode: "earmark" | "funded_transfer", sourceAccountId?: string) {
     if (!user) return;
+    const amountPaise = Math.round(amount * 100);
+    if (mode === "earmark") {
+      const effect = goalEarmarkEffect(amountPaise);
+      if (effect.sourceAccountBalanceDeltaPaise !== 0 || effect.netWorthDeltaPaise !== 0) {
+        throw new Error("Earmark must not move bank cash or change net worth");
+      }
+      const updated = await goalRepo.update(g.id, {
+        currentSaved: g.currentSaved + amount,
+        savedAmountPaise: (g.savedAmountPaise ?? Math.round(g.currentSaved * 100)) + amountPaise,
+        status: g.currentSaved + amount >= g.targetAmount ? "completed" : g.status,
+        linkedAccountId: sourceAccountId || g.linkedAccountId,
+      });
+      if (updated) upsertLocal("goals", updated);
+      const contrib = await goalContribRepo.create({
+        userId: user.id,
+        data: {
+          goalId: g.id,
+          date: new Date().toISOString(),
+          amount,
+          amountPaise,
+          sourceAccountId: sourceAccountId || g.linkedAccountId,
+          notes: "fundingMode:earmark",
+          fundingMode: "earmark",
+        },
+      });
+      upsertLocal("goalContribs", contrib);
+      toast({
+        title: "Funds earmarked",
+        description: `${formatINR(amount)} reserved for ${g.title} (bank balance unchanged)`,
+        kind: "success",
+      });
+      setContributing(null);
+      return;
+    }
+
+    if (!sourceAccountId || sourceAccountId === g.linkedAccountId) {
+      toast({ title: "Choose a distinct source account for a funded transfer", kind: "error" });
+      return;
+    }
+    const effect = fundedGoalTransferEffect(amountPaise);
+    const source = accounts.find((a) => a.id === sourceAccountId);
+    const destId = g.linkedAccountId;
+    if (!source || !destId) {
+      toast({ title: "Goal needs a linked destination account for funded transfers", kind: "error" });
+      return;
+    }
+    const transfer = await transactionRepo.create({
+      userId: user.id,
+      data: {
+        type: "transfer",
+        date: new Date().toISOString(),
+        amount,
+        amountPaise,
+        accountId: sourceAccountId,
+        toAccountId: destId,
+        paymentMode: "bank_transfer",
+        businessOrPersonal: "personal",
+        description: `Goal funding: ${g.title}`,
+        merchantOrPerson: "",
+        billAvailable: 0,
+        gstApplicable: 0,
+        taxFlag: 0,
+        needWant: "unassigned",
+        fixedVariable: "unassigned",
+        plannedUnplanned: "unassigned",
+        linkedGoalId: g.id,
+        notes: "fundingMode:funded_transfer",
+      },
+    });
+    upsertLocal("transactions", transfer);
     const updated = await goalRepo.update(g.id, {
       currentSaved: g.currentSaved + amount,
+      savedAmountPaise: (g.savedAmountPaise ?? Math.round(g.currentSaved * 100)) + amountPaise,
       status: g.currentSaved + amount >= g.targetAmount ? "completed" : g.status,
     });
     if (updated) upsertLocal("goals", updated);
@@ -95,12 +167,17 @@ export function GoalsPage() {
         goalId: g.id,
         date: new Date().toISOString(),
         amount,
+        amountPaise,
+        sourceAccountId,
+        transactionId: transfer.id,
+        notes: `fundingMode:funded_transfer;netWorthDelta:${effect.netWorthDeltaPaise}`,
+        fundingMode: "funded_transfer",
       },
     });
     upsertLocal("goalContribs", contrib);
     toast({
-      title: "Contribution added",
-      description: `${formatINR(amount)} to ${g.title}`,
+      title: "Funded transfer recorded",
+      description: `${formatINR(amount)} moved toward ${g.title} (net worth unchanged)`,
       kind: "success",
     });
     setContributing(null);
@@ -269,7 +346,7 @@ export function GoalsPage() {
       <ContributeDialog
         goal={contributing}
         onClose={() => setContributing(null)}
-        onSubmit={(amt) => contributing && contribute(contributing, amt)}
+        onSubmit={(amt, mode, sourceAccountId) => contributing && contribute(contributing, amt, mode, sourceAccountId)}
         accounts={accounts}
       />
     </div>
@@ -280,19 +357,47 @@ function ContributeDialog({
   goal,
   onClose,
   onSubmit,
+  accounts,
 }: {
   goal: Goal | null;
   onClose: () => void;
-  onSubmit: (amount: number) => void;
-  accounts: unknown;
+  onSubmit: (amount: number, mode: "earmark" | "funded_transfer", sourceAccountId?: string) => void;
+  accounts: Account[];
 }) {
   const [amount, setAmount] = useState<number>(0);
+  const [mode, setMode] = useState<"earmark" | "funded_transfer">("earmark");
+  const [sourceAccountId, setSourceAccountId] = useState<string>(goal?.linkedAccountId ?? "");
+  useEffect(() => {
+    setAmount(0);
+    setMode("earmark");
+    setSourceAccountId(goal?.linkedAccountId ?? "");
+  }, [goal?.id, goal?.linkedAccountId]);
+  const activeAccounts = accounts.filter((a) => !a.isDeleted && !a.isInactive);
   return (
     <Dialog open={!!goal} onOpenChange={(o) => !o && onClose()}>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Contribute to {goal?.title}</DialogTitle>
         </DialogHeader>
+        <Field label="Funding mode" required>
+          <Select value={mode} onValueChange={(v) => setMode(v as "earmark" | "funded_transfer")}>
+            <SelectTrigger><SelectValue /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="earmark">Earmark existing funds (no cash movement)</SelectItem>
+              <SelectItem value="funded_transfer">Funded transfer between accounts</SelectItem>
+            </SelectContent>
+          </Select>
+        </Field>
+        <Field label="Source account" required={mode === "funded_transfer"}>
+          <Select value={sourceAccountId} onValueChange={setSourceAccountId}>
+            <SelectTrigger><SelectValue placeholder="Select account" /></SelectTrigger>
+            <SelectContent>
+              {activeAccounts.map((a) => (
+                <SelectItem key={a.id} value={a.id}>{a.name}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </Field>
         <Field label="Amount (₹)" required>
           <div className="relative">
             <IndianRupee className="absolute left-2 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -304,15 +409,20 @@ function ContributeDialog({
             />
           </div>
         </Field>
+        <p className="text-xs text-muted-foreground">
+          {mode === "earmark"
+            ? "Earmarking reserves money already in an account. Bank balance and net worth stay the same."
+            : "A funded transfer posts one transfer between distinct owned accounts. Net worth stays the same."}
+        </p>
         <DialogFooter>
           <Button type="button" variant="ghost" onClick={onClose}>
             Cancel
           </Button>
           <Button
-            onClick={() => amount > 0 && onSubmit(amount)}
-            disabled={amount <= 0}
+            onClick={() => amount > 0 && onSubmit(amount, mode, sourceAccountId || undefined)}
+            disabled={amount <= 0 || (mode === "funded_transfer" && !sourceAccountId)}
           >
-            Add contribution
+            {mode === "earmark" ? "Earmark funds" : "Record funded transfer"}
           </Button>
         </DialogFooter>
       </DialogContent>

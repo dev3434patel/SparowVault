@@ -1,0 +1,20 @@
+{
+  "runId": "LF-20260922-013706-DELTA-0222",
+  "phase": "COMPLETE",
+  "steps": {
+    "geometry_ff_wk_dpi": "PASS",
+    "pdfjs": "PASS",
+    "apache": "PASS_APACHE",
+    "race": "PASS",
+    "card_dialog_ui": "PASS_CARD_DIALOG_UI",
+    "card_api_wiring": "PASS",
+    "independent_client": "PASS",
+    "goal_monthly": "PASS",
+    "typecheck": "PASS",
+    "php": "PASS",
+    "units": "PASS",
+    "test_statements": "PASS",
+    "gate_strict": "FAIL_EXPECTED",
+    "sql_allowlist": "PASS"
+  }
+}

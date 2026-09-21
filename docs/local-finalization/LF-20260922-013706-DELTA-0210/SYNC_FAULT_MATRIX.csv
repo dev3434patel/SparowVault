@@ -1,0 +1,4 @@
+scenario,status,notes
+same_document_parallel,PASS,imported=1;duplicates=5;uniqueTx=1;codes=200:ok|200:ok|200:ok|200:ok|200:ok|200:ok
+php_workers,CONFIGURED,platform=win32
+backend_overlap,INCONCLUSIVE_WITHOUT_SERVER_TRACE,OVERLAPPED_CLIENT_STARTS

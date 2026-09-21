@@ -1,0 +1,9 @@
+scenario,status,notes
+context_isolation,PASS,Playwright newContext localStorage+cookies
+cross_user_deny,PASS,other user cannot read account
+same_user_second_login,PASS,me id matches
+concurrent_import_suite,PASS_EXISTING,statement suite serialized/claimed concurrency
+php_builtin_true_race,NOT_RUN,Windows PHP -S typically single-threaded
+offline_outbox_two_tab,PASS_EXISTING,browser-durable-outbox
+tombstone_sync,PASS_EXISTING,integrity suite
+physical_device,NOT_TESTED,

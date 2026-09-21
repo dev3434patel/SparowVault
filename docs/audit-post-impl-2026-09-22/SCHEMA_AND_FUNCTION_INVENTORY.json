@@ -1,0 +1,32 @@
+{
+  "auditId": "SV-POST-IMPL-AUDIT-2026-09-22",
+  "generatedAt": "2026-09-22T00:17:00+05:30",
+  "head": "bf00397d9f1ee93a17006c50ce97a8a48103516b",
+  "branch": "feat/statement-intelligence-v2",
+  "workingTreeDirty": true,
+  "dexie": {
+    "storeCount": 41,
+    "synced": 37,
+    "localOnly": ["users", "sessions", "syncMutations", "aiSuggestions"]
+  },
+  "statementModules": [
+    "pdf.ts", "ocr.ts", "parser.ts", "classification.ts", "types.ts",
+    "verifier.ts", "issuer.ts", "layoutRegistry.ts", "observations.ts",
+    "draft.ts", "reports.ts", "matching.ts", "cardDocument.ts",
+    "ocrUncertainty.ts", "goalFunding.ts"
+  ],
+  "php": ["controllers/statements.php", "helpers/statement_verifier.php", "config/statement_layouts.json", "config/statement_banks.json"],
+  "layoutRegistry": {
+    "targetBanks": 20,
+    "byStatus": { "synthetic-tested": 5, "registered": 15, "verified-for-scope": 0 }
+  },
+  "unusedOrDisconnected": [
+    "toReconciliationMatchDraft",
+    "statement_validate_completeness (not called from commit)",
+    "ocrUncertainty.ts imports",
+    "goalFunding.ts product wiring",
+    "cardDocument.ts importer wiring",
+    "importSources writers",
+    "reconciliationMatches writers from statement UI"
+  ]
+}

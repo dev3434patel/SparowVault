@@ -1,0 +1,10 @@
+{
+  "parentRunId": "LF-20260922-013706",
+  "priorDeltas": ["LF-20260922-013706-DELTA-020111", "LF-20260922-013706-DELTA-0210"],
+  "runId": "LF-20260922-013706-DELTA-0222",
+  "frozenAt": "2026-09-22T02:30:00+05:30",
+  "conclusion": "LOCAL_SOFTWARE_COMPLETE_WITH_EXTERNAL_EVIDENCE_GAPS",
+  "mandatoryLocalRequirementsComplete": true,
+  "allLocallyRunnableEvidenceComplete": true,
+  "doNotOverwriteParent": true
+}

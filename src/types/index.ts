@@ -621,6 +621,8 @@ export interface GoalContribution extends BaseEntity {
   amountPaise?: number;
   sourceAccountId?: ID;
   transactionId?: ID;
+  /** Explicit funding semantics when set; also mirrored in notes as fundingMode:* */
+  fundingMode?: "earmark" | "funded_transfer" | "linked_asset_allocation";
 }
 
 // --------------------------- Loans / EMI -------------------------------------

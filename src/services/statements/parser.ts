@@ -1,4 +1,6 @@
 import { BANKS, type BankId, type StatementAnalysis, type StatementPage, type StatementRow, type StatementToken } from "./types";
+import { detectStatementIssuer } from "./issuer";
+import { buildPageCoverage, isNonTransactionNarration } from "./verifier";
 
 export const MAX_STATEMENT_ROWS = 2000;
 export const MAX_STATEMENT_PAISE = 1_000_000_000_000;
@@ -166,7 +168,12 @@ export function analyzeStatement(pages: StatementPage[], selectedBank: BankId | 
   const spans = BANKS.flatMap(bank => [...heading.matchAll(new RegExp(bank.pattern.source, "gi"))].map(match => ({ bank, start: match.index!, end: match.index! + match[0].length })));
   const detected = BANKS.filter(bank => bank.id === "kotak" && kotakBrand || spans.some(span => span.bank.id === bank.id && !spans.some(other => other.bank.id !== bank.id && other.start <= span.start && other.end >= span.end && other.end - other.start > span.end - span.start)));
   const bank = detected.length === 1 ? detected[0].id : selectedBank === "auto" ? null : selectedBank;
+  const issuer = detectStatementIssuer(pages);
   const result: StatementAnalysis = { parserVersion: "statement-text-v2", bank, rows: [], openingPaise: null, closingPaise: null, periodFrom: null, periodTo: null, periodSource: "transactions", order: "ascending", issues: [], warnings: [], pageCount: pages.length };
+  // Only strong header/footer issuer evidence can contradict the detected bank.
+  if (!issuer.needsConfirmation && issuer.bankId && bank && issuer.bankId !== bank) {
+    result.warnings.push(`Header/footer issuer hint (${issuer.bankId}) differs from selected/detected bank (${bank}).`);
+  }
   const kotakNumbered = bank === "kotak" && numberedLayout;
   const ocrPages = pages.filter(page => page.extraction === "ocr");
   if (ocrPages.length) {
@@ -237,6 +244,16 @@ export function analyzeStatement(pages: StatementPage[], selectedBank: BankId | 
         }
         continue;
       }
+      if (isNonTransactionNarration(cell.description ?? "") && blankAmount(cell.debit ?? "") && blankAmount(cell.credit ?? "") && blankAmount(cell.amount ?? "")) {
+        const amount = statementPaise(cell.balance ?? "", true);
+        if (/opening|brought|b\/?\s*f/i.test(cell.description ?? "") && amount !== null) {
+          result.openingPaise ??= amount;
+        }
+        if (/closing|carried|c\/?\s*f/i.test(cell.description ?? "") && amount !== null) {
+          result.closingPaise ??= amount;
+        }
+        continue;
+      }
       if (!date && !startsDate) {
         if (lastRow && !cell.sequence && !cell.date && cell.description && !cell.debit && !cell.credit && !cell.amount && !cell.balance && line.y - lastNarrationY < 45 && lastRow.page === page.number) {
           lastRow.description += ` ${cell.description}`;
@@ -291,6 +308,21 @@ export function analyzeStatement(pages: StatementPage[], selectedBank: BankId | 
   } else result.issues.push("No supported transaction table found. Use a text-based bank account PDF with dated debit/credit and balance columns.");
   if (!/\bINR\b|\bRs\.?\b|\u20b9/i.test(allLines.flatMap(p => p.lines.map(l => l.text)).join(" "))) result.warnings.push("Currency was not identified; confirm this is an INR account statement.");
   if (/\b(?:USD|EUR|GBP|AED|JPY|AUD|SGD)\b/.test(heading)) result.issues.push("Non-INR statement detected; multi-currency import is not supported.");
+  const pageCoverageResult = buildPageCoverage(
+    pages.map((page) => ({
+      number: page.number,
+      tokenCount: page.tokens.reduce((n, token) => n + token.text.length, 0),
+      extraction: page.extraction,
+    })),
+    result.rows,
+  );
+  result.pageCoverage = pageCoverageResult.coverage;
+  for (const issue of pageCoverageResult.issues) result.issues.push(issue);
+  if (result.ocrPages?.length) {
+    result.warnings.push(
+      "OCR critical fields require human verification even when page confidence is high; page confidence is not money-digit proof.",
+    );
+  }
   result.issues = [...new Set(result.issues)];
   return result;
 }

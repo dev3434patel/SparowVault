@@ -1,0 +1,6 @@
+endpoint,method,auth,csrf,ownership,impl_status,verification,notes
+/api/import/statement.php,POST,required,required,session user + owned links,FULL,PASS_LIVE,omit-pair 422; importSources; matches; browser import PASS
+/api/import/statement-card.php,POST,required,required,session user + owned credit card,FULL,PASS_LIVE_SYNTHETIC,liability arithmetic; payment match; deposit path still rejects card headings
+statements_import controller,POST,auth_require_active_user,csrf_require_for_mutations,userId match,FULL,PASS_LIVE,Completeness before ledger writes
+statements_card_import controller,POST,auth_require_active_user,csrf_require_for_mutations,userId match,FULL,PASS_LIVE_SYNTHETIC,Separate document class
+goalContribs entity,POST,session,csrf,userId + fundingMode rules,FULL,PASS_LIVE,earmark ok; funded_transfer requires transactionId

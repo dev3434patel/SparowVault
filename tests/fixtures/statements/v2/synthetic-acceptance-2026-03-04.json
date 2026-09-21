@@ -1,0 +1,148 @@
+{
+  "fixtureId": "synthetic-acceptance-2026-03-04",
+  "kind": "synthetic",
+  "reviewer": "independent-spec-2026-09-21",
+  "currency": "INR",
+  "openingPaise": 1000000,
+  "notes": [
+    "Starting bank balance ₹10,000.",
+    "April credits are a ₹2,000 refund and ₹1,000 udhari collection — not new income.",
+    "Both periods are partial-month coverage.",
+    "EMI allocation uses an explicit synthetic lender schedule, not narration guessing."
+  ],
+  "rows": [
+    {
+      "id": "r1",
+      "bookingDate": "2026-03-30",
+      "narration": "NEFT SALARY ACME PVT LTD",
+      "debitPaise": 0,
+      "creditPaise": 5000000,
+      "balancePaise": 6000000,
+      "purposeHint": "income_salary"
+    },
+    {
+      "id": "r2",
+      "bookingDate": "2026-03-30",
+      "narration": "UPI MERCHANT GROCERY",
+      "debitPaise": 45000,
+      "creditPaise": 0,
+      "balancePaise": 5955000,
+      "purposeHint": "expense"
+    },
+    {
+      "id": "r3",
+      "bookingDate": "2026-03-31",
+      "narration": "EMI HOME LOAN XYZ BANK",
+      "debitPaise": 1000000,
+      "creditPaise": 0,
+      "balancePaise": 4955000,
+      "purposeHint": "loan_emi",
+      "emiAllocation": {
+        "source": "synthetic_lender_schedule",
+        "interestPaise": 300000,
+        "principalPaise": 700000,
+        "openingPrincipalPaise": 30000000,
+        "annualRatePercent": 12
+      }
+    },
+    {
+      "id": "r4",
+      "bookingDate": "2026-03-31",
+      "narration": "UPI FUEL",
+      "debitPaise": 700000,
+      "creditPaise": 0,
+      "balancePaise": 4255000,
+      "purposeHint": "expense"
+    },
+    {
+      "id": "r5",
+      "bookingDate": "2026-04-01",
+      "narration": "REFUND MERCHANT ORDER 99",
+      "debitPaise": 0,
+      "creditPaise": 200000,
+      "balancePaise": 4455000,
+      "purposeHint": "refund"
+    },
+    {
+      "id": "r6",
+      "bookingDate": "2026-04-01",
+      "narration": "UPI COLLECTION FROM FRIEND",
+      "debitPaise": 0,
+      "creditPaise": 100000,
+      "balancePaise": 4555000,
+      "purposeHint": "udhari_collect"
+    },
+    {
+      "id": "r7",
+      "bookingDate": "2026-04-02",
+      "narration": "CC PAYMENT HDFC CARD",
+      "debitPaise": 800000,
+      "creditPaise": 0,
+      "balancePaise": 3755000,
+      "purposeHint": "cc_payment"
+    },
+    {
+      "id": "r8",
+      "bookingDate": "2026-04-02",
+      "narration": "NEFT RENT",
+      "debitPaise": 300000,
+      "creditPaise": 0,
+      "balancePaise": 3455000,
+      "purposeHint": "expense"
+    }
+  ],
+  "expected": {
+    "closingPaise": 3455000,
+    "months": [
+      {
+        "month": "2026-03",
+        "creditCount": 1,
+        "creditPaise": 5000000,
+        "debitCount": 3,
+        "debitPaise": 1745000,
+        "closingBankBalancePaise": 4255000,
+        "coverage": "partial_month",
+        "financialMeaning": {
+          "newIncomePaise": 5000000,
+          "note": "Salary credit is income; EMI and expenses are not income"
+        }
+      },
+      {
+        "month": "2026-04",
+        "creditCount": 2,
+        "creditPaise": 300000,
+        "debitCount": 2,
+        "debitPaise": 1100000,
+        "closingBankBalancePaise": 3455000,
+        "coverage": "partial_month",
+        "financialMeaning": {
+          "newIncomePaise": 0,
+          "refundPaise": 200000,
+          "udhariCollectPaise": 100000,
+          "note": "₹3,000 bank credits must not become ₹3,000 new income"
+        }
+      }
+    ],
+    "completeness": {
+      "expectedTransactionCount": 8,
+      "printedDebitCount": 5,
+      "printedCreditCount": 3,
+      "printedGrossDebitPaise": 2845000,
+      "printedGrossCreditPaise": 5300000
+    }
+  },
+  "failureCases": [
+    {
+      "id": "omit-offsetting-pair",
+      "description": "Omit one debit and one equal credit; net and retained balances may still match — completeness must fail via expectedTransactionCount / printed counts"
+    },
+    {
+      "id": "flip-dr-cr",
+      "description": "Flip any debit/credit direction — arithmetic or direction checks must fail"
+    },
+    {
+      "id": "one-paise",
+      "description": "Alter any amount by 1 paise — exact match must fail"
+    }
+  ]
+}

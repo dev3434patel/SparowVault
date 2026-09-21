@@ -95,13 +95,15 @@ export async function testStatementBrowser({ frontend, apiBase, auth, check: rec
       await page.getByLabel("INR account and source balances confirmed", { exact: true }).check();
       await page.getByRole("button", { name: "Import reviewed", exact: true }).click();
       await page.getByRole("dialog").filter({ hasText: "Import 3 reviewed transactions?" }).getByRole("button", { name: "Import reviewed", exact: true }).click();
-      await expect(page.getByText("3 imported / 0 already imported / 0 excluded", { exact: true })).toBeVisible();
+      await expect(page.getByText(/3 imported \/ 0 already imported \/ 0 excluded/)).toBeVisible();
       assert.equal(imports.length, 1); const payload = JSON.parse(imports[0]);
       assert.equal(payload.rows[0].creditPaise, 5000000); assert.equal(payload.rows[1].debitPaise, 50050);
       assert.ok(!imports[0].includes("FixtureOnly42!")); assert.ok(!imports[0].includes("%PDF-")); assert.ok(!imports[0].includes("hdfc-locked.pdf"));
       const downloadWait = page.waitForEvent("download"); await page.getByRole("button", { name: "Download statement review", exact: true }).click();
       const download = await downloadWait; const review = JSON.parse(await readFile(await download.path(), "utf8"));
       assert.equal(review.importResult.imported, 3); assert.equal(review.analysis.rows.length, 3);
+      assert.ok(review.importResult.importSourceId);
+      assert.ok(review.exportBundle?.sourceDocuments?.length >= 1);
       await page.getByRole("button", { name: "Done", exact: true }).click();
     });
     await check("statement browser: all five synthetic bank headings and multipage statements extract", async () => {

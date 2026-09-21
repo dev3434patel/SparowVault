@@ -241,9 +241,9 @@ export const SYNC_CONTRACTS = [
     dexieStoreName: "goalContributions",
     serverAllowlistName: "goalContribs",
     requiredFields: [...baseFields, "goalId", "date", "amountPaise"],
-    optionalFields: [...baseOptionalFields, "sourceAccountId", "transactionId"],
+    optionalFields: [...baseOptionalFields, "sourceAccountId", "transactionId", "fundingMode"],
     hotFields: [...baseHotFields, "goal_id", "account_id", "amount_paise", "txn_local_date", "txn_month"],
-    validationRules: [...baseRules, "amountPaise must be a positive paise integer"],
+    validationRules: [...baseRules, "amountPaise must be a non-negative paise integer", "fundingMode when present must be earmark, funded_transfer, or linked_asset_allocation"],
   }),
   contract({
     collectionName: "reminders",

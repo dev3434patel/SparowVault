@@ -1,0 +1,74 @@
+[
+  {
+    "id": "F-ST-05-WIRE",
+    "impl_status": "FULL",
+    "verification": "FIXED_VERIFIED_LIVE_API",
+    "closure": "omit-pair → 422 STATEMENT_COMPLETENESS_MISMATCH; zero ledger writes"
+  },
+  {
+    "id": "F-ST-10-MATCH",
+    "impl_status": "FULL",
+    "verification": "FIXED_VERIFIED_LIVE_API",
+    "closure": "confirmed reconciliationMatches; no duplicate financial_events"
+  },
+  {
+    "id": "F-ST-11-SOURCE",
+    "impl_status": "FULL",
+    "verification": "FIXED_VERIFIED_LIVE_API",
+    "closure": "importSources on commit; browser review download includes importSourceId"
+  },
+  {
+    "id": "F-ST-03-OBS",
+    "impl_status": "PARTIAL",
+    "verification": "PARTIAL_VERIFIED",
+    "closure": "observations + PDF.js highlight; DPI/rotation matrix open"
+  },
+  {
+    "id": "F-ST-08-OCR",
+    "impl_status": "PARTIAL",
+    "verification": "PARTIAL_VERIFIED",
+    "closure": "critical-field list + ocrSourceConfirmed gate"
+  },
+  {
+    "id": "F-ST-09-EDIT",
+    "impl_status": "PARTIAL",
+    "verification": "PARTIAL_VERIFIED",
+    "closure": "amount/date/DR-CR editors; review digest invalidation unit"
+  },
+  {
+    "id": "F-ST-13-CARD",
+    "impl_status": "PARTIAL",
+    "verification": "PARTIAL_VERIFIED_SYNTHETIC",
+    "closure": "POST /api/import/statement-card.php live; real samples BLOCKED"
+  },
+  {
+    "id": "F-ST-16-GOAL",
+    "impl_status": "PARTIAL",
+    "verification": "PARTIAL_VERIFIED",
+    "closure": "UI earmark/funded_transfer + server fundingMode validation"
+  },
+  {
+    "id": "F-DOC-01",
+    "impl_status": "FIXED",
+    "verification": "PASS",
+    "closure": "GAP_REGISTER matches live evidence"
+  },
+  {
+    "id": "F-BANK-20",
+    "impl_status": "PARTIAL",
+    "verification": "BLOCKED",
+    "closure": "0 verified-for-scope; strict gate fails"
+  },
+  {
+    "id": "F-REF-01",
+    "impl_status": "PARTIAL",
+    "verification": "PASS_PARTIAL",
+    "closure": "docs/reference/sparowvault present"
+  },
+  {
+    "id": "F-ENV-API",
+    "impl_status": "FULL",
+    "verification": "FIXED_VERIFIED",
+    "closure": "test:statements + test:statements:browser + backup exit 0"
+  }
+]

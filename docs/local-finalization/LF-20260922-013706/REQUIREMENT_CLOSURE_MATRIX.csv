@@ -1,0 +1,16 @@
+requirement_id,track,impl_status,verify_status,closure_condition,evidence
+F-ENV-API,local_software,FULL,VERIFY_REQUIRED,Disposable TEST_DB + statement suites,test:statements
+F-ST-05-WIRE,local_software,FULL,VERIFY_REQUIRED,Omit-pair 422 live API,statement-api-checks
+F-ST-11-SOURCE,local_software,FULL,VERIFY_REQUIRED,importSources on commit,statement-api-checks
+F-ST-10-MATCH,local_software,FULL,VERIFY_REQUIRED,confirmed matches persist,statement-api-checks
+F-ST-03-OBS,local_software,PARTIAL,PASS_UNIT,Honest row-band + geometry module,statementGeometry.test.ts
+F-ST-08-OCR,local_software,PARTIAL,PASS_EXISTING,OCR gate + uncertainty list,browser-statement-import
+F-ST-09-EDIT,local_software,PARTIAL,PASS_LIVE_DIGEST,reviewDigest STALE_REVIEW_DIGEST 409,statement-api-checks
+F-ST-16-GOAL,local_software,PARTIAL,PASS_EXISTING,fundingMode UI+server,statement-api-checks goal
+F-ST-13-CARD,local_software,PARTIAL,PASS_SYNTHETIC,statement-card.php synthetic,statement-api-checks card
+F-REF-01,docs,PARTIAL,RECONCILED,Missing originals listed not fabricated,docs/reference/sparowvault/INDEX.json
+F-BANK-20,bank_scope,MISSING,BLOCKED_EXTERNAL,Need authorized holdouts,REAL_CORPUS_GAP_MANIFEST.json
+C1-GEOMETRY,local_software,FULL,PASS_UNIT,Rotation/DPI/zoom oracle ≤2px,BBOX_BROWSER_MATRIX.csv
+C3-INDEPENDENT-CLIENT,local_software,PARTIAL,VERIFY_REQUIRED,Dual context isolation+sync,INDEPENDENT_CLIENT_SYNC_REPORT.md
+HOSTED,hosted,MISSING,DEFERRED_HOSTED,Out of scope,HOSTED_DEFERRED_CHECKLIST.md
+PHYSICAL,physical,MISSING,NOT_TESTED,No authorized device,EXECUTION_STATE.json

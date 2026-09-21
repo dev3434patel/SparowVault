@@ -10,12 +10,17 @@ $published = false;
 $exitCode = 0;
 try {
     $directory = (string)(getenv("BACKUP_DIR") ?: "");
-    if ($directory === "" || !str_starts_with($directory, "/")) throw new RuntimeException("Set BACKUP_DIR to a private absolute directory outside the application/web root");
+    $isAbsolute = str_starts_with($directory, "/") || (bool)preg_match('/^[A-Za-z]:[\\\\\\/]/', $directory);
+    if ($directory === "" || !$isAbsolute) throw new RuntimeException("Set BACKUP_DIR to a private absolute directory outside the application/web root");
     if (!is_dir($directory) && !mkdir($directory, 0700, true)) throw new RuntimeException("Cannot create backup directory");
     $directory = realpath($directory);
     $root = realpath(__DIR__ . "/..");
-    if (!$directory || $directory === $root || str_starts_with($directory, $root . "/")) throw new RuntimeException("Backup directory must be outside the application/web root");
-    if ((fileperms($directory) & 0077) !== 0) throw new RuntimeException("Backup directory must be private (chmod 700)");
+    if (!$directory || !$root) throw new RuntimeException("Cannot resolve backup directory");
+    $normDir = strtolower(str_replace("\\", "/", $directory));
+    $normRoot = strtolower(str_replace("\\", "/", $root));
+    if ($normDir === $normRoot || str_starts_with($normDir, $normRoot . "/")) throw new RuntimeException("Backup directory must be outside the application/web root");
+    // Windows ACL privacy differs from Unix mode bits; enforce chmod 700 only where POSIX modes apply.
+    if (DIRECTORY_SEPARATOR === "/" && (fileperms($directory) & 0077) !== 0) throw new RuntimeException("Backup directory must be private (chmod 700)");
     $db = db_conn();
     $database = (string)$db->query("SELECT DATABASE()")->fetchColumn();
     $check = $db->prepare("SELECT COUNT(*) FROM information_schema.tables WHERE table_schema=? AND table_type='BASE TABLE' AND engine <> 'InnoDB'");

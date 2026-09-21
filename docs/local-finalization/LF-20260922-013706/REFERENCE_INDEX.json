@@ -1,0 +1,22 @@
+{
+  "generatedAt": "2026-09-21T20:15:00.000Z",
+  "fRef01Status": "PARTIAL_RECONCILED",
+  "note": "Sanitized summaries indexed; original external playbook/research binaries not present in workspace — marked missing, not reconstructed.",
+  "entries": [
+    {
+      "filename": "README.md",
+      "sha256": "f290602159276484120582ce8ba41eeec12be98bb129504ce0ee726de376385e",
+      "role": "sanitized_index_readme"
+    },
+    {
+      "filename": "REPAIR_PLAYBOOK_SUMMARY.md",
+      "sha256": "358e865256afb8d1bcbd010cbcc65761292acddffd423284ce404304cdeb9f52",
+      "role": "sanitized_playbook_summary"
+    }
+  ],
+  "missingExactOriginals": [
+    "Owner-supplied full repair playbook (pre-sanitization binary)",
+    "Private research PDF attachments not stored in-repo"
+  ],
+  "transformationNotes": "Only non-secret summaries retained under docs/reference/sparowvault. No fabricated 'original' files."
+}

@@ -1,0 +1,29 @@
+requirement_id,phase,expected,impl_location,impl_status,verification,evidence,gap,next_action
+ST-00-INV,ST-00,Generate inventories from code,docs/statements-v2 + scripts/generate-statement-inventory.mjs,FULL,PASS,inventory JSON + audit freeze,none,Keep regenerating on schema change
+ST-00-DEXIE,ST-00,Reconcile 40 vs 41 stores,database.ts + audit doc,FULL,PASS,41 stores documented,none,none
+ST-00-GATES,ST-00,Fresh typecheck/lint/unit/php,package scripts,PARTIAL,PASS/NOT_RUN,typecheck+unit+php PASS; statements API NOT_RUN,No disposable TEST_DB,Run test:statements on disposable DB
+ST-01-PRIV,ST-01,On-device PDF/password default,PRIVACY ADR + statements.php,FULL,PASS/NOT_RUN,code+draft; API live NOT_RUN,Live API not executed,Run statement-api-checks
+ST-01-REG,ST-01,Truthful layout registry 20 banks,statement_layouts.json,FULL,PASS,0 verified-for-scope,none,Acquire real corpora
+ST-02-CORPUS,ST-02,Authorized real corpus + goldens,.local + CORPUS_MANIFEST,PARTIAL,BLOCKED,synthetic only,No real PDFs,Collect authorized samples
+ST-03-OBS,ST-03,Provenance observation contracts,observations.ts,PARTIAL,NOT_RUN,types unused by UI,Not connected,Wire or scope out
+ST-03-ISSUER,ST-03,Issuer from header/footer,issuer.ts + parser,PARTIAL,PASS,unit issuer test,Weak evidence still needs confirmation path,Expand negative fixtures
+ST-04-NATIVE,ST-04,Native geometric extraction,parser.ts pdf.ts,PARTIAL,PASS,synthetic+Kotak numbered units,Real layouts BLOCKED,Real holdout
+ST-04-PAGECOV,ST-04,Page coverage fail-closed,buildPageCoverage,PARTIAL,PASS,unit empty page,none,Wire into UI status badges
+ST-05-ARITH,ST-05,Full-source arithmetic TS+PHP,verifier + statements.php,FULL,PASS/NOT_RUN,code+units,Live API NOT_RUN,Run API suite
+ST-05-COMPL,ST-05,Completeness beyond net balance,verifier.php completeness,PARTIAL,FAIL_LIVE,units PASS; not called live,F-ST-05-WIRE,Wire to commit+analyze
+ST-05-MONTH,ST-05,Monthly debit/credit counts,reports + classification,FULL,PASS,synthetic oracle unit,Real months BLOCKED,Real corpus
+ST-06-WAVEA,ST-06,Pilot banks evidence,layouts + fixtures,PARTIAL,BLOCKED,5 synthetic; ICICI registered,No real holdout,Authorize Wave A PDFs
+ST-07-WAVED,ST-07,Remaining 15 banks,registered stubs,PARTIAL,BLOCKED,name/registry only,No adapters/fixtures,Acquire samples before coding layouts
+ST-08-OCR,ST-08,Selective OCR + uncertainty,ocr.ts ocrUncertainty.ts,PARTIAL,NOT_RUN,browser OCR historical; uncertainty unused,No rotation corpus,Measure OCR holdout
+ST-09-UI,ST-09,Staged review + correction,StatementImportDialog,PARTIAL,NOT_RUN,code inspection,No bbox field editor,Build editor or scope out
+ST-09-DRAFT,ST-09,Draft without password/PDF,draft.ts,FULL,PASS,code+unit hash match,none,Add purge/expiry UI tests
+ST-10-CLASS,ST-10,Purpose separate from bank DR/CR,classification.ts,FULL,PASS,units,Udhari keyword weakly tested,Add udhari unit
+ST-10-DEDUP,ST-10,Safe duplicate matching,matching.ts,PARTIAL,NOT_RUN,proposals only,Not persisted,Persist or remove
+ST-11-ATOMIC,ST-11,Atomic idempotent commit,cloud_write + statements.php,FULL,NOT_RUN,code path clear,Live suite NOT_RUN,Run test:statements
+ST-12-REPORT,ST-12,Bank vs economic reports,reports.ts + dialog,FULL,PASS,units,Export golden E2E NOT_RUN,Export checks
+ST-13-CARD,ST-13,Credit-card PDF class,cardDocument.ts,PARTIAL,BLOCKED,schema+heading reject,No card parser,Corpus + adapter
+ST-14-AI,ST-14,No unjustified model training,MODEL_DECISION.md,FULL,N/A,decision documented,none,none
+ST-15-SEC,ST-15,Sessions CSRF privacy,auth + statements_import,PARTIAL,NOT_RUN,code; live NOT_RUN,Hosted CSP deferred,Local API + deferred hosted
+ST-16-GOAL,ST-16,Earmark vs funded transfer,goalFunding.ts,PARTIAL,PASS_LIB,unit only,Not in product engines,Integrate or demote claim
+ST-17-UX,ST-17,Responsive perf package,docs only,PARTIAL,NOT_RUN,docs checklists,No measured device run,Measure + dry-run package
+ST-18-CERT,ST-18,Independent certification,FINAL_LOCAL_STATEMENT_CERTIFICATION,PARTIAL,PASS_HONEST,blocked for 20-bank,Missing real layouts,Corpus program

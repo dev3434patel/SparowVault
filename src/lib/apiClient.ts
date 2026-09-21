@@ -16,11 +16,11 @@ export function isRetryableApiError(error: unknown): boolean {
 }
 
 function getBaseUrl() {
-  const envTarget = import.meta.env.VITE_API_TARGET as string | undefined;
+  // VITE_API_BASE_URL is the browser fetch origin. VITE_API_TARGET is only the Vite
+  // proxy upstream and must not be used here (it forces cross-origin credentialed CORS).
   const envBase = import.meta.env.VITE_API_BASE_URL as string | undefined;
   if (typeof window === "undefined") return "";
   if (envBase && envBase.trim().length > 0) return envBase.replace(/\/+$/, "");
-  if (envTarget && envTarget.trim().length > 0) return envTarget.replace(/\/+$/, "");
   return window.location.origin;
 }
 

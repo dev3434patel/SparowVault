@@ -1,0 +1,104 @@
+{
+  "runId": "LF-20260922-013706",
+  "finishedAt": "2026-09-21T20:20:14.323Z",
+  "lockfileSha256": "2f6039f5700384343402ad0e9b98d3226245692b9bab8ea94594f69f219feb7b",
+  "results": [
+    {
+      "name": "typecheck",
+      "command": "npx.cmd tsc --noEmit -p tsconfig.json",
+      "exitCode": 0,
+      "durationMs": 3393,
+      "stdoutTail": "",
+      "stderrTail": ""
+    },
+    {
+      "name": "lint",
+      "command": "npx.cmd eslint src/services/statements src/components/statements tests/unit/statementGeometry.test.ts --max-warnings 0",
+      "exitCode": 0,
+      "durationMs": 3684,
+      "stdoutTail": "",
+      "stderrTail": ""
+    },
+    {
+      "name": "unit-geometry",
+      "command": "npx.cmd vitest run tests/unit/statementGeometry.test.ts tests/unit/statementParser.test.ts tests/unit/statementIntelligence.v2.test.ts",
+      "exitCode": 0,
+      "durationMs": 2297,
+      "stdoutTail": "\n RUN  v4.1.11 D:/Claude/SparowVault\n\n ✓ tests/unit/statementGeometry.test.ts (6 tests) 8ms\n ✓ tests/unit/statementParser.test.ts (64 tests) 46ms\n ✓ tests/unit/statementIntelligence.v2.test.ts (21 tests) 30ms\n\n Test Files  3 passed (3)\n      Tests  91 passed (91)\n   Start at  01:49:21\n   Duration  467ms (transform 429ms, setup 0ms, import 553ms, tests 84ms, environment 0ms)\n\n",
+      "stderrTail": ""
+    },
+    {
+      "name": "check-php",
+      "command": "npm.cmd run check:php",
+      "exitCode": 0,
+      "durationMs": 19156,
+      "stdoutTail": "\n> sparowvault@0.1.0 check:php\n> node scripts/check-php-syntax.mjs\n\nLinting 84 PHP files…\n✓ All 84 PHP files parse cleanly.\n",
+      "stderrTail": ""
+    },
+    {
+      "name": "corpus-intake",
+      "command": "node scripts/statement-corpus-intake.mjs",
+      "exitCode": 0,
+      "durationMs": 116,
+      "stdoutTail": "{\n  \"runId\": \"LF-20260922-013706\",\n  \"privatePdfCount\": 0,\n  \"verifiedForScopeCount\": 0,\n  \"blocked\": true\n}\n",
+      "stderrTail": ""
+    },
+    {
+      "name": "statements-certify",
+      "command": "npm.cmd run statements:certify",
+      "exitCode": 0,
+      "durationMs": 3093,
+      "stdoutTail": "\n> sparowvault@0.1.0 statements:certify\n> node scripts/statements-certify.mjs\n\n\n RUN  v4.1.11 D:/Claude/SparowVault\n\n ✓ tests/unit/statementParser.test.ts (64 tests) 52ms\n ✓ tests/unit/statementIntelligence.v2.test.ts (21 tests) 37ms\n\n Test Files  2 passed (2)\n      Tests  85 passed (85)\n   Start at  01:49:43\n   Duration  455ms (transform 304ms, setup 0ms, import 396ms, tests 89ms, environment 0ms)\n\n\n{\n  \"exit\": 0,\n  \"byStatus\": {\n    \"synthetic-tested\": 5,\n    \"registered\": 15\n  },\n  \"blocked\": true\n}\n",
+      "stderrTail": "\n"
+    },
+    {
+      "name": "statements-gate-strict",
+      "command": "npm.cmd run statements:gate:strict",
+      "exitCode": 1,
+      "durationMs": 6702,
+      "stdoutTail": "\n> sparowvault@0.1.0 statements:gate:strict\n> node scripts/statements-gate-strict.mjs\n\n{\n  \"generatedAt\": \"2026-09-21T20:19:50.769Z\",\n  \"ok\": false,\n  \"failures\": [\n    \"verified-for-scope layouts: 0 (20-bank claim blocked)\"\n  ],\n  \"verifiedForScopeCount\": 0,\n  \"blockedFor20BankClaim\": true\n}\n",
+      "stderrTail": ""
+    },
+    {
+      "name": "test-statements",
+      "command": "npm.cmd run test:statements",
+      "exitCode": 0,
+      "durationMs": 21381,
+      "stdoutTail": "1.0 test:statements\n> node tests/atomic-writes-e2e.mjs --statements\n\nPASS 24 identical concurrent retries produce one immutable receipt and record\nPASS 24 different payloads cannot share one mutation key\nPASS stale PATCH is rejected and retry returns the original committed result\nPASS invalid sync batch rolls back source, ledger and audit\nPASS malformed sync rows are rejected rather than silently skipped\nPASS stale sync cannot resurrect a soft-deleted record\nPASS nonexistent and foreign transaction references are rejected\nPASS same transaction ID in two tenants has isolated ledger effects\nPASS referenced account cannot be deleted\nPASS ledger failure rolls back entity, receipt and audit\nPASS batch PATCH rolls back its first row when a later row is missing\nPASS bulk hard-delete voids posted ledger and retains server audit\nPASS hard-delete tombstones prevent stale snapshot resurrection\nPASS mutation keys are isolated by user and bound to collection\nPASS sync validates a final parent graph independent of collection order\nPASS household viewer restrictions hold on batch, sync and bulk hard-delete\nPASS bulk import uses reference validation and retry-safe row writes\nPASS owner-bound reads and queued patches reject a changed authenticated user\nPASS statement: method, authentication and CSRF are enforced\nPASS statement: mismatched balance cannot partially post source, effects or audit\nPASS statement: foreign categories, account switch and invalid calendar dates are rejected\nPASS statement: explicit review, matching direction, scope and category are mandatory\nPASS statement: concurrent identical reviewed imports produce exactly three transactions\nPASS statement: re-exported PDF and new request key do not duplicate imported rows\nPASS statement: approved transaction provenance excludes PDF bytes and passwords\nPASS statement: the same PDF cannot be posted into a second bank account\nPASS statement: excluded rows still participate in complete balance validation\nPASS statement: own-account transfer posts both account legs without income/expense categories\nPASS statement: excessive linked refunds roll back the entire batch\nPASS statement: reviewed refund reduces expense and increases bank balance without income\nPASS statement: card payment reduces cash and card liability without recording another expense\nPASS statement: import throttling rejects requests beyond its configured limit\nPASS statement: stale reviewDigest is rejected with no financial writes\nPASS statement: omitted offsetting pair is rejected when independent evidence mismatches\nPASS statement: complete fixture with matching evidence posts and writes importSources\nPASS statement: confirmed match persists reconciliationMatches without duplicating money\nPASS card statement: liability arithmetic posts purchases and matches bank repayment once\nPASS goal contrib: earmark notes accepted; funded_transfer without transaction rejected\nPASS contribution: 400 meal + 200 return = 200 expense, -200 cash, zero income\nPASS contribution: concurrent returns cannot exceed remaining expense\nPASS contribution: category, scope, date, income type and missing original are rejected\nPASS statement: OCR confirmation is required server-side and contribution preserves provenance\nPASS security: logout revokes captured bearer token but not another session\nPASS security: recovery requires PIN and survives PIN changes; old sessions are revoked\nPASS security: cookie mutations require CSRF, GET me does not rotate a valid token\nPASS security: concurrent PIN changes cannot both overwrite the same credential\nPASS security: forced PIN change blocks financial access until credential replacement\nPASS security: dev server refuses source, configuration, backup and dependency paths\nPASS security: untrusted and opaque origins never receive credentialed CORS\nPASS security: spoofed forwarded IP headers cannot evade the login limit\nPASS backup: private consistent dump restores every table's full contents in an isolated database\n",
+      "stderrTail": ""
+    },
+    {
+      "name": "independent-client",
+      "command": "node scripts/with-local-test-runtime.mjs node tests/browser-independent-client-sync.mjs",
+      "exitCode": 0,
+      "durationMs": 2134,
+      "stdoutTail": "{\"runtimeDb\":\"sparowvault_test\",\"testDb\":\"sparowvault_test\",\"sentinel\":\"sv-repair-r0-2026-09-22\",\"appEnv\":\"test\"}\n{\n  \"pass\": true,\n  \"report\": {\n    \"base\": \"http://localhost:5000\",\n    \"isolationLocalStorage\": true,\n    \"sameUserSecondLogin\": true,\n    \"crossUserDenied\": true,\n    \"physicalDeviceEvidence\": \"NOT_TESTED\",\n    \"note\": \"Two Playwright browser contexts proved storage isolation; same-user auth via separate login cookies; cross-user account read denied.\"\n  }\n}\n",
+      "stderrTail": ""
+    }
+  ],
+  "localSoftwareStatus": "PASS",
+  "mandatoryLocalRequirementsComplete": true,
+  "remainingMandatoryLocalDefects": 0,
+  "localProductionLikePackage": "NOT_RUN",
+  "independentClientSync": "PASS",
+  "physicalDeviceEvidence": "NOT_TESTED",
+  "bankLayoutsVerifiedForScope": 0,
+  "banksWithAtLeastOneVerifiedDeclaredLayout": "0/20",
+  "allRequiredBankScopesVerified": false,
+  "blockedFor20BankClaim": true,
+  "hostedRelease": "NOT_TESTED",
+  "allRequestedEvidenceComplete": false,
+  "conclusion": "LOCAL_SOFTWARE_COMPLETE_WITH_EXTERNAL_EVIDENCE_GAPS",
+  "workstreams": {
+    "C0": "PASS",
+    "C1": "PASS",
+    "C2": "PASS",
+    "C3": "PASS",
+    "C4": "PARTIAL",
+    "C5": "BLOCKED_EXTERNAL",
+    "C6": "PARTIAL",
+    "C7": "PARTIAL",
+    "C8": "PASS",
+    "C9": "PASS"
+  }
+}

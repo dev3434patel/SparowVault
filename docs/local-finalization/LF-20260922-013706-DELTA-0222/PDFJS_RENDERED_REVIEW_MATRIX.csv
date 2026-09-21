@@ -1,0 +1,11 @@
+engine,page,zoom,rotation,result
+chromium+pdfjs,1,0.75,0,PASS
+chromium+pdfjs,2,0.75,0,PASS
+chromium+pdfjs,1,1,0,PASS
+chromium+pdfjs,2,1,0,PASS
+chromium+pdfjs,1,1.25,0,PASS
+chromium+pdfjs,2,1.25,0,PASS
+chromium+pdfjs,1,1.5,0,PASS
+chromium+pdfjs,2,1.5,0,PASS
+chromium+pdfjs,1,2,0,PASS
+chromium+pdfjs,2,2,0,PASS

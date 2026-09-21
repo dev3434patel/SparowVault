@@ -1,0 +1,21 @@
+{
+  "runId": "LF-20260922-013706-DELTA-020111",
+  "wasmCount": 6,
+  "workerCount": 2,
+  "suspiciousFiles": [
+    "/20260910_atomic_writes.sql",
+    "/20260911_security_sessions.sql",
+    "/HOSTING_READY_CLEAN_IMPORT.sql"
+  ],
+  "sampleWasm": [
+    "/ocr/7.0.0/tesseract-core-lstm.wasm",
+    "/ocr/7.0.0/tesseract-core-relaxedsimd-lstm.wasm",
+    "/ocr/7.0.0/tesseract-core-relaxedsimd.wasm",
+    "/ocr/7.0.0/tesseract-core-simd-lstm.wasm",
+    "/ocr/7.0.0/tesseract-core-simd.wasm"
+  ],
+  "sampleWorkers": [
+    "/assets/pdf.worker.min-wgc6bjNh.mjs",
+    "/ocr/7.0.0/worker.min.js"
+  ]
+}

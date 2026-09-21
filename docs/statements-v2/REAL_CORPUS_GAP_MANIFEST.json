@@ -1,0 +1,356 @@
+{
+  "generatedAt": "2026-09-21T20:19:40.989Z",
+  "runId": "LF-20260922-013706",
+  "authorizedRootsChecked": [
+    ".local/statement-corpus",
+    "tests/fixtures/statements"
+  ],
+  "diskSweep": false,
+  "bankPortalAccess": false,
+  "filesFound": [
+    {
+      "path": "tests/fixtures/statements/axis.pdf",
+      "bytes": 2209,
+      "sha256": "1006b852101079277d9f3d352bf41525af1a4bee600e4843833c49f209cc2995",
+      "kind": "pdf",
+      "root": "tests/fixtures/statements",
+      "label": "PUBLIC_SYNTHETIC_FIXTURE"
+    },
+    {
+      "path": "tests/fixtures/statements/hdfc-locked.pdf",
+      "bytes": 3233,
+      "sha256": "f9bb8c02d848dce149a80e6ea3cc7ecc160520b1ddfacb0b0913efcade620d72",
+      "kind": "pdf",
+      "root": "tests/fixtures/statements",
+      "label": "PUBLIC_SYNTHETIC_FIXTURE"
+    },
+    {
+      "path": "tests/fixtures/statements/hdfc.pdf",
+      "bytes": 2219,
+      "sha256": "6a51fbb2b5bb6dd5c9b0289c2d94f557f73ca56ca0fc167ae5954e3245656252",
+      "kind": "pdf",
+      "root": "tests/fixtures/statements",
+      "label": "PUBLIC_SYNTHETIC_FIXTURE"
+    },
+    {
+      "path": "tests/fixtures/statements/indusind.pdf",
+      "bytes": 2214,
+      "sha256": "b0d8964f6e9d7622f7e5882653f6090051ddda9ca06ca4cffd2ac1851b4e0180",
+      "kind": "pdf",
+      "root": "tests/fixtures/statements",
+      "label": "PUBLIC_SYNTHETIC_FIXTURE"
+    },
+    {
+      "path": "tests/fixtures/statements/kotak-numbered.pdf",
+      "bytes": 4436,
+      "sha256": "afcdd9869a69a0d4c2588d3ae69bc079326d091bd0b1d35f3d7b3c3954a39bbd",
+      "kind": "pdf",
+      "root": "tests/fixtures/statements",
+      "label": "PUBLIC_SYNTHETIC_FIXTURE"
+    },
+    {
+      "path": "tests/fixtures/statements/kotak.pdf",
+      "bytes": 2208,
+      "sha256": "c602b2c4234548831f19ff6d560ff2b46a5ce49205bebdbf27ce7369e589eb8e",
+      "kind": "pdf",
+      "root": "tests/fixtures/statements",
+      "label": "PUBLIC_SYNTHETIC_FIXTURE"
+    },
+    {
+      "path": "tests/fixtures/statements/multipage.pdf",
+      "bytes": 2999,
+      "sha256": "9a7cf2e8cc075c27968d61f4eb664acd6d39ede889e797d9eaebdd3999ee0636",
+      "kind": "pdf",
+      "root": "tests/fixtures/statements",
+      "label": "PUBLIC_SYNTHETIC_FIXTURE"
+    },
+    {
+      "path": "tests/fixtures/statements/ocr-clean.pdf",
+      "bytes": 146280,
+      "sha256": "2f2c83cd7ba5a6ce8cb7639a7ee9dd38039616217dd123f137c589f4f2c245ce",
+      "kind": "pdf",
+      "root": "tests/fixtures/statements",
+      "label": "PUBLIC_SYNTHETIC_FIXTURE"
+    },
+    {
+      "path": "tests/fixtures/statements/ocr-locked.pdf",
+      "bytes": 147369,
+      "sha256": "1af8ef642e4bbd69f2bddba7c1038e339d2669c16f7a6efa84f6ac96f60800f9",
+      "kind": "pdf",
+      "root": "tests/fixtures/statements",
+      "label": "PUBLIC_SYNTHETIC_FIXTURE"
+    },
+    {
+      "path": "tests/fixtures/statements/sbi.pdf",
+      "bytes": 2219,
+      "sha256": "7f1fdd2d7dfa43e6ff9cce47fa51a7e61c46b3b1afad8c56bf5e39955e0d20b6",
+      "kind": "pdf",
+      "root": "tests/fixtures/statements",
+      "label": "PUBLIC_SYNTHETIC_FIXTURE"
+    },
+    {
+      "path": "tests/fixtures/statements/scanned.pdf",
+      "bytes": 6252,
+      "sha256": "976bd2b6ed03f043f9f02101213cbb90f39979e57b8ff6adab4162ff3905f8fa",
+      "kind": "pdf",
+      "root": "tests/fixtures/statements",
+      "label": "PUBLIC_SYNTHETIC_FIXTURE"
+    },
+    {
+      "path": "tests/fixtures/statements/v2/synthetic-acceptance-2026-03-04.json",
+      "bytes": 4276,
+      "sha256": "54b3b9c33764ff803b62d3f468beb6e7c402921cf0d496242e10b5718081eae1",
+      "kind": "json",
+      "root": "tests/fixtures/statements",
+      "label": "PUBLIC_SYNTHETIC_FIXTURE"
+    }
+  ],
+  "privatePdfCount": 0,
+  "verifiedForScopeCount": 0,
+  "syntheticTestedCount": 0,
+  "targetBanks": 20,
+  "gaps": [
+    {
+      "bankId": "hdfc",
+      "hasVerifiedForScope": false,
+      "layoutCount": 0,
+      "missingEvidence": [
+        "authorized real statement PDF under .local/statement-corpus",
+        "independent expected rows / printed controls (not parser self-oracle)",
+        "holdout partition per HOLDOUT_POLICY.md"
+      ],
+      "privatePdfCount": 0,
+      "readyAutomation": "npm run statements:certify && npm run statements:gate:strict"
+    },
+    {
+      "bankId": "icici",
+      "hasVerifiedForScope": false,
+      "layoutCount": 0,
+      "missingEvidence": [
+        "authorized real statement PDF under .local/statement-corpus",
+        "independent expected rows / printed controls (not parser self-oracle)",
+        "holdout partition per HOLDOUT_POLICY.md"
+      ],
+      "privatePdfCount": 0,
+      "readyAutomation": "npm run statements:certify && npm run statements:gate:strict"
+    },
+    {
+      "bankId": "sbi",
+      "hasVerifiedForScope": false,
+      "layoutCount": 0,
+      "missingEvidence": [
+        "authorized real statement PDF under .local/statement-corpus",
+        "independent expected rows / printed controls (not parser self-oracle)",
+        "holdout partition per HOLDOUT_POLICY.md"
+      ],
+      "privatePdfCount": 0,
+      "readyAutomation": "npm run statements:certify && npm run statements:gate:strict"
+    },
+    {
+      "bankId": "axis",
+      "hasVerifiedForScope": false,
+      "layoutCount": 0,
+      "missingEvidence": [
+        "authorized real statement PDF under .local/statement-corpus",
+        "independent expected rows / printed controls (not parser self-oracle)",
+        "holdout partition per HOLDOUT_POLICY.md"
+      ],
+      "privatePdfCount": 0,
+      "readyAutomation": "npm run statements:certify && npm run statements:gate:strict"
+    },
+    {
+      "bankId": "kotak",
+      "hasVerifiedForScope": false,
+      "layoutCount": 0,
+      "missingEvidence": [
+        "authorized real statement PDF under .local/statement-corpus",
+        "independent expected rows / printed controls (not parser self-oracle)",
+        "holdout partition per HOLDOUT_POLICY.md"
+      ],
+      "privatePdfCount": 0,
+      "readyAutomation": "npm run statements:certify && npm run statements:gate:strict"
+    },
+    {
+      "bankId": "pnb",
+      "hasVerifiedForScope": false,
+      "layoutCount": 0,
+      "missingEvidence": [
+        "authorized real statement PDF under .local/statement-corpus",
+        "independent expected rows / printed controls (not parser self-oracle)",
+        "holdout partition per HOLDOUT_POLICY.md"
+      ],
+      "privatePdfCount": 0,
+      "readyAutomation": "npm run statements:certify && npm run statements:gate:strict"
+    },
+    {
+      "bankId": "bob",
+      "hasVerifiedForScope": false,
+      "layoutCount": 0,
+      "missingEvidence": [
+        "authorized real statement PDF under .local/statement-corpus",
+        "independent expected rows / printed controls (not parser self-oracle)",
+        "holdout partition per HOLDOUT_POLICY.md"
+      ],
+      "privatePdfCount": 0,
+      "readyAutomation": "npm run statements:certify && npm run statements:gate:strict"
+    },
+    {
+      "bankId": "canara",
+      "hasVerifiedForScope": false,
+      "layoutCount": 0,
+      "missingEvidence": [
+        "authorized real statement PDF under .local/statement-corpus",
+        "independent expected rows / printed controls (not parser self-oracle)",
+        "holdout partition per HOLDOUT_POLICY.md"
+      ],
+      "privatePdfCount": 0,
+      "readyAutomation": "npm run statements:certify && npm run statements:gate:strict"
+    },
+    {
+      "bankId": "union",
+      "hasVerifiedForScope": false,
+      "layoutCount": 0,
+      "missingEvidence": [
+        "authorized real statement PDF under .local/statement-corpus",
+        "independent expected rows / printed controls (not parser self-oracle)",
+        "holdout partition per HOLDOUT_POLICY.md"
+      ],
+      "privatePdfCount": 0,
+      "readyAutomation": "npm run statements:certify && npm run statements:gate:strict"
+    },
+    {
+      "bankId": "indusind",
+      "hasVerifiedForScope": false,
+      "layoutCount": 0,
+      "missingEvidence": [
+        "authorized real statement PDF under .local/statement-corpus",
+        "independent expected rows / printed controls (not parser self-oracle)",
+        "holdout partition per HOLDOUT_POLICY.md"
+      ],
+      "privatePdfCount": 0,
+      "readyAutomation": "npm run statements:certify && npm run statements:gate:strict"
+    },
+    {
+      "bankId": "idbi",
+      "hasVerifiedForScope": false,
+      "layoutCount": 0,
+      "missingEvidence": [
+        "authorized real statement PDF under .local/statement-corpus",
+        "independent expected rows / printed controls (not parser self-oracle)",
+        "holdout partition per HOLDOUT_POLICY.md"
+      ],
+      "privatePdfCount": 0,
+      "readyAutomation": "npm run statements:certify && npm run statements:gate:strict"
+    },
+    {
+      "bankId": "boi",
+      "hasVerifiedForScope": false,
+      "layoutCount": 0,
+      "missingEvidence": [
+        "authorized real statement PDF under .local/statement-corpus",
+        "independent expected rows / printed controls (not parser self-oracle)",
+        "holdout partition per HOLDOUT_POLICY.md"
+      ],
+      "privatePdfCount": 0,
+      "readyAutomation": "npm run statements:certify && npm run statements:gate:strict"
+    },
+    {
+      "bankId": "iob",
+      "hasVerifiedForScope": false,
+      "layoutCount": 0,
+      "missingEvidence": [
+        "authorized real statement PDF under .local/statement-corpus",
+        "independent expected rows / printed controls (not parser self-oracle)",
+        "holdout partition per HOLDOUT_POLICY.md"
+      ],
+      "privatePdfCount": 0,
+      "readyAutomation": "npm run statements:certify && npm run statements:gate:strict"
+    },
+    {
+      "bankId": "bom",
+      "hasVerifiedForScope": false,
+      "layoutCount": 0,
+      "missingEvidence": [
+        "authorized real statement PDF under .local/statement-corpus",
+        "independent expected rows / printed controls (not parser self-oracle)",
+        "holdout partition per HOLDOUT_POLICY.md"
+      ],
+      "privatePdfCount": 0,
+      "readyAutomation": "npm run statements:certify && npm run statements:gate:strict"
+    },
+    {
+      "bankId": "uco",
+      "hasVerifiedForScope": false,
+      "layoutCount": 0,
+      "missingEvidence": [
+        "authorized real statement PDF under .local/statement-corpus",
+        "independent expected rows / printed controls (not parser self-oracle)",
+        "holdout partition per HOLDOUT_POLICY.md"
+      ],
+      "privatePdfCount": 0,
+      "readyAutomation": "npm run statements:certify && npm run statements:gate:strict"
+    },
+    {
+      "bankId": "federal",
+      "hasVerifiedForScope": false,
+      "layoutCount": 0,
+      "missingEvidence": [
+        "authorized real statement PDF under .local/statement-corpus",
+        "independent expected rows / printed controls (not parser self-oracle)",
+        "holdout partition per HOLDOUT_POLICY.md"
+      ],
+      "privatePdfCount": 0,
+      "readyAutomation": "npm run statements:certify && npm run statements:gate:strict"
+    },
+    {
+      "bankId": "yes",
+      "hasVerifiedForScope": false,
+      "layoutCount": 0,
+      "missingEvidence": [
+        "authorized real statement PDF under .local/statement-corpus",
+        "independent expected rows / printed controls (not parser self-oracle)",
+        "holdout partition per HOLDOUT_POLICY.md"
+      ],
+      "privatePdfCount": 0,
+      "readyAutomation": "npm run statements:certify && npm run statements:gate:strict"
+    },
+    {
+      "bankId": "idfc",
+      "hasVerifiedForScope": false,
+      "layoutCount": 0,
+      "missingEvidence": [
+        "authorized real statement PDF under .local/statement-corpus",
+        "independent expected rows / printed controls (not parser self-oracle)",
+        "holdout partition per HOLDOUT_POLICY.md"
+      ],
+      "privatePdfCount": 0,
+      "readyAutomation": "npm run statements:certify && npm run statements:gate:strict"
+    },
+    {
+      "bankId": "au",
+      "hasVerifiedForScope": false,
+      "layoutCount": 0,
+      "missingEvidence": [
+        "authorized real statement PDF under .local/statement-corpus",
+        "independent expected rows / printed controls (not parser self-oracle)",
+        "holdout partition per HOLDOUT_POLICY.md"
+      ],
+      "privatePdfCount": 0,
+      "readyAutomation": "npm run statements:certify && npm run statements:gate:strict"
+    },
+    {
+      "bankId": "bandhan",
+      "hasVerifiedForScope": false,
+      "layoutCount": 0,
+      "missingEvidence": [
+        "authorized real statement PDF under .local/statement-corpus",
+        "independent expected rows / printed controls (not parser self-oracle)",
+        "holdout partition per HOLDOUT_POLICY.md"
+      ],
+      "privatePdfCount": 0,
+      "readyAutomation": "npm run statements:certify && npm run statements:gate:strict"
+    }
+  ],
+  "blockedFor20BankClaim": true,
+  "nextStep": "Place authorized Wave A specimens under .local/statement-corpus/<bank>/ with provenance.json; annotate expected independently; run statements:certify."
+}

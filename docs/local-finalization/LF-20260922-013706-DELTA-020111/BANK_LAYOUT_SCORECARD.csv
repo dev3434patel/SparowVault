@@ -1,0 +1,21 @@
+bankId,layoutId,status,product,mode,synthetic_docs,real_docs,holdout,verified_for_scope,notes
+kotak,kotak.savings.numbered.v1.en-IN.INR.native_pdf,synthetic-tested,savings,native_pdf,1+,0,0,false,Numbered special-case; private oracle not reproduced this audit
+hdfc,hdfc.savings.generic.v1.en-IN.INR.native_pdf,synthetic-tested,savings,native_pdf,1,0,0,false,Synthetic PDF only
+sbi,sbi.savings.generic.v1.en-IN.INR.native_pdf,synthetic-tested,savings,native_pdf,1,0,0,false,Synthetic PDF only
+axis,axis.savings.generic.v1.en-IN.INR.native_pdf,synthetic-tested,savings,native_pdf,1,0,0,false,Synthetic PDF only
+indusind,indusind.savings.generic.v1.en-IN.INR.native_pdf,synthetic-tested,savings,native_pdf,1,0,0,false,Synthetic PDF only
+icici,icici.savings.registered.v0.en-IN.INR.native_pdf,registered,savings,native_pdf,0,0,0,false,Detection only
+pnb,pnb.savings.registered.v0.en-IN.INR.native_pdf,registered,savings,native_pdf,0,0,0,false,BLOCKED
+bob,bob.savings.registered.v0.en-IN.INR.native_pdf,registered,savings,native_pdf,0,0,0,false,BLOCKED
+canara,canara.savings.registered.v0.en-IN.INR.native_pdf,registered,savings,native_pdf,0,0,0,false,BLOCKED
+union,union.savings.registered.v0.en-IN.INR.native_pdf,registered,savings,native_pdf,0,0,0,false,BLOCKED
+idbi,idbi.savings.registered.v0.en-IN.INR.native_pdf,registered,savings,native_pdf,0,0,0,false,BLOCKED
+boi,boi.savings.registered.v0.en-IN.INR.native_pdf,registered,savings,native_pdf,0,0,0,false,BLOCKED
+iob,iob.savings.registered.v0.en-IN.INR.native_pdf,registered,savings,native_pdf,0,0,0,false,BLOCKED
+maharashtra,maharashtra.savings.registered.v0.en-IN.INR.native_pdf,registered,savings,native_pdf,0,0,0,false,BLOCKED
+uco,uco.savings.registered.v0.en-IN.INR.native_pdf,registered,savings,native_pdf,0,0,0,false,BLOCKED
+federal,federal.savings.registered.v0.en-IN.INR.native_pdf,registered,savings,native_pdf,0,0,0,false,BLOCKED
+yes,yes.savings.registered.v0.en-IN.INR.native_pdf,registered,savings,native_pdf,0,0,0,false,BLOCKED
+idfc_first,idfc_first.savings.registered.v0.en-IN.INR.native_pdf,registered,savings,native_pdf,0,0,0,false,BLOCKED
+au,au.savings.registered.v0.en-IN.INR.native_pdf,registered,savings,native_pdf,0,0,0,false,BLOCKED
+bandhan,bandhan.savings.registered.v0.en-IN.INR.native_pdf,registered,savings,native_pdf,0,0,0,false,BLOCKED

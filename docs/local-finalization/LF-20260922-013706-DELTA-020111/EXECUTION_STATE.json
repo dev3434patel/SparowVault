@@ -1,0 +1,20 @@
+{
+  "parentRunId": "LF-20260922-013706",
+  "runId": "LF-20260922-013706-DELTA-020111",
+  "conclusion": "LOCAL_REMEDIATION_REQUIRED",
+  "localSoftwareStatus": "INCOMPLETE",
+  "mandatoryLocalRequirementsComplete": false,
+  "classificationGuardrails": "PASS",
+  "renderedReviewGeometry": "PASS_PARTIAL",
+  "independentClientSync": "PASS",
+  "syncFaultRecovery": "PARTIAL",
+  "localProductionLikePackage": "PASS_PHP_BUILTIN",
+  "apachePackageServing": "NOT_VERIFIED",
+  "bankLayoutsVerifiedForScope": 0,
+  "blockedFor20BankClaim": true,
+  "physicalDeviceEvidence": "NOT_TESTED",
+  "hostedRelease": "NOT_TESTED",
+  "allRequestedEvidenceComplete": false,
+  "parentCompletionLabelWithdrawn": true,
+  "reason": "Mandatory local package Apache verification, full PDF.js dialog matrix, true concurrency races, and card PDF UI remain incomplete; classification guardrail repaired."
+}

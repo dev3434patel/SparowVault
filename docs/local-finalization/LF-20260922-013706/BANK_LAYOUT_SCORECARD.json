@@ -1,0 +1,159 @@
+{
+  "generatedAt": "2026-09-21T20:19:44.071Z",
+  "vitestExitCode": 0,
+  "targetBanks": 20,
+  "layoutCount": 20,
+  "byStatus": {
+    "synthetic-tested": 5,
+    "registered": 15
+  },
+  "verifiedForScope": [],
+  "blockedRealCorpus": [
+    {
+      "layoutId": "kotak.savings.numbered.v1.en-IN.INR.native_pdf",
+      "status": "synthetic-tested",
+      "limitations": [
+        "Real private corpus certification requires owner-authorized holdout; not claimed here"
+      ]
+    },
+    {
+      "layoutId": "hdfc.savings.generic.v1.en-IN.INR.native_pdf",
+      "status": "synthetic-tested",
+      "limitations": [
+        "Synthetic only; real-customer layout not measured"
+      ]
+    },
+    {
+      "layoutId": "sbi.savings.generic.v1.en-IN.INR.native_pdf",
+      "status": "synthetic-tested",
+      "limitations": [
+        "Synthetic only; real-customer layout not measured"
+      ]
+    },
+    {
+      "layoutId": "axis.savings.generic.v1.en-IN.INR.native_pdf",
+      "status": "synthetic-tested",
+      "limitations": [
+        "Synthetic only; real-customer layout not measured"
+      ]
+    },
+    {
+      "layoutId": "indusind.savings.generic.v1.en-IN.INR.native_pdf",
+      "status": "synthetic-tested",
+      "limitations": [
+        "Synthetic only; real-customer layout not measured"
+      ]
+    },
+    {
+      "layoutId": "icici.savings.registered.v0.en-IN.INR.native_pdf",
+      "status": "registered",
+      "limitations": [
+        "Name detection only; no certified layout fixture"
+      ]
+    },
+    {
+      "layoutId": "pnb.savings.registered.v0.en-IN.INR.native_pdf",
+      "status": "registered",
+      "limitations": [
+        "No authorized corpus"
+      ]
+    },
+    {
+      "layoutId": "bob.savings.registered.v0.en-IN.INR.native_pdf",
+      "status": "registered",
+      "limitations": [
+        "No authorized corpus"
+      ]
+    },
+    {
+      "layoutId": "canara.savings.registered.v0.en-IN.INR.native_pdf",
+      "status": "registered",
+      "limitations": [
+        "No authorized corpus"
+      ]
+    },
+    {
+      "layoutId": "union.savings.registered.v0.en-IN.INR.native_pdf",
+      "status": "registered",
+      "limitations": [
+        "No authorized corpus"
+      ]
+    },
+    {
+      "layoutId": "idbi.savings.registered.v0.en-IN.INR.native_pdf",
+      "status": "registered",
+      "limitations": [
+        "No authorized corpus"
+      ]
+    },
+    {
+      "layoutId": "boi.savings.registered.v0.en-IN.INR.native_pdf",
+      "status": "registered",
+      "limitations": [
+        "No authorized corpus"
+      ]
+    },
+    {
+      "layoutId": "iob.savings.registered.v0.en-IN.INR.native_pdf",
+      "status": "registered",
+      "limitations": [
+        "No authorized corpus"
+      ]
+    },
+    {
+      "layoutId": "maharashtra.savings.registered.v0.en-IN.INR.native_pdf",
+      "status": "registered",
+      "limitations": [
+        "No authorized corpus"
+      ]
+    },
+    {
+      "layoutId": "uco.savings.registered.v0.en-IN.INR.native_pdf",
+      "status": "registered",
+      "limitations": [
+        "No authorized corpus"
+      ]
+    },
+    {
+      "layoutId": "federal.savings.registered.v0.en-IN.INR.native_pdf",
+      "status": "registered",
+      "limitations": [
+        "No authorized corpus"
+      ]
+    },
+    {
+      "layoutId": "yes.savings.registered.v0.en-IN.INR.native_pdf",
+      "status": "registered",
+      "limitations": [
+        "No authorized corpus"
+      ]
+    },
+    {
+      "layoutId": "idfc_first.savings.registered.v0.en-IN.INR.native_pdf",
+      "status": "registered",
+      "limitations": [
+        "No authorized corpus"
+      ]
+    },
+    {
+      "layoutId": "au.savings.registered.v0.en-IN.INR.native_pdf",
+      "status": "registered",
+      "limitations": [
+        "No authorized corpus"
+      ]
+    },
+    {
+      "layoutId": "bandhan.savings.registered.v0.en-IN.INR.native_pdf",
+      "status": "registered",
+      "limitations": [
+        "No authorized corpus"
+      ]
+    }
+  ],
+  "labels": {
+    "LOCAL_PIPELINE_VERIFIED": true,
+    "LAYOUT_VERIFIED": [],
+    "BLOCKED_FOR_20_BANK_CLAIM": true,
+    "HOSTED_RELEASE": "NOT_TESTED"
+  }
+}

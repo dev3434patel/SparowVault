@@ -1,0 +1,29 @@
+{
+  "runId": "LF-20260922-013706-DELTA-0222",
+  "artifacts": [
+    "FINAL_LOCAL_COMPLETION_REPORT.md",
+    "CURRENT_STATUS_SUMMARY.md",
+    "REMAINING_PREREQUISITES.md",
+    "HOSTED_DEFERRED_CHECKLIST.md",
+    "PHYSICAL_DEVICE_NOT_TESTED.md",
+    "RENDERED_REVIEW_MATRIX.csv",
+    "BBOX_BROWSER_MATRIX.csv",
+    "RENDERED_REVIEW_REPORT.md",
+    "PDFJS_RENDERED_REVIEW_MATRIX.csv",
+    "LOCAL_PACKAGE_APACHE_REPORT.md",
+    "LOCAL_PACKAGE_SERVING_REPORT.md",
+    "PACKAGE_SQL_ALLOWLIST.md",
+    "SYNC_FAULT_MATRIX.csv",
+    "INDEPENDENT_CLIENT_RECOVERY_REPORT.md",
+    "INDEPENDENT_CLIENT_SYNC_REPORT.md",
+    "GOAL_CARD_PRODUCT_E2E_REPORT.md",
+    "FREEZE.json",
+    "EXECUTION_STATE.json",
+    "cmd-typecheck.log",
+    "cmd-check-php.log",
+    "cmd-unit.log",
+    "cmd-test-statements.log",
+    "cmd-statements-gate-strict.log",
+    "cmd-statements-certify.log"
+  ]
+}

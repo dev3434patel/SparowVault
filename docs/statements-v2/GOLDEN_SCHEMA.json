@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "StatementGolden",
+  "type": "object",
+  "required": ["fixtureId", "kind", "reviewer", "openingPaise", "rows", "expected"],
+  "properties": {
+    "fixtureId": { "type": "string" },
+    "kind": { "enum": ["synthetic", "real_authorized"] },
+    "reviewer": { "type": "string" },
+    "openingPaise": { "type": "integer" },
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "bookingDate", "debitPaise", "creditPaise", "balancePaise"],
+        "properties": {
+          "id": { "type": "string" },
+          "bookingDate": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+          "debitPaise": { "type": "integer", "minimum": 0 },
+          "creditPaise": { "type": "integer", "minimum": 0 },
+          "balancePaise": { "type": ["integer", "null"] }
+        }
+      }
+    },
+    "expected": {
+      "type": "object",
+      "required": ["closingPaise", "months"],
+      "properties": {
+        "closingPaise": { "type": "integer" },
+        "months": { "type": "array" },
+        "completeness": { "type": "object" }
+      }
+    }
+  }
+}

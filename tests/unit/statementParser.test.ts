@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { analyzeStatement, reconcileStatement, statementDate, statementPaise } from "../../src/services/statements/parser";
-import { decisionProblems, monthlyStatementTotals, statementDuplicate, suggestStatementDecision } from "../../src/services/statements/classification";
+import { canBulkConfirmDecision, decisionProblems, monthlyStatementTotals, statementDuplicate, suggestStatementDecision } from "../../src/services/statements/classification";
+import { reportEconomicMonth } from "../../src/services/statements/reports";
 import type { StatementPage, StatementRow } from "../../src/services/statements/types";
 import type { Category, Transaction } from "../../src/types";
 
@@ -115,18 +116,34 @@ describe("statement layout extraction", () => {
   });
 });
 describe("review-first categorization", () => {
-  const categories = [category("salary", "Salary", "income"), category("food", "Food & Dining", "expense")];
-  it("suggests salary and food but never confirms purpose or personal/business scope", () => {
-    expect(suggestStatementDecision(row({ description: "SALARY ACME", debitPaise: 0, creditPaise: 100 }), categories)).toMatchObject({ kind: "income", categoryId: "salary", scope: "", reviewed: false });
-    expect(suggestStatementDecision(row({ description: "UPI ZOMATO" }), categories)).toMatchObject({ kind: "expense", categoryId: "food", reviewed: false });
+  const categories = [category("salary", "Salary", "income"), category("food", "Food & Dining", "expense"), category("other-exp", "Other", "expense"), category("other-inc", "Other", "income")];
+  it("suggests salary and food and defaults scope to personal without marking reviewed", () => {
+    expect(suggestStatementDecision(row({ description: "SALARY ACME", debitPaise: 0, creditPaise: 100 }), categories)).toMatchObject({ kind: "income", categoryId: "salary", scope: "personal", reviewed: false, proposalStrength: "strong" });
+    expect(suggestStatementDecision(row({ description: "UPI ZOMATO" }), categories)).toMatchObject({ kind: "expense", categoryId: "food", scope: "personal", reviewed: false, proposalStrength: "strong" });
   });
-  it("unknown transfers are not guessed as income or expense", () => {
-    expect(suggestStatementDecision(row(), categories).kind).toBe("");
+  it("keeps direction-only cues as weak non-binding suggestions (kind empty)", () => {
+    const debit = suggestStatementDecision(row(), categories);
+    expect(debit).toMatchObject({ kind: "", suggestedKind: "expense", proposalStrength: "weak", reviewed: false, scope: "" });
+    expect(canBulkConfirmDecision(debit)).toBe(false);
+    const credit = suggestStatementDecision(row({ description: "UPI UNKNOWN IN", debitPaise: 0, creditPaise: 500 }), categories);
+    expect(credit).toMatchObject({ kind: "", suggestedKind: "income", proposalStrength: "weak", reviewed: false });
+    expect(suggestStatementDecision(row({ description: "UPI/ONE97 COMMUNICA/384/Payment", debitPaise: 0, creditPaise: 500 }), categories)).toMatchObject({ kind: "refund", proposalStrength: "strong", reviewed: false });
+    expect(suggestStatementDecision(row({ description: "UPI/RAJU FALUDA ICE/568/Paid" }), categories)).toMatchObject({ kind: "expense", categoryId: "food", proposalStrength: "strong" });
     expect(suggestStatementDecision(row({ description: "NEFT LOAN DISBURSAL", debitPaise: 0, creditPaise: 100 }), categories)).toMatchObject({ kind: "", include: false });
     expect(suggestStatementDecision(row({ description: "ATM CASH WITHDRAWAL" }), categories).kind).toBe("transfer");
   });
+  it("economic reports keep bank totals and exclude unapproved suggestions from income/expense", () => {
+    const rows = [row({ id: "1", debitPaise: 0, creditPaise: 10000, description: "UPI UNKNOWN" }), row({ id: "2", description: "UPI ZOMATO" })];
+    const decisions = Object.fromEntries(rows.map(r => [r.id, suggestStatementDecision(r, categories)]));
+    const month = reportEconomicMonth(rows, decisions)[0];
+    expect(month.bankCreditPaise).toBe(10000);
+    expect(month.bankDebitPaise).toBe(10000);
+    expect(month.incomePaise).toBe(0);
+    expect(month.expensePaise).toBe(0);
+    expect(month.unresolvedPaise).toBe(20000);
+  });
   it("rejects contradictory purpose, missing category and unreviewed rows", () => {
-    const decision = { ...suggestStatementDecision(row(), []), kind: "income" as const, reviewed: true };
+    const decision = { ...suggestStatementDecision(row(), []), kind: "income" as const, categoryId: "", reviewed: true };
     expect(decisionProblems(row(), decision, "account")).toContain("Purpose contradicts debit/credit direction");
     expect(decisionProblems(row(), decision, "account")).toContain("Choose a category");
   });

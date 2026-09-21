@@ -1,0 +1,15 @@
+requirement,impl,verify,notes
+D1_classification_guardrails,FULL,PASS,weak suggestions no longer bind kind
+D2_rendered_overlay_oracle,PARTIAL,PASS_CHROMIUM,firefox/webkit BLOCKED_CONFIG; not full PDF.js dialog
+D2_statement_dialog_pdfjs,PARTIAL,NOT_RUN,product viewer matrix incomplete
+D3_digest_expanded,PARTIAL,PASS_API,flip+month+stale covered
+D4_context_isolation,FULL,PASS,
+D4_true_db_race,MISSING,NOT_RUN,PHP -S limit
+D5_goal_monetary,FULL,PASS_UNIT_FIXTURE,earmark/transfer paise
+D5_monthly_bank_vs_economic,FULL,PASS_UNIT,unresolved excluded from P&L
+D5_card_pdf_ui,PARTIAL,NOT_RUN,API synthetic only
+D6_package_php_builtin,PARTIAL,PASS_PHP_BUILTIN,Apache NOT_VERIFIED
+D6_package_sql_in_bundle,PARTIAL,FLAGGED,3 sql files in extract
+F-BANK-20,MISSING,BLOCKED_EXTERNAL,0 verified-for-scope
+physical_device,MISSING,NOT_TESTED,
+hosted,MISSING,NOT_TESTED,

@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "policy": "Owner-authorized PDFs only. Never commit private statements. Parser under test must not generate goldens.",
+  "restrictedRoot": ".local/statement-corpus/",
+  "publicFixturesRoot": "tests/fixtures/statements/",
+  "samples": [
+    {
+      "id": "synthetic-acceptance-2026-03-04",
+      "kind": "synthetic",
+      "path": "tests/fixtures/statements/v2/synthetic-acceptance-2026-03-04.json",
+      "split": "validation",
+      "bankId": null,
+      "notes": "Independent arithmetic/count oracle; not a real-bank layout certificate"
+    },
+    {
+      "id": "hdfc-synthetic-pdf",
+      "kind": "synthetic",
+      "path": "tests/fixtures/statements/hdfc.pdf",
+      "split": "development",
+      "bankId": "hdfc",
+      "layoutId": "hdfc.savings.generic.v1.en-IN.INR.native_pdf"
+    },
+    {
+      "id": "sbi-synthetic-pdf",
+      "kind": "synthetic",
+      "path": "tests/fixtures/statements/sbi.pdf",
+      "split": "development",
+      "bankId": "sbi",
+      "layoutId": "sbi.savings.generic.v1.en-IN.INR.native_pdf"
+    },
+    {
+      "id": "axis-synthetic-pdf",
+      "kind": "synthetic",
+      "path": "tests/fixtures/statements/axis.pdf",
+      "split": "development",
+      "bankId": "axis",
+      "layoutId": "axis.savings.generic.v1.en-IN.INR.native_pdf"
+    },
+    {
+      "id": "indusind-synthetic-pdf",
+      "kind": "synthetic",
+      "path": "tests/fixtures/statements/indusind.pdf",
+      "split": "development",
+      "bankId": "indusind",
+      "layoutId": "indusind.savings.generic.v1.en-IN.INR.native_pdf"
+    },
+    {
+      "id": "kotak-numbered-synthetic-pdf",
+      "kind": "synthetic",
+      "path": "tests/fixtures/statements/kotak-numbered.pdf",
+      "split": "development",
+      "bankId": "kotak",
+      "layoutId": "kotak.savings.numbered.v1.en-IN.INR.native_pdf"
+    }
+  ],
+  "realCorpusStatus": "BLOCKED — place owner-authorized PDFs under .local/statement-corpus/ with independent goldens"
+}

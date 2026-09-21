@@ -33,19 +33,43 @@ export interface StatementAnalysis {
   issues: string[];
   warnings: string[];
   pageCount: number;
+  /** Per-page extraction coverage; missing/failed pages block completeness */
+  pageCoverage?: Array<{
+    page: number;
+    status: "ok" | "empty" | "failed" | "ocr";
+    tokenCount: number;
+    transactionRows: number;
+  }>;
 }
 export interface StatementDecision {
   include: boolean;
   reviewed: boolean;
   kind: StatementKind | "";
+  /** Non-binding direction/narration hint; never treated as approved purpose */
+  suggestedKind?: StatementKind | "";
+  /** strong = keyword/special-case proposal; weak = direction-only; none = blank */
+  proposalStrength?: "strong" | "weak" | "none";
   categoryId: string;
   scope: PersonalBusiness | "";
   counterpartId: string;
+  /** When excluding a duplicate, optional confirmed link to existing transaction */
+  matchTransactionId?: string;
   reason: string;
   duplicate: string | null;
 }
 export interface StatementImportRow extends StatementRow {
   decision: Omit<StatementDecision, "reason" | "duplicate">;
+}
+export interface StatementSourceEvidence {
+  pageNumbers?: number[];
+  pageTotal?: number | null;
+  printedDebitCount?: number | null;
+  printedCreditCount?: number | null;
+  printedGrossDebitPaise?: number | null;
+  printedGrossCreditPaise?: number | null;
+  expectedTransactionCount?: number | null;
+  evidenceOrigin?: "printed_summary" | "human_provided" | "layout_required" | "unavailable";
+  evidenceScope?: string;
 }
 export interface StatementImportRequest {
   userId: string;
@@ -59,5 +83,17 @@ export interface StatementImportRequest {
   rows: StatementImportRow[];
   mutationId: string;
   ocrSourceConfirmed?: boolean;
+  sourceEvidence?: StatementSourceEvidence;
+  confirmedMatches?: Array<{ occurrenceId: string; transactionId: string; fingerprint?: string }>;
+  reviewRevision?: number;
+  /** SHA-256 hex of buildServerAlignedDigestMaterial; server rejects mismatches as STALE_REVIEW_DIGEST */
+  reviewDigest?: string;
 }
-export interface StatementImportResult { imported: number; duplicates: number; skipped: number; transactionIds: string[] }
+export interface StatementImportResult {
+  imported: number;
+  duplicates: number;
+  skipped: number;
+  transactionIds: string[];
+  importSourceId?: string | null;
+  matchIds?: string[];
+}

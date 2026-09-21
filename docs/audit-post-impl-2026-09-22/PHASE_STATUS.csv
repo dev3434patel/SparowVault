@@ -1,0 +1,20 @@
+phase,impl_status,verification,summary
+ST-00,FULL,PASS,Inventories and Dexie 41 reconciled; full gate matrix incomplete (API NOT_RUN)
+ST-01,FULL,PASS,Privacy ADR + truthful registry; no false verified-for-scope
+ST-02,PARTIAL,BLOCKED,Corpus structure present; real samples missing
+ST-03,PARTIAL,NOT_RUN,Contracts exist; provenance unused in UI
+ST-04,PARTIAL,PASS,Native parser + page coverage; real layouts blocked
+ST-05,PARTIAL,FAIL_LIVE,Arithmetic strong; completeness unwired on live path
+ST-06,PARTIAL,BLOCKED,Wave A synthetic/Kotak numbered; no real verified-for-scope
+ST-07,PARTIAL,BLOCKED,15 banks registered only
+ST-08,PARTIAL,NOT_RUN,OCR path exists; uncertainty helper unused; modes uncertified
+ST-09,PARTIAL,NOT_RUN,Staged UI + drafts; no field bbox editor
+ST-10,PARTIAL,PASS,Classification solid; match persistence missing
+ST-11,FULL,NOT_RUN,Atomic path implemented; live suite not run this audit
+ST-12,FULL,PASS,Dual reports in UI + units
+ST-13,PARTIAL,BLOCKED,Card document helpers only
+ST-14,FULL,N/A,No model training — documented
+ST-15,PARTIAL,NOT_RUN,Local privacy OK; hosted deferred
+ST-16,PARTIAL,PASS_LIB,Goal helpers unit-only
+ST-17,PARTIAL,NOT_RUN,Docs only for UX/perf/package
+ST-18,PARTIAL,PASS_HONEST,Certification correctly refuses 20-bank claim

@@ -432,10 +432,55 @@ function cloud_validate_transaction_payload(string $authUserId, array &$entity):
     }
 }
 
+function cloud_validate_goal_contrib_payload(string $authUserId, array &$entity): void {
+    cloud_assert_entity_user_id($authUserId, $entity);
+    $goalId = $entity["goalId"] ?? null;
+    if (!is_string($goalId) || $goalId === "" || strlen($goalId) > 191) {
+        throw new InvalidArgumentException("goalContribs.goalId is required");
+    }
+    $amountPaise = $entity["amountPaise"] ?? null;
+    if (!is_int($amountPaise) || $amountPaise < 0 || $amountPaise > 1000000000000) {
+        throw new InvalidArgumentException("goalContribs.amountPaise must be a non-negative paise integer");
+    }
+    $mode = null;
+    $notes = $entity["notes"] ?? "";
+    if (is_string($notes) && preg_match('/fundingMode:(earmark|funded_transfer|linked_asset_allocation)\b/', $notes, $m)) {
+        $mode = $m[1];
+    }
+    if (isset($entity["fundingMode"])) {
+        if (!in_array($entity["fundingMode"], ["earmark", "funded_transfer", "linked_asset_allocation"], true)) {
+            throw new InvalidArgumentException("Invalid goal fundingMode");
+        }
+        $mode = $entity["fundingMode"];
+    }
+    if ($mode === "funded_transfer") {
+        $txId = $entity["transactionId"] ?? null;
+        $source = $entity["sourceAccountId"] ?? null;
+        if (!is_string($txId) || $txId === "") {
+            throw new InvalidArgumentException("funded_transfer contributions require transactionId");
+        }
+        if (!is_string($source) || $source === "") {
+            throw new InvalidArgumentException("funded_transfer contributions require sourceAccountId");
+        }
+        if ($amountPaise <= 0) {
+            throw new InvalidArgumentException("funded_transfer amount must be positive");
+        }
+    }
+    if ($mode === "earmark") {
+        // Earmark must not invent a cash-moving transaction id.
+        if (!empty($entity["transactionId"])) {
+            throw new InvalidArgumentException("earmark contributions must not reference a cash-moving transactionId");
+        }
+    }
+}
+
 function cloud_validate_entity_for_collection(string $authUserId, string $collection, array &$entity): void {
     cloud_assert_entity_user_id($authUserId, $entity);
     if ($collection === "transactions") {
         cloud_validate_transaction_payload($authUserId, $entity);
+    }
+    if ($collection === "goalContribs") {
+        cloud_validate_goal_contrib_payload($authUserId, $entity);
     }
 }
 
