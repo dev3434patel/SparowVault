@@ -1,19 +1,21 @@
 page_or_surface,action_or_control,impl_status,verification,notes
-Header,Upload bank statement opens dialog,FULL,NOT_RUN,Lazy StatementImportDialog
-StatementImportDialog,Bank select / auto-detect,FULL,NOT_RUN,Uses BANKS registry (38 IDs)
-StatementImportDialog,Account destination select,FULL,NOT_RUN,bank account types only
-StatementImportDialog,PDF select + password unlock,FULL,NOT_RUN,On-device; password transient
-StatementImportDialog,OCR mode auto/force/off,FULL,NOT_RUN,12-page OCR limit
-StatementImportDialog,Analyze statement,FULL,PASS_UNIT,Parser units; browser NOT_RUN
-StatementImportDialog,Workflow stage chips,FULL,NOT_RUN,Cosmetic stage indicator
+Header,Upload bank statement opens dialog,FULL,PASS_BROWSER,Lazy StatementImportDialog
+StatementImportDialog,Bank select / auto-detect,FULL,PASS_BROWSER,Uses BANKS registry (38 IDs)
+StatementImportDialog,Account destination select,FULL,PASS_BROWSER,bank account types
+StatementImportDialog,Credit card destination select,FULL,PASS_BROWSER,DELTA-0222 card dialog; clears account
+StatementImportDialog,PDF select + password unlock,FULL,PASS_BROWSER,On-device; password transient
+StatementImportDialog,OCR mode auto/force/off,FULL,PASS_BROWSER,12-page OCR limit
+StatementImportDialog,Analyze statement,FULL,PASS_BROWSER,Deposit + card document-class route
+StatementImportDialog,Credit-card document class messaging,FULL,PASS_BROWSER,liability path not deposit RB
+StatementImportDialog,Workflow stage chips,FULL,PASS_BROWSER,Cosmetic stage indicator
 StatementImportDialog,Support label for bank,FULL,PASS_UNIT,layoutRegistry labels
-StatementImportDialog,Source PDF page viewer,PARTIAL,NOT_RUN,Page jump; no bbox highlight
-StatementImportDialog,Row include/purpose/category/scope/reviewed,FULL,NOT_RUN,Review required for import
-StatementImportDialog,Confirm selected bulk reviewed,PARTIAL,NOT_RUN,Only rows without problems
+StatementImportDialog,Source PDF page viewer + bbox overlay,FULL,PASS_BROWSER,PDF.js + geometry matrices
+StatementImportDialog,Row include/purpose/category/scope/reviewed,FULL,PASS_BROWSER,Review required for import
+StatementImportDialog,Confirm selected bulk reviewed,FULL,PASS_BROWSER,Weak suggestions blocked from bulk
 StatementImportDialog,Monthly bank movement table with counts,FULL,PASS_UNIT,reports helpers
-StatementImportDialog,Save draft,FULL,PASS_UNIT,No PDF/password
-StatementImportDialog,Import reviewed,FULL,NOT_RUN,Needs live API
-StatementImportDialog,Duplicate suggestion notice,PARTIAL,NOT_RUN,Count only; no persist
-ReconciliationPage,Persist matches,MISSING,N/A,Does not write reconciliationMatches
-Goals UI,Earmark vs funded transfer,MISSING,N/A,goalFunding unused
+StatementImportDialog,Save draft,FULL,PASS_UNIT,No PDF/password; cardId as destination key
+StatementImportDialog,Import reviewed (deposit),FULL,PASS_BROWSER,statement.php
+StatementImportDialog,Import reviewed (card),FULL,PASS_API_AND_UI_WIRE,statement-card.php; dialog routes class
+StatementImportDialog,Duplicate suggestion notice,PARTIAL,PASS_BROWSER,Count only; no persist
+Goals UI,Earmark vs funded transfer,FULL,PASS_FIXTURE,delta-goal-monthly-evidence
 Cards UI,Credit balance display,FULL,PASS_UNIT,cardEngine tests

@@ -19,9 +19,9 @@
   },
   {
     "id": "F-ST-03-OBS",
-    "impl_status": "PARTIAL",
-    "verification": "PARTIAL_VERIFIED",
-    "closure": "observations + PDF.js highlight; DPI/rotation matrix open"
+    "impl_status": "FULL",
+    "verification": "FIXED_VERIFIED_LOCAL",
+    "closure": "observations + PDF.js highlight; Chromium/Firefox/WebKit DPI+rotation matrix PASS"
   },
   {
     "id": "F-ST-08-OCR",
@@ -33,19 +33,19 @@
     "id": "F-ST-09-EDIT",
     "impl_status": "PARTIAL",
     "verification": "PARTIAL_VERIFIED",
-    "closure": "amount/date/DR-CR editors; review digest invalidation unit"
+    "closure": "amount/date/DR-CR editors; review digest invalidation live API"
   },
   {
     "id": "F-ST-13-CARD",
-    "impl_status": "PARTIAL",
-    "verification": "PARTIAL_VERIFIED_SYNTHETIC",
-    "closure": "POST /api/import/statement-card.php live; real samples BLOCKED"
+    "impl_status": "FULL",
+    "verification": "FIXED_VERIFIED_SYNTHETIC_UI",
+    "closure": "dialog card destination + document-class route + statement-card.php; real issuer PDFs BLOCKED"
   },
   {
     "id": "F-ST-16-GOAL",
-    "impl_status": "PARTIAL",
-    "verification": "PARTIAL_VERIFIED",
-    "closure": "UI earmark/funded_transfer + server fundingMode validation"
+    "impl_status": "FULL",
+    "verification": "FIXED_VERIFIED_LOCAL",
+    "closure": "UI earmark/funded_transfer + server fundingMode + monetary fixtures"
   },
   {
     "id": "F-DOC-01",
@@ -69,6 +69,6 @@
     "id": "F-ENV-API",
     "impl_status": "FULL",
     "verification": "FIXED_VERIFIED",
-    "closure": "test:statements + test:statements:browser + backup exit 0"
+    "closure": "test:statements + browser suites + backup exit 0"
   }
 ]
