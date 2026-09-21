@@ -1,0 +1,11 @@
+{
+  "date": "2026-09-11T09:18:17.971Z",
+  "applicationFilesCompared": 277,
+  "applicationFilesChangedAfterCoreVerification": [],
+  "uniqueFindings": 27,
+  "severityCounts": {
+    "High / P1": 15,
+    "Medium / P2": 10,
+    "Low / P3": 2
+  }
+}

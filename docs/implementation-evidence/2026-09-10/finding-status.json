@@ -1,0 +1,279 @@
+{
+  "date": "2026-09-10",
+  "productionDecision": "NO-GO",
+  "findings": [
+    {
+      "id": "B01",
+      "title": "Unsynced financial data is erased by a successful cloud refresh",
+      "severity": "Critical",
+      "status": "Partial; reproduced loss repaired",
+      "detail": "Full-payload IndexedDB queue, guarded cloud merge, restart persistence and review UI verified. Cold offline startup, eviction/device loss and complete multi-device lifecycle coverage remain."
+    },
+    {
+      "id": "B02",
+      "title": "Concurrent retries can persist several entities for one mutation ID",
+      "severity": "Critical",
+      "status": "Verified repair in tested scope",
+      "detail": "Per-user transaction lock, canonical request-bound receipt and original-response replay pass both 24-request concurrency cases on four PHP workers. Production load and every crash point remain untested."
+    },
+    {
+      "id": "B03",
+      "title": "Rejected sync batches leave partial financial writes",
+      "severity": "High",
+      "status": "Verified repair in tested scope",
+      "detail": "Rejected sync and batch PATCH roll back source/effects/audit. Malformed rows and final reference graphs are checked. Imports remain explicitly per-row partial, not a full restore transaction."
+    },
+    {
+      "id": "B04",
+      "title": "Stale sync data resurrects soft-deleted records",
+      "severity": "High",
+      "status": "Partial",
+      "detail": "Versioned queued patches, changed-row sync preconditions and hard-delete tombstones pass stale-write regressions. Legacy versionless direct PATCH/DELETE and some batch/admin preconditions remain."
+    },
+    {
+      "id": "B05",
+      "title": "Collection hard-delete leaves posted SQL ledger events",
+      "severity": "High",
+      "status": "Verified repair in tested scope",
+      "detail": "Collection hard-delete removes active effects, reverses source events and retains authoritative audit/tombstones in the same transaction. Historical orphan cleanup was not run."
+    },
+    {
+      "id": "B06",
+      "title": "Changing a PIN invalidates the configured recovery answer",
+      "severity": "High",
+      "status": "Open; not repaired",
+      "detail": "See the dedicated implementation prompt and unchanged historical audit evidence."
+    },
+    {
+      "id": "B07",
+      "title": "PIN changes and logout do not revoke bearer sessions",
+      "severity": "High",
+      "status": "Open; not repaired",
+      "detail": "See the dedicated implementation prompt and unchanged historical audit evidence."
+    },
+    {
+      "id": "B08",
+      "title": "Forced PIN rotation is not enforced for privileged access",
+      "severity": "High",
+      "status": "Open; not repaired",
+      "detail": "See the dedicated implementation prompt and unchanged historical audit evidence."
+    },
+    {
+      "id": "B09",
+      "title": "Recovery settings allow a session holder to replace the PIN without the existing PIN",
+      "severity": "High",
+      "status": "Open; not repaired",
+      "detail": "See the dedicated implementation prompt and unchanged historical audit evidence."
+    },
+    {
+      "id": "B10",
+      "title": "CSRF enforcement is inconsistent across cookie-authenticated mutations",
+      "severity": "High",
+      "status": "Open; not repaired",
+      "detail": "See the dedicated implementation prompt and unchanged historical audit evidence."
+    },
+    {
+      "id": "B11",
+      "title": "Spoofed forwarded IP addresses evade the login throttle",
+      "severity": "High",
+      "status": "Open; not repaired",
+      "detail": "See the dedicated implementation prompt and unchanged historical audit evidence."
+    },
+    {
+      "id": "B12",
+      "title": "Household role restrictions can be bypassed through batch PATCH",
+      "severity": "High",
+      "status": "Verified repair in tested scope",
+      "detail": "Household restrictions apply to single/batch/sync/bulk hard-delete paths. Viewer bypass regression passes. This is not the missing agency capability model."
+    },
+    {
+      "id": "B13",
+      "title": "The user-visible audit collection accepts fabricated records",
+      "severity": "Medium",
+      "status": "Open; not repaired",
+      "detail": "See the dedicated implementation prompt and unchanged historical audit evidence."
+    },
+    {
+      "id": "B14",
+      "title": "Non-transaction collection contracts are not enforced as schemas",
+      "severity": "High",
+      "status": "Partial",
+      "detail": "Shared write paths invoke existing validators and final transaction-reference validation. Complete strict schemas for every non-transaction collection are still required."
+    },
+    {
+      "id": "B15",
+      "title": "Full profile backup omits newer collections",
+      "severity": "High",
+      "status": "Open; not repaired",
+      "detail": "See the dedicated implementation prompt and unchanged historical audit evidence."
+    },
+    {
+      "id": "B16",
+      "title": "CA workbook sheets use inconsistent period and ledger contexts",
+      "severity": "High",
+      "status": "Open; not repaired",
+      "detail": "See the dedicated implementation prompt and unchanged historical audit evidence."
+    },
+    {
+      "id": "B17",
+      "title": "CA report helpers read noncanonical balance and Udhari fields",
+      "severity": "High",
+      "status": "Open; not repaired",
+      "detail": "See the dedicated implementation prompt and unchanged historical audit evidence."
+    },
+    {
+      "id": "B18",
+      "title": "Some report totals ignore reversals and refunds",
+      "severity": "High",
+      "status": "Open; not repaired",
+      "detail": "See the dedicated implementation prompt and unchanged historical audit evidence."
+    },
+    {
+      "id": "B19",
+      "title": "Oversized explicit mixed split can produce a negative component",
+      "severity": "Medium",
+      "status": "Open; not repaired",
+      "detail": "See the dedicated implementation prompt and unchanged historical audit evidence."
+    },
+    {
+      "id": "B20",
+      "title": "Two loans with the same lender stop the CA export",
+      "severity": "Medium",
+      "status": "Open; not repaired",
+      "detail": "See the dedicated implementation prompt and unchanged historical audit evidence."
+    },
+    {
+      "id": "B21",
+      "title": "Excel master money cells are formatted strings",
+      "severity": "Medium",
+      "status": "Open; not repaired",
+      "detail": "See the dedicated implementation prompt and unchanged historical audit evidence."
+    },
+    {
+      "id": "B22",
+      "title": "CSV export does not neutralize formula-like user text",
+      "severity": "Medium",
+      "status": "Open; not repaired",
+      "detail": "See the dedicated implementation prompt and unchanged historical audit evidence."
+    },
+    {
+      "id": "B23",
+      "title": "Reconciliation can report matched without an independent statement balance",
+      "severity": "High",
+      "status": "Open; not repaired",
+      "detail": "See the dedicated implementation prompt and unchanged historical audit evidence."
+    },
+    {
+      "id": "B24",
+      "title": "Workbook business/personal summary ignores mixed allocations",
+      "severity": "High",
+      "status": "Open; not repaired",
+      "detail": "See the dedicated implementation prompt and unchanged historical audit evidence."
+    },
+    {
+      "id": "B25",
+      "title": "The reachable spreadsheet parser has high-severity advisories",
+      "severity": "High",
+      "status": "Open; not repaired",
+      "detail": "See the dedicated implementation prompt and unchanged historical audit evidence."
+    },
+    {
+      "id": "B26",
+      "title": "Development dependency security baseline is not clean",
+      "severity": "Medium",
+      "status": "Open; not repaired",
+      "detail": "See the dedicated implementation prompt and unchanged historical audit evidence."
+    },
+    {
+      "id": "B27",
+      "title": "Standard quality commands fail on metadata and environment assumptions",
+      "severity": "Medium",
+      "status": "Verified locally",
+      "detail": "Normal macOS lint/unit commands ignore AppleDouble metadata; migration inspection is portable; secret packaging tests run against real isolated fixtures. Clean-host installation and hosting artifact certification remain."
+    },
+    {
+      "id": "B28",
+      "title": "Several existing tests can pass without exercising the claimed behavior",
+      "severity": "Medium",
+      "status": "Partial",
+      "detail": "New API/browser tests assert durable database and downloaded-file outcomes; portability and sanitizer tests strengthened. The other historical vacuous coverage identified in the audit is not all repaired."
+    },
+    {
+      "id": "B29",
+      "title": "Shared form labels and several icon controls lack accessible names",
+      "severity": "Medium",
+      "status": "Open; not repaired",
+      "detail": "See the dedicated implementation prompt and unchanged historical audit evidence."
+    },
+    {
+      "id": "B30",
+      "title": "Mobile navigation omits Categories and Audit",
+      "severity": "Medium",
+      "status": "Open; not repaired",
+      "detail": "See the dedicated implementation prompt and unchanged historical audit evidence."
+    },
+    {
+      "id": "B31",
+      "title": "The initial application bundle is large and largely unsplit",
+      "severity": "Medium",
+      "status": "Open; not repaired",
+      "detail": "See the dedicated implementation prompt and unchanged historical audit evidence."
+    },
+    {
+      "id": "B32",
+      "title": "The PHP development router serves repository internals",
+      "severity": "Medium",
+      "status": "Open; not repaired",
+      "detail": "See the dedicated implementation prompt and unchanged historical audit evidence."
+    },
+    {
+      "id": "B33",
+      "title": "Authorization and unexpected errors use misleading/raw 500 responses",
+      "severity": "Medium",
+      "status": "Partial",
+      "detail": "Shared financial write errors now use safe structured codes and suppress raw failures. Other administrative/authentication routes still require consistent error handling."
+    },
+    {
+      "id": "B34",
+      "title": "Concurrent default seeding creates duplicate accounts/categories",
+      "severity": "Medium",
+      "status": "Open; not repaired",
+      "detail": "See the dedicated implementation prompt and unchanged historical audit evidence."
+    },
+    {
+      "id": "B35",
+      "title": "Export description lists the wrong workbook sheet count",
+      "severity": "Low",
+      "status": "Open; not repaired",
+      "detail": "See the dedicated implementation prompt and unchanged historical audit evidence."
+    },
+    {
+      "id": "B36",
+      "title": "Seed branding/contact content remains placeholder-like",
+      "severity": "Low",
+      "status": "Open; not repaired",
+      "detail": "See the dedicated implementation prompt and unchanged historical audit evidence."
+    },
+    {
+      "id": "B37",
+      "title": "Financial references are checked for presence but not existence",
+      "severity": "High",
+      "status": "Partial",
+      "detail": "Active owned transaction parents are checked, foreign/missing parents rejected and referenced parent deletion blocked. Full all-collection graph schemas and historical reconciliation remain."
+    },
+    {
+      "id": "B38",
+      "title": "Backup restore breaks linked account and category references",
+      "severity": "High",
+      "status": "Open; not repaired",
+      "detail": "See the dedicated implementation prompt and unchanged historical audit evidence."
+    },
+    {
+      "id": "B39",
+      "title": "Wipe all profile data leaves newer profile collections behind",
+      "severity": "High",
+      "status": "Open; not repaired",
+      "detail": "See the dedicated implementation prompt and unchanged historical audit evidence."
+    }
+  ]
+}

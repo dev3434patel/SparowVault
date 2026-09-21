@@ -33,24 +33,11 @@ function apply_cors_headers(): void {
     $origin = (string)($_SERVER["HTTP_ORIGIN"] ?? "");
     $allowed = cors_allowed_origins();
 
-    if ($appEnv === "production") {
-        if ($origin !== "" && in_array($origin, $allowed, true)) {
-            header("Access-Control-Allow-Origin: " . $origin);
-            header("Vary: Origin");
-        } elseif (count($allowed) === 1) {
-            header("Access-Control-Allow-Origin: " . $allowed[0]);
-        } else {
-            // No matching origin — block cross-origin requests
-            header("Access-Control-Allow-Origin: null");
-        }
-    } else {
-        // Development still uses credentials for the httpOnly auth cookie, so
-        // echo the concrete Origin instead of "*".
-        header("Access-Control-Allow-Origin: " . ($origin !== "" ? $origin : "*"));
-        if ($origin !== "") {
-            header("Vary: Origin");
-        }
-    }
+    $localHost = parse_url($origin, PHP_URL_HOST);
+    $localScheme = parse_url($origin, PHP_URL_SCHEME);
+    $localDevelopment = $appEnv !== "production" && in_array($localHost, ["localhost", "127.0.0.1", "[::1]"], true) && in_array($localScheme, ["http", "https"], true);
+    if ($origin !== "" && (in_array($origin, $allowed, true) || $localDevelopment)) header("Access-Control-Allow-Origin: " . $origin);
+    header("Vary: Origin");
 
     header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Request-Id, X-CSRF-Token, X-Razorpay-Signature, X-Razorpay-Event-Id");
     header("Access-Control-Allow-Methods: GET, POST, PUT, PATCH, DELETE, OPTIONS");
@@ -75,19 +62,16 @@ function apply_security_headers(): void {
 // ============================================================================
 
 function client_ip(): string {
-    // Trust CF-Connecting-IP from Cloudflare first
-    if (!empty($_SERVER["HTTP_CF_CONNECTING_IP"])) {
-        return (string)$_SERVER["HTTP_CF_CONNECTING_IP"];
+    $remote = (string)($_SERVER["REMOTE_ADDR"] ?? "unknown");
+    $trusted = array_filter(array_map("trim", explode(",", (string)env_value("TRUSTED_PROXY_IPS", ""))));
+    if (!in_array($remote, $trusted, true)) return $remote;
+    // Walk from the trusted edge inward; never accept a client-supplied leftmost value.
+    foreach (array_reverse(explode(",", (string)($_SERVER["HTTP_X_FORWARDED_FOR"] ?? ""))) as $value) {
+        $ip = trim($value);
+        if (!filter_var($ip, FILTER_VALIDATE_IP)) return $remote;
+        if (!in_array($ip, $trusted, true)) return $ip;
     }
-    // Then X-Forwarded-For (take first IP only, the rest may be proxies)
-    if (!empty($_SERVER["HTTP_X_FORWARDED_FOR"])) {
-        $parts = explode(",", (string)$_SERVER["HTTP_X_FORWARDED_FOR"]);
-        $ip = trim($parts[0]);
-        if (filter_var($ip, FILTER_VALIDATE_IP)) {
-            return $ip;
-        }
-    }
-    return (string)($_SERVER["REMOTE_ADDR"] ?? "unknown");
+    return $remote;
 }
 
 // ============================================================================
@@ -142,9 +126,9 @@ function rate_limit_guard(string $bucket, int $maxHits, int $windowSeconds): voi
             exit;
         }
     } catch (Throwable $e) {
-        // If DB-backed rate limit storage is unavailable, use in-memory fallback.
-        error_log("[rate_limit_guard] DB error: " . $e->getMessage());
-        rate_limit_guard_memory($bucket, $maxHits, $windowSeconds);
+        error_log("[rate_limit_guard] Storage unavailable");
+        json_error("Security checks are temporarily unavailable. Try again later.", 503, "SECURITY_UNAVAILABLE");
+        exit;
     }
 }
 

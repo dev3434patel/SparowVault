@@ -291,12 +291,8 @@ export function DashboardPage() {
         : assetTotalPaise - totalLiabilities;
     const debtToAssetPct =
       assetTotalPaise > 0 ? (100 * totalLiabilities) / assetTotalPaise : 0;
-    const bizExpensePaise = curTx
-      .filter((t) => t.type === "expense" && t.businessOrPersonal === "business")
-      .reduce((a, t) => a + transactionAmountPaise(t), 0);
-    const personalExpensePaise = curTx
-      .filter((t) => t.type === "expense" && t.businessOrPersonal === "personal")
-      .reduce((a, t) => a + transactionAmountPaise(t), 0);
+    const bizExpensePaise = sumExpense(curTx.filter((t) => t.businessOrPersonal === "business"));
+    const personalExpensePaise = sumExpense(curTx.filter((t) => t.businessOrPersonal === "personal"));
     const taxFlagCount = curTx.filter((t) => t.taxFlag === 1).length;
     const missingBillCount = curTx.filter(
       (t) =>

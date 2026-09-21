@@ -4,6 +4,13 @@
 
 RewriteEngine On
 
+# The self-hosted PDF.js worker is an ES module and requires a JavaScript MIME type.
+<IfModule mod_mime.c>
+  AddType text/javascript .mjs
+  AddType application/wasm .wasm
+  AddType application/octet-stream .traineddata
+</IfModule>
+
 # -----------------------------------------------------------------------------
 # 1. Force HTTPS (covered behind a Cloudflare-style proxy via X-Forwarded-Proto)
 # -----------------------------------------------------------------------------
@@ -65,7 +72,8 @@ RedirectMatch 403 "(?i)^/(\.git|data|backups|sql|php/config|node_modules|tests|r
     img-src 'self' data: blob:; \
     font-src 'self' data: https://fonts.gstatic.com; \
     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; \
-    script-src 'self' https://checkout.razorpay.com; \
+    script-src 'self' 'wasm-unsafe-eval' https://checkout.razorpay.com; \
+    worker-src 'self'; \
     connect-src 'self' https://api.razorpay.com https://lumberjack.razorpay.com; \
     frame-src https://api.razorpay.com https://checkout.razorpay.com; \
     object-src 'none'; \

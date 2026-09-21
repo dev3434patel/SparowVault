@@ -1,0 +1,48 @@
+{
+  "date": "2026-09-11T09:17:26.816Z",
+  "overlappingSuites": true,
+  "suites": [
+    {
+      "suite": "Development integrity/statement/browser",
+      "file": "verification/atomic-writes.json",
+      "total": 63,
+      "pass": 63,
+      "nonpassing": 0
+    },
+    {
+      "suite": "Production artifact",
+      "file": "verification/production-artifact.json",
+      "total": 54,
+      "pass": 54,
+      "nonpassing": 0
+    },
+    {
+      "suite": "Extended audit",
+      "file": "extended-final-verified/atomic-writes.json",
+      "total": 218,
+      "pass": 184,
+      "nonpassing": 34
+    },
+    {
+      "suite": "Module workflows",
+      "file": "modules-final-verified/atomic-writes.json",
+      "total": 45,
+      "pass": 43,
+      "nonpassing": 2
+    },
+    {
+      "suite": "Independent finance contracts",
+      "file": "calculations/results.json",
+      "total": 16,
+      "pass": 6,
+      "nonpassing": 10
+    },
+    {
+      "suite": "Unit tests",
+      "total": 410,
+      "pass": 410,
+      "nonpassing": 0,
+      "pending": 0
+    }
+  ]
+}

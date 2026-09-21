@@ -173,6 +173,17 @@ function ctx(overrides: Partial<ReportContext> = {}): ReportContext {
 }
 
 describe("Phase 12 CA reports and micro-business mode", () => {
+  it("contribution returns reduce personal report and exported cost summaries without income", () => {
+    const meal = tx({ id: "meal", amount: 400, amountPaise: 40000, businessOrPersonal: "personal" });
+    const returned = tx({ id: "returned", type: "refund", transactionIntent: "expense_contribution", linkedOriginalTransactionId: meal.id, amount: 200, amountPaise: 20000, businessOrPersonal: "personal", paymentMode: "bank_transfer", merchantOrPerson: "Friend" });
+    const transactions = [meal, returned];
+    expect(reportPersonalExpense(ctx({ txs: transactions })).totalPaise).toBe(20000);
+    expect(reportBusinessExpense(ctx({ txs: transactions })).totalPaise).toBe(0);
+    const { buffer } = buildCAWorkbook({ transactions, categories: [category], accounts: [account], cards: [], budgets: [], goals: [], goalContribs: [], loans: [], emis: [], udhari: [], investments: [], savingsContribs: [] }, "contribution-report");
+    const workbook = XLSX.read(buffer, { type: "array" });
+    expect(XLSX.utils.sheet_to_json(workbook.Sheets.Expense_By_Payment_Mode)).toEqual([{ PaymentMode: "UPI", Amount: 200 }]);
+    expect(XLSX.utils.sheet_to_json(workbook.Sheets.Business_Personal_Split)).toEqual([{ Month: "2026-05", Business: 0, Personal: 200, Mixed: 0 }]);
+  });
   it("builds transaction master rows with CA audit, tax/GST, split, and ledger references", () => {
     const rows = reportTransactionMaster(ctx());
     expect(rows[0]).toMatchObject({

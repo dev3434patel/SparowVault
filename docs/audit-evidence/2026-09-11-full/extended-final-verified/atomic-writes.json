@@ -1,0 +1,912 @@
+{
+  "date": "2026-09-11T09:02:45.131Z",
+  "isolation": "fresh disposable MariaDB database; four PHP workers",
+  "checks": [
+    {
+      "title": "24 identical concurrent retries produce one immutable receipt and record",
+      "pass": true
+    },
+    {
+      "title": "24 different payloads cannot share one mutation key",
+      "pass": true
+    },
+    {
+      "title": "stale PATCH is rejected and retry returns the original committed result",
+      "pass": true
+    },
+    {
+      "title": "invalid sync batch rolls back source, ledger and audit",
+      "pass": true
+    },
+    {
+      "title": "malformed sync rows are rejected rather than silently skipped",
+      "pass": true
+    },
+    {
+      "title": "stale sync cannot resurrect a soft-deleted record",
+      "pass": true
+    },
+    {
+      "title": "nonexistent and foreign transaction references are rejected",
+      "pass": true
+    },
+    {
+      "title": "same transaction ID in two tenants has isolated ledger effects",
+      "pass": true
+    },
+    {
+      "title": "referenced account cannot be deleted",
+      "pass": true
+    },
+    {
+      "title": "ledger failure rolls back entity, receipt and audit",
+      "pass": true
+    },
+    {
+      "title": "batch PATCH rolls back its first row when a later row is missing",
+      "pass": true
+    },
+    {
+      "title": "bulk hard-delete voids posted ledger and retains server audit",
+      "pass": true
+    },
+    {
+      "title": "hard-delete tombstones prevent stale snapshot resurrection",
+      "pass": true
+    },
+    {
+      "title": "mutation keys are isolated by user and bound to collection",
+      "pass": true
+    },
+    {
+      "title": "sync validates a final parent graph independent of collection order",
+      "pass": true
+    },
+    {
+      "title": "household viewer restrictions hold on batch, sync and bulk hard-delete",
+      "pass": true
+    },
+    {
+      "title": "bulk import uses reference validation and retry-safe row writes",
+      "pass": true
+    },
+    {
+      "title": "owner-bound reads and queued patches reject a changed authenticated user",
+      "pass": true
+    },
+    {
+      "title": "audit RBAC: anonymous denied GET /api/admin/dashboard.php",
+      "pass": false,
+      "error": "Expected 401/403, got 500"
+    },
+    {
+      "title": "audit RBAC: user denied GET /api/admin/dashboard.php",
+      "pass": false,
+      "error": "Expected 401/403, got 500"
+    },
+    {
+      "title": "audit admin: GET /api/admin/dashboard.php",
+      "pass": true
+    },
+    {
+      "title": "audit RBAC: anonymous denied GET /api/admin/users.php",
+      "pass": false,
+      "error": "Expected 401/403, got 500"
+    },
+    {
+      "title": "audit RBAC: user denied GET /api/admin/users.php",
+      "pass": false,
+      "error": "Expected 401/403, got 500"
+    },
+    {
+      "title": "audit admin: GET /api/admin/users.php",
+      "pass": true
+    },
+    {
+      "title": "audit RBAC: anonymous denied GET /api/admin/plans.php",
+      "pass": false,
+      "error": "Expected 401/403, got 500"
+    },
+    {
+      "title": "audit RBAC: user denied GET /api/admin/plans.php",
+      "pass": false,
+      "error": "Expected 401/403, got 500"
+    },
+    {
+      "title": "audit admin: GET /api/admin/plans.php",
+      "pass": true
+    },
+    {
+      "title": "audit RBAC: anonymous denied GET /api/admin/subscriptions.php",
+      "pass": false,
+      "error": "Expected 401/403, got 500"
+    },
+    {
+      "title": "audit RBAC: user denied GET /api/admin/subscriptions.php",
+      "pass": false,
+      "error": "Expected 401/403, got 500"
+    },
+    {
+      "title": "audit admin: GET /api/admin/subscriptions.php",
+      "pass": true
+    },
+    {
+      "title": "audit RBAC: anonymous denied GET /api/admin/feature-flags.php",
+      "pass": false,
+      "error": "Expected 401/403, got 500"
+    },
+    {
+      "title": "audit RBAC: user denied GET /api/admin/feature-flags.php",
+      "pass": false,
+      "error": "Expected 401/403, got 500"
+    },
+    {
+      "title": "audit admin: GET /api/admin/feature-flags.php",
+      "pass": true
+    },
+    {
+      "title": "audit RBAC: anonymous denied GET /api/admin/settings.php",
+      "pass": false,
+      "error": "Expected 401/403, got 500"
+    },
+    {
+      "title": "audit RBAC: user denied GET /api/admin/settings.php",
+      "pass": false,
+      "error": "Expected 401/403, got 500"
+    },
+    {
+      "title": "audit admin: GET /api/admin/settings.php",
+      "pass": true
+    },
+    {
+      "title": "audit RBAC: anonymous denied POST /api/admin/users-toggle-active.php",
+      "pass": false,
+      "error": "Expected 401/403, got 500"
+    },
+    {
+      "title": "audit RBAC: user denied POST /api/admin/users-toggle-active.php",
+      "pass": false,
+      "error": "Expected 401/403, got 500"
+    },
+    {
+      "title": "audit RBAC: anonymous denied POST /api/admin/users-reset-pin.php",
+      "pass": false,
+      "error": "Expected 401/403, got 500"
+    },
+    {
+      "title": "audit RBAC: user denied POST /api/admin/users-reset-pin.php",
+      "pass": false,
+      "error": "Expected 401/403, got 500"
+    },
+    {
+      "title": "audit RBAC: anonymous denied POST /api/admin/users-assign-plan.php",
+      "pass": false,
+      "error": "Expected 401/403, got 500"
+    },
+    {
+      "title": "audit RBAC: user denied POST /api/admin/users-assign-plan.php",
+      "pass": false,
+      "error": "Expected 401/403, got 500"
+    },
+    {
+      "title": "audit collection read: accounts owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: alerts owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: assetValuations owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: attachments owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: auditLogs owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: budgets owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: cardEmiInstallments owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: cardEmiPlans owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: cardPaymentAllocations owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: cardStatements owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: cards owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: categories owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: creditLimitGroups owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: emis owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: exportHistory owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: fixedIncomeAssets owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: goalContribs owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: goals owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: householdMembers owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: householdPermissions owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: households owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: importSources owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: insurancePolicies owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: investments owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: loans owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: obligations owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: reconciliationMatches owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: recurringRules owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: reminders owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: savingsContribs owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: settings owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: sinkingFunds owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: snapshots owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: transactions owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: transferLinks owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: udhari owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit collection read: udhariSettlements owner isolation",
+      "pass": true
+    },
+    {
+      "title": "audit input: malformed JSON and unsupported collection rejected",
+      "pass": true
+    },
+    {
+      "title": "audit security: stored text remains data and SQL metacharacters do not bypass ownership",
+      "pass": true
+    },
+    {
+      "title": "audit concurrency: stale versionless PATCH must not overwrite a newer edit",
+      "pass": false,
+      "error": "Stale versionless update accepted: 200, version=3"
+    },
+    {
+      "title": "audit security: client cannot fabricate and erase visible audit history",
+      "pass": false,
+      "error": "Forged visible audit accepted=201; erase=200. Server user_audit_logs is a separate table."
+    },
+    {
+      "title": "audit schema/reference: invalid accounts rejected",
+      "pass": false,
+      "error": "Invalid accounts persisted with HTTP 201\n\n201 !== 422\n"
+    },
+    {
+      "title": "audit schema/reference: invalid loans rejected",
+      "pass": false,
+      "error": "Invalid loans persisted with HTTP 201\n\n201 !== 422\n"
+    },
+    {
+      "title": "audit schema/reference: invalid goalContribs rejected",
+      "pass": false,
+      "error": "Invalid goalContribs persisted with HTTP 201\n\n201 !== 422\n"
+    },
+    {
+      "title": "audit schema/reference: invalid emis rejected",
+      "pass": false,
+      "error": "Invalid emis persisted with HTTP 201\n\n201 !== 422\n"
+    },
+    {
+      "title": "audit export API: correct PIN exports own collections without credentials",
+      "pass": true
+    },
+    {
+      "title": "audit export API: incorrect PIN cannot export",
+      "pass": true
+    },
+    {
+      "title": "audit webhook: invalid signature cannot poison a later authentic delivery",
+      "pass": false,
+      "error": "Authentic retry acknowledged but payment remains unprocessed after invalid first delivery\n+ actual - expected\n\n+ 'created'\n- 'captured'"
+    },
+    {
+      "title": "browser: real account form creates a durable server record",
+      "pass": true
+    },
+    {
+      "title": "browser: a 503 create survives cloud refresh with a replayable payload",
+      "pass": true
+    },
+    {
+      "title": "browser: sync review renders without overflow at desktop and mobile sizes",
+      "pass": true
+    },
+    {
+      "title": "browser: actual browser process restart preserves IndexedDB payload",
+      "pass": true
+    },
+    {
+      "title": "browser: two-tab reconnect drains queue and persists exactly one server row",
+      "pass": true
+    },
+    {
+      "title": "browser: validation rejection opens actionable sync review",
+      "pass": true
+    },
+    {
+      "title": "browser: pending-change download contains the recoverable rejected payload",
+      "pass": true
+    },
+    {
+      "title": "browser: confirmed server-version resolution clears a rejected queue item",
+      "pass": true
+    },
+    {
+      "title": "browser: no uncaught application errors during durability workflows",
+      "pass": true
+    },
+    {
+      "title": "audit UI: / loads at 1440px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /transactions loads at 1440px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /income loads at 1440px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /expenses loads at 1440px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /categories loads at 1440px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /budgets loads at 1440px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /goals loads at 1440px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /accounts loads at 1440px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /cards loads at 1440px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /loans loads at 1440px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /udhari loads at 1440px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /savings loads at 1440px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /reports loads at 1440px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /suggestions loads at 1440px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /export loads at 1440px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /import loads at 1440px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /bills loads at 1440px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /reconciliation loads at 1440px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /household loads at 1440px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /alerts loads at 1440px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /settings loads at 1440px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /profile loads at 1440px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /audit loads at 1440px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /subscription loads at 1440px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: / loads at 768px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /transactions loads at 768px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /income loads at 768px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /expenses loads at 768px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /categories loads at 768px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /budgets loads at 768px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /goals loads at 768px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /accounts loads at 768px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /cards loads at 768px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /loans loads at 768px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /udhari loads at 768px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /savings loads at 768px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /reports loads at 768px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /suggestions loads at 768px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /export loads at 768px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /import loads at 768px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /bills loads at 768px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /reconciliation loads at 768px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /household loads at 768px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /alerts loads at 768px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /settings loads at 768px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /profile loads at 768px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /audit loads at 768px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /subscription loads at 768px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: / loads at 390px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /transactions loads at 390px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /income loads at 390px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /expenses loads at 390px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /categories loads at 390px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /budgets loads at 390px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /goals loads at 390px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /accounts loads at 390px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /cards loads at 390px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /loans loads at 390px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /udhari loads at 390px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /savings loads at 390px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /reports loads at 390px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /suggestions loads at 390px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /export loads at 390px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /import loads at 390px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /bills loads at 390px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /reconciliation loads at 390px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /household loads at 390px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /alerts loads at 390px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /settings loads at 390px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /profile loads at 390px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /audit loads at 390px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /subscription loads at 390px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: / loads at 360px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /transactions loads at 360px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /income loads at 360px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /expenses loads at 360px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /categories loads at 360px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /budgets loads at 360px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /goals loads at 360px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /accounts loads at 360px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /cards loads at 360px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /loans loads at 360px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /udhari loads at 360px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /savings loads at 360px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /reports loads at 360px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /suggestions loads at 360px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /export loads at 360px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /import loads at 360px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /bills loads at 360px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /reconciliation loads at 360px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /household loads at 360px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /alerts loads at 360px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /settings loads at 360px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /profile loads at 360px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /audit loads at 360px",
+      "pass": true
+    },
+    {
+      "title": "audit UI: /subscription loads at 360px",
+      "pass": true
+    },
+    {
+      "title": "audit accessibility: account fields have programmatic names and Escape restores focus",
+      "pass": false,
+      "error": "[{\"tag\":\"INPUT\",\"type\":\"text\",\"placeholder\":\"HDFC Savings\"},{\"tag\":\"SELECT\",\"type\":\"select-one\",\"placeholder\":null},{\"tag\":\"INPUT\",\"type\":\"text\",\"placeholder\":\"HDFC Bank\"},{\"tag\":\"INPUT\",\"type\":\"number\",\"placeholder\":null},{\"tag\":\"INPUT\",\"type\":\"color\",\"placeholder\":null}]\n\n5 !== 0\n"
+    },
+    {
+      "title": "audit UI workflow: create account, persist reload and edit",
+      "pass": true
+    },
+    {
+      "title": "audit reports: independent numeric and accounting export probes",
+      "pass": false,
+      "error": "XLSX master Amount is a formatted string, not a numeric cell\n+ actual - expected\n\n+ 'string'\n- 'number'"
+    },
+    {
+      "title": "audit CA workbook: two active loans from same lender export without sheet collision",
+      "pass": false,
+      "error": "Worksheet with name |Amort_Same_Bank| already exists!\n+ actual - expected\n\n+ 'Worksheet with name |Amort_Same_Bank| already exists!'\n- null"
+    },
+    {
+      "title": "audit reconciliation: missing external closing balance cannot be marked matched",
+      "pass": false,
+      "error": "[{\"accountId\":\"audit-bank\",\"accountName\":\"Audit bank\",\"openingBalancePaise\":1000000,\"inflowsPaise\":0,\"outflowsPaise\":0,\"calculatedClosingBalancePaise\":1000000,\"reportedClosingBalancePaise\":1000000,\"mismatchPaise\":0,\"status\":\"matched\",\"possibleCauses\":[\"legacy_rows_without_events\"],\"missingAccountTransactionIds\":[],\"deletedOrReversedTransactionIds\":[],\"legacyFallbackTransactionIds\":[\"audit-dinner\"]}]"
+    },
+    {
+      "title": "audit profile backup: full snapshot contains all synced collections",
+      "pass": false,
+      "error": "Full backup omits: alerts, assetValuations, attachments, auditLogs, cardEmiInstallments, cardEmiPlans, cardPaymentAllocations, cardStatements, creditLimitGroups, exportHistory, fixedIncomeAssets, householdMembers, householdPermissions, households, importSources, insurancePolicies, obligations, reconciliationMatches, sinkingFunds, snapshots, transferLinks\n\n21 !== 0\n"
+    },
+    {
+      "title": "audit CSV: formula-like narration is neutralized in exported file",
+      "pass": false,
+      "error": "Unescaped spreadsheet formula prefix: Description,Note\n=1+1,+1+1"
+    },
+    {
+      "title": "audit workbook download: generated file opens with expected master row",
+      "pass": true
+    },
+    {
+      "title": "audit backup restore: linked account/category/transaction restored atomically",
+      "pass": false,
+      "error": "Restore left 2/3 records; missing child means partial restore\n\n2 !== 3\n"
+    },
+    {
+      "title": "audit profile wipe: deletes own profile data without reference-order failure",
+      "pass": false,
+      "error": "page.waitForResponse: Timeout 10000ms exceeded while waiting for event \"response\""
+    },
+    {
+      "title": "audit mobile navigation: Categories and Audit remain reachable through visible navigation",
+      "pass": false,
+      "error": "expect(locator).toBeVisible() failed\n\nLocator: getByRole('button', { name: 'Categories', exact: true })\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"to.be.visible\" with timeout 5000ms\n  - waiting for getByRole('button', { name: 'Categories', exact: true })\n"
+    },
+    {
+      "title": "audit admin UI: /admin loads at 1440px",
+      "pass": true
+    },
+    {
+      "title": "audit admin UI: /admin/users loads at 1440px",
+      "pass": true
+    },
+    {
+      "title": "audit admin UI: /admin/plans loads at 1440px",
+      "pass": true
+    },
+    {
+      "title": "audit admin UI: /admin/flags loads at 1440px",
+      "pass": true
+    },
+    {
+      "title": "audit admin UI: /admin/branding loads at 1440px",
+      "pass": true
+    },
+    {
+      "title": "audit admin UI: /admin/subscriptions loads at 1440px",
+      "pass": true
+    },
+    {
+      "title": "audit admin UI: /admin loads at 390px",
+      "pass": true
+    },
+    {
+      "title": "audit admin UI: /admin/users loads at 390px",
+      "pass": true
+    },
+    {
+      "title": "audit admin UI: /admin/plans loads at 390px",
+      "pass": true
+    },
+    {
+      "title": "audit admin UI: /admin/flags loads at 390px",
+      "pass": true
+    },
+    {
+      "title": "audit admin UI: /admin/branding loads at 390px",
+      "pass": true
+    },
+    {
+      "title": "audit admin UI: /admin/subscriptions loads at 390px",
+      "pass": true
+    }
+  ]
+}

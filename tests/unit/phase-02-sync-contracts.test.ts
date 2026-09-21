@@ -1,5 +1,5 @@
 import { execFileSync } from "node:child_process";
-import { readFileSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
@@ -16,6 +16,14 @@ const root = resolve(fileURLToPath(new URL(".", import.meta.url)), "../..");
 
 function read(path: string): string {
   return readFileSync(resolve(root, path), "utf8");
+}
+
+function sourceFiles(directory: string, suffix: string): string[] {
+  return readdirSync(directory, { withFileTypes: true }).flatMap(entry => {
+    if (entry.name.startsWith("._")) return [];
+    const path = resolve(directory, entry.name);
+    return entry.isDirectory() ? sourceFiles(path, suffix) : entry.name.endsWith(suffix) ? [path] : [];
+  });
 }
 
 function sqlTables(sql: string): Set<string> {
@@ -180,18 +188,8 @@ describe("Phase 2 database/schema drift", () => {
   });
 
   it("has every PHP-referenced table in the full database schema", () => {
-    const schemaTables = sqlTables(read("sql/SPAROWVAULT_FULL_DATABASE.sql"));
-    const phpFiles = execFileSync(
-      "powershell",
-      [
-        "-NoProfile",
-        "-Command",
-        "Get-ChildItem -Path php,api -Recurse -Filter *.php | Select-Object -ExpandProperty FullName",
-      ],
-      { cwd: root, encoding: "utf8" },
-    )
-      .split(/\r?\n/)
-      .filter(Boolean);
+    const schemaTables = sqlTables(read("sql/SPAROWVAULT_FULL_DATABASE.sql") + "\n" + read("sql/migrations/20260910_atomic_writes.sql") + "\n" + read("sql/migrations/20260911_security_sessions.sql"));
+    const phpFiles = ["php", "api"].flatMap(directory => sourceFiles(resolve(root, directory), ".php"));
 
     const refs = new Set<string>();
     for (const file of phpFiles) {
@@ -238,20 +236,11 @@ describe("Phase 2 database/schema drift", () => {
   });
 
   it("keeps phase migrations statically idempotent", () => {
-    const files = execFileSync(
-      "powershell",
-      [
-        "-NoProfile",
-        "-Command",
-        "Get-ChildItem -Path sql/migrations -Filter phase_*.sql | Select-Object -ExpandProperty FullName",
-      ],
-      { cwd: root, encoding: "utf8" },
-    )
-      .split(/\r?\n/)
-      .filter((file) => file && !file.endsWith("_rollback.sql"));
+    const files = sourceFiles(resolve(root, "sql/migrations"), ".sql")
+      .filter(file => !file.endsWith("_rollback.sql"));
 
     for (const file of files) {
-      const body = readFileSync(file, "utf8");
+      const body = readFileSync(file, "utf8").replace(/^\s*--.*$/gm, "");
       const alterAdds = body.match(/ALTER\s+TABLE[\s\S]*?\bADD\s+(?:COLUMN|KEY|INDEX)\b/gi) ?? [];
       for (const statement of alterAdds) {
         expect(`${statement}\n${body}`).toMatch(

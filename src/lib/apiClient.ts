@@ -3,6 +3,18 @@ const CSRF_STORAGE_KEY = "sv:csrf_token";
 
 type ApiEnvelope<T> = { ok: boolean; data?: T; error?: string; code?: string };
 
+export class ApiError extends Error {
+  constructor(message: string, public status: number, public code?: string) {
+    super(message);
+    this.name = "ApiError";
+  }
+}
+
+export function isRetryableApiError(error: unknown): boolean {
+  return error instanceof TypeError ||
+    (error instanceof ApiError && (error.status >= 500 || [408, 429].includes(error.status)));
+}
+
 function getBaseUrl() {
   const envTarget = import.meta.env.VITE_API_TARGET as string | undefined;
   const envBase = import.meta.env.VITE_API_BASE_URL as string | undefined;
@@ -52,13 +64,16 @@ function readCsrfCookie(): string | null {
 
 function readCsrfToken(): string | null {
   if (typeof window === "undefined") return null;
+  // Another tab can log in and replace the shared cookie; tab storage may be stale.
+  const cookie = readCsrfCookie();
+  if (cookie) return cookie;
   try {
     const stored = sessionStorage.getItem(CSRF_STORAGE_KEY);
     if (stored) return stored;
   } catch {
     /* ignore */
   }
-  return readCsrfCookie();
+  return null;
 }
 
 function maybeCaptureCsrfFromData(data: unknown): void {
@@ -86,15 +101,16 @@ export async function apiRequest<T>(
   const response = await fetch(`${getBaseUrl()}${path}`, { ...init, headers, credentials: "include" });
   const contentType = response.headers.get("content-type") ?? "";
   if (!contentType.includes("application/json")) {
-    const text = await response.text();
-    throw new Error(`API returned non-JSON response (${response.status}): ${text.slice(0, 80)}`);
+    throw new ApiError(`API returned an unexpected response (${response.status})`, response.status, "INVALID_RESPONSE");
   }
-  const body = (await response.json()) as ApiEnvelope<T>;
+  let body: ApiEnvelope<T>;
+  try { body = (await response.json()) as ApiEnvelope<T>; }
+  catch { throw new ApiError("Server response could not be verified", 502, "INVALID_RESPONSE"); }
   if (body.ok && body.data !== undefined) {
     maybeCaptureCsrfFromData(body.data);
   }
   if (!response.ok || !body.ok) {
-    throw new Error(body.error ?? `Request failed (${response.status})`);
+    throw new ApiError(body.error ?? `Request failed (${response.status})`, response.status, body.code);
   }
   return body.data as T;
 }

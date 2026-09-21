@@ -163,6 +163,7 @@ export async function setSecurityAnswer(
   _userId: string,
   securityQuestion: string,
   securityAnswer: string,
+  currentPin: string,
 ) {
   await apiRequest<{ updated: boolean }>("/api/auth/security-recovery.php", {
     method: "POST",
@@ -170,6 +171,7 @@ export async function setSecurityAnswer(
     body: JSON.stringify({
       securityQuestion: securityQuestion.trim(),
       securityAnswer: securityAnswer.trim(),
+      currentPin,
     }),
   });
 }

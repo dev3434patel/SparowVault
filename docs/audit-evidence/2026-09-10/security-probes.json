@@ -1,0 +1,169 @@
+{
+  "date": "2026-09-10T06:59:45.236Z",
+  "database": "sparowvault_audit_test_20260910",
+  "rows": [
+    {
+      "id": "S01",
+      "name": "ordinary user cannot list platform users",
+      "expected": "non-2xx",
+      "actual": 500,
+      "pass": true
+    },
+    {
+      "id": "S02",
+      "name": "cookie mutation requires CSRF",
+      "expected": "403",
+      "actual": 200,
+      "pass": false
+    },
+    {
+      "id": "S03",
+      "name": "sync push rejects absent CSRF",
+      "expected": "403",
+      "actual": 403,
+      "pass": true
+    },
+    {
+      "id": "S04",
+      "name": "PIN changes with valid current PIN",
+      "expected": "200",
+      "actual": 200,
+      "pass": true
+    },
+    {
+      "id": "S05",
+      "name": "recovery answer survives PIN change",
+      "expected": "200",
+      "actual": 401,
+      "pass": false
+    },
+    {
+      "id": "S06",
+      "name": "previous session revoked after PIN change",
+      "expected": "401",
+      "actual": 200,
+      "pass": false
+    },
+    {
+      "id": "S07",
+      "name": "logged out bearer token revoked",
+      "expected": "401",
+      "actual": 200,
+      "pass": false
+    },
+    {
+      "id": "S08",
+      "name": "seed admin forced to rotate PIN before privileged API",
+      "expected": "deny while must_change_pin=1",
+      "actual": {
+        "flag": 0,
+        "status": 200
+      },
+      "pass": false
+    },
+    {
+      "id": "S09",
+      "name": "stale sync cannot resurrect a deleted record",
+      "expected": "conflict or deleted",
+      "actual": {
+        "push": 200,
+        "isDeleted": 0
+      },
+      "pass": false
+    },
+    {
+      "id": "S10",
+      "name": "invalid batch leaves no partial financial writes",
+      "expected": "422 and first row absent",
+      "actual": {
+        "status": 422,
+        "firstRowStatus": 200
+      },
+      "pass": false
+    },
+    {
+      "id": "S11",
+      "name": "batch PATCH preserves household viewer restrictions",
+      "expected": "both denied",
+      "actual": {
+        "single": 422,
+        "batch": 200
+      },
+      "pass": false
+    },
+    {
+      "id": "S12",
+      "name": "forwarded-IP spoofing cannot evade account lockout",
+      "expected": "rate limit/lockout by attempt 6",
+      "actual": [
+        401,
+        401,
+        401,
+        401,
+        401,
+        401,
+        401
+      ],
+      "pass": false
+    },
+    {
+      "id": "S13",
+      "name": "client cannot create authoritative-looking audit trail",
+      "expected": "reject fabricated audit records",
+      "actual": 201,
+      "pass": false
+    },
+    {
+      "id": "S14",
+      "name": "concurrent duplicate mutation has one durable record",
+      "expected": 1,
+      "actual": 4,
+      "pass": false
+    },
+    {
+      "id": "S15",
+      "name": "bulk hard-delete reconciles persisted financial events",
+      "expected": "no posted orphan events",
+      "actual": {
+        "before": 1,
+        "after": 1
+      },
+      "pass": false
+    },
+    {
+      "id": "HTTP/.git/HEAD",
+      "name": "project internal file exposure",
+      "expected": "deny sensitive/internal file",
+      "actual": 200,
+      "pass": false
+    },
+    {
+      "id": "HTTP/.env",
+      "name": "project internal file exposure",
+      "expected": "deny sensitive/internal file",
+      "actual": 403,
+      "pass": true
+    },
+    {
+      "id": "HTTP/package.json",
+      "name": "project internal file exposure",
+      "expected": "deny sensitive/internal file",
+      "actual": 200,
+      "pass": false
+    },
+    {
+      "id": "HTTP/src/App.tsx",
+      "name": "project internal file exposure",
+      "expected": "deny sensitive/internal file",
+      "actual": 200,
+      "pass": false
+    },
+    {
+      "id": "HTTP/sql/schema.sql",
+      "name": "project internal file exposure",
+      "expected": "deny sensitive/internal file",
+      "actual": 403,
+      "pass": true
+    }
+  ]
+}

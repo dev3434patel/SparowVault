@@ -1,0 +1,25 @@
+{
+  "date": "2026-09-10",
+  "environment": "Existing local development database; not hosted staging or production",
+  "database": "sparowvault",
+  "command": "php php/scripts/migrate_atomic_writes.php --database=sparowvault --apply",
+  "exitCode": 0,
+  "tablesAdded": [
+    "financial_write_receipts",
+    "financial_entity_tombstones"
+  ],
+  "before": {
+    "cloudCollectionRows": 124,
+    "payloadCrc32Sum": 271426448577
+  },
+  "immediatelyAfter": {
+    "cloudCollectionRows": 124,
+    "payloadCrc32Sum": 271426448577,
+    "financialWriteReceiptRows": 0,
+    "financialEntityTombstoneRows": 0
+  },
+  "comparison": "Identical record count and aggregate payload CRC32 before and immediately after; spot check, not a full cryptographic verification or backup restore drill.",
+  "historicalBackfillRun": false,
+  "profileResetRun": false,
+  "provenance": "Recorded from the successful migration command and pre/post database queries executed during this implementation turn."
+}

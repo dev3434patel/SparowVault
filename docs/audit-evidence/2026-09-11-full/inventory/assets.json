@@ -1,0 +1,114 @@
+[
+  {
+    "file": "dist/assets/StatementImportDialog-TV8jFdN1.js",
+    "bytes": 453818
+  },
+  {
+    "file": "dist/assets/index-CkjYP-av.css",
+    "bytes": 62694
+  },
+  {
+    "file": "dist/assets/index-DvUfTwnA.js",
+    "bytes": 2158064
+  },
+  {
+    "file": "dist/assets/ocr-95Wwd_yE.js",
+    "bytes": 17967
+  },
+  {
+    "file": "dist/assets/pdf.worker.min-wgc6bjNh.mjs",
+    "bytes": 1078612
+  },
+  {
+    "file": "dist/favicon.ico",
+    "bytes": 25931
+  },
+  {
+    "file": "dist/file.svg",
+    "bytes": 391
+  },
+  {
+    "file": "dist/globe.svg",
+    "bytes": 1035
+  },
+  {
+    "file": "dist/index.html",
+    "bytes": 1395
+  },
+  {
+    "file": "dist/next.svg",
+    "bytes": 1375
+  },
+  {
+    "file": "dist/ocr/7.0.0/LICENSE-core.txt",
+    "bytes": 11358
+  },
+  {
+    "file": "dist/ocr/7.0.0/LICENSE-tesseract.txt",
+    "bytes": 11357
+  },
+  {
+    "file": "dist/ocr/7.0.0/eng.traineddata",
+    "bytes": 5199098
+  },
+  {
+    "file": "dist/ocr/7.0.0/tesseract-core-lstm.wasm",
+    "bytes": 2855361
+  },
+  {
+    "file": "dist/ocr/7.0.0/tesseract-core-lstm.wasm.js",
+    "bytes": 3896484
+  },
+  {
+    "file": "dist/ocr/7.0.0/tesseract-core-relaxedsimd-lstm.wasm",
+    "bytes": 2862266
+  },
+  {
+    "file": "dist/ocr/7.0.0/tesseract-core-relaxedsimd-lstm.wasm.js",
+    "bytes": 3905767
+  },
+  {
+    "file": "dist/ocr/7.0.0/tesseract-core-relaxedsimd.wasm",
+    "bytes": 3456075
+  },
+  {
+    "file": "dist/ocr/7.0.0/tesseract-core-relaxedsimd.wasm.js",
+    "bytes": 4697227
+  },
+  {
+    "file": "dist/ocr/7.0.0/tesseract-core-simd-lstm.wasm",
+    "bytes": 2857601
+  },
+  {
+    "file": "dist/ocr/7.0.0/tesseract-core-simd-lstm.wasm.js",
+    "bytes": 3899472
+  },
+  {
+    "file": "dist/ocr/7.0.0/tesseract-core-simd.wasm",
+    "bytes": 3451410
+  },
+  {
+    "file": "dist/ocr/7.0.0/tesseract-core-simd.wasm.js",
+    "bytes": 4690932
+  },
+  {
+    "file": "dist/ocr/7.0.0/tesseract-core.wasm",
+    "bytes": 3449168
+  },
+  {
+    "file": "dist/ocr/7.0.0/tesseract-core.wasm.js",
+    "bytes": 4687944
+  },
+  {
+    "file": "dist/ocr/7.0.0/worker.min.js",
+    "bytes": 111307
+  },
+  {
+    "file": "dist/vercel.svg",
+    "bytes": 128
+  },
+  {
+    "file": "dist/window.svg",
+    "bytes": 385
+  }
+]

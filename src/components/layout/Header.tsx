@@ -9,14 +9,17 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/Dropdown";
-import { Bell, Lock, LogOut, Plus, Search, User2, Users } from "lucide-react";
+import { Bell, Lock, LogOut, Plus, Search, User2, Users, Upload } from "lucide-react";
 import { ThemeSwitch } from "@/components/layout/ThemeSwitch";
 import { SyncOutboxBadge } from "@/components/layout/SyncOutboxBadge";
 import { useNavStore } from "@/store/navStore";
 import { useDataStore } from "@/store/dataStore";
-import { useMemo } from "react";
+import { lazy, Suspense, useMemo, useState } from "react";
+
+const StatementImportDialog = lazy(() => import("@/components/statements/StatementImportDialog"));
 
 export function Header() {
+  const [statementOpen, setStatementOpen] = useState(false);
   const currentUser = useAuthStore((s) => s.currentUser);
   const logout = useAuthStore((s) => s.logout);
   const lock = useAuthStore((s) => s.lock);
@@ -34,6 +37,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-20 flex h-14 items-center gap-2 border-b border-border bg-background/80 px-3 backdrop-blur sm:gap-3 sm:px-4">
       <button
+        aria-label="Search sections"
         onClick={() => setCommandOpen(true)}
         className="flex h-9 min-w-0 flex-1 items-center gap-2 rounded-md border border-border bg-surface px-3 text-left text-sm text-muted-foreground hover:bg-surface-2 sm:max-w-md"
       >
@@ -46,6 +50,7 @@ export function Header() {
 
       <div className="flex items-center gap-2">
         <SyncOutboxBadge />
+        <Button variant="outline" size="icon-sm" aria-label="Upload bank statement" title="Upload bank statement" onClick={() => setStatementOpen(true)}><Upload className="h-4 w-4" /></Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button size="sm" className="shadow" aria-label="Quick Add">
@@ -86,7 +91,7 @@ export function Header() {
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="flex items-center gap-2 rounded-md pr-1 hover:bg-surface-2">
+            <button aria-label="Profile menu" className="flex items-center gap-2 rounded-md pr-1 hover:bg-surface-2">
               {currentUser ? (
                 <div
                   className="flex h-8 w-8 items-center justify-center rounded-full text-base"
@@ -125,6 +130,7 @@ export function Header() {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
+      {statementOpen && <Suspense fallback={<span role="status" className="sr-only">Loading statement importer</span>}><StatementImportDialog onClose={() => setStatementOpen(false)} /></Suspense>}
     </header>
   );
 }

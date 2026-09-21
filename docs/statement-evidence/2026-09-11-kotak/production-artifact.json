@@ -1,0 +1,162 @@
+{
+  "date": "2026-09-11T04:38:40.189Z",
+  "isolation": "fresh disposable MariaDB database; four PHP workers",
+  "checks": [
+    {
+      "title": "24 identical concurrent retries produce one immutable receipt and record",
+      "pass": true
+    },
+    {
+      "title": "24 different payloads cannot share one mutation key",
+      "pass": true
+    },
+    {
+      "title": "stale PATCH is rejected and retry returns the original committed result",
+      "pass": true
+    },
+    {
+      "title": "invalid sync batch rolls back source, ledger and audit",
+      "pass": true
+    },
+    {
+      "title": "malformed sync rows are rejected rather than silently skipped",
+      "pass": true
+    },
+    {
+      "title": "stale sync cannot resurrect a soft-deleted record",
+      "pass": true
+    },
+    {
+      "title": "nonexistent and foreign transaction references are rejected",
+      "pass": true
+    },
+    {
+      "title": "same transaction ID in two tenants has isolated ledger effects",
+      "pass": true
+    },
+    {
+      "title": "referenced account cannot be deleted",
+      "pass": true
+    },
+    {
+      "title": "ledger failure rolls back entity, receipt and audit",
+      "pass": true
+    },
+    {
+      "title": "batch PATCH rolls back its first row when a later row is missing",
+      "pass": true
+    },
+    {
+      "title": "bulk hard-delete voids posted ledger and retains server audit",
+      "pass": true
+    },
+    {
+      "title": "hard-delete tombstones prevent stale snapshot resurrection",
+      "pass": true
+    },
+    {
+      "title": "mutation keys are isolated by user and bound to collection",
+      "pass": true
+    },
+    {
+      "title": "sync validates a final parent graph independent of collection order",
+      "pass": true
+    },
+    {
+      "title": "household viewer restrictions hold on batch, sync and bulk hard-delete",
+      "pass": true
+    },
+    {
+      "title": "bulk import uses reference validation and retry-safe row writes",
+      "pass": true
+    },
+    {
+      "title": "owner-bound reads and queued patches reject a changed authenticated user",
+      "pass": true
+    },
+    {
+      "title": "statement: method, authentication and CSRF are enforced",
+      "pass": true
+    },
+    {
+      "title": "statement: mismatched balance cannot partially post source, effects or audit",
+      "pass": true
+    },
+    {
+      "title": "statement: foreign categories, account switch and invalid calendar dates are rejected",
+      "pass": true
+    },
+    {
+      "title": "statement: explicit review, matching direction, scope and category are mandatory",
+      "pass": true
+    },
+    {
+      "title": "statement: concurrent identical reviewed imports produce exactly three transactions",
+      "pass": true
+    },
+    {
+      "title": "statement: re-exported PDF and new request key do not duplicate imported rows",
+      "pass": true
+    },
+    {
+      "title": "statement: approved transaction provenance excludes PDF bytes and passwords",
+      "pass": true
+    },
+    {
+      "title": "statement: the same PDF cannot be posted into a second bank account",
+      "pass": true
+    },
+    {
+      "title": "statement: excluded rows still participate in complete balance validation",
+      "pass": true
+    },
+    {
+      "title": "statement: own-account transfer posts both account legs without income/expense categories",
+      "pass": true
+    },
+    {
+      "title": "statement: excessive linked refunds roll back the entire batch",
+      "pass": true
+    },
+    {
+      "title": "statement: reviewed refund reduces expense and increases bank balance without income",
+      "pass": true
+    },
+    {
+      "title": "statement: card payment reduces cash and card liability without recording another expense",
+      "pass": true
+    },
+    {
+      "title": "statement: import throttling rejects requests beyond its configured limit",
+      "pass": true
+    },
+    {
+      "title": "statement browser: encrypted PDF asks for password, rejects wrong password, extracts with correct one",
+      "pass": true
+    },
+    {
+      "title": "statement browser: mobile review is contained and header upload remains reachable",
+      "pass": true
+    },
+    {
+      "title": "statement browser: confirmed decisions import correct amounts and no PDF/password leaves the browser",
+      "pass": true
+    },
+    {
+      "title": "statement browser: all five synthetic bank headings and multipage statements extract",
+      "pass": true
+    },
+    {
+      "title": "statement browser: numbered Kotak export resolves period, headerless continuation and independent summary",
+      "pass": true
+    },
+    {
+      "title": "statement browser: image-only PDFs are blocked without guessed financial entries",
+      "pass": true
+    },
+    {
+      "title": "statement browser: malformed non-PDF is rejected and no uncaught errors occurred",
+      "pass": true
+    }
+  ]
+}

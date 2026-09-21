@@ -1,0 +1,26 @@
+{
+  "label": "coverage",
+  "command": [
+    "npm",
+    "run",
+    "test",
+    "--",
+    "--exclude",
+    "**/._*",
+    "--coverage",
+    "--coverage.reportOnFailure",
+    "--coverage.exclude",
+    "**/._*",
+    "--coverage.exclude",
+    "**/__tests__/**",
+    "--coverage.reportsDirectory=docs/audit-evidence/2026-09-10/coverage",
+    "--coverage.reporter=json-summary",
+    "--coverage.reporter=text"
+  ],
+  "started": "2026-09-10T07:01:34.029Z",
+  "ended": "2026-09-10T07:01:37.618Z",
+  "seconds": 3.589,
+  "exitCode": 1,
+  "signal": null,
+  "timedOut": false
+}

@@ -1,0 +1,15 @@
+{
+  "date": "2026-09-10T10:23:07.460Z",
+  "frontend": "http://127.0.0.1:5178/",
+  "syntheticUser": "review_demo",
+  "checks": {
+    "login": true,
+    "mobileHeader": true,
+    "pdfExtraction": true,
+    "mobileReviewControls": true,
+    "reviewEnablesImport": true,
+    "reload": true
+  },
+  "financialRequests": 0,
+  "errors": []
+}

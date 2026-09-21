@@ -133,6 +133,7 @@ export const SYNC_CONTRACTS = [
       "taxPaise",
       "interestPaise",
       "principalComponentPaise",
+      "statementSource",
     ],
     hotFields: [
       "amount_paise",

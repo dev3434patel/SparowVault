@@ -1,85 +1,55 @@
 <?php
-
-require_once __DIR__ . "/../php/config/env.php";
+declare(strict_types=1);
+if (PHP_SAPI !== "cli") { http_response_code(403); exit; }
 require_once __DIR__ . "/../php/config/db.php";
 
-$dbHost = (string)(env_value("DB_HOST", "127.0.0.1") ?? "127.0.0.1");
-$dbPort = (string)(env_value("DB_PORT", "3306") ?? "3306");
-$dbName = (string)(env_value("DB_NAME", "") ?? "");
-$dbUser = (string)(env_value("DB_USER", "") ?? "");
-$dbPass = (string)(env_value("DB_PASS", "") ?? "");
-
-if ($dbName === "" || $dbUser === "") {
-    fwrite(STDERR, "Missing DB_NAME or DB_USER\n");
-    exit(1);
+// Backups contain credentials and financial records. Never put them in the web root.
+umask(0077);
+$config = $partial = $errorFile = $stem = null;
+$published = false;
+$exitCode = 0;
+try {
+    $directory = (string)(getenv("BACKUP_DIR") ?: "");
+    if ($directory === "" || !str_starts_with($directory, "/")) throw new RuntimeException("Set BACKUP_DIR to a private absolute directory outside the application/web root");
+    if (!is_dir($directory) && !mkdir($directory, 0700, true)) throw new RuntimeException("Cannot create backup directory");
+    $directory = realpath($directory);
+    $root = realpath(__DIR__ . "/..");
+    if (!$directory || $directory === $root || str_starts_with($directory, $root . "/")) throw new RuntimeException("Backup directory must be outside the application/web root");
+    if ((fileperms($directory) & 0077) !== 0) throw new RuntimeException("Backup directory must be private (chmod 700)");
+    $db = db_conn();
+    $database = (string)$db->query("SELECT DATABASE()")->fetchColumn();
+    $check = $db->prepare("SELECT COUNT(*) FROM information_schema.tables WHERE table_schema=? AND table_type='BASE TABLE' AND engine <> 'InnoDB'");
+    $check->execute([$database]);
+    if ((int)$check->fetchColumn() !== 0) throw new RuntimeException("Consistent online snapshot requires InnoDB tables; use a maintenance-window backup for other engines");
+    $url = env_value("DATABASE_URL");
+    $parts = $url && str_starts_with($url, "mysql://") ? parse_url($url) : [];
+    $host = $parts["host"] ?? env_value("DB_HOST", "127.0.0.1");
+    $port = $parts["port"] ?? env_value("DB_PORT", "3306");
+    $user = isset($parts["user"]) ? urldecode($parts["user"]) : env_value("DB_USER", "");
+    $password = isset($parts["pass"]) ? urldecode($parts["pass"]) : env_value("DB_PASS", "");
+    $escape = fn($value) => '"' . str_replace(["\\", '"', "\n", "\r"], ["\\\\", '\\"', '\\n', '\\r'], (string)$value) . '"';
+    $config = tempnam($directory, ".client-");
+    if (!$config || file_put_contents($config, "[client]\nhost=" . $escape($host) . "\nport=" . $escape($port) . "\nuser=" . $escape($user) . "\npassword=" . $escape($password) . "\nprotocol=tcp\n") === false) throw new RuntimeException("Cannot create private client configuration");
+    $stem = $directory . "/db_" . gmdate("Ymd_His") . "_" . bin2hex(random_bytes(6));
+    $partial = $stem . ".sql.part";
+    $errorFile = $stem . ".stderr.part";
+    $binary = (string)(getenv("MYSQLDUMP_BIN") ?: "mysqldump");
+    $process = proc_open([$binary, "--defaults-extra-file=" . $config, "--single-transaction", "--quick", "--skip-lock-tables", "--hex-blob", "--routines", "--events", "--triggers", $database], [0 => ["pipe", "r"], 1 => ["file", $partial, "w"], 2 => ["file", $errorFile, "w"]], $pipes);
+    if (!is_resource($process)) throw new RuntimeException("Cannot start mysqldump; set MYSQLDUMP_BIN");
+    fclose($pipes[0]);
+    $status = proc_close($process);
+    if ($status !== 0 || !is_file($partial) || filesize($partial) === 0) throw new RuntimeException("Database snapshot failed (exit " . $status . "). Check dump-tool availability and privileges; no backup was published");
+    $manifest = ["version" => 1, "database" => $database, "createdAt" => gmdate("c"), "file" => basename($stem . ".sql"), "sha256" => hash_file("sha256", $partial), "bytes" => filesize($partial), "consistentInnoDbSnapshot" => true, "encrypted" => false, "restoreVerified" => false];
+    if (file_put_contents($stem . ".json.part", json_encode($manifest, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR)) === false) throw new RuntimeException("Cannot write snapshot manifest");
+    if (!rename($partial, $stem . ".sql") || !rename($stem . ".json.part", $stem . ".json")) throw new RuntimeException("Cannot publish snapshot and manifest");
+    $published = true;
+    echo json_encode(["backup" => $stem . ".sql", "manifest" => $stem . ".json", "encrypted" => false, "restoreVerified" => false], JSON_THROW_ON_ERROR) . PHP_EOL;
+} catch (Throwable $error) {
+    fwrite(STDERR, "Backup failed: " . $error->getMessage() . PHP_EOL);
+    $exitCode = 1;
+} finally {
+    $cleanup = [$config, $partial, $errorFile];
+    if (!$published && $stem) $cleanup = array_merge($cleanup, [$stem . ".sql", $stem . ".json", $stem . ".json.part"]);
+    foreach ($cleanup as $file) if ($file && is_file($file)) unlink($file);
 }
-
-$ts = gmdate("Ymd_His");
-$outDir = __DIR__ . "/../backups";
-if (!is_dir($outDir)) {
-    mkdir($outDir, 0775, true);
-}
-$dumpFile = $outDir . "/db_" . $ts . ".sql";
-
-$cmd = sprintf(
-    'mysqldump -h %s -P %s -u %s %s %s > %s',
-    escapeshellarg($dbHost),
-    escapeshellarg($dbPort),
-    escapeshellarg($dbUser),
-    $dbPass !== "" ? '-p' . escapeshellarg($dbPass) : '',
-    escapeshellarg($dbName),
-    escapeshellarg($dumpFile)
-);
-
-exec($cmd, $output, $status);
-if ($status !== 0) {
-    fwrite(STDERR, "mysqldump failed or is unavailable; falling back to PDO SQL export\n");
-    try {
-        $db = db_conn();
-        $fh = fopen($dumpFile, "wb");
-        if ($fh === false) {
-            throw new RuntimeException("Could not open backup file for writing");
-        }
-        fwrite($fh, "-- SparowVault PDO fallback backup\n");
-        fwrite($fh, "-- Created at " . gmdate("c") . "\n\n");
-        fwrite($fh, "SET FOREIGN_KEY_CHECKS=0;\n\n");
-
-        $tables = [];
-        $st = $db->query("SHOW FULL TABLES WHERE Table_type = 'BASE TABLE'");
-        while ($row = $st->fetch(PDO::FETCH_NUM)) {
-            if (isset($row[0]) && is_string($row[0]) && $row[0] !== "") {
-                $tables[] = $row[0];
-            }
-        }
-
-        foreach ($tables as $table) {
-            $quotedTable = "`" . str_replace("`", "``", $table) . "`";
-            $create = $db->query("SHOW CREATE TABLE " . $quotedTable)->fetch(PDO::FETCH_ASSOC);
-            $createSql = $create["Create Table"] ?? null;
-            if (!is_string($createSql) || $createSql === "") {
-                continue;
-            }
-            fwrite($fh, "DROP TABLE IF EXISTS " . $quotedTable . ";\n");
-            fwrite($fh, $createSql . ";\n\n");
-
-            $rows = $db->query("SELECT * FROM " . $quotedTable);
-            while ($record = $rows->fetch(PDO::FETCH_ASSOC)) {
-                $cols = array_keys($record);
-                $colSql = implode(", ", array_map(fn($c) => "`" . str_replace("`", "``", $c) . "`", $cols));
-                $valSql = implode(", ", array_map(function ($v) use ($db) {
-                    if ($v === null) return "NULL";
-                    return $db->quote((string)$v);
-                }, array_values($record)));
-                fwrite($fh, "INSERT INTO " . $quotedTable . " (" . $colSql . ") VALUES (" . $valSql . ");\n");
-            }
-            fwrite($fh, "\n");
-        }
-        fwrite($fh, "SET FOREIGN_KEY_CHECKS=1;\n");
-        fclose($fh);
-    } catch (Throwable $e) {
-        fwrite(STDERR, "Backup failed: " . $e->getMessage() . "\n");
-        exit($status !== 0 ? $status : 1);
-    }
-}
-
-echo "DB backup created: " . $dumpFile . PHP_EOL;
+exit($exitCode);

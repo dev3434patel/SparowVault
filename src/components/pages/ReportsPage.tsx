@@ -15,6 +15,8 @@ import { useDataStore } from "@/store/dataStore";
 import { useAuthStore } from "@/store/authStore";
 import {
   categoryBreakdown,
+  expenseAmountPaise,
+  expenseReportTransactions,
   filterByMonth,
   monthlyTrend,
   summarizeLoan,
@@ -141,12 +143,13 @@ export function ReportsPage() {
   );
 
   // Top merchants
+  const expenseActivity = expenseReportTransactions(thisMonth, transactions);
   const merchantMap = new Map<string, number>();
-  for (const t of thisMonth.filter((t) => t.type === "expense")) {
+  for (const t of expenseActivity) {
     if (!t.merchantOrPerson) continue;
     merchantMap.set(
       t.merchantOrPerson,
-      (merchantMap.get(t.merchantOrPerson) ?? 0) + transactionAmountPaise(t),
+      (merchantMap.get(t.merchantOrPerson) ?? 0) + expenseAmountPaise(t),
     );
   }
   const topMerchants = Array.from(merchantMap.entries())
@@ -154,26 +157,24 @@ export function ReportsPage() {
     .slice(0, 10);
 
   // Need vs Want
-  const needWant = thisMonth
-    .filter((t) => t.type === "expense")
+  const needWant = expenseActivity
     .reduce(
       (acc, t) => {
-        if (t.needWant === "need") acc.need += transactionAmountPaise(t);
-        else if (t.needWant === "want" || t.needWant === "luxury") acc.want += transactionAmountPaise(t);
-        else acc.unassigned += transactionAmountPaise(t);
+        if (t.needWant === "need") acc.need += expenseAmountPaise(t);
+        else if (t.needWant === "want" || t.needWant === "luxury") acc.want += expenseAmountPaise(t);
+        else acc.unassigned += expenseAmountPaise(t);
         return acc;
       },
       { need: 0, want: 0, unassigned: 0 },
     );
 
   // Fixed vs Variable
-  const fixedVar = thisMonth
-    .filter((t) => t.type === "expense")
+  const fixedVar = expenseActivity
     .reduce(
       (acc, t) => {
-        if (t.fixedVariable === "fixed") acc.fixed += transactionAmountPaise(t);
-        else if (t.fixedVariable === "variable") acc.variable += transactionAmountPaise(t);
-        else acc.unassigned += transactionAmountPaise(t);
+        if (t.fixedVariable === "fixed") acc.fixed += expenseAmountPaise(t);
+        else if (t.fixedVariable === "variable") acc.variable += expenseAmountPaise(t);
+        else acc.unassigned += expenseAmountPaise(t);
         return acc;
       },
       { fixed: 0, variable: 0, unassigned: 0 },
@@ -181,8 +182,8 @@ export function ReportsPage() {
 
   // Payment mode split
   const modeMap = new Map<string, number>();
-  for (const t of thisMonth.filter((t) => t.type === "expense")) {
-    modeMap.set(t.paymentMode, (modeMap.get(t.paymentMode) ?? 0) + transactionAmountPaise(t));
+  for (const t of expenseActivity) {
+    modeMap.set(t.paymentMode, (modeMap.get(t.paymentMode) ?? 0) + expenseAmountPaise(t));
   }
   const modeData = Array.from(modeMap.entries()).map(([mode, amountPaise]) => ({
     mode,

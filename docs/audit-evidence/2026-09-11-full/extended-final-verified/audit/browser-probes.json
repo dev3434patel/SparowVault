@@ -1,0 +1,199 @@
+[
+  {
+    "name": "account-dialog-a11y",
+    "overflowPx": 0,
+    "mainChars": 171,
+    "headings": [
+      "Accounts",
+      "₹9,600.00",
+      "1",
+      "1",
+      "1"
+    ],
+    "controls": 12,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "HDFC Savings"
+      },
+      {
+        "tag": "SELECT",
+        "type": "select-one",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "HDFC Bank"
+      },
+      {
+        "tag": "INPUT",
+        "type": "number",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "color",
+        "placeholder": null
+      }
+    ],
+    "unnamedButtons": [
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-",
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-"
+    ]
+  },
+  {
+    "name": "account-dialog-focus-return",
+    "focused": false
+  },
+  {
+    "name": "account-ui-buttons",
+    "count": 2
+  },
+  {
+    "name": "finance-export",
+    "amountType": "string",
+    "collisionError": "Worksheet with name |Amort_Same_Bank| already exists!",
+    "reconciliation": [
+      {
+        "accountId": "audit-bank",
+        "accountName": "Audit bank",
+        "openingBalancePaise": 1000000,
+        "inflowsPaise": 0,
+        "outflowsPaise": 0,
+        "calculatedClosingBalancePaise": 1000000,
+        "reportedClosingBalancePaise": 1000000,
+        "mismatchPaise": 0,
+        "status": "matched",
+        "possibleCauses": [
+          "legacy_rows_without_events"
+        ],
+        "missingAccountTransactionIds": [],
+        "deletedOrReversedTransactionIds": [],
+        "legacyFallbackTransactionIds": [
+          "audit-dinner"
+        ]
+      }
+    ],
+    "calculatedExpensePaise": 40000
+  },
+  {
+    "name": "backup-collections",
+    "present": [
+      "settings",
+      "accounts",
+      "cards",
+      "categories",
+      "transactions",
+      "budgets",
+      "goals",
+      "goalContribs",
+      "loans",
+      "emis",
+      "udhari",
+      "udhariSettlements",
+      "investments",
+      "savingsContribs",
+      "reminders",
+      "recurringRules"
+    ],
+    "omitted": [
+      "alerts",
+      "assetValuations",
+      "attachments",
+      "auditLogs",
+      "cardEmiInstallments",
+      "cardEmiPlans",
+      "cardPaymentAllocations",
+      "cardStatements",
+      "creditLimitGroups",
+      "exportHistory",
+      "fixedIncomeAssets",
+      "householdMembers",
+      "householdPermissions",
+      "households",
+      "importSources",
+      "insurancePolicies",
+      "obligations",
+      "reconciliationMatches",
+      "sinkingFunds",
+      "snapshots",
+      "transferLinks"
+    ]
+  },
+  {
+    "name": "csv-formula",
+    "content": "Description,Note\n=1+1,+1+1"
+  },
+  {
+    "name": "xlsx-download",
+    "sheetCount": 21,
+    "sheets": [
+      "Transactions_Master",
+      "Income_Summary_Monthly",
+      "Expense_Summary_Monthly",
+      "Expense_By_Category",
+      "Expense_By_Subcategory",
+      "Expense_By_Payment_Mode",
+      "Loan_EMI_Register",
+      "Credit_Card_Register",
+      "Udhari_Register",
+      "Savings_Investments_Register",
+      "Goal_Contribution_Register",
+      "Annual_Personal_Financial_Summa",
+      "Tax_Flagged_Transactions",
+      "GST_Bill_Entries",
+      "Account_Ledger",
+      "Account_Reconciliation",
+      "Interest_Paid_Report",
+      "Business_Personal_Split",
+      "Bills_Missing_Report",
+      "Export_Footer",
+      "CA_Notes"
+    ]
+  },
+  {
+    "name": "restore-result",
+    "records": [
+      {
+        "collection": "accounts",
+        "id": "acc_mtwq9k1h_ksstimvbs6ld0syn"
+      },
+      {
+        "collection": "categories",
+        "id": "cat_mtwq9k22_0besw3kthrn12drd"
+      }
+    ]
+  },
+  {
+    "name": "mobile-navigation",
+    "labels": [
+      "Quick search, jump to section…Ctrl K",
+      "Sync needs review1",
+      "Quick Add",
+      "👤",
+      "Normal view",
+      "Reports",
+      "Export",
+      "Open goals",
+      "EMI this month₹0.00",
+      "Card statement due₹0.00",
+      "Udhari receivable₹0.00",
+      "You owe in udhari₹0.00",
+      "Total liabilities₹0.00",
+      "View all",
+      "tagStale Food₹400100%",
+      "View",
+      "Create one",
+      "Manage",
+      "Create one",
+      "View all",
+      "Home",
+      "Ledger",
+      "Budget",
+      "Goals",
+      "Reports"
+    ]
+  }
+]

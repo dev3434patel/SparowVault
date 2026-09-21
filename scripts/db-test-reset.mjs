@@ -163,6 +163,9 @@ async function main() {
   for (const statement of splitSqlStatements(migrationSql)) {
     if (statement.trim()) await conn.query(statement);
   }
+  const atomicWrites = await fs.readFile(path.join(ROOT, "sql", "migrations", "20260910_atomic_writes.sql"), "utf8");
+  await conn.query(atomicWrites);
+  await conn.query(await fs.readFile(path.join(ROOT, "sql", "migrations", "20260911_security_sessions.sql"), "utf8"));
 
   await conn.end();
   console.log("✓ Test DB reset (schema-only, no user data).");

@@ -1,0 +1,2657 @@
+[
+  {
+    "path": "/api/admin/dashboard.php",
+    "file": "api/admin/dashboard.php",
+    "methods": [
+      "GET"
+    ],
+    "handlers": [
+      "admin_dashboard"
+    ],
+    "auth": "admin",
+    "csrf": false,
+    "pin": [],
+    "rate": true,
+    "audit": [],
+    "fields": [],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [],
+    "callGraph": [
+      "admin_dashboard",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "auth_require_admin",
+      "auth_require_active_user",
+      "require_cloud_user",
+      "verify_cloud_token",
+      "jwt_secret",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "base64url_decode",
+      "get_bearer_token",
+      "db_user_by_id",
+      "json_ok",
+      "request_log",
+      "rate_limit_guard",
+      "json_error",
+      "client_ip",
+      "rate_limit_guard_memory"
+    ]
+  },
+  {
+    "path": "/api/admin/feature-flags.php",
+    "file": "api/admin/feature-flags.php",
+    "methods": [
+      "GET",
+      "PUT",
+      "POST"
+    ],
+    "handlers": [
+      "admin_feature_flags_get",
+      "admin_feature_flags_put"
+    ],
+    "auth": "admin",
+    "csrf": false,
+    "pin": [],
+    "rate": true,
+    "audit": [
+      "audit_log_action"
+    ],
+    "fields": [],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [],
+    "callGraph": [
+      "admin_feature_flags_get",
+      "flag_get_map",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "auth_require_admin",
+      "auth_require_active_user",
+      "require_cloud_user",
+      "verify_cloud_token",
+      "jwt_secret",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "base64url_decode",
+      "get_bearer_token",
+      "db_user_by_id",
+      "json_ok",
+      "rate_limit_guard",
+      "json_error",
+      "client_ip",
+      "rate_limit_guard_memory",
+      "admin_feature_flags_put",
+      "audit_log_action",
+      "actor_ip_address",
+      "actor_user_agent",
+      "require_json_body",
+      "cloud_max_entity_json_body_bytes",
+      "is_cloud_collection",
+      "cloud_collections",
+      "cloud_collection_allowlist",
+      "request_log"
+    ]
+  },
+  {
+    "path": "/api/admin/plans.php",
+    "file": "api/admin/plans.php",
+    "methods": [
+      "GET",
+      "POST",
+      "PUT"
+    ],
+    "handlers": [
+      "admin_plans_list",
+      "admin_plans_upsert"
+    ],
+    "auth": "admin",
+    "csrf": false,
+    "pin": [],
+    "rate": true,
+    "audit": [
+      "audit_log_action"
+    ],
+    "fields": [
+      "id",
+      "price_inr",
+      "billing_interval",
+      "description",
+      "trial_days",
+      "is_active"
+    ],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error($e->getMessage(), 422, \"VALIDATION_ERROR\")",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [],
+    "callGraph": [
+      "admin_plans_list",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "auth_require_admin",
+      "auth_require_active_user",
+      "require_cloud_user",
+      "verify_cloud_token",
+      "jwt_secret",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "base64url_decode",
+      "get_bearer_token",
+      "db_user_by_id",
+      "json_ok",
+      "rate_limit_guard",
+      "json_error",
+      "client_ip",
+      "rate_limit_guard_memory",
+      "admin_plans_upsert",
+      "audit_log_action",
+      "actor_ip_address",
+      "actor_user_agent",
+      "require_json_body",
+      "cloud_max_entity_json_body_bytes",
+      "is_cloud_collection",
+      "cloud_collections",
+      "cloud_collection_allowlist",
+      "request_log",
+      "validate_string_field",
+      "validate_enum",
+      "validate_decimal_string"
+    ]
+  },
+  {
+    "path": "/api/admin/settings.php",
+    "file": "api/admin/settings.php",
+    "methods": [
+      "GET",
+      "PUT",
+      "POST"
+    ],
+    "handlers": [
+      "admin_settings_get",
+      "admin_settings_put"
+    ],
+    "auth": "admin",
+    "csrf": false,
+    "pin": [],
+    "rate": true,
+    "audit": [
+      "audit_log_action"
+    ],
+    "fields": [],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error(\"No settings provided\", 422, \"VALIDATION_ERROR\")",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [],
+    "callGraph": [
+      "admin_settings_get",
+      "setting_get_map",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "auth_require_admin",
+      "auth_require_active_user",
+      "require_cloud_user",
+      "verify_cloud_token",
+      "jwt_secret",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "base64url_decode",
+      "get_bearer_token",
+      "db_user_by_id",
+      "json_ok",
+      "rate_limit_guard",
+      "json_error",
+      "client_ip",
+      "rate_limit_guard_memory",
+      "admin_settings_put",
+      "audit_log_action",
+      "actor_ip_address",
+      "actor_user_agent",
+      "require_json_body",
+      "cloud_max_entity_json_body_bytes",
+      "is_cloud_collection",
+      "cloud_collections",
+      "cloud_collection_allowlist",
+      "request_log"
+    ]
+  },
+  {
+    "path": "/api/admin/subscriptions.php",
+    "file": "api/admin/subscriptions.php",
+    "methods": [
+      "GET",
+      "POST"
+    ],
+    "handlers": [
+      "admin_subscriptions_list",
+      "admin_subscription_action"
+    ],
+    "auth": "admin",
+    "csrf": false,
+    "pin": [],
+    "rate": true,
+    "audit": [
+      "audit_log_action"
+    ],
+    "fields": [
+      "subscriptionId",
+      "action",
+      "days",
+      "reason"
+    ],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error(\"subscriptionId and valid action are required\", 422, \"VALIDATION_ERROR\")",
+      "json_error(\"days must be between 1 and 366\", 422, \"VALIDATION_ERROR\")",
+      "json_error(\"Subscription not found\", 404, \"SUBSCRIPTION_NOT_FOUND\")",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [],
+    "callGraph": [
+      "admin_subscriptions_list",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "auth_require_admin",
+      "auth_require_active_user",
+      "require_cloud_user",
+      "verify_cloud_token",
+      "jwt_secret",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "base64url_decode",
+      "get_bearer_token",
+      "db_user_by_id",
+      "json_ok",
+      "rate_limit_guard",
+      "json_error",
+      "client_ip",
+      "rate_limit_guard_memory",
+      "admin_subscription_action",
+      "audit_log_action",
+      "actor_ip_address",
+      "actor_user_agent",
+      "require_json_body",
+      "cloud_max_entity_json_body_bytes",
+      "is_cloud_collection",
+      "cloud_collections",
+      "cloud_collection_allowlist"
+    ]
+  },
+  {
+    "path": "/api/admin/users-assign-plan.php",
+    "file": "api/admin/users-assign-plan.php",
+    "methods": [
+      "POST"
+    ],
+    "handlers": [
+      "admin_assign_plan"
+    ],
+    "auth": "admin",
+    "csrf": false,
+    "pin": [],
+    "rate": true,
+    "audit": [
+      "audit_log_action"
+    ],
+    "fields": [
+      "userId",
+      "planId"
+    ],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error(\"userId is required\", 422, \"VALIDATION_ERROR\")",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error(\"planId is required\", 422, \"VALIDATION_ERROR\")",
+      "json_error(\"User not found\", 404, \"USER_NOT_FOUND\")",
+      "json_error(\"Plan not found\", 404, \"PLAN_NOT_FOUND\")",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)",
+      "json_error(\"Request body too large\", 413, \"PAYLOAD_TOO_LARGE\")",
+      "json_error(\"Invalid JSON payload\", 400, \"INVALID_JSON\")"
+    ],
+    "referencedTests": [],
+    "callGraph": [
+      "admin_assign_plan",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "admin_subscription_period_end_sql",
+      "audit_log_action",
+      "actor_ip_address",
+      "actor_user_agent",
+      "auth_require_admin",
+      "auth_require_active_user",
+      "require_cloud_user",
+      "verify_cloud_token",
+      "jwt_secret",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "base64url_decode",
+      "get_bearer_token",
+      "db_user_by_id",
+      "json_ok",
+      "json_error",
+      "rate_limit_guard",
+      "client_ip",
+      "rate_limit_guard_memory",
+      "require_json_body",
+      "cloud_max_entity_json_body_bytes",
+      "is_cloud_collection",
+      "cloud_collections",
+      "cloud_collection_allowlist"
+    ]
+  },
+  {
+    "path": "/api/admin/users-reset-pin.php",
+    "file": "api/admin/users-reset-pin.php",
+    "methods": [
+      "POST"
+    ],
+    "handlers": [
+      "admin_reset_user_pin"
+    ],
+    "auth": "admin",
+    "csrf": false,
+    "pin": [],
+    "rate": true,
+    "audit": [
+      "audit_log_action"
+    ],
+    "fields": [
+      "userId",
+      "newPin"
+    ],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error(\"userId and newPin are required\", 422, \"VALIDATION_ERROR\")",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error(\"userId is required\", 422, \"VALIDATION_ERROR\")",
+      "json_error($pinError, 422, \"VALIDATION_ERROR\")",
+      "json_error(\"User not found\", 404, \"USER_NOT_FOUND\")",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)",
+      "json_error(\"Request body too large\", 413, \"PAYLOAD_TOO_LARGE\")",
+      "json_error(\"Invalid JSON payload\", 400, \"INVALID_JSON\")"
+    ],
+    "referencedTests": [],
+    "callGraph": [
+      "admin_reset_user_pin",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "audit_log_action",
+      "actor_ip_address",
+      "actor_user_agent",
+      "create_pin_salt",
+      "hash_secret",
+      "auth_pin_validation_error",
+      "auth_require_admin",
+      "auth_require_active_user",
+      "require_cloud_user",
+      "verify_cloud_token",
+      "jwt_secret",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "base64url_decode",
+      "get_bearer_token",
+      "db_user_by_id",
+      "json_ok",
+      "json_error",
+      "rate_limit_guard",
+      "client_ip",
+      "rate_limit_guard_memory",
+      "require_json_body",
+      "cloud_max_entity_json_body_bytes",
+      "is_cloud_collection",
+      "cloud_collections",
+      "cloud_collection_allowlist"
+    ]
+  },
+  {
+    "path": "/api/admin/users-toggle-active.php",
+    "file": "api/admin/users-toggle-active.php",
+    "methods": [
+      "POST"
+    ],
+    "handlers": [
+      "admin_toggle_user_active"
+    ],
+    "auth": "admin",
+    "csrf": false,
+    "pin": [],
+    "rate": true,
+    "audit": [
+      "audit_log_action"
+    ],
+    "fields": [
+      "userId"
+    ],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error(\"userId is required\", 422, \"VALIDATION_ERROR\")",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error(\"You cannot deactivate your own admin account\", 409, \"SELF_TOGGLE_BLOCKED\")",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)",
+      "json_error(\"Request body too large\", 413, \"PAYLOAD_TOO_LARGE\")",
+      "json_error(\"Invalid JSON payload\", 400, \"INVALID_JSON\")"
+    ],
+    "referencedTests": [],
+    "callGraph": [
+      "admin_toggle_user_active",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "audit_log_action",
+      "actor_ip_address",
+      "actor_user_agent",
+      "auth_require_admin",
+      "auth_require_active_user",
+      "require_cloud_user",
+      "verify_cloud_token",
+      "jwt_secret",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "base64url_decode",
+      "get_bearer_token",
+      "db_user_by_id",
+      "json_ok",
+      "json_error",
+      "rate_limit_guard",
+      "client_ip",
+      "rate_limit_guard_memory",
+      "require_json_body",
+      "cloud_max_entity_json_body_bytes",
+      "is_cloud_collection",
+      "cloud_collections",
+      "cloud_collection_allowlist"
+    ]
+  },
+  {
+    "path": "/api/admin/users.php",
+    "file": "api/admin/users.php",
+    "methods": [
+      "GET"
+    ],
+    "handlers": [
+      "admin_users_list"
+    ],
+    "auth": "admin",
+    "csrf": false,
+    "pin": [],
+    "rate": true,
+    "audit": [],
+    "fields": [],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [
+      "tests/local-phase-10-privacy-audit-e2e.mjs"
+    ],
+    "callGraph": [
+      "admin_users_list",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "auth_require_admin",
+      "auth_require_active_user",
+      "require_cloud_user",
+      "verify_cloud_token",
+      "jwt_secret",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "base64url_decode",
+      "get_bearer_token",
+      "db_user_by_id",
+      "json_ok",
+      "rate_limit_guard",
+      "json_error",
+      "client_ip",
+      "rate_limit_guard_memory"
+    ]
+  },
+  {
+    "path": "/api/auth/account.php",
+    "file": "api/auth/account.php",
+    "methods": [
+      "DELETE",
+      "POST"
+    ],
+    "handlers": [
+      "account_delete"
+    ],
+    "auth": "active user",
+    "csrf": false,
+    "pin": [
+      "account_verify_pin_reentry"
+    ],
+    "rate": true,
+    "audit": [
+      "audit_log_action",
+      "user_audit_log"
+    ],
+    "fields": [
+      "reason"
+    ],
+    "queries": [],
+    "errors": [
+      "json_error(\"Use DELETE (or POST) with { pin } in the body\", 405, \"METHOD_NOT_ALLOWED\")",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error(\"Unauthorized\", 401, \"UNAUTHORIZED\")",
+      "json_error(\"PIN re-entry required\", 401, \"PIN_REQUIRED\")",
+      "json_error(\"Account already deleted\", 409, \"ALREADY_DELETED\")",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [
+      "tests/account-endpoints-e2e.mjs",
+      "tests/local-phase-10-privacy-audit-e2e.mjs"
+    ],
+    "callGraph": [
+      "account_delete",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "account_verify_pin_reentry",
+      "verify_secret",
+      "auth_valid_pin",
+      "auth_pin_validation_error",
+      "user_auth_row_by_id",
+      "audit_log_action",
+      "actor_ip_address",
+      "actor_user_agent",
+      "clear_auth_cookie",
+      "auth_cookie_secure",
+      "auth_require_active_user",
+      "require_cloud_user",
+      "verify_cloud_token",
+      "jwt_secret",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "base64url_decode",
+      "get_bearer_token",
+      "db_user_by_id",
+      "json_ok",
+      "json_error",
+      "require_json_body",
+      "cloud_max_entity_json_body_bytes",
+      "is_cloud_collection",
+      "cloud_collections",
+      "cloud_collection_allowlist",
+      "request_log",
+      "rate_limit_guard",
+      "client_ip",
+      "rate_limit_guard_memory",
+      "user_audit_log"
+    ]
+  },
+  {
+    "path": "/api/auth/admin-login.php",
+    "file": "api/auth/admin-login.php",
+    "methods": [
+      "POST"
+    ],
+    "handlers": [
+      "cloud_admin_login"
+    ],
+    "auth": "public (admin-login verifies admin credentials)",
+    "csrf": false,
+    "pin": [],
+    "rate": true,
+    "audit": [],
+    "fields": [
+      "username",
+      "pin"
+    ],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error($e->getMessage(), 422, \"VALIDATION_ERROR\")",
+      "json_error($pinError ?? \"Invalid username or PIN format\", 422, \"VALIDATION_ERROR\")",
+      "json_error(\"Too many failed attempts. Try again later.\", 429, \"AUTH_THROTTLED\")",
+      "json_error(\"Invalid username or PIN\", 401)",
+      "json_error(\"Account inactive\", 403, \"ACCOUNT_INACTIVE\")",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [
+      "tests/local-phase-10-privacy-audit-e2e.mjs"
+    ],
+    "callGraph": [
+      "cloud_admin_login",
+      "auth_throttle_status_safe",
+      "login_throttle_status",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "auth_record_failure_safe",
+      "record_login_failure",
+      "auth_clear_failures_safe",
+      "clear_login_failures",
+      "cloud_auth_response",
+      "sign_cloud_token",
+      "jwt_secret",
+      "jwt_expires_in_seconds",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "set_auth_cookie",
+      "auth_cookie_secure",
+      "verify_secret",
+      "auth_pin_validation_error",
+      "db_user_by_username",
+      "json_ok",
+      "json_error",
+      "require_json_body",
+      "cloud_max_entity_json_body_bytes",
+      "is_cloud_collection",
+      "cloud_collections",
+      "cloud_collection_allowlist",
+      "rate_limit_guard",
+      "client_ip",
+      "rate_limit_guard_memory",
+      "csrf_issue_token",
+      "csrf_token_cookie_name",
+      "validate_required_fields"
+    ]
+  },
+  {
+    "path": "/api/auth/change-pin.php",
+    "file": "api/auth/change-pin.php",
+    "methods": [
+      "POST"
+    ],
+    "handlers": [
+      "cloud_change_pin"
+    ],
+    "auth": "active user",
+    "csrf": false,
+    "pin": [],
+    "rate": false,
+    "audit": [
+      "user_audit_log"
+    ],
+    "fields": [
+      "currentPin",
+      "newPin"
+    ],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error($e->getMessage(), 401)",
+      "json_error(\"PIN must be 4 to 8 digits\", 422, \"VALIDATION_ERROR\")",
+      "json_error(\"New PIN must be different from current PIN\", 422, \"VALIDATION_ERROR\")",
+      "json_error(\"Profile not found\", 404)",
+      "json_error(\"Current PIN incorrect\", 401)",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [
+      "tests/local-phase-10-privacy-audit-e2e.mjs"
+    ],
+    "callGraph": [
+      "cloud_change_pin",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "create_pin_salt",
+      "hash_secret",
+      "verify_secret",
+      "auth_valid_pin",
+      "auth_pin_validation_error",
+      "auth_require_active_user",
+      "require_cloud_user",
+      "verify_cloud_token",
+      "jwt_secret",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "base64url_decode",
+      "get_bearer_token",
+      "db_user_by_id",
+      "user_auth_row_by_id",
+      "json_ok",
+      "json_error",
+      "require_json_body",
+      "cloud_max_entity_json_body_bytes",
+      "is_cloud_collection",
+      "cloud_collections",
+      "cloud_collection_allowlist",
+      "user_audit_log",
+      "actor_ip_address",
+      "actor_user_agent"
+    ]
+  },
+  {
+    "path": "/api/auth/data-export.php",
+    "file": "api/auth/data-export.php",
+    "methods": [
+      "POST"
+    ],
+    "handlers": [
+      "account_data_export"
+    ],
+    "auth": "active user",
+    "csrf": false,
+    "pin": [
+      "account_verify_pin_reentry"
+    ],
+    "rate": true,
+    "audit": [
+      "audit_log_action",
+      "user_audit_log"
+    ],
+    "fields": [],
+    "queries": [],
+    "errors": [
+      "json_error(\"Use POST with { pin } in the body — GET would leak the PIN\", 405, \"METHOD_NOT_ALLOWED\")",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error(\"Unauthorized\", 401, \"UNAUTHORIZED\")",
+      "json_error(\"PIN re-entry required\", 401, \"PIN_REQUIRED\")",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [
+      "tests/account-endpoints-e2e.mjs",
+      "tests/local-phase-10-privacy-audit-e2e.mjs"
+    ],
+    "callGraph": [
+      "account_data_export",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "account_verify_pin_reentry",
+      "verify_secret",
+      "auth_valid_pin",
+      "auth_pin_validation_error",
+      "user_auth_row_by_id",
+      "audit_log_action",
+      "actor_ip_address",
+      "actor_user_agent",
+      "auth_require_active_user",
+      "require_cloud_user",
+      "verify_cloud_token",
+      "jwt_secret",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "base64url_decode",
+      "get_bearer_token",
+      "db_user_by_id",
+      "json_ok",
+      "json_error",
+      "require_json_body",
+      "cloud_max_entity_json_body_bytes",
+      "is_cloud_collection",
+      "cloud_collections",
+      "cloud_collection_allowlist",
+      "request_log",
+      "rate_limit_guard",
+      "client_ip",
+      "rate_limit_guard_memory",
+      "user_audit_log"
+    ]
+  },
+  {
+    "path": "/api/auth/login.php",
+    "file": "api/auth/login.php",
+    "methods": [
+      "POST"
+    ],
+    "handlers": [
+      "cloud_login"
+    ],
+    "auth": "public (admin-login verifies admin credentials)",
+    "csrf": false,
+    "pin": [],
+    "rate": true,
+    "audit": [
+      "user_audit_log"
+    ],
+    "fields": [
+      "username",
+      "pin"
+    ],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error($e->getMessage(), 422, \"VALIDATION_ERROR\")",
+      "json_error($pinError ?? \"Invalid username or PIN format\", 422, \"VALIDATION_ERROR\")",
+      "json_error(\"Too many failed attempts. Try again later.\", 429, \"AUTH_THROTTLED\")",
+      "json_error(\"Invalid username or PIN\", 401)",
+      "json_error(\"Account inactive\", 403, \"ACCOUNT_INACTIVE\")",
+      "json_error(\"Use /admin login for admin accounts\", 403, \"USE_ADMIN_PORTAL\")",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [
+      "tests/local-phase-10-privacy-audit-e2e.mjs"
+    ],
+    "callGraph": [
+      "cloud_login",
+      "auth_throttle_status_safe",
+      "login_throttle_status",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "auth_record_failure_safe",
+      "record_login_failure",
+      "auth_clear_failures_safe",
+      "clear_login_failures",
+      "cloud_auth_response",
+      "sign_cloud_token",
+      "jwt_secret",
+      "jwt_expires_in_seconds",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "set_auth_cookie",
+      "auth_cookie_secure",
+      "verify_secret",
+      "auth_pin_validation_error",
+      "db_user_by_username",
+      "json_ok",
+      "json_error",
+      "require_json_body",
+      "cloud_max_entity_json_body_bytes",
+      "is_cloud_collection",
+      "cloud_collections",
+      "cloud_collection_allowlist",
+      "policy_user_outstanding_keys",
+      "policy_current_versions",
+      "policy_required_for_auth",
+      "policy_mark_user_checked",
+      "rate_limit_guard",
+      "client_ip",
+      "rate_limit_guard_memory",
+      "csrf_issue_token",
+      "csrf_token_cookie_name",
+      "user_audit_log",
+      "actor_ip_address",
+      "actor_user_agent",
+      "validate_required_fields"
+    ]
+  },
+  {
+    "path": "/api/auth/logout.php",
+    "file": "api/auth/logout.php",
+    "methods": [
+      "POST"
+    ],
+    "handlers": [
+      "cloud_logout"
+    ],
+    "auth": "active user",
+    "csrf": false,
+    "pin": [],
+    "rate": false,
+    "audit": [],
+    "fields": [],
+    "queries": [],
+    "errors": [
+      "json_error(\"Use POST to log out\", 405, \"METHOD_NOT_ALLOWED\")",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [],
+    "callGraph": [
+      "cloud_logout",
+      "clear_auth_cookie",
+      "auth_cookie_secure",
+      "json_ok",
+      "json_error"
+    ]
+  },
+  {
+    "path": "/api/auth/me.php",
+    "file": "api/auth/me.php",
+    "methods": [
+      "GET"
+    ],
+    "handlers": [
+      "cloud_me"
+    ],
+    "auth": "active user",
+    "csrf": false,
+    "pin": [],
+    "rate": false,
+    "audit": [],
+    "fields": [],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error($e->getMessage(), 401)",
+      "json_error(\"Cloud user not found\", 404)",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [
+      "tests/account-endpoints-e2e.mjs",
+      "tests/local-phase-10-privacy-audit-e2e.mjs"
+    ],
+    "callGraph": [
+      "cloud_me",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "ensure_security_recovery_table",
+      "auth_require_active_user",
+      "require_cloud_user",
+      "verify_cloud_token",
+      "jwt_secret",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "base64url_decode",
+      "get_bearer_token",
+      "db_user_by_id",
+      "json_ok",
+      "json_error",
+      "csrf_issue_token",
+      "csrf_token_cookie_name"
+    ]
+  },
+  {
+    "path": "/api/auth/profile.php",
+    "file": "api/auth/profile.php",
+    "methods": [
+      "PATCH"
+    ],
+    "handlers": [
+      "cloud_profile_update"
+    ],
+    "auth": "active user",
+    "csrf": false,
+    "pin": [],
+    "rate": false,
+    "audit": [
+      "user_audit_log"
+    ],
+    "fields": [
+      "displayName",
+      "mobile",
+      "email",
+      "avatarEmoji",
+      "avatarColor"
+    ],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error($e->getMessage(), 401)",
+      "json_error(\"Display name must be 1 to 60 characters\", 422, \"VALIDATION_ERROR\")",
+      "json_error(\"Mobile must be up to 32 characters\", 422, \"VALIDATION_ERROR\")",
+      "json_error(\"Email is invalid\", 422, \"VALIDATION_ERROR\")",
+      "json_error(\"Avatar emoji is invalid\", 422, \"VALIDATION_ERROR\")",
+      "json_error(\"Avatar color must be a hex color like #0ea5e9\", 422, \"VALIDATION_ERROR\")",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [
+      "tests/local-phase-10-privacy-audit-e2e.mjs"
+    ],
+    "callGraph": [
+      "cloud_profile_update",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "auth_require_active_user",
+      "require_cloud_user",
+      "verify_cloud_token",
+      "jwt_secret",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "base64url_decode",
+      "get_bearer_token",
+      "db_user_by_id",
+      "json_ok",
+      "json_error",
+      "require_json_body",
+      "cloud_max_entity_json_body_bytes",
+      "is_cloud_collection",
+      "cloud_collections",
+      "cloud_collection_allowlist",
+      "user_audit_log",
+      "actor_ip_address",
+      "actor_user_agent"
+    ]
+  },
+  {
+    "path": "/api/auth/register.php",
+    "file": "api/auth/register.php",
+    "methods": [
+      "POST"
+    ],
+    "handlers": [
+      "cloud_register"
+    ],
+    "auth": "public (admin-login verifies admin credentials)",
+    "csrf": false,
+    "pin": [],
+    "rate": true,
+    "audit": [
+      "user_audit_log"
+    ],
+    "fields": [
+      "username",
+      "displayName",
+      "pin",
+      "policyAcceptances"
+    ],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error($e->getMessage(), 422, \"VALIDATION_ERROR\")",
+      "json_error(\"Invalid payload\")",
+      "json_error($pinError ?? \"Display name must be 1 to 60 characters\", 422, \"VALIDATION_ERROR\")",
+      "json_error(\"Policy acceptance is required\", 422, \"POLICY_ACCEPTANCE_REQUIRED\")",
+      "json_error(\"Terms and Privacy acceptance is required\", 422, \"POLICY_ACCEPTANCE_REQUIRED\")",
+      "json_error(\"Username already exists\", 409)",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [
+      "tests/local-phase-10-privacy-audit-e2e.mjs"
+    ],
+    "callGraph": [
+      "cloud_register",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "cloud_auth_response",
+      "sign_cloud_token",
+      "jwt_secret",
+      "jwt_expires_in_seconds",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "set_auth_cookie",
+      "auth_cookie_secure",
+      "create_pin_salt",
+      "hash_secret",
+      "auth_pin_validation_error",
+      "db_user_by_username",
+      "json_ok",
+      "json_error",
+      "require_json_body",
+      "cloud_max_entity_json_body_bytes",
+      "is_cloud_collection",
+      "cloud_collections",
+      "cloud_collection_allowlist",
+      "policy_current_versions",
+      "policy_record_acceptance",
+      "rate_limit_guard",
+      "client_ip",
+      "rate_limit_guard_memory",
+      "csrf_issue_token",
+      "csrf_token_cookie_name",
+      "user_audit_log",
+      "actor_ip_address",
+      "actor_user_agent",
+      "uid",
+      "validate_required_fields"
+    ]
+  },
+  {
+    "path": "/api/auth/reset-pin.php",
+    "file": "api/auth/reset-pin.php",
+    "methods": [
+      "POST"
+    ],
+    "handlers": [
+      "cloud_reset_pin_with_security"
+    ],
+    "auth": "active user",
+    "csrf": false,
+    "pin": [],
+    "rate": false,
+    "audit": [
+      "user_audit_log"
+    ],
+    "fields": [
+      "securityAnswer",
+      "newPin"
+    ],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error($e->getMessage(), 401)",
+      "json_error(\"PIN must be 4 to 8 digits\", 422, \"VALIDATION_ERROR\")",
+      "json_error(\"Security answer is required\", 422, \"VALIDATION_ERROR\")",
+      "json_error(\"Profile not found\", 404)",
+      "json_error(\"Security recovery is not configured\", 422)",
+      "json_error(\"Security answer is incorrect\", 401)",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [
+      "tests/local-phase-10-privacy-audit-e2e.mjs"
+    ],
+    "callGraph": [
+      "cloud_reset_pin_with_security",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "ensure_security_recovery_table",
+      "create_pin_salt",
+      "hash_secret",
+      "verify_secret",
+      "auth_valid_pin",
+      "auth_pin_validation_error",
+      "auth_require_active_user",
+      "require_cloud_user",
+      "verify_cloud_token",
+      "jwt_secret",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "base64url_decode",
+      "get_bearer_token",
+      "db_user_by_id",
+      "user_auth_row_by_id",
+      "json_ok",
+      "json_error",
+      "require_json_body",
+      "cloud_max_entity_json_body_bytes",
+      "is_cloud_collection",
+      "cloud_collections",
+      "cloud_collection_allowlist",
+      "user_audit_log",
+      "actor_ip_address",
+      "actor_user_agent"
+    ]
+  },
+  {
+    "path": "/api/auth/security-recovery.php",
+    "file": "api/auth/security-recovery.php",
+    "methods": [
+      "POST"
+    ],
+    "handlers": [
+      "cloud_set_security_recovery"
+    ],
+    "auth": "active user",
+    "csrf": false,
+    "pin": [],
+    "rate": false,
+    "audit": [
+      "user_audit_log"
+    ],
+    "fields": [
+      "securityQuestion",
+      "securityAnswer"
+    ],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error($e->getMessage(), 401)",
+      "json_error(\"Security question must be 5 to 255 characters\", 422, \"VALIDATION_ERROR\")",
+      "json_error(\"Security answer must be 3 to 255 characters\", 422, \"VALIDATION_ERROR\")",
+      "json_error(\"Profile not found\", 404)",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [
+      "tests/local-phase-10-privacy-audit-e2e.mjs"
+    ],
+    "callGraph": [
+      "cloud_set_security_recovery",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "ensure_security_recovery_table",
+      "hash_secret",
+      "auth_require_active_user",
+      "require_cloud_user",
+      "verify_cloud_token",
+      "jwt_secret",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "base64url_decode",
+      "get_bearer_token",
+      "db_user_by_id",
+      "user_auth_row_by_id",
+      "json_ok",
+      "json_error",
+      "require_json_body",
+      "cloud_max_entity_json_body_bytes",
+      "is_cloud_collection",
+      "cloud_collections",
+      "cloud_collection_allowlist",
+      "user_audit_log",
+      "actor_ip_address",
+      "actor_user_agent"
+    ]
+  },
+  {
+    "path": "/api/cloud/entity-item.php",
+    "file": "api/cloud/entity-item.php",
+    "methods": [
+      "GET",
+      "PATCH",
+      "DELETE"
+    ],
+    "handlers": [
+      "cloud_entity_get_one",
+      "cloud_entity_patch_one",
+      "cloud_entity_delete_one"
+    ],
+    "auth": "active user",
+    "csrf": false,
+    "pin": [],
+    "rate": false,
+    "audit": [
+      "cloud_audit_transaction_change",
+      "user_audit_log",
+      "cloud_audit_sensitive_collection_change"
+    ],
+    "fields": [
+      "patch"
+    ],
+    "queries": [
+      "collection",
+      "id",
+      "hard"
+    ],
+    "errors": [
+      "json_error(\"Not found\", 404)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error(\"Invalid collection\", 400)",
+      "json_error($e->getMessage(), 401)",
+      "json_error(\"Entity not found\", 404)",
+      "json_error(\"patch is required\", 400)",
+      "json_error(\"Forbidden patch field: \" . $deniedField, 422, \"PATCH_FIELD_NOT_ALLOWED\")",
+      "json_error($e->getMessage(), 422, \"VALIDATION_ERROR\")",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [],
+    "callGraph": [
+      "cloud_entity_get_one",
+      "cloud_get_row",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "auth_require_active_user",
+      "require_cloud_user",
+      "verify_cloud_token",
+      "jwt_secret",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "base64url_decode",
+      "get_bearer_token",
+      "db_user_by_id",
+      "json_ok",
+      "json_error",
+      "decode_payload",
+      "is_cloud_collection",
+      "cloud_collections",
+      "cloud_collection_allowlist",
+      "cloud_entity_patch_one",
+      "cloud_patch_has_denied_field",
+      "cloud_patch_denied_fields",
+      "cloud_audit_transaction_change",
+      "user_audit_log",
+      "actor_ip_address",
+      "actor_user_agent",
+      "cloud_audit_sensitive_collection_change",
+      "cloud_validate_entity_for_collection",
+      "cloud_assert_entity_user_id",
+      "cloud_validate_transaction_payload",
+      "cloud_transaction_types",
+      "cloud_transaction_payment_modes",
+      "cloud_parse_money_input_to_paise",
+      "cloud_money_max_abs_paise",
+      "cloud_ccr_build_update_by_table_id",
+      "cloud_validate_encoded_payload_size",
+      "cloud_max_row_payload_bytes",
+      "cloud_ccr_compute_indexed",
+      "cloud_str_id",
+      "cloud_entity_primary_amount_paise",
+      "cloud_try_money_input_to_paise",
+      "encode_payload",
+      "finance_events_sync_transaction_safe",
+      "finance_events_sync_transaction",
+      "fe_amount_paise",
+      "fe_emis_by_transaction_id",
+      "fe_void_ledger_for_transaction",
+      "fe_event_id_for_transaction",
+      "fe_clear_effects_for_event",
+      "fe_upsert_posted_ledger",
+      "fe_principal_interest_paise",
+      "fe_int_paise",
+      "uid",
+      "cloud_enforce_household_write",
+      "household_sensitive_collections",
+      "require_json_body",
+      "cloud_max_entity_json_body_bytes",
+      "cloud_validate_money_fields",
+      "cloud_validate_integer_paise_field",
+      "now_iso",
+      "cloud_entity_delete_one"
+    ]
+  },
+  {
+    "path": "/api/cloud/entity.php",
+    "file": "api/cloud/entity.php",
+    "methods": [
+      "GET",
+      "POST",
+      "PATCH",
+      "DELETE"
+    ],
+    "handlers": [
+      "cloud_entity_list",
+      "cloud_entity_create",
+      "cloud_entity_delete_bulk",
+      "cloud_entity_patch_many"
+    ],
+    "auth": "active user",
+    "csrf": false,
+    "pin": [],
+    "rate": false,
+    "audit": [
+      "cloud_audit_sensitive_collection_change",
+      "user_audit_log",
+      "cloud_audit_transaction_change"
+    ],
+    "fields": [
+      "userId",
+      "data",
+      "idPrefix",
+      "mutationId",
+      "ids",
+      "patch"
+    ],
+    "queries": [
+      "collection",
+      "userId"
+    ],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error(\"Invalid collection\", 400)",
+      "json_error($e->getMessage(), 401)",
+      "json_error(\"userId query is required\", 400)",
+      "json_error(\"userId and data are required\", 400)",
+      "json_error(\"userId must match authenticated user\", 403, \"USER_MISMATCH\")",
+      "json_error($e->getMessage(), 422, \"VALIDATION_ERROR\")",
+      "json_error(\"ids and patch are required\", 400, \"INVALID_BATCH_PATCH\")",
+      "json_error(\"Forbidden patch field: \" . $deniedField, 422, \"PATCH_FIELD_NOT_ALLOWED\")",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [
+      "tests/api-vnext-collections-e2e.mjs",
+      "tests/browser-manual-qa-e2e.mjs"
+    ],
+    "callGraph": [
+      "cloud_entity_list",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "auth_require_active_user",
+      "require_cloud_user",
+      "verify_cloud_token",
+      "jwt_secret",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "base64url_decode",
+      "get_bearer_token",
+      "db_user_by_id",
+      "json_ok",
+      "json_error",
+      "decode_payload",
+      "is_cloud_collection",
+      "cloud_collections",
+      "cloud_collection_allowlist",
+      "cloud_entity_create",
+      "cloud_audit_sensitive_collection_change",
+      "user_audit_log",
+      "actor_ip_address",
+      "actor_user_agent",
+      "cloud_get_row",
+      "cloud_validate_entity_for_collection",
+      "cloud_assert_entity_user_id",
+      "cloud_validate_transaction_payload",
+      "cloud_transaction_types",
+      "cloud_transaction_payment_modes",
+      "cloud_parse_money_input_to_paise",
+      "cloud_money_max_abs_paise",
+      "cloud_ccr_build_upsert",
+      "cloud_validate_encoded_payload_size",
+      "cloud_max_row_payload_bytes",
+      "cloud_ccr_compute_indexed",
+      "cloud_str_id",
+      "cloud_entity_primary_amount_paise",
+      "cloud_try_money_input_to_paise",
+      "cloud_ccr_indexed_column_sql",
+      "cloud_ccr_upsert_on_duplicate_sql",
+      "encode_payload",
+      "finance_events_sync_transaction_safe",
+      "finance_events_sync_transaction",
+      "fe_amount_paise",
+      "fe_emis_by_transaction_id",
+      "fe_void_ledger_for_transaction",
+      "fe_event_id_for_transaction",
+      "fe_clear_effects_for_event",
+      "fe_upsert_posted_ledger",
+      "fe_principal_interest_paise",
+      "fe_int_paise",
+      "uid",
+      "cloud_enforce_household_write",
+      "household_sensitive_collections",
+      "require_json_body",
+      "cloud_max_entity_json_body_bytes",
+      "cloud_validate_money_fields",
+      "cloud_validate_integer_paise_field",
+      "financial_mutation_lookup",
+      "financial_mutation_table_ready",
+      "financial_mutation_record",
+      "now_iso",
+      "cloud_entity_delete_bulk",
+      "cloud_audit_transaction_change",
+      "cloud_ccr_build_update_by_table_id",
+      "json_input",
+      "cloud_entity_patch_many",
+      "cloud_patch_has_denied_field",
+      "cloud_patch_denied_fields"
+    ]
+  },
+  {
+    "path": "/api/cloud/login.php",
+    "file": "api/cloud/login.php",
+    "methods": [
+      "POST"
+    ],
+    "handlers": [
+      "cloud_login"
+    ],
+    "auth": "public (admin-login verifies admin credentials)",
+    "csrf": false,
+    "pin": [],
+    "rate": true,
+    "audit": [
+      "user_audit_log"
+    ],
+    "fields": [
+      "username",
+      "pin"
+    ],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error($e->getMessage(), 422, \"VALIDATION_ERROR\")",
+      "json_error($pinError ?? \"Invalid username or PIN format\", 422, \"VALIDATION_ERROR\")",
+      "json_error(\"Too many failed attempts. Try again later.\", 429, \"AUTH_THROTTLED\")",
+      "json_error(\"Invalid username or PIN\", 401)",
+      "json_error(\"Account inactive\", 403, \"ACCOUNT_INACTIVE\")",
+      "json_error(\"Use /admin login for admin accounts\", 403, \"USE_ADMIN_PORTAL\")",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [
+      "tests/account-endpoints-e2e.mjs"
+    ],
+    "callGraph": [
+      "cloud_login",
+      "auth_throttle_status_safe",
+      "login_throttle_status",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "auth_record_failure_safe",
+      "record_login_failure",
+      "auth_clear_failures_safe",
+      "clear_login_failures",
+      "cloud_auth_response",
+      "sign_cloud_token",
+      "jwt_secret",
+      "jwt_expires_in_seconds",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "set_auth_cookie",
+      "auth_cookie_secure",
+      "verify_secret",
+      "auth_pin_validation_error",
+      "db_user_by_username",
+      "json_ok",
+      "json_error",
+      "require_json_body",
+      "cloud_max_entity_json_body_bytes",
+      "is_cloud_collection",
+      "cloud_collections",
+      "cloud_collection_allowlist",
+      "policy_user_outstanding_keys",
+      "policy_current_versions",
+      "policy_required_for_auth",
+      "policy_mark_user_checked",
+      "rate_limit_guard",
+      "client_ip",
+      "rate_limit_guard_memory",
+      "csrf_issue_token",
+      "csrf_token_cookie_name",
+      "user_audit_log",
+      "actor_ip_address",
+      "actor_user_agent",
+      "validate_required_fields"
+    ]
+  },
+  {
+    "path": "/api/cloud/me.php",
+    "file": "api/cloud/me.php",
+    "methods": [
+      "GET"
+    ],
+    "handlers": [
+      "cloud_me"
+    ],
+    "auth": "active user",
+    "csrf": false,
+    "pin": [],
+    "rate": false,
+    "audit": [],
+    "fields": [],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error($e->getMessage(), 401)",
+      "json_error(\"Cloud user not found\", 404)",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [
+      "tests/browser-manual-qa-e2e.mjs"
+    ],
+    "callGraph": [
+      "cloud_me",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "ensure_security_recovery_table",
+      "auth_require_active_user",
+      "require_cloud_user",
+      "verify_cloud_token",
+      "jwt_secret",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "base64url_decode",
+      "get_bearer_token",
+      "db_user_by_id",
+      "json_ok",
+      "json_error",
+      "csrf_issue_token",
+      "csrf_token_cookie_name"
+    ]
+  },
+  {
+    "path": "/api/cloud/register.php",
+    "file": "api/cloud/register.php",
+    "methods": [
+      "POST"
+    ],
+    "handlers": [
+      "cloud_register"
+    ],
+    "auth": "public (admin-login verifies admin credentials)",
+    "csrf": false,
+    "pin": [],
+    "rate": true,
+    "audit": [
+      "user_audit_log"
+    ],
+    "fields": [
+      "username",
+      "displayName",
+      "pin",
+      "policyAcceptances"
+    ],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error($e->getMessage(), 422, \"VALIDATION_ERROR\")",
+      "json_error(\"Invalid payload\")",
+      "json_error($pinError ?? \"Display name must be 1 to 60 characters\", 422, \"VALIDATION_ERROR\")",
+      "json_error(\"Policy acceptance is required\", 422, \"POLICY_ACCEPTANCE_REQUIRED\")",
+      "json_error(\"Terms and Privacy acceptance is required\", 422, \"POLICY_ACCEPTANCE_REQUIRED\")",
+      "json_error(\"Username already exists\", 409)",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [
+      "tests/account-endpoints-e2e.mjs",
+      "tests/phase-04-validation-e2e.mjs"
+    ],
+    "callGraph": [
+      "cloud_register",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "cloud_auth_response",
+      "sign_cloud_token",
+      "jwt_secret",
+      "jwt_expires_in_seconds",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "set_auth_cookie",
+      "auth_cookie_secure",
+      "create_pin_salt",
+      "hash_secret",
+      "auth_pin_validation_error",
+      "db_user_by_username",
+      "json_ok",
+      "json_error",
+      "require_json_body",
+      "cloud_max_entity_json_body_bytes",
+      "is_cloud_collection",
+      "cloud_collections",
+      "cloud_collection_allowlist",
+      "policy_current_versions",
+      "policy_record_acceptance",
+      "rate_limit_guard",
+      "client_ip",
+      "rate_limit_guard_memory",
+      "csrf_issue_token",
+      "csrf_token_cookie_name",
+      "user_audit_log",
+      "actor_ip_address",
+      "actor_user_agent",
+      "uid",
+      "validate_required_fields"
+    ]
+  },
+  {
+    "path": "/api/cloud/sync/pull.php",
+    "file": "api/cloud/sync/pull.php",
+    "methods": [
+      "GET"
+    ],
+    "handlers": [
+      "cloud_sync_pull"
+    ],
+    "auth": "active user",
+    "csrf": false,
+    "pin": [],
+    "rate": false,
+    "audit": [],
+    "fields": [],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error($e->getMessage(), 401)",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [
+      "tests/api-vnext-collections-e2e.mjs",
+      "tests/phase-04-validation-e2e.mjs"
+    ],
+    "callGraph": [
+      "cloud_sync_pull",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "auth_require_active_user",
+      "require_cloud_user",
+      "verify_cloud_token",
+      "jwt_secret",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "base64url_decode",
+      "get_bearer_token",
+      "db_user_by_id",
+      "json_ok",
+      "json_error",
+      "decode_payload",
+      "cloud_collections",
+      "cloud_collection_allowlist"
+    ]
+  },
+  {
+    "path": "/api/cloud/sync/push.php",
+    "file": "api/cloud/sync/push.php",
+    "methods": [
+      "POST"
+    ],
+    "handlers": [
+      "cloud_sync_push"
+    ],
+    "auth": "active user",
+    "csrf": true,
+    "pin": [],
+    "rate": false,
+    "audit": [],
+    "fields": [
+      "collections"
+    ],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error($e->getMessage(), 401)",
+      "json_error(\"Invalid sync payload\", 400)",
+      "json_error($e->getMessage(), 413, \"PAYLOAD_TOO_LARGE\")",
+      "json_error(\"Unknown or invalid collection: \" . (is_string($collection) ? $collection : \"\"), 400, \"INVALID_COLLECTION\")",
+      "json_error(\"Invalid rows for collection \" . $collection, 400, \"INVALID_COLLECTION_ROWS\")",
+      "json_error($e->getMessage(), 422, \"VALIDATION_ERROR\")",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [
+      "tests/account-endpoints-e2e.mjs",
+      "tests/local-phase-10-privacy-audit-e2e.mjs",
+      "tests/phase-04-validation-e2e.mjs"
+    ],
+    "callGraph": [
+      "cloud_sync_push",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "auth_require_active_user",
+      "require_cloud_user",
+      "verify_cloud_token",
+      "jwt_secret",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "base64url_decode",
+      "get_bearer_token",
+      "db_user_by_id",
+      "cloud_validate_sync_push_raw_size",
+      "cloud_max_sync_push_body_bytes",
+      "cloud_validate_entity_for_collection",
+      "cloud_assert_entity_user_id",
+      "cloud_validate_transaction_payload",
+      "cloud_transaction_types",
+      "cloud_transaction_payment_modes",
+      "cloud_parse_money_input_to_paise",
+      "cloud_money_max_abs_paise",
+      "cloud_ccr_build_upsert",
+      "cloud_validate_encoded_payload_size",
+      "cloud_max_row_payload_bytes",
+      "cloud_ccr_compute_indexed",
+      "cloud_str_id",
+      "cloud_entity_primary_amount_paise",
+      "cloud_try_money_input_to_paise",
+      "cloud_ccr_indexed_column_sql",
+      "cloud_ccr_upsert_on_duplicate_sql",
+      "encode_payload",
+      "finance_events_sync_transaction_safe",
+      "finance_events_sync_transaction",
+      "fe_amount_paise",
+      "fe_emis_by_transaction_id",
+      "decode_payload",
+      "fe_void_ledger_for_transaction",
+      "fe_event_id_for_transaction",
+      "fe_clear_effects_for_event",
+      "fe_upsert_posted_ledger",
+      "fe_principal_interest_paise",
+      "fe_int_paise",
+      "uid",
+      "json_ok",
+      "json_error",
+      "cloud_validate_money_fields",
+      "cloud_validate_integer_paise_field",
+      "csrf_require_for_mutations",
+      "csrf_read_cookie_token",
+      "csrf_token_cookie_name",
+      "is_cloud_collection",
+      "cloud_collections",
+      "cloud_collection_allowlist"
+    ]
+  },
+  {
+    "path": "/api/data/entity-item.php",
+    "file": "api/data/entity-item.php",
+    "methods": [
+      "GET",
+      "PATCH",
+      "DELETE"
+    ],
+    "handlers": [
+      "cloud_entity_get_one",
+      "cloud_entity_patch_one",
+      "cloud_entity_delete_one"
+    ],
+    "auth": "active user",
+    "csrf": false,
+    "pin": [],
+    "rate": false,
+    "audit": [
+      "cloud_audit_transaction_change",
+      "user_audit_log",
+      "cloud_audit_sensitive_collection_change"
+    ],
+    "fields": [
+      "patch"
+    ],
+    "queries": [
+      "collection",
+      "id",
+      "hard"
+    ],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error(\"Invalid collection\", 400)",
+      "json_error($e->getMessage(), 401)",
+      "json_error(\"Entity not found\", 404)",
+      "json_error(\"patch is required\", 400)",
+      "json_error(\"Forbidden patch field: \" . $deniedField, 422, \"PATCH_FIELD_NOT_ALLOWED\")",
+      "json_error($e->getMessage(), 422, \"VALIDATION_ERROR\")",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [],
+    "callGraph": [
+      "cloud_entity_get_one",
+      "cloud_get_row",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "auth_require_active_user",
+      "require_cloud_user",
+      "verify_cloud_token",
+      "jwt_secret",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "base64url_decode",
+      "get_bearer_token",
+      "db_user_by_id",
+      "json_ok",
+      "json_error",
+      "decode_payload",
+      "is_cloud_collection",
+      "cloud_collections",
+      "cloud_collection_allowlist",
+      "cloud_entity_patch_one",
+      "cloud_patch_has_denied_field",
+      "cloud_patch_denied_fields",
+      "cloud_audit_transaction_change",
+      "user_audit_log",
+      "actor_ip_address",
+      "actor_user_agent",
+      "cloud_audit_sensitive_collection_change",
+      "cloud_validate_entity_for_collection",
+      "cloud_assert_entity_user_id",
+      "cloud_validate_transaction_payload",
+      "cloud_transaction_types",
+      "cloud_transaction_payment_modes",
+      "cloud_parse_money_input_to_paise",
+      "cloud_money_max_abs_paise",
+      "cloud_ccr_build_update_by_table_id",
+      "cloud_validate_encoded_payload_size",
+      "cloud_max_row_payload_bytes",
+      "cloud_ccr_compute_indexed",
+      "cloud_str_id",
+      "cloud_entity_primary_amount_paise",
+      "cloud_try_money_input_to_paise",
+      "encode_payload",
+      "finance_events_sync_transaction_safe",
+      "finance_events_sync_transaction",
+      "fe_amount_paise",
+      "fe_emis_by_transaction_id",
+      "fe_void_ledger_for_transaction",
+      "fe_event_id_for_transaction",
+      "fe_clear_effects_for_event",
+      "fe_upsert_posted_ledger",
+      "fe_principal_interest_paise",
+      "fe_int_paise",
+      "uid",
+      "cloud_enforce_household_write",
+      "household_sensitive_collections",
+      "require_json_body",
+      "cloud_max_entity_json_body_bytes",
+      "cloud_validate_money_fields",
+      "cloud_validate_integer_paise_field",
+      "now_iso",
+      "cloud_entity_delete_one"
+    ]
+  },
+  {
+    "path": "/api/data/entity.php",
+    "file": "api/data/entity.php",
+    "methods": [
+      "GET",
+      "POST",
+      "PATCH",
+      "DELETE"
+    ],
+    "handlers": [
+      "cloud_entity_list",
+      "cloud_entity_create",
+      "cloud_entity_delete_bulk",
+      "cloud_entity_patch_many"
+    ],
+    "auth": "active user",
+    "csrf": false,
+    "pin": [],
+    "rate": false,
+    "audit": [
+      "cloud_audit_sensitive_collection_change",
+      "user_audit_log",
+      "cloud_audit_transaction_change"
+    ],
+    "fields": [
+      "userId",
+      "data",
+      "idPrefix",
+      "mutationId",
+      "ids",
+      "patch"
+    ],
+    "queries": [
+      "collection",
+      "userId"
+    ],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error(\"Invalid collection\", 400)",
+      "json_error($e->getMessage(), 401)",
+      "json_error(\"userId query is required\", 400)",
+      "json_error(\"userId and data are required\", 400)",
+      "json_error(\"userId must match authenticated user\", 403, \"USER_MISMATCH\")",
+      "json_error($e->getMessage(), 422, \"VALIDATION_ERROR\")",
+      "json_error(\"ids and patch are required\", 400, \"INVALID_BATCH_PATCH\")",
+      "json_error(\"Forbidden patch field: \" . $deniedField, 422, \"PATCH_FIELD_NOT_ALLOWED\")",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [],
+    "callGraph": [
+      "cloud_entity_list",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "auth_require_active_user",
+      "require_cloud_user",
+      "verify_cloud_token",
+      "jwt_secret",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "base64url_decode",
+      "get_bearer_token",
+      "db_user_by_id",
+      "json_ok",
+      "json_error",
+      "decode_payload",
+      "is_cloud_collection",
+      "cloud_collections",
+      "cloud_collection_allowlist",
+      "cloud_entity_create",
+      "cloud_audit_sensitive_collection_change",
+      "user_audit_log",
+      "actor_ip_address",
+      "actor_user_agent",
+      "cloud_get_row",
+      "cloud_validate_entity_for_collection",
+      "cloud_assert_entity_user_id",
+      "cloud_validate_transaction_payload",
+      "cloud_transaction_types",
+      "cloud_transaction_payment_modes",
+      "cloud_parse_money_input_to_paise",
+      "cloud_money_max_abs_paise",
+      "cloud_ccr_build_upsert",
+      "cloud_validate_encoded_payload_size",
+      "cloud_max_row_payload_bytes",
+      "cloud_ccr_compute_indexed",
+      "cloud_str_id",
+      "cloud_entity_primary_amount_paise",
+      "cloud_try_money_input_to_paise",
+      "cloud_ccr_indexed_column_sql",
+      "cloud_ccr_upsert_on_duplicate_sql",
+      "encode_payload",
+      "finance_events_sync_transaction_safe",
+      "finance_events_sync_transaction",
+      "fe_amount_paise",
+      "fe_emis_by_transaction_id",
+      "fe_void_ledger_for_transaction",
+      "fe_event_id_for_transaction",
+      "fe_clear_effects_for_event",
+      "fe_upsert_posted_ledger",
+      "fe_principal_interest_paise",
+      "fe_int_paise",
+      "uid",
+      "cloud_enforce_household_write",
+      "household_sensitive_collections",
+      "require_json_body",
+      "cloud_max_entity_json_body_bytes",
+      "cloud_validate_money_fields",
+      "cloud_validate_integer_paise_field",
+      "financial_mutation_lookup",
+      "financial_mutation_table_ready",
+      "financial_mutation_record",
+      "now_iso",
+      "cloud_entity_delete_bulk",
+      "cloud_audit_transaction_change",
+      "cloud_ccr_build_update_by_table_id",
+      "json_input",
+      "cloud_entity_patch_many",
+      "cloud_patch_has_denied_field",
+      "cloud_patch_denied_fields"
+    ]
+  },
+  {
+    "path": "/api/health.php",
+    "file": "api/health.php",
+    "methods": [
+      "GET"
+    ],
+    "handlers": [
+      "health_check_get"
+    ],
+    "auth": "public (admin-login verifies admin credentials)",
+    "csrf": false,
+    "pin": [],
+    "rate": false,
+    "audit": [],
+    "fields": [],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [],
+    "callGraph": [
+      "health_check_get",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "app_env",
+      "json_ok",
+      "json_error"
+    ]
+  },
+  {
+    "path": "/api/import/transactions.php",
+    "file": "api/import/transactions.php",
+    "methods": [
+      "POST"
+    ],
+    "handlers": [
+      "imports_transactions_bulk"
+    ],
+    "auth": "active user",
+    "csrf": false,
+    "pin": [],
+    "rate": true,
+    "audit": [],
+    "fields": [
+      "rows"
+    ],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error($e->getMessage(), 401, \"UNAUTHORIZED\")",
+      "json_error(\"rows is required\", 422, \"VALIDATION_ERROR\")",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [],
+    "callGraph": [
+      "imports_transactions_bulk",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "auth_require_active_user",
+      "require_cloud_user",
+      "verify_cloud_token",
+      "jwt_secret",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "base64url_decode",
+      "get_bearer_token",
+      "db_user_by_id",
+      "cloud_validate_entity_for_collection",
+      "cloud_assert_entity_user_id",
+      "cloud_validate_transaction_payload",
+      "cloud_transaction_types",
+      "cloud_transaction_payment_modes",
+      "cloud_parse_money_input_to_paise",
+      "cloud_money_max_abs_paise",
+      "cloud_ccr_build_upsert",
+      "cloud_validate_encoded_payload_size",
+      "cloud_max_row_payload_bytes",
+      "cloud_ccr_compute_indexed",
+      "cloud_str_id",
+      "cloud_entity_primary_amount_paise",
+      "cloud_try_money_input_to_paise",
+      "cloud_ccr_indexed_column_sql",
+      "cloud_ccr_upsert_on_duplicate_sql",
+      "encode_payload",
+      "finance_events_sync_transaction_safe",
+      "finance_events_sync_transaction",
+      "fe_amount_paise",
+      "fe_emis_by_transaction_id",
+      "decode_payload",
+      "fe_void_ledger_for_transaction",
+      "fe_event_id_for_transaction",
+      "fe_clear_effects_for_event",
+      "fe_upsert_posted_ledger",
+      "fe_principal_interest_paise",
+      "fe_int_paise",
+      "uid",
+      "json_ok",
+      "json_error",
+      "require_json_body",
+      "cloud_max_entity_json_body_bytes",
+      "is_cloud_collection",
+      "cloud_collections",
+      "cloud_collection_allowlist",
+      "cloud_paise_to_rupee_amount",
+      "cloud_validate_integer_paise_field",
+      "cloud_validate_money_fields",
+      "rate_limit_guard",
+      "client_ip",
+      "rate_limit_guard_memory",
+      "now_iso"
+    ]
+  },
+  {
+    "path": "/api/payments/razorpay/webhook.php",
+    "file": "api/payments/razorpay/webhook.php",
+    "methods": [
+      "POST"
+    ],
+    "handlers": [
+      "razorpay_webhook"
+    ],
+    "auth": "public signed provider request",
+    "csrf": false,
+    "pin": [],
+    "rate": true,
+    "audit": [
+      "audit_log_action"
+    ],
+    "fields": [],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error(\"Invalid payload\", 400, \"INVALID_PAYLOAD\")",
+      "json_error(\"Invalid JSON payload\", 400, \"INVALID_JSON\")",
+      "json_error(\"Invalid webhook signature\", 401, \"INVALID_SIGNATURE\")",
+      "json_error(\"Order not recognised\", 404, \"ORDER_NOT_FOUND\")",
+      "json_error(\"Payment amount or currency does not match the original order\", 400, \"AMOUNT_MISMATCH\")",
+      "json_error(\"Payment could not be updated\", 409, \"PAYMENT_UPDATE_CONFLICT\")",
+      "json_error(\"Subscription update failed\", 409, \"SUBSCRIPTION_UPDATE_CONFLICT\")",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [
+      "tests/api-e2e.mjs",
+      "tests/webhook-ownership-e2e.mjs",
+      "tests/webhook-replay-e2e.mjs"
+    ],
+    "callGraph": [
+      "razorpay_webhook",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "audit_log_action",
+      "actor_ip_address",
+      "actor_user_agent",
+      "json_ok",
+      "json_error",
+      "cloud_parse_money_input_to_paise",
+      "cloud_money_max_abs_paise",
+      "request_log",
+      "razorpay_verify_webhook_signature",
+      "razorpay_webhook_secret",
+      "rate_limit_guard",
+      "client_ip",
+      "rate_limit_guard_memory"
+    ]
+  },
+  {
+    "path": "/api/policies/accept.php",
+    "file": "api/policies/accept.php",
+    "methods": [
+      "POST"
+    ],
+    "handlers": [
+      "policies_accept"
+    ],
+    "auth": "active user",
+    "csrf": false,
+    "pin": [],
+    "rate": false,
+    "audit": [
+      "user_audit_log"
+    ],
+    "fields": [
+      "accept"
+    ],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error(\"Unauthorized\", 401, \"UNAUTHORIZED\")",
+      "json_error(\"'accept' must be a non-empty array of {key, version}\", 422, \"VALIDATION_ERROR\")",
+      "json_error($e->getMessage(), 422, \"VALIDATION_ERROR\")",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [
+      "tests/local-phase-10-privacy-audit-e2e.mjs"
+    ],
+    "callGraph": [
+      "policies_accept",
+      "auth_require_active_user",
+      "require_cloud_user",
+      "verify_cloud_token",
+      "jwt_secret",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "base64url_decode",
+      "get_bearer_token",
+      "db_user_by_id",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "json_ok",
+      "json_error",
+      "require_json_body",
+      "cloud_max_entity_json_body_bytes",
+      "is_cloud_collection",
+      "cloud_collections",
+      "cloud_collection_allowlist",
+      "policy_record_acceptance",
+      "policy_current_versions",
+      "user_audit_log",
+      "actor_ip_address",
+      "actor_user_agent"
+    ]
+  },
+  {
+    "path": "/api/policies/current.php",
+    "file": "api/policies/current.php",
+    "methods": [
+      "GET"
+    ],
+    "handlers": [
+      "policies_current"
+    ],
+    "auth": "public (admin-login verifies admin credentials)",
+    "csrf": false,
+    "pin": [],
+    "rate": false,
+    "audit": [],
+    "fields": [],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [
+      "tests/account-endpoints-e2e.mjs",
+      "tests/api-e2e.mjs",
+      "tests/api-vnext-collections-e2e.mjs",
+      "tests/browser-manual-qa-e2e.mjs",
+      "tests/local-phase-10-privacy-audit-e2e.mjs",
+      "tests/phase-04-validation-e2e.mjs"
+    ],
+    "callGraph": [
+      "policies_current",
+      "auth_require_active_user",
+      "require_cloud_user",
+      "verify_cloud_token",
+      "jwt_secret",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "base64url_decode",
+      "get_bearer_token",
+      "db_user_by_id",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "json_ok",
+      "policy_current_versions",
+      "policy_user_outstanding_keys",
+      "policy_required_for_auth",
+      "policy_mark_user_checked",
+      "json_error"
+    ]
+  },
+  {
+    "path": "/api/public/config.php",
+    "file": "api/public/config.php",
+    "methods": [
+      "GET"
+    ],
+    "handlers": [
+      "public_config_get"
+    ],
+    "auth": "public (admin-login verifies admin credentials)",
+    "csrf": false,
+    "pin": [],
+    "rate": false,
+    "audit": [],
+    "fields": [],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [
+      "tests/api-e2e.mjs"
+    ],
+    "callGraph": [
+      "public_config_get",
+      "setting_get_map",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "flag_get_map",
+      "json_ok",
+      "json_error"
+    ]
+  },
+  {
+    "path": "/api/subscriptions/cancel.php",
+    "file": "api/subscriptions/cancel.php",
+    "methods": [
+      "POST"
+    ],
+    "handlers": [
+      "subscriptions_cancel"
+    ],
+    "auth": "active user",
+    "csrf": false,
+    "pin": [],
+    "rate": false,
+    "audit": [
+      "audit_log_action",
+      "user_audit_log"
+    ],
+    "fields": [
+      "subscriptionId"
+    ],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error(\"subscriptionId is required\", 422, \"VALIDATION_ERROR\")",
+      "json_error(\"Subscription not found\", 404, \"SUBSCRIPTION_NOT_FOUND\")",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [],
+    "callGraph": [
+      "subscriptions_cancel",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "audit_log_action",
+      "actor_ip_address",
+      "actor_user_agent",
+      "auth_require_active_user",
+      "require_cloud_user",
+      "verify_cloud_token",
+      "jwt_secret",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "base64url_decode",
+      "get_bearer_token",
+      "db_user_by_id",
+      "json_ok",
+      "json_error",
+      "require_json_body",
+      "cloud_max_entity_json_body_bytes",
+      "is_cloud_collection",
+      "cloud_collections",
+      "cloud_collection_allowlist",
+      "request_log",
+      "user_audit_log"
+    ]
+  },
+  {
+    "path": "/api/subscriptions/confirm-payment.php",
+    "file": "api/subscriptions/confirm-payment.php",
+    "methods": [
+      "POST"
+    ],
+    "handlers": [
+      "subscriptions_confirm_payment"
+    ],
+    "auth": "active user",
+    "csrf": false,
+    "pin": [],
+    "rate": false,
+    "audit": [
+      "audit_log_action"
+    ],
+    "fields": [],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error($e->getMessage(), 422, \"VALIDATION_ERROR\")",
+      "json_error(\"Invalid payment signature\", 401, \"INVALID_SIGNATURE\")",
+      "json_error(\"Payment not found\", 404, \"PAYMENT_NOT_FOUND\")",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [],
+    "callGraph": [
+      "subscriptions_confirm_payment",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "audit_log_action",
+      "actor_ip_address",
+      "actor_user_agent",
+      "auth_require_active_user",
+      "require_cloud_user",
+      "verify_cloud_token",
+      "jwt_secret",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "base64url_decode",
+      "get_bearer_token",
+      "db_user_by_id",
+      "json_ok",
+      "json_error",
+      "require_json_body",
+      "cloud_max_entity_json_body_bytes",
+      "is_cloud_collection",
+      "cloud_collections",
+      "cloud_collection_allowlist",
+      "request_log",
+      "razorpay_verify_signature",
+      "razorpay_key_secret",
+      "validate_string_field"
+    ]
+  },
+  {
+    "path": "/api/subscriptions/create-order.php",
+    "file": "api/subscriptions/create-order.php",
+    "methods": [
+      "POST"
+    ],
+    "handlers": [
+      "subscriptions_create_order"
+    ],
+    "auth": "active user",
+    "csrf": false,
+    "pin": [],
+    "rate": false,
+    "audit": [
+      "audit_log_action"
+    ],
+    "fields": [
+      "planId"
+    ],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error(\"Unauthorized\", 401, \"UNAUTHORIZED\")",
+      "json_error($e->getMessage(), 422, \"VALIDATION_ERROR\")",
+      "json_error(\"planId is required\", 422, \"VALIDATION_ERROR\")",
+      "json_error(\"Plan not found\", 404, \"PLAN_NOT_FOUND\")",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [
+      "tests/api-e2e.mjs"
+    ],
+    "callGraph": [
+      "subscriptions_create_order",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "subscription_period_days",
+      "audit_log_action",
+      "actor_ip_address",
+      "actor_user_agent",
+      "auth_require_active_user",
+      "require_cloud_user",
+      "verify_cloud_token",
+      "jwt_secret",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "base64url_decode",
+      "get_bearer_token",
+      "db_user_by_id",
+      "billing_renewal_start",
+      "billing_active_price_paise",
+      "cloud_parse_money_input_to_paise",
+      "cloud_money_max_abs_paise",
+      "json_ok",
+      "json_error",
+      "require_json_body",
+      "cloud_max_entity_json_body_bytes",
+      "is_cloud_collection",
+      "cloud_collections",
+      "cloud_collection_allowlist",
+      "request_log",
+      "razorpay_key_id",
+      "razorpay_request",
+      "razorpay_key_secret",
+      "validate_required_fields"
+    ]
+  },
+  {
+    "path": "/api/subscriptions/my.php",
+    "file": "api/subscriptions/my.php",
+    "methods": [
+      "GET"
+    ],
+    "handlers": [
+      "subscriptions_my"
+    ],
+    "auth": "active user",
+    "csrf": false,
+    "pin": [],
+    "rate": false,
+    "audit": [],
+    "fields": [],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error(\"Unauthorized\", 401, \"UNAUTHORIZED\")",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [
+      "tests/api-e2e.mjs"
+    ],
+    "callGraph": [
+      "subscriptions_my",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "user_effective_features",
+      "flag_get_map",
+      "auth_require_active_user",
+      "require_cloud_user",
+      "verify_cloud_token",
+      "jwt_secret",
+      "jwt_issuer",
+      "jwt_audience",
+      "base64url_encode",
+      "base64url_decode",
+      "get_bearer_token",
+      "db_user_by_id",
+      "json_ok",
+      "json_error"
+    ]
+  },
+  {
+    "path": "/api/subscriptions/plans.php",
+    "file": "api/subscriptions/plans.php",
+    "methods": [
+      "GET"
+    ],
+    "handlers": [
+      "subscriptions_list_plans"
+    ],
+    "auth": "public (admin-login verifies admin credentials)",
+    "csrf": false,
+    "pin": [],
+    "rate": false,
+    "audit": [],
+    "fields": [],
+    "queries": [],
+    "errors": [
+      "json_error(\"Method not allowed\", 405)",
+      "json_error($e->getMessage() !== \"\" ? $e->getMessage() : \"Internal error\", 500)",
+      "json_error(string $message, int $status = 400, ?string $code = null): void { http_response_code($status)"
+    ],
+    "referencedTests": [
+      "tests/api-e2e.mjs"
+    ],
+    "callGraph": [
+      "subscriptions_list_plans",
+      "db_conn",
+      "env_value",
+      "db_dsn",
+      "json_ok",
+      "json_error"
+    ]
+  }
+]

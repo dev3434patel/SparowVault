@@ -1,0 +1,2540 @@
+[
+  {
+    "route": "/",
+    "width": 1440,
+    "durationMs": 2022,
+    "overflowPx": 0,
+    "mainChars": 1567,
+    "headings": [
+      "Good afternoon, Atomic.",
+      "Cashflow survival",
+      "Safety & goals",
+      "Financial Health Score",
+      "Income vs Expense",
+      "Upcoming & overdue",
+      "Top spending categories",
+      "Goal progress",
+      "Budget usage — this month",
+      "Alerts",
+      "Recent transactions"
+    ],
+    "controls": 20,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/transactions",
+    "width": 1440,
+    "durationMs": 1239,
+    "overflowPx": 0,
+    "mainChars": 224,
+    "headings": [
+      "All Transactions"
+    ],
+    "controls": 9,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "Search merchant, description, notes, tags, category…"
+      },
+      {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "placeholder": null
+      }
+    ],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/income",
+    "width": 1440,
+    "durationMs": 1153,
+    "overflowPx": 0,
+    "mainChars": 149,
+    "headings": [
+      "Income"
+    ],
+    "controls": 5,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "Search merchant, description, notes, tags, category…"
+      }
+    ],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/expenses",
+    "width": 1440,
+    "durationMs": 1168,
+    "overflowPx": 0,
+    "mainChars": 232,
+    "headings": [
+      "Expenses"
+    ],
+    "controls": 9,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "Search merchant, description, notes, tags, category…"
+      },
+      {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "placeholder": null
+      }
+    ],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/categories",
+    "width": 1440,
+    "durationMs": 1277,
+    "overflowPx": 0,
+    "mainChars": 403,
+    "headings": [
+      "Categories"
+    ],
+    "controls": 11,
+    "unnamedInputs": [],
+    "unnamedButtons": [
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-",
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-",
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-",
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-",
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-",
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-"
+    ],
+    "pageErrors": []
+  },
+  {
+    "route": "/budgets",
+    "width": 1440,
+    "durationMs": 1398,
+    "overflowPx": 0,
+    "mainChars": 275,
+    "headings": [
+      "Budget Planner",
+      "₹0.00",
+      "₹0.00",
+      "₹0.00",
+      "₹0.00"
+    ],
+    "controls": 4,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/goals",
+    "width": 1440,
+    "durationMs": 1180,
+    "overflowPx": 0,
+    "mainChars": 192,
+    "headings": [
+      "Goals & Planned Purchases"
+    ],
+    "controls": 2,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/accounts",
+    "width": 1440,
+    "durationMs": 1196,
+    "overflowPx": 0,
+    "mainChars": 171,
+    "headings": [
+      "Accounts",
+      "₹9,600.00",
+      "1",
+      "1",
+      "1"
+    ],
+    "controls": 3,
+    "unnamedInputs": [],
+    "unnamedButtons": [
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-",
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-"
+    ],
+    "pageErrors": []
+  },
+  {
+    "route": "/cards",
+    "width": 1440,
+    "durationMs": 1168,
+    "overflowPx": 0,
+    "mainChars": 212,
+    "headings": [
+      "Cards"
+    ],
+    "controls": 5,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/loans",
+    "width": 1440,
+    "durationMs": 1179,
+    "overflowPx": 0,
+    "mainChars": 633,
+    "headings": [
+      "Loans & EMI",
+      "₹0.00",
+      "₹0.00",
+      "₹0.00",
+      "0",
+      "Debt summary"
+    ],
+    "controls": 2,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/udhari",
+    "width": 1440,
+    "durationMs": 1215,
+    "overflowPx": 0,
+    "mainChars": 377,
+    "headings": [
+      "Udhari & Advances",
+      "₹0.00",
+      "₹0.00",
+      "₹0.00",
+      "0"
+    ],
+    "controls": 8,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/savings",
+    "width": 1440,
+    "durationMs": 1200,
+    "overflowPx": 0,
+    "mainChars": 339,
+    "headings": [
+      "Wealth & assets",
+      "₹0.00",
+      "₹0.00",
+      "₹0.00",
+      "0.0 mo"
+    ],
+    "controls": 6,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/reports",
+    "width": 1440,
+    "durationMs": 1280,
+    "overflowPx": 0,
+    "mainChars": 59,
+    "headings": [
+      "Reports & Analytics"
+    ],
+    "controls": 0,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/suggestions",
+    "width": 1440,
+    "durationMs": 1556,
+    "overflowPx": 0,
+    "mainChars": 2726,
+    "headings": [
+      "Suggestion center",
+      "Educational guidance",
+      "Persona-aware money coachHigh net worth",
+      "Top 3 actions today",
+      "Do today: Safe daily spend (after bills)",
+      "Weekly money review",
+      "Monthly closing summary",
+      "Bills & cashflow",
+      "Safe daily spend (after bills)",
+      "Dismissed & history"
+    ],
+    "controls": 8,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/export",
+    "width": 1440,
+    "durationMs": 1250,
+    "overflowPx": 0,
+    "mainChars": 64,
+    "headings": [
+      "Export Center"
+    ],
+    "controls": 0,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/import",
+    "width": 1440,
+    "durationMs": 1129,
+    "overflowPx": 0,
+    "mainChars": 1073,
+    "headings": [
+      "Import Center",
+      "Import transactions",
+      "Restore backup",
+      "Repair Center"
+    ],
+    "controls": 3,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/bills",
+    "width": 1440,
+    "durationMs": 1246,
+    "overflowPx": 0,
+    "mainChars": 163,
+    "headings": [
+      "Bill calendar",
+      "Next 7 days",
+      "Next 30 days",
+      "Upcoming"
+    ],
+    "controls": 0,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/reconciliation",
+    "width": 1440,
+    "durationMs": 1112,
+    "overflowPx": 0,
+    "mainChars": 236,
+    "headings": [
+      "Reconciliation",
+      "Orphan transactions",
+      "Transfer match suggestions",
+      "Accounts"
+    ],
+    "controls": 0,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/household",
+    "width": 1440,
+    "durationMs": 1127,
+    "overflowPx": 0,
+    "mainChars": 220,
+    "headings": [
+      "Household dashboard",
+      "Household income",
+      "Household expense",
+      "Operating surplus",
+      "Create household"
+    ],
+    "controls": 2,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "Home"
+      }
+    ],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/alerts",
+    "width": 1440,
+    "durationMs": 1165,
+    "overflowPx": 0,
+    "mainChars": 210,
+    "headings": [
+      "Alerts Center",
+      "0",
+      "0",
+      "0",
+      "0"
+    ],
+    "controls": 3,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/settings",
+    "width": 1440,
+    "durationMs": 1241,
+    "overflowPx": 0,
+    "mainChars": 1058,
+    "headings": [
+      "Settings",
+      "Appearance",
+      "Charts & dashboard",
+      "Financial Year",
+      "Budget thresholds",
+      "Warnings & alerts",
+      "Custom payment modes",
+      "Data management"
+    ],
+    "controls": 18,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "number",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "number",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "e.g. Paytm QR, PhonePe Business, Store Credit"
+      }
+    ],
+    "unnamedButtons": [
+      "<button type=\"button\" role=\"switch\" aria-checked=\"true\" data-state=\"checked\" value=\"on\" class=\"peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 b",
+      "<button type=\"button\" role=\"switch\" aria-checked=\"true\" data-state=\"checked\" value=\"on\" class=\"peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 b",
+      "<button type=\"button\" role=\"switch\" aria-checked=\"true\" data-state=\"checked\" value=\"on\" class=\"peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 b",
+      "<button type=\"button\" role=\"switch\" aria-checked=\"true\" data-state=\"checked\" value=\"on\" class=\"peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 b",
+      "<button type=\"button\" role=\"switch\" aria-checked=\"true\" data-state=\"checked\" value=\"on\" class=\"peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 b",
+      "<button type=\"button\" role=\"switch\" aria-checked=\"true\" data-state=\"checked\" value=\"on\" class=\"peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 b"
+    ],
+    "pageErrors": []
+  },
+  {
+    "route": "/profile",
+    "width": 1440,
+    "durationMs": 1122,
+    "overflowPx": 0,
+    "mainChars": 658,
+    "headings": [
+      "Profile & Security",
+      "Personal details",
+      "Change PIN",
+      "Forgot PIN recovery"
+    ],
+    "controls": 45,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "+91…"
+      },
+      {
+        "tag": "INPUT",
+        "type": "email",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "Your mother's first school"
+      },
+      {
+        "tag": "INPUT",
+        "type": "password",
+        "placeholder": "Enter your secret answer"
+      },
+      {
+        "tag": "INPUT",
+        "type": "password",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "password",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "password",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "password",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "password",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "password",
+        "placeholder": null
+      }
+    ],
+    "unnamedButtons": [
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(14, 165, 233);\"></button>",
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(34, 197, 94);\"></button>",
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(245, 158, 11);\"></button>",
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(239, 68, 68);\"></button>",
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(139, 92, 246);\"></button>",
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(236, 72, 153);\"></button>",
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(20, 184, 166);\"></button>",
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(249, 115, 22);\"></button>",
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(59, 130, 246);\"></button>"
+    ],
+    "pageErrors": []
+  },
+  {
+    "route": "/audit",
+    "width": 1440,
+    "durationMs": 1185,
+    "overflowPx": 0,
+    "mainChars": 240,
+    "headings": [
+      "Audit & Backup",
+      "0",
+      "0",
+      "0",
+      "0"
+    ],
+    "controls": 4,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "Search details, entity, ID…"
+      }
+    ],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/subscription",
+    "width": 1440,
+    "durationMs": 2002,
+    "overflowPx": 0,
+    "mainChars": 1567,
+    "headings": [
+      "Good afternoon, Atomic.",
+      "Cashflow survival",
+      "Safety & goals",
+      "Financial Health Score",
+      "Income vs Expense",
+      "Upcoming & overdue",
+      "Top spending categories",
+      "Goal progress",
+      "Budget usage — this month",
+      "Alerts",
+      "Recent transactions"
+    ],
+    "controls": 20,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/",
+    "width": 768,
+    "durationMs": 1907,
+    "overflowPx": 0,
+    "mainChars": 1567,
+    "headings": [
+      "Good afternoon, Atomic.",
+      "Cashflow survival",
+      "Safety & goals",
+      "Financial Health Score",
+      "Income vs Expense",
+      "Upcoming & overdue",
+      "Top spending categories",
+      "Goal progress",
+      "Budget usage — this month",
+      "Alerts",
+      "Recent transactions"
+    ],
+    "controls": 20,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/transactions",
+    "width": 768,
+    "durationMs": 1237,
+    "overflowPx": 0,
+    "mainChars": 224,
+    "headings": [
+      "All Transactions"
+    ],
+    "controls": 9,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "Search merchant, description, notes, tags, category…"
+      },
+      {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "placeholder": null
+      }
+    ],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/income",
+    "width": 768,
+    "durationMs": 1190,
+    "overflowPx": 0,
+    "mainChars": 149,
+    "headings": [
+      "Income"
+    ],
+    "controls": 5,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "Search merchant, description, notes, tags, category…"
+      }
+    ],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/expenses",
+    "width": 768,
+    "durationMs": 1188,
+    "overflowPx": 0,
+    "mainChars": 232,
+    "headings": [
+      "Expenses"
+    ],
+    "controls": 9,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "Search merchant, description, notes, tags, category…"
+      },
+      {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "placeholder": null
+      }
+    ],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/categories",
+    "width": 768,
+    "durationMs": 1211,
+    "overflowPx": 0,
+    "mainChars": 403,
+    "headings": [
+      "Categories"
+    ],
+    "controls": 11,
+    "unnamedInputs": [],
+    "unnamedButtons": [
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-",
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-",
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-",
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-",
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-",
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-"
+    ],
+    "pageErrors": []
+  },
+  {
+    "route": "/budgets",
+    "width": 768,
+    "durationMs": 1290,
+    "overflowPx": 0,
+    "mainChars": 275,
+    "headings": [
+      "Budget Planner",
+      "₹0.00",
+      "₹0.00",
+      "₹0.00",
+      "₹0.00"
+    ],
+    "controls": 4,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/goals",
+    "width": 768,
+    "durationMs": 1106,
+    "overflowPx": 0,
+    "mainChars": 192,
+    "headings": [
+      "Goals & Planned Purchases"
+    ],
+    "controls": 2,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/accounts",
+    "width": 768,
+    "durationMs": 1191,
+    "overflowPx": 0,
+    "mainChars": 171,
+    "headings": [
+      "Accounts",
+      "₹9,600.00",
+      "1",
+      "1",
+      "1"
+    ],
+    "controls": 3,
+    "unnamedInputs": [],
+    "unnamedButtons": [
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-",
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-"
+    ],
+    "pageErrors": []
+  },
+  {
+    "route": "/cards",
+    "width": 768,
+    "durationMs": 1244,
+    "overflowPx": 0,
+    "mainChars": 212,
+    "headings": [
+      "Cards"
+    ],
+    "controls": 5,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/loans",
+    "width": 768,
+    "durationMs": 1252,
+    "overflowPx": 0,
+    "mainChars": 633,
+    "headings": [
+      "Loans & EMI",
+      "₹0.00",
+      "₹0.00",
+      "₹0.00",
+      "0",
+      "Debt summary"
+    ],
+    "controls": 2,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/udhari",
+    "width": 768,
+    "durationMs": 1301,
+    "overflowPx": 0,
+    "mainChars": 377,
+    "headings": [
+      "Udhari & Advances",
+      "₹0.00",
+      "₹0.00",
+      "₹0.00",
+      "0"
+    ],
+    "controls": 8,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/savings",
+    "width": 768,
+    "durationMs": 1191,
+    "overflowPx": 0,
+    "mainChars": 339,
+    "headings": [
+      "Wealth & assets",
+      "₹0.00",
+      "₹0.00",
+      "₹0.00",
+      "0.0 mo"
+    ],
+    "controls": 6,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/reports",
+    "width": 768,
+    "durationMs": 1219,
+    "overflowPx": 0,
+    "mainChars": 59,
+    "headings": [
+      "Reports & Analytics"
+    ],
+    "controls": 0,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/suggestions",
+    "width": 768,
+    "durationMs": 1291,
+    "overflowPx": 0,
+    "mainChars": 2726,
+    "headings": [
+      "Suggestion center",
+      "Educational guidance",
+      "Persona-aware money coachHigh net worth",
+      "Top 3 actions today",
+      "Do today: Safe daily spend (after bills)",
+      "Weekly money review",
+      "Monthly closing summary",
+      "Bills & cashflow",
+      "Safe daily spend (after bills)",
+      "Dismissed & history"
+    ],
+    "controls": 8,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/export",
+    "width": 768,
+    "durationMs": 1205,
+    "overflowPx": 0,
+    "mainChars": 64,
+    "headings": [
+      "Export Center"
+    ],
+    "controls": 0,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/import",
+    "width": 768,
+    "durationMs": 1149,
+    "overflowPx": 0,
+    "mainChars": 1073,
+    "headings": [
+      "Import Center",
+      "Import transactions",
+      "Restore backup",
+      "Repair Center"
+    ],
+    "controls": 3,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/bills",
+    "width": 768,
+    "durationMs": 1113,
+    "overflowPx": 0,
+    "mainChars": 163,
+    "headings": [
+      "Bill calendar",
+      "Next 7 days",
+      "Next 30 days",
+      "Upcoming"
+    ],
+    "controls": 0,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/reconciliation",
+    "width": 768,
+    "durationMs": 1114,
+    "overflowPx": 0,
+    "mainChars": 236,
+    "headings": [
+      "Reconciliation",
+      "Orphan transactions",
+      "Transfer match suggestions",
+      "Accounts"
+    ],
+    "controls": 0,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/household",
+    "width": 768,
+    "durationMs": 1185,
+    "overflowPx": 0,
+    "mainChars": 220,
+    "headings": [
+      "Household dashboard",
+      "Household income",
+      "Household expense",
+      "Operating surplus",
+      "Create household"
+    ],
+    "controls": 2,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "Home"
+      }
+    ],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/alerts",
+    "width": 768,
+    "durationMs": 1105,
+    "overflowPx": 0,
+    "mainChars": 210,
+    "headings": [
+      "Alerts Center",
+      "0",
+      "0",
+      "0",
+      "0"
+    ],
+    "controls": 3,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/settings",
+    "width": 768,
+    "durationMs": 1084,
+    "overflowPx": 0,
+    "mainChars": 1058,
+    "headings": [
+      "Settings",
+      "Appearance",
+      "Charts & dashboard",
+      "Financial Year",
+      "Budget thresholds",
+      "Warnings & alerts",
+      "Custom payment modes",
+      "Data management"
+    ],
+    "controls": 18,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "number",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "number",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "e.g. Paytm QR, PhonePe Business, Store Credit"
+      }
+    ],
+    "unnamedButtons": [
+      "<button type=\"button\" role=\"switch\" aria-checked=\"true\" data-state=\"checked\" value=\"on\" class=\"peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 b",
+      "<button type=\"button\" role=\"switch\" aria-checked=\"true\" data-state=\"checked\" value=\"on\" class=\"peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 b",
+      "<button type=\"button\" role=\"switch\" aria-checked=\"true\" data-state=\"checked\" value=\"on\" class=\"peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 b",
+      "<button type=\"button\" role=\"switch\" aria-checked=\"true\" data-state=\"checked\" value=\"on\" class=\"peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 b",
+      "<button type=\"button\" role=\"switch\" aria-checked=\"true\" data-state=\"checked\" value=\"on\" class=\"peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 b",
+      "<button type=\"button\" role=\"switch\" aria-checked=\"true\" data-state=\"checked\" value=\"on\" class=\"peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 b"
+    ],
+    "pageErrors": []
+  },
+  {
+    "route": "/profile",
+    "width": 768,
+    "durationMs": 1151,
+    "overflowPx": 0,
+    "mainChars": 658,
+    "headings": [
+      "Profile & Security",
+      "Personal details",
+      "Change PIN",
+      "Forgot PIN recovery"
+    ],
+    "controls": 45,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "+91…"
+      },
+      {
+        "tag": "INPUT",
+        "type": "email",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "Your mother's first school"
+      },
+      {
+        "tag": "INPUT",
+        "type": "password",
+        "placeholder": "Enter your secret answer"
+      },
+      {
+        "tag": "INPUT",
+        "type": "password",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "password",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "password",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "password",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "password",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "password",
+        "placeholder": null
+      }
+    ],
+    "unnamedButtons": [
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(14, 165, 233);\"></button>",
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(34, 197, 94);\"></button>",
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(245, 158, 11);\"></button>",
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(239, 68, 68);\"></button>",
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(139, 92, 246);\"></button>",
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(236, 72, 153);\"></button>",
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(20, 184, 166);\"></button>",
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(249, 115, 22);\"></button>",
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(59, 130, 246);\"></button>"
+    ],
+    "pageErrors": []
+  },
+  {
+    "route": "/audit",
+    "width": 768,
+    "durationMs": 1189,
+    "overflowPx": 0,
+    "mainChars": 240,
+    "headings": [
+      "Audit & Backup",
+      "0",
+      "0",
+      "0",
+      "0"
+    ],
+    "controls": 4,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "Search details, entity, ID…"
+      }
+    ],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/subscription",
+    "width": 768,
+    "durationMs": 2006,
+    "overflowPx": 0,
+    "mainChars": 1567,
+    "headings": [
+      "Good afternoon, Atomic.",
+      "Cashflow survival",
+      "Safety & goals",
+      "Financial Health Score",
+      "Income vs Expense",
+      "Upcoming & overdue",
+      "Top spending categories",
+      "Goal progress",
+      "Budget usage — this month",
+      "Alerts",
+      "Recent transactions"
+    ],
+    "controls": 20,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/",
+    "width": 390,
+    "durationMs": 2726,
+    "overflowPx": 0,
+    "mainChars": 1567,
+    "headings": [
+      "Good afternoon, Atomic.",
+      "Cashflow survival",
+      "Safety & goals",
+      "Financial Health Score",
+      "Income vs Expense",
+      "Upcoming & overdue",
+      "Top spending categories",
+      "Goal progress",
+      "Budget usage — this month",
+      "Alerts",
+      "Recent transactions"
+    ],
+    "controls": 20,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/transactions",
+    "width": 390,
+    "durationMs": 1226,
+    "overflowPx": 0,
+    "mainChars": 224,
+    "headings": [
+      "All Transactions"
+    ],
+    "controls": 9,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "Search merchant, description, notes, tags, category…"
+      },
+      {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "placeholder": null
+      }
+    ],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/income",
+    "width": 390,
+    "durationMs": 1161,
+    "overflowPx": 0,
+    "mainChars": 149,
+    "headings": [
+      "Income"
+    ],
+    "controls": 5,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "Search merchant, description, notes, tags, category…"
+      }
+    ],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/expenses",
+    "width": 390,
+    "durationMs": 1206,
+    "overflowPx": 0,
+    "mainChars": 232,
+    "headings": [
+      "Expenses"
+    ],
+    "controls": 9,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "Search merchant, description, notes, tags, category…"
+      },
+      {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "placeholder": null
+      }
+    ],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/categories",
+    "width": 390,
+    "durationMs": 2077,
+    "overflowPx": 0,
+    "mainChars": 403,
+    "headings": [
+      "Categories"
+    ],
+    "controls": 11,
+    "unnamedInputs": [],
+    "unnamedButtons": [
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-",
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-",
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-",
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-",
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-",
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-"
+    ],
+    "pageErrors": []
+  },
+  {
+    "route": "/budgets",
+    "width": 390,
+    "durationMs": 2048,
+    "overflowPx": 0,
+    "mainChars": 275,
+    "headings": [
+      "Budget Planner",
+      "₹0.00",
+      "₹0.00",
+      "₹0.00",
+      "₹0.00"
+    ],
+    "controls": 4,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/goals",
+    "width": 390,
+    "durationMs": 1189,
+    "overflowPx": 0,
+    "mainChars": 192,
+    "headings": [
+      "Goals & Planned Purchases"
+    ],
+    "controls": 2,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/accounts",
+    "width": 390,
+    "durationMs": 1250,
+    "overflowPx": 0,
+    "mainChars": 171,
+    "headings": [
+      "Accounts",
+      "₹9,600.00",
+      "1",
+      "1",
+      "1"
+    ],
+    "controls": 3,
+    "unnamedInputs": [],
+    "unnamedButtons": [
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-",
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-"
+    ],
+    "pageErrors": []
+  },
+  {
+    "route": "/cards",
+    "width": 390,
+    "durationMs": 1232,
+    "overflowPx": 0,
+    "mainChars": 212,
+    "headings": [
+      "Cards"
+    ],
+    "controls": 5,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/loans",
+    "width": 390,
+    "durationMs": 1194,
+    "overflowPx": 0,
+    "mainChars": 633,
+    "headings": [
+      "Loans & EMI",
+      "₹0.00",
+      "₹0.00",
+      "₹0.00",
+      "0",
+      "Debt summary"
+    ],
+    "controls": 2,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/udhari",
+    "width": 390,
+    "durationMs": 1202,
+    "overflowPx": 0,
+    "mainChars": 377,
+    "headings": [
+      "Udhari & Advances",
+      "₹0.00",
+      "₹0.00",
+      "₹0.00",
+      "0"
+    ],
+    "controls": 8,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/savings",
+    "width": 390,
+    "durationMs": 1162,
+    "overflowPx": 0,
+    "mainChars": 339,
+    "headings": [
+      "Wealth & assets",
+      "₹0.00",
+      "₹0.00",
+      "₹0.00",
+      "0.0 mo"
+    ],
+    "controls": 6,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/reports",
+    "width": 390,
+    "durationMs": 1194,
+    "overflowPx": 0,
+    "mainChars": 59,
+    "headings": [
+      "Reports & Analytics"
+    ],
+    "controls": 0,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/suggestions",
+    "width": 390,
+    "durationMs": 1363,
+    "overflowPx": 0,
+    "mainChars": 2726,
+    "headings": [
+      "Suggestion center",
+      "Educational guidance",
+      "Persona-aware money coachHigh net worth",
+      "Top 3 actions today",
+      "Do today: Safe daily spend (after bills)",
+      "Weekly money review",
+      "Monthly closing summary",
+      "Bills & cashflow",
+      "Safe daily spend (after bills)",
+      "Dismissed & history"
+    ],
+    "controls": 8,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/export",
+    "width": 390,
+    "durationMs": 1187,
+    "overflowPx": 0,
+    "mainChars": 64,
+    "headings": [
+      "Export Center"
+    ],
+    "controls": 0,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/import",
+    "width": 390,
+    "durationMs": 1106,
+    "overflowPx": 0,
+    "mainChars": 1073,
+    "headings": [
+      "Import Center",
+      "Import transactions",
+      "Restore backup",
+      "Repair Center"
+    ],
+    "controls": 3,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/bills",
+    "width": 390,
+    "durationMs": 1168,
+    "overflowPx": 0,
+    "mainChars": 163,
+    "headings": [
+      "Bill calendar",
+      "Next 7 days",
+      "Next 30 days",
+      "Upcoming"
+    ],
+    "controls": 0,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/reconciliation",
+    "width": 390,
+    "durationMs": 1096,
+    "overflowPx": 0,
+    "mainChars": 236,
+    "headings": [
+      "Reconciliation",
+      "Orphan transactions",
+      "Transfer match suggestions",
+      "Accounts"
+    ],
+    "controls": 0,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/household",
+    "width": 390,
+    "durationMs": 1187,
+    "overflowPx": 0,
+    "mainChars": 220,
+    "headings": [
+      "Household dashboard",
+      "Household income",
+      "Household expense",
+      "Operating surplus",
+      "Create household"
+    ],
+    "controls": 2,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "Home"
+      }
+    ],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/alerts",
+    "width": 390,
+    "durationMs": 1108,
+    "overflowPx": 0,
+    "mainChars": 210,
+    "headings": [
+      "Alerts Center",
+      "0",
+      "0",
+      "0",
+      "0"
+    ],
+    "controls": 3,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/settings",
+    "width": 390,
+    "durationMs": 1212,
+    "overflowPx": 0,
+    "mainChars": 1058,
+    "headings": [
+      "Settings",
+      "Appearance",
+      "Charts & dashboard",
+      "Financial Year",
+      "Budget thresholds",
+      "Warnings & alerts",
+      "Custom payment modes",
+      "Data management"
+    ],
+    "controls": 18,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "number",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "number",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "e.g. Paytm QR, PhonePe Business, Store Credit"
+      }
+    ],
+    "unnamedButtons": [
+      "<button type=\"button\" role=\"switch\" aria-checked=\"true\" data-state=\"checked\" value=\"on\" class=\"peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 b",
+      "<button type=\"button\" role=\"switch\" aria-checked=\"true\" data-state=\"checked\" value=\"on\" class=\"peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 b",
+      "<button type=\"button\" role=\"switch\" aria-checked=\"true\" data-state=\"checked\" value=\"on\" class=\"peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 b",
+      "<button type=\"button\" role=\"switch\" aria-checked=\"true\" data-state=\"checked\" value=\"on\" class=\"peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 b",
+      "<button type=\"button\" role=\"switch\" aria-checked=\"true\" data-state=\"checked\" value=\"on\" class=\"peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 b",
+      "<button type=\"button\" role=\"switch\" aria-checked=\"true\" data-state=\"checked\" value=\"on\" class=\"peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 b"
+    ],
+    "pageErrors": []
+  },
+  {
+    "route": "/profile",
+    "width": 390,
+    "durationMs": 1089,
+    "overflowPx": 0,
+    "mainChars": 658,
+    "headings": [
+      "Profile & Security",
+      "Personal details",
+      "Change PIN",
+      "Forgot PIN recovery"
+    ],
+    "controls": 45,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "+91…"
+      },
+      {
+        "tag": "INPUT",
+        "type": "email",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "Your mother's first school"
+      },
+      {
+        "tag": "INPUT",
+        "type": "password",
+        "placeholder": "Enter your secret answer"
+      },
+      {
+        "tag": "INPUT",
+        "type": "password",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "password",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "password",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "password",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "password",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "password",
+        "placeholder": null
+      }
+    ],
+    "unnamedButtons": [
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(14, 165, 233);\"></button>",
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(34, 197, 94);\"></button>",
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(245, 158, 11);\"></button>",
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(239, 68, 68);\"></button>",
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(139, 92, 246);\"></button>",
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(236, 72, 153);\"></button>",
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(20, 184, 166);\"></button>",
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(249, 115, 22);\"></button>",
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(59, 130, 246);\"></button>"
+    ],
+    "pageErrors": []
+  },
+  {
+    "route": "/audit",
+    "width": 390,
+    "durationMs": 1151,
+    "overflowPx": 0,
+    "mainChars": 240,
+    "headings": [
+      "Audit & Backup",
+      "0",
+      "0",
+      "0",
+      "0"
+    ],
+    "controls": 4,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "Search details, entity, ID…"
+      }
+    ],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/subscription",
+    "width": 390,
+    "durationMs": 1979,
+    "overflowPx": 0,
+    "mainChars": 1567,
+    "headings": [
+      "Good afternoon, Atomic.",
+      "Cashflow survival",
+      "Safety & goals",
+      "Financial Health Score",
+      "Income vs Expense",
+      "Upcoming & overdue",
+      "Top spending categories",
+      "Goal progress",
+      "Budget usage — this month",
+      "Alerts",
+      "Recent transactions"
+    ],
+    "controls": 20,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/",
+    "width": 360,
+    "durationMs": 1749,
+    "overflowPx": 0,
+    "mainChars": 1567,
+    "headings": [
+      "Good afternoon, Atomic.",
+      "Cashflow survival",
+      "Safety & goals",
+      "Financial Health Score",
+      "Income vs Expense",
+      "Upcoming & overdue",
+      "Top spending categories",
+      "Goal progress",
+      "Budget usage — this month",
+      "Alerts",
+      "Recent transactions"
+    ],
+    "controls": 20,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/transactions",
+    "width": 360,
+    "durationMs": 1106,
+    "overflowPx": 0,
+    "mainChars": 224,
+    "headings": [
+      "All Transactions"
+    ],
+    "controls": 9,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "Search merchant, description, notes, tags, category…"
+      },
+      {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "placeholder": null
+      }
+    ],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/income",
+    "width": 360,
+    "durationMs": 1188,
+    "overflowPx": 0,
+    "mainChars": 149,
+    "headings": [
+      "Income"
+    ],
+    "controls": 5,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "Search merchant, description, notes, tags, category…"
+      }
+    ],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/expenses",
+    "width": 360,
+    "durationMs": 1210,
+    "overflowPx": 0,
+    "mainChars": 232,
+    "headings": [
+      "Expenses"
+    ],
+    "controls": 9,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "Search merchant, description, notes, tags, category…"
+      },
+      {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "placeholder": null
+      }
+    ],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/categories",
+    "width": 360,
+    "durationMs": 1152,
+    "overflowPx": 0,
+    "mainChars": 403,
+    "headings": [
+      "Categories"
+    ],
+    "controls": 11,
+    "unnamedInputs": [],
+    "unnamedButtons": [
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-",
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-",
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-",
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-",
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-",
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-"
+    ],
+    "pageErrors": []
+  },
+  {
+    "route": "/budgets",
+    "width": 360,
+    "durationMs": 1340,
+    "overflowPx": 0,
+    "mainChars": 275,
+    "headings": [
+      "Budget Planner",
+      "₹0.00",
+      "₹0.00",
+      "₹0.00",
+      "₹0.00"
+    ],
+    "controls": 4,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/goals",
+    "width": 360,
+    "durationMs": 1143,
+    "overflowPx": 0,
+    "mainChars": 192,
+    "headings": [
+      "Goals & Planned Purchases"
+    ],
+    "controls": 2,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/accounts",
+    "width": 360,
+    "durationMs": 1109,
+    "overflowPx": 0,
+    "mainChars": 171,
+    "headings": [
+      "Accounts",
+      "₹9,600.00",
+      "1",
+      "1",
+      "1"
+    ],
+    "controls": 3,
+    "unnamedInputs": [],
+    "unnamedButtons": [
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-",
+      "<button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-"
+    ],
+    "pageErrors": []
+  },
+  {
+    "route": "/cards",
+    "width": 360,
+    "durationMs": 1245,
+    "overflowPx": 0,
+    "mainChars": 212,
+    "headings": [
+      "Cards"
+    ],
+    "controls": 5,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/loans",
+    "width": 360,
+    "durationMs": 1144,
+    "overflowPx": 0,
+    "mainChars": 633,
+    "headings": [
+      "Loans & EMI",
+      "₹0.00",
+      "₹0.00",
+      "₹0.00",
+      "0",
+      "Debt summary"
+    ],
+    "controls": 2,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/udhari",
+    "width": 360,
+    "durationMs": 1215,
+    "overflowPx": 0,
+    "mainChars": 377,
+    "headings": [
+      "Udhari & Advances",
+      "₹0.00",
+      "₹0.00",
+      "₹0.00",
+      "0"
+    ],
+    "controls": 8,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/savings",
+    "width": 360,
+    "durationMs": 1170,
+    "overflowPx": 0,
+    "mainChars": 339,
+    "headings": [
+      "Wealth & assets",
+      "₹0.00",
+      "₹0.00",
+      "₹0.00",
+      "0.0 mo"
+    ],
+    "controls": 6,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/reports",
+    "width": 360,
+    "durationMs": 1286,
+    "overflowPx": 0,
+    "mainChars": 59,
+    "headings": [
+      "Reports & Analytics"
+    ],
+    "controls": 0,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/suggestions",
+    "width": 360,
+    "durationMs": 1380,
+    "overflowPx": 0,
+    "mainChars": 2726,
+    "headings": [
+      "Suggestion center",
+      "Educational guidance",
+      "Persona-aware money coachHigh net worth",
+      "Top 3 actions today",
+      "Do today: Safe daily spend (after bills)",
+      "Weekly money review",
+      "Monthly closing summary",
+      "Bills & cashflow",
+      "Safe daily spend (after bills)",
+      "Dismissed & history"
+    ],
+    "controls": 8,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/export",
+    "width": 360,
+    "durationMs": 1188,
+    "overflowPx": 0,
+    "mainChars": 64,
+    "headings": [
+      "Export Center"
+    ],
+    "controls": 0,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/import",
+    "width": 360,
+    "durationMs": 1146,
+    "overflowPx": 0,
+    "mainChars": 1073,
+    "headings": [
+      "Import Center",
+      "Import transactions",
+      "Restore backup",
+      "Repair Center"
+    ],
+    "controls": 3,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/bills",
+    "width": 360,
+    "durationMs": 1142,
+    "overflowPx": 0,
+    "mainChars": 163,
+    "headings": [
+      "Bill calendar",
+      "Next 7 days",
+      "Next 30 days",
+      "Upcoming"
+    ],
+    "controls": 0,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/reconciliation",
+    "width": 360,
+    "durationMs": 1103,
+    "overflowPx": 0,
+    "mainChars": 236,
+    "headings": [
+      "Reconciliation",
+      "Orphan transactions",
+      "Transfer match suggestions",
+      "Accounts"
+    ],
+    "controls": 0,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/household",
+    "width": 360,
+    "durationMs": 1136,
+    "overflowPx": 0,
+    "mainChars": 220,
+    "headings": [
+      "Household dashboard",
+      "Household income",
+      "Household expense",
+      "Operating surplus",
+      "Create household"
+    ],
+    "controls": 2,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "Home"
+      }
+    ],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/alerts",
+    "width": 360,
+    "durationMs": 1097,
+    "overflowPx": 0,
+    "mainChars": 210,
+    "headings": [
+      "Alerts Center",
+      "0",
+      "0",
+      "0",
+      "0"
+    ],
+    "controls": 3,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/settings",
+    "width": 360,
+    "durationMs": 1165,
+    "overflowPx": 0,
+    "mainChars": 1058,
+    "headings": [
+      "Settings",
+      "Appearance",
+      "Charts & dashboard",
+      "Financial Year",
+      "Budget thresholds",
+      "Warnings & alerts",
+      "Custom payment modes",
+      "Data management"
+    ],
+    "controls": 18,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "number",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "number",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "e.g. Paytm QR, PhonePe Business, Store Credit"
+      }
+    ],
+    "unnamedButtons": [
+      "<button type=\"button\" role=\"switch\" aria-checked=\"true\" data-state=\"checked\" value=\"on\" class=\"peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 b",
+      "<button type=\"button\" role=\"switch\" aria-checked=\"true\" data-state=\"checked\" value=\"on\" class=\"peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 b",
+      "<button type=\"button\" role=\"switch\" aria-checked=\"true\" data-state=\"checked\" value=\"on\" class=\"peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 b",
+      "<button type=\"button\" role=\"switch\" aria-checked=\"true\" data-state=\"checked\" value=\"on\" class=\"peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 b",
+      "<button type=\"button\" role=\"switch\" aria-checked=\"true\" data-state=\"checked\" value=\"on\" class=\"peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 b",
+      "<button type=\"button\" role=\"switch\" aria-checked=\"true\" data-state=\"checked\" value=\"on\" class=\"peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 b"
+    ],
+    "pageErrors": []
+  },
+  {
+    "route": "/profile",
+    "width": 360,
+    "durationMs": 1290,
+    "overflowPx": 0,
+    "mainChars": 658,
+    "headings": [
+      "Profile & Security",
+      "Personal details",
+      "Change PIN",
+      "Forgot PIN recovery"
+    ],
+    "controls": 45,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "+91…"
+      },
+      {
+        "tag": "INPUT",
+        "type": "email",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "Your mother's first school"
+      },
+      {
+        "tag": "INPUT",
+        "type": "password",
+        "placeholder": "Enter your secret answer"
+      },
+      {
+        "tag": "INPUT",
+        "type": "password",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "password",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "password",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "password",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "password",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "password",
+        "placeholder": null
+      }
+    ],
+    "unnamedButtons": [
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(14, 165, 233);\"></button>",
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(34, 197, 94);\"></button>",
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(245, 158, 11);\"></button>",
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(239, 68, 68);\"></button>",
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(139, 92, 246);\"></button>",
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(236, 72, 153);\"></button>",
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(20, 184, 166);\"></button>",
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(249, 115, 22);\"></button>",
+      "<button type=\"button\" class=\"h-8 w-8 rounded-full ring-2 transition ring-transparent\" style=\"background-color: rgb(59, 130, 246);\"></button>"
+    ],
+    "pageErrors": []
+  },
+  {
+    "route": "/audit",
+    "width": 360,
+    "durationMs": 1101,
+    "overflowPx": 0,
+    "mainChars": 240,
+    "headings": [
+      "Audit & Backup",
+      "0",
+      "0",
+      "0",
+      "0"
+    ],
+    "controls": 4,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "Search details, entity, ID…"
+      }
+    ],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/subscription",
+    "width": 360,
+    "durationMs": 1754,
+    "overflowPx": 0,
+    "mainChars": 1567,
+    "headings": [
+      "Good afternoon, Atomic.",
+      "Cashflow survival",
+      "Safety & goals",
+      "Financial Health Score",
+      "Income vs Expense",
+      "Upcoming & overdue",
+      "Top spending categories",
+      "Goal progress",
+      "Budget usage — this month",
+      "Alerts",
+      "Recent transactions"
+    ],
+    "controls": 20,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/admin",
+    "width": 1440,
+    "overflowPx": 0,
+    "mainChars": 402,
+    "headings": [
+      "Admin Dashboard",
+      "14",
+      "1",
+      "₹799",
+      "0",
+      "9",
+      "14",
+      "1"
+    ],
+    "controls": 1,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/admin/users",
+    "width": 1440,
+    "overflowPx": 0,
+    "mainChars": 1516,
+    "headings": [
+      "User Management"
+    ],
+    "controls": 49,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "Search by name or username…"
+      }
+    ],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/admin/plans",
+    "width": 1440,
+    "overflowPx": 0,
+    "mainChars": 719,
+    "headings": [
+      "Plan Management",
+      "New Plan"
+    ],
+    "controls": 16,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "e.g. Pro Monthly"
+      },
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "e.g. PRO_MONTHLY"
+      },
+      {
+        "tag": "INPUT",
+        "type": "number",
+        "placeholder": "299.00"
+      },
+      {
+        "tag": "SELECT",
+        "type": "select-one",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "number",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "Short description for users"
+      },
+      {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "placeholder": null
+      }
+    ],
+    "unnamedButtons": [
+      "<button type=\"button\" role=\"switch\" aria-checked=\"true\" data-state=\"checked\" value=\"on\" class=\"peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 b"
+    ],
+    "pageErrors": []
+  },
+  {
+    "route": "/admin/branding",
+    "width": 1440,
+    "overflowPx": 0,
+    "mainChars": 522,
+    "headings": [
+      "Branding Settings",
+      "Identity",
+      "Contact & Legal"
+    ],
+    "controls": 8,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "SparowVault"
+      },
+      {
+        "tag": "INPUT",
+        "type": "url",
+        "placeholder": "https://example.com/logo.png"
+      },
+      {
+        "tag": "INPUT",
+        "type": "url",
+        "placeholder": "https://example.com/favicon.ico"
+      },
+      {
+        "tag": "INPUT",
+        "type": "email",
+        "placeholder": "support@example.com"
+      },
+      {
+        "tag": "INPUT",
+        "type": "url",
+        "placeholder": "https://example.com/privacy"
+      },
+      {
+        "tag": "INPUT",
+        "type": "url",
+        "placeholder": "https://example.com/terms"
+      }
+    ],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/admin/subscriptions",
+    "width": 1440,
+    "overflowPx": 0,
+    "mainChars": 402,
+    "headings": [
+      "Admin Dashboard",
+      "14",
+      "1",
+      "₹799",
+      "0",
+      "9",
+      "14",
+      "1"
+    ],
+    "controls": 1,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/admin",
+    "width": 390,
+    "overflowPx": 0,
+    "mainChars": 402,
+    "headings": [
+      "Admin Dashboard",
+      "14",
+      "1",
+      "₹799",
+      "0",
+      "9",
+      "14",
+      "1"
+    ],
+    "controls": 1,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/admin/users",
+    "width": 390,
+    "overflowPx": 0,
+    "mainChars": 1516,
+    "headings": [
+      "User Management"
+    ],
+    "controls": 49,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "Search by name or username…"
+      }
+    ],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/admin/plans",
+    "width": 390,
+    "overflowPx": 0,
+    "mainChars": 719,
+    "headings": [
+      "Plan Management",
+      "New Plan"
+    ],
+    "controls": 16,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "e.g. Pro Monthly"
+      },
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "e.g. PRO_MONTHLY"
+      },
+      {
+        "tag": "INPUT",
+        "type": "number",
+        "placeholder": "299.00"
+      },
+      {
+        "tag": "SELECT",
+        "type": "select-one",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "number",
+        "placeholder": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "Short description for users"
+      },
+      {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "placeholder": null
+      }
+    ],
+    "unnamedButtons": [
+      "<button type=\"button\" role=\"switch\" aria-checked=\"true\" data-state=\"checked\" value=\"on\" class=\"peer inline-flex h-5 w-9 shrink-0 cursor-pointer items-center rounded-full border-2 b"
+    ],
+    "pageErrors": []
+  },
+  {
+    "route": "/admin/branding",
+    "width": 390,
+    "overflowPx": 0,
+    "mainChars": 522,
+    "headings": [
+      "Branding Settings",
+      "Identity",
+      "Contact & Legal"
+    ],
+    "controls": 8,
+    "unnamedInputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "placeholder": "SparowVault"
+      },
+      {
+        "tag": "INPUT",
+        "type": "url",
+        "placeholder": "https://example.com/logo.png"
+      },
+      {
+        "tag": "INPUT",
+        "type": "url",
+        "placeholder": "https://example.com/favicon.ico"
+      },
+      {
+        "tag": "INPUT",
+        "type": "email",
+        "placeholder": "support@example.com"
+      },
+      {
+        "tag": "INPUT",
+        "type": "url",
+        "placeholder": "https://example.com/privacy"
+      },
+      {
+        "tag": "INPUT",
+        "type": "url",
+        "placeholder": "https://example.com/terms"
+      }
+    ],
+    "unnamedButtons": [],
+    "pageErrors": []
+  },
+  {
+    "route": "/admin/subscriptions",
+    "width": 390,
+    "overflowPx": 0,
+    "mainChars": 402,
+    "headings": [
+      "Admin Dashboard",
+      "14",
+      "1",
+      "₹799",
+      "0",
+      "9",
+      "14",
+      "1"
+    ],
+    "controls": 1,
+    "unnamedInputs": [],
+    "unnamedButtons": [],
+    "pageErrors": []
+  }
+]

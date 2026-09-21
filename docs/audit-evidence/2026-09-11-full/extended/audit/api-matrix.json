@@ -1,0 +1,368 @@
+[
+  {
+    "path": "/api/admin/dashboard.php",
+    "method": "GET",
+    "role": "anonymous",
+    "status": 500
+  },
+  {
+    "path": "/api/admin/dashboard.php",
+    "method": "GET",
+    "role": "user",
+    "status": 500
+  },
+  {
+    "path": "/api/admin/dashboard.php",
+    "method": "GET",
+    "role": "admin",
+    "status": 200
+  },
+  {
+    "path": "/api/admin/users.php",
+    "method": "GET",
+    "role": "anonymous",
+    "status": 500
+  },
+  {
+    "path": "/api/admin/users.php",
+    "method": "GET",
+    "role": "user",
+    "status": 500
+  },
+  {
+    "path": "/api/admin/users.php",
+    "method": "GET",
+    "role": "admin",
+    "status": 200
+  },
+  {
+    "path": "/api/admin/plans.php",
+    "method": "GET",
+    "role": "anonymous",
+    "status": 500
+  },
+  {
+    "path": "/api/admin/plans.php",
+    "method": "GET",
+    "role": "user",
+    "status": 500
+  },
+  {
+    "path": "/api/admin/plans.php",
+    "method": "GET",
+    "role": "admin",
+    "status": 200
+  },
+  {
+    "path": "/api/admin/subscriptions.php",
+    "method": "GET",
+    "role": "anonymous",
+    "status": 500
+  },
+  {
+    "path": "/api/admin/subscriptions.php",
+    "method": "GET",
+    "role": "user",
+    "status": 500
+  },
+  {
+    "path": "/api/admin/subscriptions.php",
+    "method": "GET",
+    "role": "admin",
+    "status": 200
+  },
+  {
+    "path": "/api/admin/feature-flags.php",
+    "method": "GET",
+    "role": "anonymous",
+    "status": 500
+  },
+  {
+    "path": "/api/admin/feature-flags.php",
+    "method": "GET",
+    "role": "user",
+    "status": 500
+  },
+  {
+    "path": "/api/admin/feature-flags.php",
+    "method": "GET",
+    "role": "admin",
+    "status": 200
+  },
+  {
+    "path": "/api/admin/settings.php",
+    "method": "GET",
+    "role": "anonymous",
+    "status": 500
+  },
+  {
+    "path": "/api/admin/settings.php",
+    "method": "GET",
+    "role": "user",
+    "status": 500
+  },
+  {
+    "path": "/api/admin/settings.php",
+    "method": "GET",
+    "role": "admin",
+    "status": 200
+  },
+  {
+    "path": "/api/admin/users-toggle-active.php",
+    "method": "POST",
+    "role": "anonymous",
+    "status": 500
+  },
+  {
+    "path": "/api/admin/users-toggle-active.php",
+    "method": "POST",
+    "role": "user",
+    "status": 500
+  },
+  {
+    "path": "/api/admin/users-reset-pin.php",
+    "method": "POST",
+    "role": "anonymous",
+    "status": 500
+  },
+  {
+    "path": "/api/admin/users-reset-pin.php",
+    "method": "POST",
+    "role": "user",
+    "status": 500
+  },
+  {
+    "path": "/api/admin/users-assign-plan.php",
+    "method": "POST",
+    "role": "anonymous",
+    "status": 500
+  },
+  {
+    "path": "/api/admin/users-assign-plan.php",
+    "method": "POST",
+    "role": "user",
+    "status": 500
+  },
+  {
+    "collection": "accounts",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "alerts",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "assetValuations",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "attachments",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "auditLogs",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "budgets",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "cardEmiInstallments",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "cardEmiPlans",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "cardPaymentAllocations",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "cardStatements",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "cards",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "categories",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "creditLimitGroups",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "emis",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "exportHistory",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "fixedIncomeAssets",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "goalContribs",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "goals",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "householdMembers",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "householdPermissions",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "households",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "importSources",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "insurancePolicies",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "investments",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "loans",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "obligations",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "reconciliationMatches",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "recurringRules",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "reminders",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "savingsContribs",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "settings",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "sinkingFunds",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "snapshots",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "transactions",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "transferLinks",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "udhari",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  },
+  {
+    "collection": "udhariSettlements",
+    "own": 200,
+    "foreign": 403,
+    "anonymous": 401
+  }
+]

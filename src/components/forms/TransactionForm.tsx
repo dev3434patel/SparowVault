@@ -26,7 +26,9 @@ import {
 import { syncEmiPaymentFromTransaction } from "@/services/loanPaymentSync";
 import { useUIStore } from "@/store/uiStore";
 import { isoToLocalDate, localDateToIso } from "@/lib/format";
-import { rupeesToPaise, udhariAmountPaise, udhariSettledPaise } from "@/utils/money";
+import { rupeesToPaise, transactionAmountPaise, udhariAmountPaise, udhariSettledPaise } from "@/utils/money";
+import { contributionError, expenseRecovery } from "@/services/expenseContributions";
+import { formatINR } from "@/lib/format";
 
 interface Props {
   initial?: Partial<Transaction>;
@@ -67,6 +69,8 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
     linkedGoalId: initial?.linkedGoalId ?? "",
     linkedUdhariId: initial?.linkedUdhariId ?? "",
     linkedSavingsId: initial?.linkedSavingsId ?? "",
+    linkedOriginalTransactionId: initial?.linkedOriginalTransactionId ?? "",
+    transactionIntent: initial?.transactionIntent,
     paymentMode: (initial?.paymentMode ?? "upi") as PaymentMode,
     merchantOrPerson: initial?.merchantOrPerson ?? "",
     description: initial?.description ?? "",
@@ -94,12 +98,12 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
   );
 
   const filteredCategories = useMemo(() => {
-    if (state.type === "income" || (state.type === "refund" && state.paymentMode !== "credit_card")) {
+    if (state.type === "income") {
       return categories.filter(
         (c) => !c.archived && (c.appliesTo === "income" || c.appliesTo === "mixed"),
       );
     }
-    if (state.type === "expense" || (state.type === "refund" && state.paymentMode === "credit_card")) {
+    if (state.type === "expense" || state.type === "refund") {
       return categories.filter(
         (c) => !c.archived && (c.appliesTo === "expense" || c.appliesTo === "mixed"),
       );
@@ -137,11 +141,14 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
 
   const phaseErrors = useMemo(() => getTransactionFormPhase6Errors(state), [state]);
 
+  const contributionProblem = user ? contributionError({ ...state, id: initial?.id ?? "draft", userId: user.id, amount: Number(state.amount) }, transactions) : null;
+  const contributionOriginal = transactions.find(t => t.id === state.linkedOriginalTransactionId);
+  const isContribution = state.transactionIntent === "expense_contribution";
   const canSave = useMemo(() => {
     const z = transactionSchema.safeParse(state);
     const p6 = getTransactionFormPhase6Errors(state);
-    return z.success && Object.keys(p6).length === 0;
-  }, [state]);
+    return z.success && Object.keys(p6).length === 0 && !contributionProblem;
+  }, [state, contributionProblem]);
 
   const previewCtx = useMemo((): TransactionPreviewContext | null => {
     if (!user) return null;
@@ -188,6 +195,7 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     if (!user || saving) return;
+    if (contributionProblem) { setErrors({ linkedOriginalTransactionId: contributionProblem }); return; }
     setErrors({});
     const parse = transactionSchema.safeParse(state);
     if (!parse.success) {
@@ -255,13 +263,15 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
     <form onSubmit={submit} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
       <Field label="Type" required error={fieldError("type")}>
         <Select
-          value={state.type}
+          value={isContribution ? "contribution" : state.type}
           onValueChange={(v) => {
-            const type = v as TransactionType;
+            const type = v === "contribution" ? "refund" : v as TransactionType;
             setState((s) => ({
               ...s,
               type,
-              paymentMode: type === "transfer" ? "bank_transfer" : s.paymentMode,
+              transactionIntent: v === "contribution" ? "expense_contribution" : undefined,
+              linkedOriginalTransactionId: "",
+              paymentMode: type === "transfer" || v === "contribution" ? "bank_transfer" : s.paymentMode,
             }));
           }}
         >
@@ -269,6 +279,7 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
+            {!forcedType && <SelectItem value="contribution">Contribution return</SelectItem>}
             {txTypes.map((t) => (
               <SelectItem key={t.value} value={t.value}>
                 {t.label}
@@ -277,9 +288,22 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
           </SelectContent>
         </Select>
       </Field>
+      {isContribution && <div className="sm:col-span-2">
+        <Field label="Original shared expense" required error={contributionProblem ?? fieldError("linkedOriginalTransactionId")}>
+          <select aria-label="Original shared expense" className="w-full rounded-md border border-border bg-background p-2 text-sm" value={state.linkedOriginalTransactionId} onChange={e => {
+            const original = transactions.find(t => t.id === e.target.value);
+            setState(s => ({ ...s, linkedOriginalTransactionId: e.target.value, categoryId: original?.categoryId ?? "", businessOrPersonal: original?.businessOrPersonal ?? "personal" }));
+          }}>
+            <option value="">Select expense</option>
+            {transactions.filter(t => t.userId === user?.id && t.type === "expense" && !t.isDeleted && !t.isReimbursable && t.businessOrPersonal !== "mixed").map(t => <option key={t.id} value={t.id}>{t.date.slice(0, 10)} / {t.description || t.merchantOrPerson} / {formatINR(expenseRecovery(t, transactions, initial?.id).remainingPaise / 100)} remaining</option>)}
+          </select>
+        </Field>
+        {contributionOriginal && <div className="mt-2 flex flex-wrap gap-4 text-xs tabular-nums"><span>Gross expense: {formatINR(transactionAmountPaise(contributionOriginal) / 100)}</span><span>Remaining: {formatINR(expenseRecovery(contributionOriginal, transactions, initial?.id).remainingPaise / 100)}</span><span>Income: {formatINR(0)}</span></div>}
+      </div>}
       <Field label="Date" required error={fieldError("date")}>
         <Input
           type="date"
+          aria-label="Transaction date"
           value={state.date}
           onChange={(e) => setState({ ...state, date: e.target.value })}
         />
@@ -287,6 +311,7 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
       <Field label="Amount (₹)" required error={fieldError("amount")}>
         <Input
           type="number"
+          aria-label="Transaction amount"
           step="0.01"
           inputMode="decimal"
           value={state.amount as number}
@@ -306,7 +331,7 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              {PAYMENT_MODES.map((p) => (
+              {PAYMENT_MODES.filter(p => !isContribution || p.value !== "credit_card").map((p) => (
                 <SelectItem key={p.value} value={p.value}>
                   {p.label}
                 </SelectItem>
@@ -702,4 +727,3 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
     </form>
   );
 }
-

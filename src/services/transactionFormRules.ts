@@ -2,7 +2,7 @@
  * Phase 6 — Conditional required fields for transaction entry (client + mirrors server checks).
  */
 
-import type { NeedWant, PaymentMode, PersonalBusiness, TransactionType } from "@/types";
+import type { NeedWant, PaymentMode, PersonalBusiness, TransactionType, TransactionIntent } from "@/types";
 
 export interface TransactionFormRuleState {
   date: string;
@@ -16,6 +16,8 @@ export interface TransactionFormRuleState {
   linkedGoalId: string;
   linkedUdhariId: string;
   linkedSavingsId: string;
+  linkedOriginalTransactionId?: string;
+  transactionIntent?: TransactionIntent;
   paymentMode: PaymentMode;
   merchantOrPerson: string;
   description: string;
@@ -59,6 +61,10 @@ export function getTransactionFormPhase6Errors(
 ): Record<string, string> {
   const e: Record<string, string> = {};
   const { type, paymentMode: pm } = state;
+  if (state.transactionIntent === "expense_contribution") {
+    if (!state.linkedOriginalTransactionId) e.linkedOriginalTransactionId = "Select the original shared expense.";
+    if (type !== "refund" || pm === "credit_card") e.paymentMode = "Receive a contribution into cash or a bank account.";
+  }
 
   if (needsCategory(type)) {
     if (!state.categoryId?.trim()) {

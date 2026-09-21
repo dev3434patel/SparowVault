@@ -1,0 +1,2754 @@
+{
+  "date": "2026-09-10T07:00:47.752Z",
+  "pages": [
+    {
+      "route": "/",
+      "headings": [
+        "Sign in to your account"
+      ],
+      "buttons": [
+        "Sign in",
+        "Create account",
+        "Sign in",
+        "Create an account"
+      ],
+      "viewports": [
+        {
+          "width": 1920,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1440,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1366,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1024,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 768,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 430,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 414,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 390,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 375,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 360,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        }
+      ]
+    },
+    {
+      "route": "/transactions",
+      "headings": [
+        "Sign in to your account"
+      ],
+      "buttons": [
+        "Sign in",
+        "Create account",
+        "Sign in",
+        "Create an account"
+      ],
+      "viewports": [
+        {
+          "width": 1920,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1440,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1366,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1024,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 768,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 430,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 414,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 390,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 375,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 360,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        }
+      ]
+    },
+    {
+      "route": "/income",
+      "headings": [
+        "Sign in to your account"
+      ],
+      "buttons": [
+        "Sign in",
+        "Create account",
+        "Sign in",
+        "Create an account"
+      ],
+      "viewports": [
+        {
+          "width": 1920,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1440,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1366,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1024,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 768,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 430,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 414,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 390,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 375,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 360,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        }
+      ]
+    },
+    {
+      "route": "/expenses",
+      "headings": [
+        "Sign in to your account"
+      ],
+      "buttons": [
+        "Sign in",
+        "Create account",
+        "Sign in",
+        "Create an account"
+      ],
+      "viewports": [
+        {
+          "width": 1920,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1440,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1366,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1024,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 768,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 430,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 414,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 390,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 375,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 360,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        }
+      ]
+    },
+    {
+      "route": "/budgets",
+      "headings": [
+        "Sign in to your account"
+      ],
+      "buttons": [
+        "Sign in",
+        "Create account",
+        "Sign in",
+        "Create an account"
+      ],
+      "viewports": [
+        {
+          "width": 1920,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1440,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1366,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1024,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 768,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 430,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 414,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 390,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 375,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 360,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        }
+      ]
+    },
+    {
+      "route": "/goals",
+      "headings": [
+        "Sign in to your account"
+      ],
+      "buttons": [
+        "Sign in",
+        "Create account",
+        "Sign in",
+        "Create an account"
+      ],
+      "viewports": [
+        {
+          "width": 1920,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1440,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1366,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1024,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 768,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 430,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 414,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 390,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 375,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 360,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        }
+      ]
+    },
+    {
+      "route": "/accounts",
+      "headings": [
+        "Sign in to your account"
+      ],
+      "buttons": [
+        "Sign in",
+        "Create account",
+        "Sign in",
+        "Create an account"
+      ],
+      "viewports": [
+        {
+          "width": 1920,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1440,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1366,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1024,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 768,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 430,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 414,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 390,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 375,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 360,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        }
+      ]
+    },
+    {
+      "route": "/cards",
+      "headings": [
+        "Sign in to your account"
+      ],
+      "buttons": [
+        "Sign in",
+        "Create account",
+        "Sign in",
+        "Create an account"
+      ],
+      "viewports": [
+        {
+          "width": 1920,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1440,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1366,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1024,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 768,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 430,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 414,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 390,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 375,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 360,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        }
+      ]
+    },
+    {
+      "route": "/loans",
+      "headings": [
+        "Sign in to your account"
+      ],
+      "buttons": [
+        "Sign in",
+        "Create account",
+        "Sign in",
+        "Create an account"
+      ],
+      "viewports": [
+        {
+          "width": 1920,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1440,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1366,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1024,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 768,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 430,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 414,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 390,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 375,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 360,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        }
+      ]
+    },
+    {
+      "route": "/udhari",
+      "headings": [
+        "Sign in to your account"
+      ],
+      "buttons": [
+        "Sign in",
+        "Create account",
+        "Sign in",
+        "Create an account"
+      ],
+      "viewports": [
+        {
+          "width": 1920,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1440,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1366,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1024,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 768,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 430,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 414,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 390,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 375,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 360,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        }
+      ]
+    },
+    {
+      "route": "/savings",
+      "headings": [
+        "Sign in to your account"
+      ],
+      "buttons": [
+        "Sign in",
+        "Create account",
+        "Sign in",
+        "Create an account"
+      ],
+      "viewports": [
+        {
+          "width": 1920,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1440,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1366,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1024,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 768,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 430,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 414,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 390,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 375,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 360,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        }
+      ]
+    },
+    {
+      "route": "/categories",
+      "headings": [
+        "Sign in to your account"
+      ],
+      "buttons": [
+        "Sign in",
+        "Create account",
+        "Sign in",
+        "Create an account"
+      ],
+      "viewports": [
+        {
+          "width": 1920,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1440,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1366,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1024,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 768,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 430,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 414,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 390,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 375,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 360,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        }
+      ]
+    },
+    {
+      "route": "/reports",
+      "headings": [
+        "Sign in to your account"
+      ],
+      "buttons": [
+        "Sign in",
+        "Create account",
+        "Sign in",
+        "Create an account"
+      ],
+      "viewports": [
+        {
+          "width": 1920,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1440,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1366,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1024,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 768,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 430,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 414,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 390,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 375,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 360,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        }
+      ]
+    },
+    {
+      "route": "/suggestions",
+      "headings": [
+        "Sign in to your account"
+      ],
+      "buttons": [
+        "Sign in",
+        "Create account",
+        "Sign in",
+        "Create an account"
+      ],
+      "viewports": [
+        {
+          "width": 1920,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1440,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1366,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1024,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 768,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 430,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 414,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 390,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 375,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 360,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        }
+      ]
+    },
+    {
+      "route": "/export",
+      "headings": [
+        "Sign in to your account"
+      ],
+      "buttons": [
+        "Sign in",
+        "Create account",
+        "Sign in",
+        "Create an account"
+      ],
+      "viewports": [
+        {
+          "width": 1920,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1440,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1366,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1024,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 768,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 430,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 414,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 390,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 375,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 360,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        }
+      ]
+    },
+    {
+      "route": "/import",
+      "headings": [
+        "Sign in to your account"
+      ],
+      "buttons": [
+        "Sign in",
+        "Create account",
+        "Sign in",
+        "Create an account"
+      ],
+      "viewports": [
+        {
+          "width": 1920,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1440,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1366,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1024,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 768,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 430,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 414,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 390,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 375,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 360,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        }
+      ]
+    },
+    {
+      "route": "/bills",
+      "headings": [
+        "Sign in to your account"
+      ],
+      "buttons": [
+        "Sign in",
+        "Create account",
+        "Sign in",
+        "Create an account"
+      ],
+      "viewports": [
+        {
+          "width": 1920,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1440,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1366,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1024,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 768,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 430,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 414,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 390,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 375,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 360,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        }
+      ]
+    },
+    {
+      "route": "/reconciliation",
+      "headings": [
+        "Sign in to your account"
+      ],
+      "buttons": [
+        "Sign in",
+        "Create account",
+        "Sign in",
+        "Create an account"
+      ],
+      "viewports": [
+        {
+          "width": 1920,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1440,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1366,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1024,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 768,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 430,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 414,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 390,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 375,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 360,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        }
+      ]
+    },
+    {
+      "route": "/household",
+      "headings": [
+        "Sign in to your account"
+      ],
+      "buttons": [
+        "Sign in",
+        "Create account",
+        "Sign in",
+        "Create an account"
+      ],
+      "viewports": [
+        {
+          "width": 1920,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1440,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1366,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1024,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 768,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 430,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 414,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 390,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 375,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 360,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        }
+      ]
+    },
+    {
+      "route": "/alerts",
+      "headings": [
+        "Sign in to your account"
+      ],
+      "buttons": [
+        "Sign in",
+        "Create account",
+        "Sign in",
+        "Create an account"
+      ],
+      "viewports": [
+        {
+          "width": 1920,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1440,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1366,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1024,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 768,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 430,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 414,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 390,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 375,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 360,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        }
+      ]
+    },
+    {
+      "route": "/settings",
+      "headings": [
+        "Sign in to your account"
+      ],
+      "buttons": [
+        "Sign in",
+        "Create account",
+        "Sign in",
+        "Create an account"
+      ],
+      "viewports": [
+        {
+          "width": 1920,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1440,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1366,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1024,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 768,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 430,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 414,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 390,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 375,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 360,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        }
+      ]
+    },
+    {
+      "route": "/profile",
+      "headings": [
+        "Sign in to your account"
+      ],
+      "buttons": [
+        "Sign in",
+        "Create account",
+        "Sign in",
+        "Create an account"
+      ],
+      "viewports": [
+        {
+          "width": 1920,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1440,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1366,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1024,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 768,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 430,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 414,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 390,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 375,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 360,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        }
+      ]
+    },
+    {
+      "route": "/audit",
+      "headings": [
+        "Sign in to your account"
+      ],
+      "buttons": [
+        "Sign in",
+        "Create account",
+        "Sign in",
+        "Create an account"
+      ],
+      "viewports": [
+        {
+          "width": 1920,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1440,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1366,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1024,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 768,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 430,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 414,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 390,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 375,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 360,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        }
+      ]
+    },
+    {
+      "route": "/subscription",
+      "headings": [
+        "Sign in to your account"
+      ],
+      "buttons": [
+        "Sign in",
+        "Create account",
+        "Sign in",
+        "Create an account"
+      ],
+      "viewports": [
+        {
+          "width": 1920,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1440,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1366,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 1024,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 768,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 430,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 414,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 390,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 375,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        },
+        {
+          "width": 360,
+          "rootOverflow": 0,
+          "unnamed": [
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)",
+            "<input class=\"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring)"
+          ],
+          "clipped": [],
+          "mainTextLength": 175
+        }
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "fatal": true,
+      "message": "locator.click: Timeout 10000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: /add account/i }).first()\u001b[22m\n\n    at /private/tmp/sparow-audit-browser.mjs:44:63"
+    }
+  ],
+  "checks": [
+    {
+      "name": "Registration reaches authenticated main",
+      "pass": true,
+      "actual": true
+    }
+  ]
+}

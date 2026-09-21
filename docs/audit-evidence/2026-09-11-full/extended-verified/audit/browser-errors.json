@@ -1,0 +1,6 @@
+[
+  {
+    "url": "http://127.0.0.1:65285/settings",
+    "message": "Record is referenced by an active transaction"
+  }
+]

@@ -1,0 +1,29 @@
+{
+  "date": "2026-09-11T09:18:17.929Z",
+  "outcomes": [
+    {
+      "name": "dependency-audit",
+      "command": "npm audit --json",
+      "exitCode": 0,
+      "durationMs": 723
+    },
+    {
+      "name": "ci-reporter",
+      "command": "npm test -- --reporter=basic",
+      "exitCode": 1,
+      "durationMs": 836
+    },
+    {
+      "name": "final-typecheck",
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "durationMs": 1659
+    },
+    {
+      "name": "final-lint",
+      "command": "npm run lint",
+      "exitCode": 0,
+      "durationMs": 3329
+    }
+  ]
+}

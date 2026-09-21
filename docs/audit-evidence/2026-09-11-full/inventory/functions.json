@@ -1,0 +1,4222 @@
+[
+  {
+    "file": "src/App.tsx",
+    "line": 21,
+    "name": "App"
+  },
+  {
+    "file": "src/App.tsx",
+    "line": 38,
+    "name": "replay"
+  },
+  {
+    "file": "src/App.tsx",
+    "line": 39,
+    "name": "isActive"
+  },
+  {
+    "file": "src/App.tsx",
+    "line": 57,
+    "name": "onPopState"
+  },
+  {
+    "file": "src/components/auth/AdminAuth.tsx",
+    "line": 13,
+    "name": "AdminAuth"
+  },
+  {
+    "file": "src/components/auth/AdminAuth.tsx",
+    "line": 23,
+    "name": "submit"
+  },
+  {
+    "file": "src/components/auth/AuthShell.tsx",
+    "line": 5,
+    "name": "AuthShell"
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 15,
+    "name": "validatePin"
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 24,
+    "name": "CloudAuth"
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 58,
+    "name": "finishLogin"
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 74,
+    "name": "handleSignIn"
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 104,
+    "name": "handleRegister"
+  },
+  {
+    "file": "src/components/auth/LockScreen.tsx",
+    "line": 10,
+    "name": "LockScreen"
+  },
+  {
+    "file": "src/components/auth/LockScreen.tsx",
+    "line": 19,
+    "name": "submit"
+  },
+  {
+    "file": "src/components/auth/ProfileLogin.tsx",
+    "line": 12,
+    "name": "ProfileLogin"
+  },
+  {
+    "file": "src/components/auth/ProfileLogin.tsx",
+    "line": 39,
+    "name": "submit"
+  },
+  {
+    "file": "src/components/auth/RequiredPinChange.tsx",
+    "line": 7,
+    "name": "RequiredPinChange"
+  },
+  {
+    "file": "src/components/categories/CategoryCleanupPanel.tsx",
+    "line": 19,
+    "name": "CategoryCleanupPanel"
+  },
+  {
+    "file": "src/components/categories/CategoryCleanupPanel.tsx",
+    "line": 40,
+    "name": "mergeCategories"
+  },
+  {
+    "file": "src/components/charts/SafeChart.tsx",
+    "line": 4,
+    "name": "SafeChart"
+  },
+  {
+    "file": "src/components/explain/ExplainMetricDrawer.tsx",
+    "line": 16,
+    "name": "ExplainMetricTrigger"
+  },
+  {
+    "file": "src/components/finance/CardEmiSimulatorDialog.tsx",
+    "line": 17,
+    "name": "CardEmiSimulatorDialog"
+  },
+  {
+    "file": "src/components/finance/DataConfidenceBadge.tsx",
+    "line": 30,
+    "name": "DataConfidenceBadge"
+  },
+  {
+    "file": "src/components/finance/PaydayCashflowPanel.tsx",
+    "line": 6,
+    "name": "PaydayCashflowPanel"
+  },
+  {
+    "file": "src/components/forms/QuickAddDialog.tsx",
+    "line": 24,
+    "name": "QuickAddDialog"
+  },
+  {
+    "file": "src/components/forms/QuickAddDialog.tsx",
+    "line": 34,
+    "name": "reset"
+  },
+  {
+    "file": "src/components/forms/QuickAddDialog.tsx",
+    "line": 41,
+    "name": "handleClose"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 40,
+    "name": "nowDateInput"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 44,
+    "name": "TransactionForm"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 120,
+    "name": "openish"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 195,
+    "name": "submit"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 254,
+    "name": "fieldError"
+  },
+  {
+    "file": "src/components/layout/AdminAppShell.tsx",
+    "line": 56,
+    "name": "AdminAppShell"
+  },
+  {
+    "file": "src/components/layout/AdminAppShell.tsx",
+    "line": 69,
+    "name": "scrollToTop"
+  },
+  {
+    "file": "src/components/layout/AlertsDrawer.tsx",
+    "line": 12,
+    "name": "AlertsDrawer"
+  },
+  {
+    "file": "src/components/layout/AlertsDrawer.tsx",
+    "line": 23,
+    "name": "dismiss"
+  },
+  {
+    "file": "src/components/layout/AlertsDrawer.tsx",
+    "line": 28,
+    "name": "restore"
+  },
+  {
+    "file": "src/components/layout/AlertsDrawer.tsx",
+    "line": 33,
+    "name": "removeAlert"
+  },
+  {
+    "file": "src/components/layout/AlertsDrawer.tsx",
+    "line": 37,
+    "name": "dismissAll"
+  },
+  {
+    "file": "src/components/layout/AppShell.tsx",
+    "line": 79,
+    "name": "AppShell"
+  },
+  {
+    "file": "src/components/layout/AppShell.tsx",
+    "line": 93,
+    "name": "onKey"
+  },
+  {
+    "file": "src/components/layout/AppShell.tsx",
+    "line": 110,
+    "name": "scrollToTop"
+  },
+  {
+    "file": "src/components/layout/CommandPalette.tsx",
+    "line": 61,
+    "name": "CommandPalette"
+  },
+  {
+    "file": "src/components/layout/Header.tsx",
+    "line": 21,
+    "name": "Header"
+  },
+  {
+    "file": "src/components/layout/PageHeader.tsx",
+    "line": 3,
+    "name": "PageHeader"
+  },
+  {
+    "file": "src/components/layout/Sidebar.tsx",
+    "line": 73,
+    "name": "Sidebar"
+  },
+  {
+    "file": "src/components/layout/Sidebar.tsx",
+    "line": 181,
+    "name": "MobileNav"
+  },
+  {
+    "file": "src/components/layout/SyncOutboxBadge.tsx",
+    "line": 21,
+    "name": "SyncOutboxBadge"
+  },
+  {
+    "file": "src/components/layout/SyncOutboxBadge.tsx",
+    "line": 40,
+    "name": "run"
+  },
+  {
+    "file": "src/components/layout/SyncOutboxBadge.tsx",
+    "line": 47,
+    "name": "download"
+  },
+  {
+    "file": "src/components/layout/ThemeSwitch.tsx",
+    "line": 13,
+    "name": "ThemeSwitch"
+  },
+  {
+    "file": "src/components/pages/AccountsPage.tsx",
+    "line": 37,
+    "name": "AccountsPage"
+  },
+  {
+    "file": "src/components/pages/AccountsPage.tsx",
+    "line": 58,
+    "name": "handleDelete"
+  },
+  {
+    "file": "src/components/pages/AccountsPage.tsx",
+    "line": 213,
+    "name": "AccountForm"
+  },
+  {
+    "file": "src/components/pages/AccountsPage.tsx",
+    "line": 250,
+    "name": "submit"
+  },
+  {
+    "file": "src/components/pages/AlertsPage.tsx",
+    "line": 24,
+    "name": "AlertsPage"
+  },
+  {
+    "file": "src/components/pages/AlertsPage.tsx",
+    "line": 41,
+    "name": "dismiss"
+  },
+  {
+    "file": "src/components/pages/AlertsPage.tsx",
+    "line": 45,
+    "name": "restore"
+  },
+  {
+    "file": "src/components/pages/AlertsPage.tsx",
+    "line": 49,
+    "name": "hardDelete"
+  },
+  {
+    "file": "src/components/pages/AlertsPage.tsx",
+    "line": 54,
+    "name": "rerun"
+  },
+  {
+    "file": "src/components/pages/AlertsPage.tsx",
+    "line": 66,
+    "name": "dismissAll"
+  },
+  {
+    "file": "src/components/pages/AlertsPage.tsx",
+    "line": 212,
+    "name": "StatCard"
+  },
+  {
+    "file": "src/components/pages/AlertsPage.tsx",
+    "line": 239,
+    "name": "sevScore"
+  },
+  {
+    "file": "src/components/pages/AlertsPage.tsx",
+    "line": 242,
+    "name": "sevVariant"
+  },
+  {
+    "file": "src/components/pages/AlertsPage.tsx",
+    "line": 251,
+    "name": "sevBg"
+  },
+  {
+    "file": "src/components/pages/AuditPage.tsx",
+    "line": 46,
+    "name": "AuditPage"
+  },
+  {
+    "file": "src/components/pages/AuditPage.tsx",
+    "line": 75,
+    "name": "exportLogs"
+  },
+  {
+    "file": "src/components/pages/BillCalendarPage.tsx",
+    "line": 15,
+    "name": "BillCalendarPage"
+  },
+  {
+    "file": "src/components/pages/BudgetsPage.tsx",
+    "line": 39,
+    "name": "BudgetsPage"
+  },
+  {
+    "file": "src/components/pages/BudgetsPage.tsx",
+    "line": 79,
+    "name": "handleDelete"
+  },
+  {
+    "file": "src/components/pages/BudgetsPage.tsx",
+    "line": 298,
+    "name": "BudgetForm"
+  },
+  {
+    "file": "src/components/pages/BudgetsPage.tsx",
+    "line": 348,
+    "name": "submit"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 45,
+    "name": "CardsPage"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 90,
+    "name": "applyRepairLinkCard"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 112,
+    "name": "applyRepairConvertUpi"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 138,
+    "name": "applyRepairMarkLegacy"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 163,
+    "name": "handleDelete"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 768,
+    "name": "CardForm"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 818,
+    "name": "submit"
+  },
+  {
+    "file": "src/components/pages/CategoriesPage.tsx",
+    "line": 44,
+    "name": "CategoriesPage"
+  },
+  {
+    "file": "src/components/pages/CategoriesPage.tsx",
+    "line": 62,
+    "name": "usageCount"
+  },
+  {
+    "file": "src/components/pages/CategoriesPage.tsx",
+    "line": 66,
+    "name": "handleArchive"
+  },
+  {
+    "file": "src/components/pages/CategoriesPage.tsx",
+    "line": 79,
+    "name": "handleDelete"
+  },
+  {
+    "file": "src/components/pages/CategoriesPage.tsx",
+    "line": 258,
+    "name": "CategoryForm"
+  },
+  {
+    "file": "src/components/pages/CategoriesPage.tsx",
+    "line": 321,
+    "name": "submit"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 93,
+    "name": "DashboardPage"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 388,
+    "name": "drillCategorySpend"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 1240,
+    "name": "KpiCard"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 1303,
+    "name": "DueRow"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 1349,
+    "name": "HealthCard"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 1419,
+    "name": "BudgetList"
+  },
+  {
+    "file": "src/components/pages/ExpensesPage.tsx",
+    "line": 3,
+    "name": "ExpensesPage"
+  },
+  {
+    "file": "src/components/pages/ExportPage.tsx",
+    "line": 50,
+    "name": "ExportPage"
+  },
+  {
+    "file": "src/components/pages/ExportPage.tsx",
+    "line": 71,
+    "name": "logExport"
+  },
+  {
+    "file": "src/components/pages/ExportPage.tsx",
+    "line": 86,
+    "name": "caExport"
+  },
+  {
+    "file": "src/components/pages/ExportPage.tsx",
+    "line": 114,
+    "name": "filterTx"
+  },
+  {
+    "file": "src/components/pages/ExportPage.tsx",
+    "line": 127,
+    "name": "quickExport"
+  },
+  {
+    "file": "src/components/pages/ExportPage.tsx",
+    "line": 163,
+    "name": "requestFullBackup"
+  },
+  {
+    "file": "src/components/pages/ExportPage.tsx",
+    "line": 169,
+    "name": "confirmFullBackup"
+  },
+  {
+    "file": "src/components/pages/ExportPage.tsx",
+    "line": 509,
+    "name": "ExportCard"
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 50,
+    "name": "GoalsPage"
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 63,
+    "name": "handleDelete"
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 85,
+    "name": "contribute"
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 279,
+    "name": "ContributeDialog"
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 323,
+    "name": "GoalForm"
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 377,
+    "name": "submit"
+  },
+  {
+    "file": "src/components/pages/HouseholdDashboardPage.tsx",
+    "line": 18,
+    "name": "HouseholdDashboardPage"
+  },
+  {
+    "file": "src/components/pages/HouseholdDashboardPage.tsx",
+    "line": 36,
+    "name": "reload"
+  },
+  {
+    "file": "src/components/pages/HouseholdDashboardPage.tsx",
+    "line": 50,
+    "name": "createHousehold"
+  },
+  {
+    "file": "src/components/pages/HouseholdDashboardPage.tsx",
+    "line": 76,
+    "name": "addMember"
+  },
+  {
+    "file": "src/components/pages/ImportPage.tsx",
+    "line": 88,
+    "name": "ImportPage"
+  },
+  {
+    "file": "src/components/pages/ImportPage.tsx",
+    "line": 142,
+    "name": "handleFile"
+  },
+  {
+    "file": "src/components/pages/ImportPage.tsx",
+    "line": 164,
+    "name": "validRowCount"
+  },
+  {
+    "file": "src/components/pages/ImportPage.tsx",
+    "line": 176,
+    "name": "performImport"
+  },
+  {
+    "file": "src/components/pages/ImportPage.tsx",
+    "line": 346,
+    "name": "rollbackLastImport"
+  },
+  {
+    "file": "src/components/pages/ImportPage.tsx",
+    "line": 380,
+    "name": "downloadTemplate"
+  },
+  {
+    "file": "src/components/pages/ImportPage.tsx",
+    "line": 402,
+    "name": "handleRestoreFile"
+  },
+  {
+    "file": "src/components/pages/ImportPage.tsx",
+    "line": 408,
+    "name": "confirmRestore"
+  },
+  {
+    "file": "src/components/pages/ImportPage.tsx",
+    "line": 432,
+    "name": "bulk"
+  },
+  {
+    "file": "src/components/pages/ImportPage.tsx",
+    "line": 835,
+    "name": "RepairQueueGrid"
+  },
+  {
+    "file": "src/components/pages/ImportPage.tsx",
+    "line": 889,
+    "name": "truthy"
+  },
+  {
+    "file": "src/components/pages/ImportPage.tsx",
+    "line": 895,
+    "name": "normalizeType"
+  },
+  {
+    "file": "src/components/pages/ImportPage.tsx",
+    "line": 916,
+    "name": "normalizeDate"
+  },
+  {
+    "file": "src/components/pages/ImportPage.tsx",
+    "line": 932,
+    "name": "normalizePaymentMode"
+  },
+  {
+    "file": "src/components/pages/ImportPage.tsx",
+    "line": 946,
+    "name": "stableSignature"
+  },
+  {
+    "file": "src/components/pages/ImportPage.tsx",
+    "line": 956,
+    "name": "sortForSignature"
+  },
+  {
+    "file": "src/components/pages/IncomePage.tsx",
+    "line": 3,
+    "name": "IncomePage"
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 43,
+    "name": "InvestmentsPage"
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 76,
+    "name": "handleDelete"
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 98,
+    "name": "contribute"
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 326,
+    "name": "ContribDialog"
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 362,
+    "name": "InvestmentForm"
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 406,
+    "name": "submit"
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 67,
+    "name": "LoansPage"
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 146,
+    "name": "handleCloseLoan"
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 161,
+    "name": "handleDelete"
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 533,
+    "name": "AmortDialog"
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 615,
+    "name": "LoanForm"
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 703,
+    "name": "submit"
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 20,
+    "name": "validatePin"
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 29,
+    "name": "ProfilePage"
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 62,
+    "name": "saveProfile"
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 76,
+    "name": "savePin"
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 107,
+    "name": "saveSecurityRecovery"
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 123,
+    "name": "recoverPin"
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 386,
+    "name": "InfoRow"
+  },
+  {
+    "file": "src/components/pages/ReconciliationPage.tsx",
+    "line": 12,
+    "name": "ReconciliationPage"
+  },
+  {
+    "file": "src/components/pages/ReportsPage.tsx",
+    "line": 65,
+    "name": "ReportsPage"
+  },
+  {
+    "file": "src/components/pages/ReportsPage.tsx",
+    "line": 944,
+    "name": "KpiRow"
+  },
+  {
+    "file": "src/components/pages/ReportsPage.tsx",
+    "line": 974,
+    "name": "SplitBar"
+  },
+  {
+    "file": "src/components/pages/ReportsPage.tsx",
+    "line": 1010,
+    "name": "RatioCard"
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 51,
+    "name": "SettingsPage"
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 75,
+    "name": "save"
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 118,
+    "name": "defaultSettingsPayload"
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 138,
+    "name": "resetDemo"
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 147,
+    "name": "wipeAll"
+  },
+  {
+    "file": "src/components/pages/SubscriptionPage.tsx",
+    "line": 14,
+    "name": "SubscriptionPage"
+  },
+  {
+    "file": "src/components/pages/SubscriptionPage.tsx",
+    "line": 25,
+    "name": "ensureRazorpayScript"
+  },
+  {
+    "file": "src/components/pages/SubscriptionPage.tsx",
+    "line": 36,
+    "name": "buyPlan"
+  },
+  {
+    "file": "src/components/pages/SuggestionsPage.tsx",
+    "line": 66,
+    "name": "severityOrder"
+  },
+  {
+    "file": "src/components/pages/SuggestionsPage.tsx",
+    "line": 79,
+    "name": "activeSuggestion"
+  },
+  {
+    "file": "src/components/pages/SuggestionsPage.tsx",
+    "line": 88,
+    "name": "historySuggestion"
+  },
+  {
+    "file": "src/components/pages/SuggestionsPage.tsx",
+    "line": 100,
+    "name": "bucketForActive"
+  },
+  {
+    "file": "src/components/pages/SuggestionsPage.tsx",
+    "line": 118,
+    "name": "typeBadge"
+  },
+  {
+    "file": "src/components/pages/SuggestionsPage.tsx",
+    "line": 122,
+    "name": "SuggestionsPage"
+  },
+  {
+    "file": "src/components/pages/SuggestionsPage.tsx",
+    "line": 248,
+    "name": "patchStatus"
+  },
+  {
+    "file": "src/components/pages/SuggestionsPage.tsx",
+    "line": 258,
+    "name": "markViewed"
+  },
+  {
+    "file": "src/components/pages/SuggestionsPage.tsx",
+    "line": 266,
+    "name": "runAi"
+  },
+  {
+    "file": "src/components/pages/SuggestionsPage.tsx",
+    "line": 379,
+    "name": "PersonaCoachPanel"
+  },
+  {
+    "file": "src/components/pages/SuggestionsPage.tsx",
+    "line": 457,
+    "name": "CoachMiniCard"
+  },
+  {
+    "file": "src/components/pages/SuggestionsPage.tsx",
+    "line": 487,
+    "name": "SuggestionCard"
+  },
+  {
+    "file": "src/components/pages/TransactionsPage.tsx",
+    "line": 50,
+    "name": "TransactionsPage"
+  },
+  {
+    "file": "src/components/pages/TransactionsPage.tsx",
+    "line": 153,
+    "name": "handleDelete"
+  },
+  {
+    "file": "src/components/pages/TransactionsPage.tsx",
+    "line": 167,
+    "name": "handleDuplicate"
+  },
+  {
+    "file": "src/components/pages/TransactionsPage.tsx",
+    "line": 188,
+    "name": "bulkDelete"
+  },
+  {
+    "file": "src/components/pages/TransactionsPage.tsx",
+    "line": 206,
+    "name": "resetFilters"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 54,
+    "name": "ageingShort"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 75,
+    "name": "UdhariPage"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 137,
+    "name": "handleDelete"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 159,
+    "name": "settle"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 213,
+    "name": "recordWriteOff"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 668,
+    "name": "SettleDialog"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 752,
+    "name": "WriteOffDialog"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 829,
+    "name": "UdhariForm"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 875,
+    "name": "submit"
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 28,
+    "name": "localToday"
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 36,
+    "name": "WealthHubPage"
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 58,
+    "name": "reload"
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 78,
+    "name": "addFd"
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 113,
+    "name": "addInsurance"
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 145,
+    "name": "addValuation"
+  },
+  {
+    "file": "src/components/pages/admin/AdminDashboardPage.tsx",
+    "line": 19,
+    "name": "AdminDashboardPage"
+  },
+  {
+    "file": "src/components/pages/admin/AdminDashboardPage.tsx",
+    "line": 24,
+    "name": "load"
+  },
+  {
+    "file": "src/components/pages/admin/BrandingSettingsPage.tsx",
+    "line": 38,
+    "name": "BrandingSettingsPage"
+  },
+  {
+    "file": "src/components/pages/admin/BrandingSettingsPage.tsx",
+    "line": 46,
+    "name": "load"
+  },
+  {
+    "file": "src/components/pages/admin/BrandingSettingsPage.tsx",
+    "line": 68,
+    "name": "handleSave"
+  },
+  {
+    "file": "src/components/pages/admin/FeatureFlagsPage.tsx",
+    "line": 26,
+    "name": "flagMeta"
+  },
+  {
+    "file": "src/components/pages/admin/FeatureFlagsPage.tsx",
+    "line": 33,
+    "name": "FeatureFlagsPage"
+  },
+  {
+    "file": "src/components/pages/admin/FeatureFlagsPage.tsx",
+    "line": 41,
+    "name": "load"
+  },
+  {
+    "file": "src/components/pages/admin/FeatureFlagsPage.tsx",
+    "line": 56,
+    "name": "handleSave"
+  },
+  {
+    "file": "src/components/pages/admin/PlanManagementPage.tsx",
+    "line": 40,
+    "name": "PlanManagementPage"
+  },
+  {
+    "file": "src/components/pages/admin/PlanManagementPage.tsx",
+    "line": 49,
+    "name": "load"
+  },
+  {
+    "file": "src/components/pages/admin/PlanManagementPage.tsx",
+    "line": 64,
+    "name": "autoCode"
+  },
+  {
+    "file": "src/components/pages/admin/PlanManagementPage.tsx",
+    "line": 71,
+    "name": "handleSubmit"
+  },
+  {
+    "file": "src/components/pages/admin/SubscriptionManagementPage.tsx",
+    "line": 46,
+    "name": "StatusBadge"
+  },
+  {
+    "file": "src/components/pages/admin/SubscriptionManagementPage.tsx",
+    "line": 56,
+    "name": "fmt"
+  },
+  {
+    "file": "src/components/pages/admin/SubscriptionManagementPage.tsx",
+    "line": 61,
+    "name": "SubscriptionManagementPage"
+  },
+  {
+    "file": "src/components/pages/admin/SubscriptionManagementPage.tsx",
+    "line": 69,
+    "name": "load"
+  },
+  {
+    "file": "src/components/pages/admin/SubscriptionManagementPage.tsx",
+    "line": 84,
+    "name": "mutateSubscription"
+  },
+  {
+    "file": "src/components/pages/admin/UserManagementPage.tsx",
+    "line": 48,
+    "name": "UserManagementPage"
+  },
+  {
+    "file": "src/components/pages/admin/UserManagementPage.tsx",
+    "line": 63,
+    "name": "loadData"
+  },
+  {
+    "file": "src/components/pages/admin/UserManagementPage.tsx",
+    "line": 95,
+    "name": "handleToggle"
+  },
+  {
+    "file": "src/components/pages/admin/UserManagementPage.tsx",
+    "line": 108,
+    "name": "handleAssignPlan"
+  },
+  {
+    "file": "src/components/pages/admin/UserManagementPage.tsx",
+    "line": 122,
+    "name": "handleResetPin"
+  },
+  {
+    "file": "src/components/providers/AppProviders.tsx",
+    "line": 7,
+    "name": "AppProviders"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 19,
+    "name": "money"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 24,
+    "name": "SourcePage"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 54,
+    "name": "StatementImportDialog"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 115,
+    "name": "close"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 120,
+    "name": "reset"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 126,
+    "name": "changeDecision"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 129,
+    "name": "analyze"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 149,
+    "name": "downloadReview"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 153,
+    "name": "save"
+  },
+  {
+    "file": "src/components/theme/ThemeProvider.tsx",
+    "line": 16,
+    "name": "getSystemPref"
+  },
+  {
+    "file": "src/components/theme/ThemeProvider.tsx",
+    "line": 21,
+    "name": "applyHtmlClass"
+  },
+  {
+    "file": "src/components/theme/ThemeProvider.tsx",
+    "line": 28,
+    "name": "ThemeProvider"
+  },
+  {
+    "file": "src/components/theme/ThemeProvider.tsx",
+    "line": 43,
+    "name": "handler"
+  },
+  {
+    "file": "src/components/theme/ThemeProvider.tsx",
+    "line": 71,
+    "name": "useTheme"
+  },
+  {
+    "file": "src/components/ui/Badge.tsx",
+    "line": 40,
+    "name": "Badge"
+  },
+  {
+    "file": "src/components/ui/ConfirmDialog.tsx",
+    "line": 13,
+    "name": "ConfirmHost"
+  },
+  {
+    "file": "src/components/ui/Dialog.tsx",
+    "line": 66,
+    "name": "DialogHeader"
+  },
+  {
+    "file": "src/components/ui/Dialog.tsx",
+    "line": 78,
+    "name": "DialogFooter"
+  },
+  {
+    "file": "src/components/ui/Label.tsx",
+    "line": 20,
+    "name": "Field"
+  },
+  {
+    "file": "src/components/ui/Progress.tsx",
+    "line": 4,
+    "name": "Progress"
+  },
+  {
+    "file": "src/components/ui/Sheet.tsx",
+    "line": 89,
+    "name": "SheetHeader"
+  },
+  {
+    "file": "src/components/ui/Sheet.tsx",
+    "line": 92,
+    "name": "SheetFooter"
+  },
+  {
+    "file": "src/components/ui/Table.tsx",
+    "line": 83,
+    "name": "EmptyState"
+  },
+  {
+    "file": "src/components/ui/Toast.tsx",
+    "line": 6,
+    "name": "ToastHost"
+  },
+  {
+    "file": "src/config/syncContracts.ts",
+    "line": 65,
+    "name": "contract"
+  },
+  {
+    "file": "src/db/database.ts",
+    "line": 271,
+    "name": "getDB"
+  },
+  {
+    "file": "src/db/database.ts",
+    "line": 282,
+    "name": "isDBReady"
+  },
+  {
+    "file": "src/exports/xlsxExporter.ts",
+    "line": 47,
+    "name": "mapTransactionRow"
+  },
+  {
+    "file": "src/exports/xlsxExporter.ts",
+    "line": 87,
+    "name": "autoWidth"
+  },
+  {
+    "file": "src/exports/xlsxExporter.ts",
+    "line": 99,
+    "name": "addSheet"
+  },
+  {
+    "file": "src/exports/xlsxExporter.ts",
+    "line": 125,
+    "name": "buildCAWorkbook"
+  },
+  {
+    "file": "src/exports/xlsxExporter.ts",
+    "line": 449,
+    "name": "downloadBuffer"
+  },
+  {
+    "file": "src/exports/xlsxExporter.ts",
+    "line": 465,
+    "name": "exportModuleToSheet"
+  },
+  {
+    "file": "src/i18n/useMessages.ts",
+    "line": 3,
+    "name": "useMessages"
+  },
+  {
+    "file": "src/lib/apiClient.ts",
+    "line": 13,
+    "name": "isRetryableApiError"
+  },
+  {
+    "file": "src/lib/apiClient.ts",
+    "line": 18,
+    "name": "getBaseUrl"
+  },
+  {
+    "file": "src/lib/apiClient.ts",
+    "line": 27,
+    "name": "getCloudToken"
+  },
+  {
+    "file": "src/lib/apiClient.ts",
+    "line": 32,
+    "name": "setCloudToken"
+  },
+  {
+    "file": "src/lib/apiClient.ts",
+    "line": 44,
+    "name": "clearCloudToken"
+  },
+  {
+    "file": "src/lib/apiClient.ts",
+    "line": 49,
+    "name": "setCsrfToken"
+  },
+  {
+    "file": "src/lib/apiClient.ts",
+    "line": 59,
+    "name": "readCsrfCookie"
+  },
+  {
+    "file": "src/lib/apiClient.ts",
+    "line": 65,
+    "name": "readCsrfToken"
+  },
+  {
+    "file": "src/lib/apiClient.ts",
+    "line": 79,
+    "name": "maybeCaptureCsrfFromData"
+  },
+  {
+    "file": "src/lib/apiClient.ts",
+    "line": 86,
+    "name": "apiRequest"
+  },
+  {
+    "file": "src/lib/cloud/auth.ts",
+    "line": 15,
+    "name": "assertCloudAuthConfigured"
+  },
+  {
+    "file": "src/lib/cloud/auth.ts",
+    "line": 21,
+    "name": "createPinSalt"
+  },
+  {
+    "file": "src/lib/cloud/auth.ts",
+    "line": 25,
+    "name": "hashSecret"
+  },
+  {
+    "file": "src/lib/cloud/auth.ts",
+    "line": 29,
+    "name": "verifySecret"
+  },
+  {
+    "file": "src/lib/cloud/auth.ts",
+    "line": 33,
+    "name": "signCloudToken"
+  },
+  {
+    "file": "src/lib/cloud/auth.ts",
+    "line": 38,
+    "name": "verifyCloudToken"
+  },
+  {
+    "file": "src/lib/cloud/auth.ts",
+    "line": 47,
+    "name": "getBearerToken"
+  },
+  {
+    "file": "src/lib/cloud/client.ts",
+    "line": 5,
+    "name": "cloudRegister"
+  },
+  {
+    "file": "src/lib/cloud/client.ts",
+    "line": 20,
+    "name": "cloudLogin"
+  },
+  {
+    "file": "src/lib/cloud/client.ts",
+    "line": 30,
+    "name": "fetchPolicyVersions"
+  },
+  {
+    "file": "src/lib/cloud/client.ts",
+    "line": 37,
+    "name": "acceptPolicies"
+  },
+  {
+    "file": "src/lib/cloud/client.ts",
+    "line": 45,
+    "name": "cloudAdminLogin"
+  },
+  {
+    "file": "src/lib/cloud/client.ts",
+    "line": 55,
+    "name": "cloudMe"
+  },
+  {
+    "file": "src/lib/cloud/client.ts",
+    "line": 77,
+    "name": "cloudLogout"
+  },
+  {
+    "file": "src/lib/cloud/client.ts",
+    "line": 90,
+    "name": "cloudSyncPush"
+  },
+  {
+    "file": "src/lib/cloud/client.ts",
+    "line": 104,
+    "name": "cloudSyncPull"
+  },
+  {
+    "file": "src/lib/cloud/client.ts",
+    "line": 121,
+    "name": "buildCloudCollectionsFromDataStore"
+  },
+  {
+    "file": "src/lib/cloud/collections.ts",
+    "line": 7,
+    "name": "isCloudCollectionKey"
+  },
+  {
+    "file": "src/lib/cloud/http.ts",
+    "line": 4,
+    "name": "jsonError"
+  },
+  {
+    "file": "src/lib/cloud/http.ts",
+    "line": 8,
+    "name": "jsonOk"
+  },
+  {
+    "file": "src/lib/cloud/http.ts",
+    "line": 12,
+    "name": "requireCloudUser"
+  },
+  {
+    "file": "src/lib/cloud/repoClient.ts",
+    "line": 5,
+    "name": "canUseCloudRepo"
+  },
+  {
+    "file": "src/lib/cloud/repoClient.ts",
+    "line": 9,
+    "name": "pull"
+  },
+  {
+    "file": "src/lib/cloud/repoClient.ts",
+    "line": 13,
+    "name": "push"
+  },
+  {
+    "file": "src/lib/cloud/repoClient.ts",
+    "line": 17,
+    "name": "cloudRepoCreate"
+  },
+  {
+    "file": "src/lib/cloud/repoClient.ts",
+    "line": 33,
+    "name": "cloudRepoGet"
+  },
+  {
+    "file": "src/lib/cloud/repoClient.ts",
+    "line": 41,
+    "name": "cloudRepoList"
+  },
+  {
+    "file": "src/lib/cloud/repoClient.ts",
+    "line": 52,
+    "name": "cloudRepoUpdate"
+  },
+  {
+    "file": "src/lib/cloud/repoClient.ts",
+    "line": 70,
+    "name": "cloudRepoUpdateMany"
+  },
+  {
+    "file": "src/lib/cloud/repoClient.ts",
+    "line": 90,
+    "name": "cloudRepoSoftDelete"
+  },
+  {
+    "file": "src/lib/cloud/repoClient.ts",
+    "line": 98,
+    "name": "cloudRepoHardDelete"
+  },
+  {
+    "file": "src/lib/cloud/repoClient.ts",
+    "line": 108,
+    "name": "cloudRepoHardDeleteAll"
+  },
+  {
+    "file": "src/lib/cloud/repoClient.ts",
+    "line": 115,
+    "name": "cloudRepoSoftDeleteMany"
+  },
+  {
+    "file": "src/lib/cloud/saasClient.ts",
+    "line": 3,
+    "name": "getCloudToken"
+  },
+  {
+    "file": "src/lib/cloud/saasClient.ts",
+    "line": 7,
+    "name": "fetchPublicConfig"
+  },
+  {
+    "file": "src/lib/cloud/saasClient.ts",
+    "line": 13,
+    "name": "fetchViewer"
+  },
+  {
+    "file": "src/lib/cloud/saasClient.ts",
+    "line": 20,
+    "name": "fetchPlans"
+  },
+  {
+    "file": "src/lib/cloud/saasClient.ts",
+    "line": 24,
+    "name": "createSubscriptionOrder"
+  },
+  {
+    "file": "src/lib/cloud/saasClient.ts",
+    "line": 41,
+    "name": "getMySubscription"
+  },
+  {
+    "file": "src/lib/cloud/saasClient.ts",
+    "line": 48,
+    "name": "confirmSubscriptionPayment"
+  },
+  {
+    "file": "src/lib/cloud/saasClient.ts",
+    "line": 60,
+    "name": "getAdminDashboard"
+  },
+  {
+    "file": "src/lib/cloud/saasClient.ts",
+    "line": 64,
+    "name": "getAdminUsers"
+  },
+  {
+    "file": "src/lib/cloud/saasClient.ts",
+    "line": 68,
+    "name": "getAdminPlans"
+  },
+  {
+    "file": "src/lib/cloud/saasClient.ts",
+    "line": 72,
+    "name": "saveAdminPlan"
+  },
+  {
+    "file": "src/lib/cloud/saasClient.ts",
+    "line": 80,
+    "name": "getAdminFeatureFlags"
+  },
+  {
+    "file": "src/lib/cloud/saasClient.ts",
+    "line": 84,
+    "name": "saveAdminFeatureFlags"
+  },
+  {
+    "file": "src/lib/cloud/saasClient.ts",
+    "line": 92,
+    "name": "getAdminSettings"
+  },
+  {
+    "file": "src/lib/cloud/saasClient.ts",
+    "line": 96,
+    "name": "saveAdminSettings"
+  },
+  {
+    "file": "src/lib/cloud/saasClient.ts",
+    "line": 104,
+    "name": "getAdminSubscriptions"
+  },
+  {
+    "file": "src/lib/cloud/saasClient.ts",
+    "line": 108,
+    "name": "adminSubscriptionAction"
+  },
+  {
+    "file": "src/lib/cloud/saasClient.ts",
+    "line": 121,
+    "name": "assignUserPlan"
+  },
+  {
+    "file": "src/lib/cloud/saasClient.ts",
+    "line": 129,
+    "name": "toggleUserActive"
+  },
+  {
+    "file": "src/lib/cloud/saasClient.ts",
+    "line": 138,
+    "name": "adminResetUserPin"
+  },
+  {
+    "file": "src/lib/crypto.ts",
+    "line": 5,
+    "name": "bufToHex"
+  },
+  {
+    "file": "src/lib/crypto.ts",
+    "line": 14,
+    "name": "randomHex"
+  },
+  {
+    "file": "src/lib/crypto.ts",
+    "line": 26,
+    "name": "generateSalt"
+  },
+  {
+    "file": "src/lib/crypto.ts",
+    "line": 30,
+    "name": "hashPin"
+  },
+  {
+    "file": "src/lib/crypto.ts",
+    "line": 43,
+    "name": "verifyPin"
+  },
+  {
+    "file": "src/lib/format.ts",
+    "line": 6,
+    "name": "formatINR"
+  },
+  {
+    "file": "src/lib/format.ts",
+    "line": 26,
+    "name": "formatINRCompact"
+  },
+  {
+    "file": "src/lib/format.ts",
+    "line": 36,
+    "name": "formatNumberIN"
+  },
+  {
+    "file": "src/lib/format.ts",
+    "line": 44,
+    "name": "formatPercent"
+  },
+  {
+    "file": "src/lib/format.ts",
+    "line": 49,
+    "name": "formatDate"
+  },
+  {
+    "file": "src/lib/format.ts",
+    "line": 59,
+    "name": "formatDateShort"
+  },
+  {
+    "file": "src/lib/format.ts",
+    "line": 63,
+    "name": "formatDateLong"
+  },
+  {
+    "file": "src/lib/format.ts",
+    "line": 67,
+    "name": "formatMonthYear"
+  },
+  {
+    "file": "src/lib/format.ts",
+    "line": 71,
+    "name": "formatRelativeDue"
+  },
+  {
+    "file": "src/lib/format.ts",
+    "line": 90,
+    "name": "localDateToIso"
+  },
+  {
+    "file": "src/lib/format.ts",
+    "line": 98,
+    "name": "isoToLocalDate"
+  },
+  {
+    "file": "src/lib/format.ts",
+    "line": 105,
+    "name": "formatPaymentMode"
+  },
+  {
+    "file": "src/lib/format.ts",
+    "line": 120,
+    "name": "formatTxType"
+  },
+  {
+    "file": "src/lib/migrateLegacyKeys.ts",
+    "line": 12,
+    "name": "migrateLegacyLocalStorageKeys"
+  },
+  {
+    "file": "src/lib/navRoutes.ts",
+    "line": 44,
+    "name": "navToPath"
+  },
+  {
+    "file": "src/lib/navRoutes.ts",
+    "line": 48,
+    "name": "pathToNav"
+  },
+  {
+    "file": "src/lib/utils.ts",
+    "line": 4,
+    "name": "cn"
+  },
+  {
+    "file": "src/lib/utils.ts",
+    "line": 8,
+    "name": "uid"
+  },
+  {
+    "file": "src/lib/utils.ts",
+    "line": 10,
+    "name": "rand"
+  },
+  {
+    "file": "src/lib/utils.ts",
+    "line": 15,
+    "name": "nowIso"
+  },
+  {
+    "file": "src/lib/utils.ts",
+    "line": 19,
+    "name": "sleep"
+  },
+  {
+    "file": "src/lib/utils.ts",
+    "line": 23,
+    "name": "clamp"
+  },
+  {
+    "file": "src/lib/utils.ts",
+    "line": 27,
+    "name": "safeNumber"
+  },
+  {
+    "file": "src/lib/utils.ts",
+    "line": 32,
+    "name": "range"
+  },
+  {
+    "file": "src/lib/utils.ts",
+    "line": 40,
+    "name": "groupBy"
+  },
+  {
+    "file": "src/lib/utils.ts",
+    "line": 53,
+    "name": "sumBy"
+  },
+  {
+    "file": "src/lib/utils.ts",
+    "line": 59,
+    "name": "percent"
+  },
+  {
+    "file": "src/lib/utils.ts",
+    "line": 64,
+    "name": "isBrowser"
+  },
+  {
+    "file": "src/repositories/baseRepo.ts",
+    "line": 19,
+    "name": "canRemote"
+  },
+  {
+    "file": "src/repositories/baseRepo.ts",
+    "line": 23,
+    "name": "create"
+  },
+  {
+    "file": "src/repositories/baseRepo.ts",
+    "line": 37,
+    "name": "createMany"
+  },
+  {
+    "file": "src/repositories/baseRepo.ts",
+    "line": 48,
+    "name": "get"
+  },
+  {
+    "file": "src/repositories/baseRepo.ts",
+    "line": 77,
+    "name": "list"
+  },
+  {
+    "file": "src/repositories/baseRepo.ts",
+    "line": 91,
+    "name": "listIncludingDeleted"
+  },
+  {
+    "file": "src/repositories/baseRepo.ts",
+    "line": 95,
+    "name": "update"
+  },
+  {
+    "file": "src/repositories/baseRepo.ts",
+    "line": 114,
+    "name": "updateMany"
+  },
+  {
+    "file": "src/repositories/baseRepo.ts",
+    "line": 123,
+    "name": "softDelete"
+  },
+  {
+    "file": "src/repositories/baseRepo.ts",
+    "line": 127,
+    "name": "softDeleteMany"
+  },
+  {
+    "file": "src/repositories/baseRepo.ts",
+    "line": 131,
+    "name": "restore"
+  },
+  {
+    "file": "src/repositories/baseRepo.ts",
+    "line": 135,
+    "name": "hardDelete"
+  },
+  {
+    "file": "src/repositories/baseRepo.ts",
+    "line": 148,
+    "name": "hardDeleteAllForUser"
+  },
+  {
+    "file": "src/repositories/baseRepo.ts",
+    "line": 158,
+    "name": "count"
+  },
+  {
+    "file": "src/services/__tests__/acceptanceMatrix.test.ts",
+    "line": 13,
+    "name": "cat"
+  },
+  {
+    "file": "src/services/__tests__/acceptanceMatrix.test.ts",
+    "line": 35,
+    "name": "tx"
+  },
+  {
+    "file": "src/services/__tests__/acceptanceMatrix.test.ts",
+    "line": 62,
+    "name": "netCash"
+  },
+  {
+    "file": "src/services/__tests__/accountBalanceEngine.test.ts",
+    "line": 9,
+    "name": "tx"
+  },
+  {
+    "file": "src/services/__tests__/businessPersonalSplit.test.ts",
+    "line": 5,
+    "name": "t"
+  },
+  {
+    "file": "src/services/__tests__/calculations.characterization.test.ts",
+    "line": 32,
+    "name": "tx"
+  },
+  {
+    "file": "src/services/__tests__/cardEmiLifecycle.t126.test.ts",
+    "line": 20,
+    "name": "baseTx"
+  },
+  {
+    "file": "src/services/__tests__/cardEmiLifecycle.t126.test.ts",
+    "line": 74,
+    "name": "sumComponent"
+  },
+  {
+    "file": "src/services/__tests__/cardEngine.test.ts",
+    "line": 14,
+    "name": "card"
+  },
+  {
+    "file": "src/services/__tests__/cardEngine.test.ts",
+    "line": 35,
+    "name": "eff"
+  },
+  {
+    "file": "src/services/__tests__/cardRefundLifecycle.fullMatrix.test.ts",
+    "line": 30,
+    "name": "base"
+  },
+  {
+    "file": "src/services/__tests__/cardRefundLifecycle.fullMatrix.test.ts",
+    "line": 59,
+    "name": "views"
+  },
+  {
+    "file": "src/services/__tests__/cashflowSurvivalEngine.test.ts",
+    "line": 27,
+    "name": "recurringRule"
+  },
+  {
+    "file": "src/services/__tests__/debtQa.test.ts",
+    "line": 8,
+    "name": "creditCard"
+  },
+  {
+    "file": "src/services/__tests__/debtQa.test.ts",
+    "line": 31,
+    "name": "loan"
+  },
+  {
+    "file": "src/services/__tests__/debtQa.test.ts",
+    "line": 58,
+    "name": "effect"
+  },
+  {
+    "file": "src/services/__tests__/emergencyFundEngine.test.ts",
+    "line": 15,
+    "name": "expense"
+  },
+  {
+    "file": "src/services/__tests__/eventReversal.golden.test.ts",
+    "line": 13,
+    "name": "ctx"
+  },
+  {
+    "file": "src/services/__tests__/eventReversal.golden.test.ts",
+    "line": 15,
+    "name": "tx"
+  },
+  {
+    "file": "src/services/__tests__/financeInvariants.test.ts",
+    "line": 8,
+    "name": "cat"
+  },
+  {
+    "file": "src/services/__tests__/financeInvariants.test.ts",
+    "line": 30,
+    "name": "tx"
+  },
+  {
+    "file": "src/services/__tests__/financeKpiEngine.test.ts",
+    "line": 12,
+    "name": "cat"
+  },
+  {
+    "file": "src/services/__tests__/financeKpiEngine.test.ts",
+    "line": 34,
+    "name": "tx"
+  },
+  {
+    "file": "src/services/__tests__/financeSequenceFuzz.test.ts",
+    "line": 12,
+    "name": "mulberry32"
+  },
+  {
+    "file": "src/services/__tests__/financeSequenceFuzz.test.ts",
+    "line": 21,
+    "name": "mk"
+  },
+  {
+    "file": "src/services/__tests__/fourCardIsolation.fcr005.test.ts",
+    "line": 9,
+    "name": "tx"
+  },
+  {
+    "file": "src/services/__tests__/fourCardIsolation.fcr005.test.ts",
+    "line": 53,
+    "name": "outstanding"
+  },
+  {
+    "file": "src/services/__tests__/goalEngine.test.ts",
+    "line": 15,
+    "name": "goal"
+  },
+  {
+    "file": "src/services/__tests__/ledger.scenarios.test.ts",
+    "line": 23,
+    "name": "cat"
+  },
+  {
+    "file": "src/services/__tests__/ledger.scenarios.test.ts",
+    "line": 40,
+    "name": "tx"
+  },
+  {
+    "file": "src/services/__tests__/ledger.scenarios.test.ts",
+    "line": 62,
+    "name": "ctx"
+  },
+  {
+    "file": "src/services/__tests__/ledger.scenarios.test.ts",
+    "line": 65,
+    "name": "has"
+  },
+  {
+    "file": "src/services/__tests__/loanEngine.test.ts",
+    "line": 17,
+    "name": "baseLoan"
+  },
+  {
+    "file": "src/services/__tests__/obligationEngine.test.ts",
+    "line": 9,
+    "name": "rule"
+  },
+  {
+    "file": "src/services/__tests__/personaEngine.test.ts",
+    "line": 12,
+    "name": "t"
+  },
+  {
+    "file": "src/services/__tests__/personaEngine.test.ts",
+    "line": 35,
+    "name": "suggestion"
+  },
+  {
+    "file": "src/services/__tests__/transactionFormRules.test.ts",
+    "line": 5,
+    "name": "base"
+  },
+  {
+    "file": "src/services/__tests__/transactionPreview.test.ts",
+    "line": 20,
+    "name": "account"
+  },
+  {
+    "file": "src/services/__tests__/transactionPreview.test.ts",
+    "line": 35,
+    "name": "category"
+  },
+  {
+    "file": "src/services/__tests__/transactionPreview.test.ts",
+    "line": 53,
+    "name": "card"
+  },
+  {
+    "file": "src/services/__tests__/transactionPreview.test.ts",
+    "line": 69,
+    "name": "loan"
+  },
+  {
+    "file": "src/services/__tests__/transactionPreview.test.ts",
+    "line": 91,
+    "name": "emi"
+  },
+  {
+    "file": "src/services/__tests__/transactionPreview.test.ts",
+    "line": 111,
+    "name": "goal"
+  },
+  {
+    "file": "src/services/__tests__/transactionPreview.test.ts",
+    "line": 131,
+    "name": "udhari"
+  },
+  {
+    "file": "src/services/__tests__/transactionPreview.test.ts",
+    "line": 149,
+    "name": "baseState"
+  },
+  {
+    "file": "src/services/__tests__/transactionPreview.test.ts",
+    "line": 175,
+    "name": "ctx"
+  },
+  {
+    "file": "src/services/__tests__/transactionPreview.test.ts",
+    "line": 189,
+    "name": "lines"
+  },
+  {
+    "file": "src/services/__tests__/transferReceivedMoney.test.ts",
+    "line": 8,
+    "name": "cat"
+  },
+  {
+    "file": "src/services/__tests__/transferReceivedMoney.test.ts",
+    "line": 30,
+    "name": "tx"
+  },
+  {
+    "file": "src/services/__tests__/udhariEngine.test.ts",
+    "line": 14,
+    "name": "rec"
+  },
+  {
+    "file": "src/services/accountBalanceEngine.ts",
+    "line": 9,
+    "name": "isCashInflow"
+  },
+  {
+    "file": "src/services/accountBalanceEngine.ts",
+    "line": 15,
+    "name": "isCashOutflow"
+  },
+  {
+    "file": "src/services/accountBalanceEngine.ts",
+    "line": 48,
+    "name": "emptyBreakdown"
+  },
+  {
+    "file": "src/services/accountBalanceEngine.ts",
+    "line": 73,
+    "name": "computeAccountCashClosingPaise"
+  },
+  {
+    "file": "src/services/accountBalanceEngine.ts",
+    "line": 85,
+    "name": "computeAccountBalanceBreakdown"
+  },
+  {
+    "file": "src/services/adaptiveModeEngine.ts",
+    "line": 19,
+    "name": "recommendAdaptiveMode"
+  },
+  {
+    "file": "src/services/adaptiveModeEngine.ts",
+    "line": 58,
+    "name": "calculateFreeCashUntilIncome"
+  },
+  {
+    "file": "src/services/alertPriority.ts",
+    "line": 6,
+    "name": "alertPriorityFromSeverity"
+  },
+  {
+    "file": "src/services/alertsEngine.ts",
+    "line": 28,
+    "name": "recurringRuleAmountPaise"
+  },
+  {
+    "file": "src/services/alertsEngine.ts",
+    "line": 34,
+    "name": "runAlertEngine"
+  },
+  {
+    "file": "src/services/alertsEngine.ts",
+    "line": 494,
+    "name": "sameMonth"
+  },
+  {
+    "file": "src/services/authService.ts",
+    "line": 16,
+    "name": "getLocalSession"
+  },
+  {
+    "file": "src/services/authService.ts",
+    "line": 27,
+    "name": "setLocalSession"
+  },
+  {
+    "file": "src/services/authService.ts",
+    "line": 37,
+    "name": "getLastUserId"
+  },
+  {
+    "file": "src/services/authService.ts",
+    "line": 42,
+    "name": "listProfiles"
+  },
+  {
+    "file": "src/services/authService.ts",
+    "line": 66,
+    "name": "loginProfile"
+  },
+  {
+    "file": "src/services/authService.ts",
+    "line": 96,
+    "name": "logoutProfile"
+  },
+  {
+    "file": "src/services/authService.ts",
+    "line": 109,
+    "name": "lockSession"
+  },
+  {
+    "file": "src/services/authService.ts",
+    "line": 126,
+    "name": "unlockSession"
+  },
+  {
+    "file": "src/services/authService.ts",
+    "line": 150,
+    "name": "changePin"
+  },
+  {
+    "file": "src/services/authService.ts",
+    "line": 162,
+    "name": "setSecurityAnswer"
+  },
+  {
+    "file": "src/services/authService.ts",
+    "line": 179,
+    "name": "resetPinWithSecurityAnswer"
+  },
+  {
+    "file": "src/services/authService.ts",
+    "line": 194,
+    "name": "updateUserProfile"
+  },
+  {
+    "file": "src/services/businessPersonalSplit.ts",
+    "line": 33,
+    "name": "splitTransaction"
+  },
+  {
+    "file": "src/services/businessPersonalSplit.ts",
+    "line": 79,
+    "name": "sumSplit"
+  },
+  {
+    "file": "src/services/businessPersonalSplit.ts",
+    "line": 91,
+    "name": "sumExpenseSplit"
+  },
+  {
+    "file": "src/services/caReports.ts",
+    "line": 55,
+    "name": "isLive"
+  },
+  {
+    "file": "src/services/caReports.ts",
+    "line": 57,
+    "name": "cardDisplayName"
+  },
+  {
+    "file": "src/services/caReports.ts",
+    "line": 100,
+    "name": "reportTransactionMaster"
+  },
+  {
+    "file": "src/services/caReports.ts",
+    "line": 172,
+    "name": "reportMonthlyCashflow"
+  },
+  {
+    "file": "src/services/caReports.ts",
+    "line": 205,
+    "name": "reportCategoryLedger"
+  },
+  {
+    "file": "src/services/caReports.ts",
+    "line": 235,
+    "name": "reportAccountLedger"
+  },
+  {
+    "file": "src/services/caReports.ts",
+    "line": 265,
+    "name": "reportCardLedger"
+  },
+  {
+    "file": "src/services/caReports.ts",
+    "line": 293,
+    "name": "reportInterestPaid"
+  },
+  {
+    "file": "src/services/caReports.ts",
+    "line": 331,
+    "name": "reportUdhariAgeing"
+  },
+  {
+    "file": "src/services/caReports.ts",
+    "line": 354,
+    "name": "reportBusinessExpense"
+  },
+  {
+    "file": "src/services/caReports.ts",
+    "line": 365,
+    "name": "reportPersonalExpense"
+  },
+  {
+    "file": "src/services/caReports.ts",
+    "line": 379,
+    "name": "reportTaxFlag"
+  },
+  {
+    "file": "src/services/caReports.ts",
+    "line": 393,
+    "name": "reportGstMissingBill"
+  },
+  {
+    "file": "src/services/caReports.ts",
+    "line": 419,
+    "name": "reportLoanAmortization"
+  },
+  {
+    "file": "src/services/caReports.ts",
+    "line": 443,
+    "name": "reportNetWorth"
+  },
+  {
+    "file": "src/services/caReports.ts",
+    "line": 479,
+    "name": "reportDebtSummary"
+  },
+  {
+    "file": "src/services/caReports.ts",
+    "line": 511,
+    "name": "reportReceivablePayableSummary"
+  },
+  {
+    "file": "src/services/caReports.ts",
+    "line": 536,
+    "name": "reportFinancingCostPaise"
+  },
+  {
+    "file": "src/services/caReports.ts",
+    "line": 564,
+    "name": "reportAccountReconciliation"
+  },
+  {
+    "file": "src/services/caReports.ts",
+    "line": 634,
+    "name": "maskUserId"
+  },
+  {
+    "file": "src/services/caReports.ts",
+    "line": 639,
+    "name": "buildReportFooter"
+  },
+  {
+    "file": "src/services/caReports.ts",
+    "line": 659,
+    "name": "buildCAReportBundle"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 60,
+    "name": "sumBy"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 66,
+    "name": "percent"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 71,
+    "name": "clamp"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 87,
+    "name": "isIncomeTx"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 90,
+    "name": "isExpenseTx"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 93,
+    "name": "isCashOutflow"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 105,
+    "name": "isCashInflow"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 111,
+    "name": "sumIncome"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 115,
+    "name": "sumExpense"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 119,
+    "name": "expenseAmountPaise"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 125,
+    "name": "expenseReportTransactions"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 134,
+    "name": "sumByType"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 141,
+    "name": "filterByMonth"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 152,
+    "name": "filterByDateRange"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 163,
+    "name": "netMonthlySavings"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 172,
+    "name": "savingsRate"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 177,
+    "name": "budgetUsagePercent"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 181,
+    "name": "projectMonthEndSpend"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 200,
+    "name": "computeGoalProgress"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 236,
+    "name": "amortizationSchedule"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 258,
+    "name": "summarizeLoan"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 320,
+    "name": "summarizeCardHealth"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 362,
+    "name": "totalUdhariReceivable"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 368,
+    "name": "totalUdhariPayable"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 376,
+    "name": "projectedCorpus"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 388,
+    "name": "emergencyMonthsCoverage"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 419,
+    "name": "computeFinancialHealth"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 462,
+    "name": "deriveAccountBalance"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 470,
+    "name": "deriveAccountBalanceFromAccount"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 487,
+    "name": "monthlyTrend"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 517,
+    "name": "categoryBreakdown"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 557,
+    "name": "budgetStatuses"
+  },
+  {
+    "file": "src/services/calculations.ts",
+    "line": 610,
+    "name": "totalInvested"
+  },
+  {
+    "file": "src/services/cardEmiEngine.ts",
+    "line": 11,
+    "name": "localDateKey"
+  },
+  {
+    "file": "src/services/cardEmiEngine.ts",
+    "line": 39,
+    "name": "buildCardEmiSchedule"
+  },
+  {
+    "file": "src/services/cardEmiEngine.ts",
+    "line": 90,
+    "name": "scheduleToInstallmentEntities"
+  },
+  {
+    "file": "src/services/cardEmiEngine.ts",
+    "line": 117,
+    "name": "totalPrincipalInSchedule"
+  },
+  {
+    "file": "src/services/cardEmiEngine.ts",
+    "line": 121,
+    "name": "createCardEmiPlanFromPurchase"
+  },
+  {
+    "file": "src/services/cardEmiEngine.ts",
+    "line": 168,
+    "name": "calculateNetFinancingCostPaise"
+  },
+  {
+    "file": "src/services/cardEmiEngine.ts",
+    "line": 196,
+    "name": "estimateCardEmiForeclosurePaise"
+  },
+  {
+    "file": "src/services/cardEmiEngine.ts",
+    "line": 220,
+    "name": "compareCardEmiTenures"
+  },
+  {
+    "file": "src/services/cardEngine.ts",
+    "line": 20,
+    "name": "filterCardLiabilityEffects"
+  },
+  {
+    "file": "src/services/cardEngine.ts",
+    "line": 35,
+    "name": "calculateCardNetLiability"
+  },
+  {
+    "file": "src/services/cardEngine.ts",
+    "line": 49,
+    "name": "calculateCardOutstanding"
+  },
+  {
+    "file": "src/services/cardEngine.ts",
+    "line": 54,
+    "name": "calculateCardCreditBalance"
+  },
+  {
+    "file": "src/services/cardEngine.ts",
+    "line": 64,
+    "name": "calculateCardOutstandingFromTransactions"
+  },
+  {
+    "file": "src/services/cardEngine.ts",
+    "line": 83,
+    "name": "resolveCardOutstandingPaise"
+  },
+  {
+    "file": "src/services/cardEngine.ts",
+    "line": 102,
+    "name": "calculateAvailableLimit"
+  },
+  {
+    "file": "src/services/cardEngine.ts",
+    "line": 111,
+    "name": "calculateSharedLimitAvailablePaise"
+  },
+  {
+    "file": "src/services/cardEngine.ts",
+    "line": 120,
+    "name": "calculateUtilization"
+  },
+  {
+    "file": "src/services/cardEngine.ts",
+    "line": 126,
+    "name": "lastStatementDateForCard"
+  },
+  {
+    "file": "src/services/cardEngine.ts",
+    "line": 135,
+    "name": "calculateStatementWindow"
+  },
+  {
+    "file": "src/services/cardEngine.ts",
+    "line": 143,
+    "name": "calculateNextDueDate"
+  },
+  {
+    "file": "src/services/cardEngine.ts",
+    "line": 158,
+    "name": "calculateMinimumDue"
+  },
+  {
+    "file": "src/services/cardEngine.ts",
+    "line": 165,
+    "name": "calculateCardRisk"
+  },
+  {
+    "file": "src/services/cardEngine.ts",
+    "line": 198,
+    "name": "formatShort"
+  },
+  {
+    "file": "src/services/cardEngine.ts",
+    "line": 202,
+    "name": "buildCreditCardIntel"
+  },
+  {
+    "file": "src/services/cardEngine.ts",
+    "line": 298,
+    "name": "calculatePaymentToReachUtilization"
+  },
+  {
+    "file": "src/services/cardEngine.ts",
+    "line": 310,
+    "name": "findOrphanCreditCardExpenses"
+  },
+  {
+    "file": "src/services/cardEngine.ts",
+    "line": 334,
+    "name": "buildCardRepairQueue"
+  },
+  {
+    "file": "src/services/cardPaymentAllocator.ts",
+    "line": 14,
+    "name": "allocatePaymentsToStatement"
+  },
+  {
+    "file": "src/services/cardStatementEngine.ts",
+    "line": 14,
+    "name": "buildOpenCardStatement"
+  },
+  {
+    "file": "src/services/cardStatementEngine.ts",
+    "line": 60,
+    "name": "remainingDuePaise"
+  },
+  {
+    "file": "src/services/cardStatementEngine.ts",
+    "line": 64,
+    "name": "nextStatementCloseDate"
+  },
+  {
+    "file": "src/services/cashflowSurvivalEngine.ts",
+    "line": 51,
+    "name": "spendableAccountTypes"
+  },
+  {
+    "file": "src/services/cashflowSurvivalEngine.ts",
+    "line": 66,
+    "name": "nextIncomeFromRecurring"
+  },
+  {
+    "file": "src/services/cashflowSurvivalEngine.ts",
+    "line": 84,
+    "name": "buildCashflowSurvivalReport"
+  },
+  {
+    "file": "src/services/cashflowSurvivalEngine.ts",
+    "line": 206,
+    "name": "fmt"
+  },
+  {
+    "file": "src/services/categoryColorEngine.ts",
+    "line": 80,
+    "name": "moduleColor"
+  },
+  {
+    "file": "src/services/categoryColorEngine.ts",
+    "line": 84,
+    "name": "expensePalette"
+  },
+  {
+    "file": "src/services/categoryColorEngine.ts",
+    "line": 88,
+    "name": "incomePalette"
+  },
+  {
+    "file": "src/services/categoryColorEngine.ts",
+    "line": 92,
+    "name": "normHex"
+  },
+  {
+    "file": "src/services/categoryColorEngine.ts",
+    "line": 97,
+    "name": "activeCategoriesForColoring"
+  },
+  {
+    "file": "src/services/categoryColorEngine.ts",
+    "line": 105,
+    "name": "expenseBreakdownWithDistinctChartColors"
+  },
+  {
+    "file": "src/services/categoryColorEngine.ts",
+    "line": 147,
+    "name": "attachCategoryIcons"
+  },
+  {
+    "file": "src/services/categoryColorEngine.ts",
+    "line": 159,
+    "name": "hideDeletedCategorySlices"
+  },
+  {
+    "file": "src/services/categoryColorEngine.ts",
+    "line": 168,
+    "name": "usedColorsForAppliesTo"
+  },
+  {
+    "file": "src/services/categoryColorEngine.ts",
+    "line": 180,
+    "name": "suggestNextCategoryColor"
+  },
+  {
+    "file": "src/services/categoryColorEngine.ts",
+    "line": 202,
+    "name": "findDuplicateCategoryColors"
+  },
+  {
+    "file": "src/services/categoryColorEngine.ts",
+    "line": 229,
+    "name": "findDuplicateCategoryNames"
+  },
+  {
+    "file": "src/services/defaultsService.ts",
+    "line": 8,
+    "name": "seedDefaultCategories"
+  },
+  {
+    "file": "src/services/defaultsService.ts",
+    "line": 55,
+    "name": "seedDefaultAccounts"
+  },
+  {
+    "file": "src/services/demoData.ts",
+    "line": 23,
+    "name": "iso"
+  },
+  {
+    "file": "src/services/demoData.ts",
+    "line": 27,
+    "name": "seedDemoData"
+  },
+  {
+    "file": "src/services/demoData.ts",
+    "line": 38,
+    "name": "catByName"
+  },
+  {
+    "file": "src/services/durableOutbox.ts",
+    "line": 29,
+    "name": "mutationTable"
+  },
+  {
+    "file": "src/services/durableOutbox.ts",
+    "line": 33,
+    "name": "pendingMutations"
+  },
+  {
+    "file": "src/services/durableOutbox.ts",
+    "line": 39,
+    "name": "preserveLegacyPending"
+  },
+  {
+    "file": "src/services/durableOutbox.ts",
+    "line": 59,
+    "name": "enqueueMutation"
+  },
+  {
+    "file": "src/services/durableOutbox.ts",
+    "line": 79,
+    "name": "replayMutations"
+  },
+  {
+    "file": "src/services/durableOutbox.ts",
+    "line": 83,
+    "name": "drain"
+  },
+  {
+    "file": "src/services/durableOutbox.ts",
+    "line": 127,
+    "name": "commitMutation"
+  },
+  {
+    "file": "src/services/durableOutbox.ts",
+    "line": 136,
+    "name": "mergeRemoteList"
+  },
+  {
+    "file": "src/services/durableOutbox.ts",
+    "line": 162,
+    "name": "requireEmptyOutbox"
+  },
+  {
+    "file": "src/services/durableOutbox.ts",
+    "line": 167,
+    "name": "useServerVersion"
+  },
+  {
+    "file": "src/services/emergencyFundEngine.ts",
+    "line": 40,
+    "name": "isEssentialCategoryName"
+  },
+  {
+    "file": "src/services/emergencyFundEngine.ts",
+    "line": 45,
+    "name": "essentialCategoryIds"
+  },
+  {
+    "file": "src/services/emergencyFundEngine.ts",
+    "line": 56,
+    "name": "averageMonthlyEssentialPaise"
+  },
+  {
+    "file": "src/services/emergencyFundEngine.ts",
+    "line": 94,
+    "name": "buildEmergencyFundIntel"
+  },
+  {
+    "file": "src/services/expenseContributions.ts",
+    "line": 4,
+    "name": "isExpenseContribution"
+  },
+  {
+    "file": "src/services/expenseContributions.ts",
+    "line": 7,
+    "name": "expenseRecovery"
+  },
+  {
+    "file": "src/services/expenseContributions.ts",
+    "line": 18,
+    "name": "contributionError"
+  },
+  {
+    "file": "src/services/exportSafety.ts",
+    "line": 22,
+    "name": "ownRows"
+  },
+  {
+    "file": "src/services/exportSafety.ts",
+    "line": 45,
+    "name": "buildUserOwnedFullExportPayload"
+  },
+  {
+    "file": "src/services/financeEventBuilder.ts",
+    "line": 38,
+    "name": "txDateKey"
+  },
+  {
+    "file": "src/services/financeEventBuilder.ts",
+    "line": 48,
+    "name": "eff"
+  },
+  {
+    "file": "src/services/financeEventBuilder.ts",
+    "line": 70,
+    "name": "expenseEventType"
+  },
+  {
+    "file": "src/services/financeEventBuilder.ts",
+    "line": 74,
+    "name": "buildFinanceEventBuilderContext"
+  },
+  {
+    "file": "src/services/financeEventBuilder.ts",
+    "line": 87,
+    "name": "buildLedgerForTransaction"
+  },
+  {
+    "file": "src/services/financeEventBuilder.ts",
+    "line": 101,
+    "name": "baseEvent"
+  },
+  {
+    "file": "src/services/financeEventBuilder.ts",
+    "line": 122,
+    "name": "pushEx"
+  },
+  {
+    "file": "src/services/financeEventBuilder.ts",
+    "line": 645,
+    "name": "buildFullLedger"
+  },
+  {
+    "file": "src/services/financeKpiEngine.ts",
+    "line": 43,
+    "name": "calculateFinanceMonthKpis"
+  },
+  {
+    "file": "src/services/financeKpiEngine.ts",
+    "line": 78,
+    "name": "explainFinanceMonthKpis"
+  },
+  {
+    "file": "src/services/financeKpiEngine.ts",
+    "line": 101,
+    "name": "operatingSurplusRate"
+  },
+  {
+    "file": "src/services/financeKpiEngine.ts",
+    "line": 107,
+    "name": "calculateConsolidatedNetWorthPaise"
+  },
+  {
+    "file": "src/services/financeLedgerExplain.ts",
+    "line": 9,
+    "name": "inMonth"
+  },
+  {
+    "file": "src/services/financeLedgerExplain.ts",
+    "line": 24,
+    "name": "explainCategorySpend"
+  },
+  {
+    "file": "src/services/financeLedgerExplain.ts",
+    "line": 71,
+    "name": "explainCashflowMonth"
+  },
+  {
+    "file": "src/services/financeLedgerExplain.ts",
+    "line": 103,
+    "name": "explainTransactionLedgerCoverage"
+  },
+  {
+    "file": "src/services/financeLedgerExplain.ts",
+    "line": 113,
+    "name": "sumExcludedExpenseTransactionsPaise"
+  },
+  {
+    "file": "src/services/financialChecksum.ts",
+    "line": 23,
+    "name": "buildFinancialChecksum"
+  },
+  {
+    "file": "src/services/financialChecksum.ts",
+    "line": 79,
+    "name": "checksumsEqual"
+  },
+  {
+    "file": "src/services/financialChecksum.ts",
+    "line": 84,
+    "name": "sumActiveTransactionPaise"
+  },
+  {
+    "file": "src/services/goalEngine.ts",
+    "line": 13,
+    "name": "goalPriorityTier"
+  },
+  {
+    "file": "src/services/goalEngine.ts",
+    "line": 38,
+    "name": "buildGoalIntel"
+  },
+  {
+    "file": "src/services/goalEngine.ts",
+    "line": 92,
+    "name": "summarizeGoalsAtRisk"
+  },
+  {
+    "file": "src/services/importExportRepair.ts",
+    "line": 107,
+    "name": "normalizeImportType"
+  },
+  {
+    "file": "src/services/importExportRepair.ts",
+    "line": 134,
+    "name": "normalizeImportDate"
+  },
+  {
+    "file": "src/services/importExportRepair.ts",
+    "line": 154,
+    "name": "normalizeImportPaymentMode"
+  },
+  {
+    "file": "src/services/importExportRepair.ts",
+    "line": 170,
+    "name": "truthy"
+  },
+  {
+    "file": "src/services/importExportRepair.ts",
+    "line": 175,
+    "name": "norm"
+  },
+  {
+    "file": "src/services/importExportRepair.ts",
+    "line": 179,
+    "name": "getMapped"
+  },
+  {
+    "file": "src/services/importExportRepair.ts",
+    "line": 184,
+    "name": "buildImportPreview"
+  },
+  {
+    "file": "src/services/importExportRepair.ts",
+    "line": 329,
+    "name": "createImportBatchRecord"
+  },
+  {
+    "file": "src/services/importExportRepair.ts",
+    "line": 350,
+    "name": "buildImportRollbackPlan"
+  },
+  {
+    "file": "src/services/importExportRepair.ts",
+    "line": 360,
+    "name": "buildDataRepairQueue"
+  },
+  {
+    "file": "src/services/issuerSchedulePrecedence.ts",
+    "line": 20,
+    "name": "pickAuthoritativeScheduleAmount"
+  },
+  {
+    "file": "src/services/issuerSchedulePrecedence.ts",
+    "line": 31,
+    "name": "scheduleSourceRank"
+  },
+  {
+    "file": "src/services/issuerSchedulePrecedence.ts",
+    "line": 38,
+    "name": "resolveEmiObligationPaise"
+  },
+  {
+    "file": "src/services/ledgerCalculations.ts",
+    "line": 9,
+    "name": "inMonth"
+  },
+  {
+    "file": "src/services/ledgerCalculations.ts",
+    "line": 18,
+    "name": "eventIdsForMonth"
+  },
+  {
+    "file": "src/services/ledgerCalculations.ts",
+    "line": 31,
+    "name": "filterEffectsForMonth"
+  },
+  {
+    "file": "src/services/ledgerCalculations.ts",
+    "line": 42,
+    "name": "calculateExpenseView"
+  },
+  {
+    "file": "src/services/ledgerCalculations.ts",
+    "line": 66,
+    "name": "calculateIncomeView"
+  },
+  {
+    "file": "src/services/ledgerCalculations.ts",
+    "line": 81,
+    "name": "hasUsableLedger"
+  },
+  {
+    "file": "src/services/ledgerCalculations.ts",
+    "line": 88,
+    "name": "calculateLedgerMonthKpis"
+  },
+  {
+    "file": "src/services/ledgerCalculations.ts",
+    "line": 110,
+    "name": "calculateCashflowView"
+  },
+  {
+    "file": "src/services/ledgerCalculations.ts",
+    "line": 128,
+    "name": "calculateNetWorthView"
+  },
+  {
+    "file": "src/services/ledgerCalculations.ts",
+    "line": 152,
+    "name": "calculateDebtView"
+  },
+  {
+    "file": "src/services/ledgerCalculations.ts",
+    "line": 169,
+    "name": "calculateReceivablesPayables"
+  },
+  {
+    "file": "src/services/ledgerCalculations.ts",
+    "line": 187,
+    "name": "calculateCategorySpend"
+  },
+  {
+    "file": "src/services/ledgerCalculations.ts",
+    "line": 212,
+    "name": "calculateFinancingCostView"
+  },
+  {
+    "file": "src/services/ledgerCalculations.ts",
+    "line": 235,
+    "name": "calculateDebtPrincipalRepaidView"
+  },
+  {
+    "file": "src/services/ledgerCalculations.ts",
+    "line": 252,
+    "name": "calculateNetLiquidChangeView"
+  },
+  {
+    "file": "src/services/ledgerDiagnostics.ts",
+    "line": 42,
+    "name": "active"
+  },
+  {
+    "file": "src/services/ledgerDiagnostics.ts",
+    "line": 46,
+    "name": "setOf"
+  },
+  {
+    "file": "src/services/ledgerDiagnostics.ts",
+    "line": 50,
+    "name": "diagnoseLedgerCoverage"
+  },
+  {
+    "file": "src/services/ledgerDiagnostics.ts",
+    "line": 66,
+    "name": "targetExists"
+  },
+  {
+    "file": "src/services/ledgerDiagnostics.ts",
+    "line": 120,
+    "name": "ledgerDiagnosticTotal"
+  },
+  {
+    "file": "src/services/loanEngine.ts",
+    "line": 25,
+    "name": "loanInterestType"
+  },
+  {
+    "file": "src/services/loanEngine.ts",
+    "line": 29,
+    "name": "loanInterestMethodLabel"
+  },
+  {
+    "file": "src/services/loanEngine.ts",
+    "line": 37,
+    "name": "isImportedLoanLifecycle"
+  },
+  {
+    "file": "src/services/loanEngine.ts",
+    "line": 43,
+    "name": "calculateEMIPaise"
+  },
+  {
+    "file": "src/services/loanEngine.ts",
+    "line": 61,
+    "name": "remainingTenureMonthsForLoan"
+  },
+  {
+    "file": "src/services/loanEngine.ts",
+    "line": 76,
+    "name": "openingPrincipalForSchedulePaise"
+  },
+  {
+    "file": "src/services/loanEngine.ts",
+    "line": 82,
+    "name": "buildAmortizationSchedule"
+  },
+  {
+    "file": "src/services/loanEngine.ts",
+    "line": 137,
+    "name": "openingPrincipalForScheduleMonthPaise"
+  },
+  {
+    "file": "src/services/loanEngine.ts",
+    "line": 179,
+    "name": "buildEmiPaymentIntelligence"
+  },
+  {
+    "file": "src/services/loanEngine.ts",
+    "line": 223,
+    "name": "splitPaymentPrincipalInterest"
+  },
+  {
+    "file": "src/services/loanEngine.ts",
+    "line": 246,
+    "name": "calculatePrincipalPaid"
+  },
+  {
+    "file": "src/services/loanEngine.ts",
+    "line": 260,
+    "name": "calculateInterestPaid"
+  },
+  {
+    "file": "src/services/loanEngine.ts",
+    "line": 269,
+    "name": "calculateOutstandingPrincipal"
+  },
+  {
+    "file": "src/services/loanEngine.ts",
+    "line": 276,
+    "name": "sumScheduleInterestFrom"
+  },
+  {
+    "file": "src/services/loanEngine.ts",
+    "line": 304,
+    "name": "calculateRemainingInterest"
+  },
+  {
+    "file": "src/services/loanEngine.ts",
+    "line": 314,
+    "name": "countPaidScheduleMonths"
+  },
+  {
+    "file": "src/services/loanEngine.ts",
+    "line": 332,
+    "name": "calculateRemainingTenure"
+  },
+  {
+    "file": "src/services/loanEngine.ts",
+    "line": 348,
+    "name": "calculateOverdueEMIs"
+  },
+  {
+    "file": "src/services/loanEngine.ts",
+    "line": 386,
+    "name": "simulatePayoffMonthsAndInterest"
+  },
+  {
+    "file": "src/services/loanEngine.ts",
+    "line": 415,
+    "name": "calculatePrepaymentImpact"
+  },
+  {
+    "file": "src/services/loanEngine.ts",
+    "line": 440,
+    "name": "simulatePrepaymentOptions"
+  },
+  {
+    "file": "src/services/loanEngine.ts",
+    "line": 472,
+    "name": "calculateForeclosureEstimate"
+  },
+  {
+    "file": "src/services/loanEngine.ts",
+    "line": 489,
+    "name": "calculateForeclosureBreakdown"
+  },
+  {
+    "file": "src/services/loanEngine.ts",
+    "line": 516,
+    "name": "importedLoanConfidence"
+  },
+  {
+    "file": "src/services/loanEngine.ts",
+    "line": 539,
+    "name": "buildDebtSummary"
+  },
+  {
+    "file": "src/services/loanEngine.ts",
+    "line": 585,
+    "name": "buildFriendlyLoanSummaryLine"
+  },
+  {
+    "file": "src/services/loanEngine.ts",
+    "line": 605,
+    "name": "ru"
+  },
+  {
+    "file": "src/services/loanEngine.ts",
+    "line": 613,
+    "name": "formatDueEnIn"
+  },
+  {
+    "file": "src/services/loanPaymentSync.ts",
+    "line": 16,
+    "name": "pickClosestEmiRow"
+  },
+  {
+    "file": "src/services/loanPaymentSync.ts",
+    "line": 36,
+    "name": "monthIndexForEmiRow"
+  },
+  {
+    "file": "src/services/loanPaymentSync.ts",
+    "line": 47,
+    "name": "syncEmiPaymentFromTransaction"
+  },
+  {
+    "file": "src/services/obligationEngine.ts",
+    "line": 9,
+    "name": "recurringRuleAmountPaise"
+  },
+  {
+    "file": "src/services/obligationEngine.ts",
+    "line": 14,
+    "name": "obligationOccurrenceKey"
+  },
+  {
+    "file": "src/services/obligationEngine.ts",
+    "line": 18,
+    "name": "materializeRecurringObligations"
+  },
+  {
+    "file": "src/services/obligationEngine.ts",
+    "line": 55,
+    "name": "materializeLoanEmiObligations"
+  },
+  {
+    "file": "src/services/obligationEngine.ts",
+    "line": 90,
+    "name": "mergeObligationsUnique"
+  },
+  {
+    "file": "src/services/obligationEngine.ts",
+    "line": 99,
+    "name": "obligationsDueBefore"
+  },
+  {
+    "file": "src/services/obligationEngine.ts",
+    "line": 106,
+    "name": "totalDuePaise"
+  },
+  {
+    "file": "src/services/obligationEngine.ts",
+    "line": 111,
+    "name": "obligationCalendarSummary"
+  },
+  {
+    "file": "src/services/personaEngine.ts",
+    "line": 58,
+    "name": "activeRecord"
+  },
+  {
+    "file": "src/services/personaEngine.ts",
+    "line": 62,
+    "name": "buildPersonaSignals"
+  },
+  {
+    "file": "src/services/personaEngine.ts",
+    "line": 124,
+    "name": "inferPersona"
+  },
+  {
+    "file": "src/services/personaEngine.ts",
+    "line": 199,
+    "name": "rankTopicsForPersona"
+  },
+  {
+    "file": "src/services/personaEngine.ts",
+    "line": 203,
+    "name": "topicForSuggestionType"
+  },
+  {
+    "file": "src/services/personaEngine.ts",
+    "line": 225,
+    "name": "severityRank"
+  },
+  {
+    "file": "src/services/personaEngine.ts",
+    "line": 232,
+    "name": "rankSuggestionsForPersona"
+  },
+  {
+    "file": "src/services/personaEngine.ts",
+    "line": 294,
+    "name": "riskFromSeverity"
+  },
+  {
+    "file": "src/services/personaEngine.ts",
+    "line": 301,
+    "name": "coachMessageFromSuggestion"
+  },
+  {
+    "file": "src/services/personaEngine.ts",
+    "line": 320,
+    "name": "summaryMessage"
+  },
+  {
+    "file": "src/services/personaEngine.ts",
+    "line": 351,
+    "name": "buildPersonaCoachSurfaces"
+  },
+  {
+    "file": "src/services/personaEngine.ts",
+    "line": 430,
+    "name": "normalizeNumberToken"
+  },
+  {
+    "file": "src/services/personaEngine.ts",
+    "line": 434,
+    "name": "aiGuardrails"
+  },
+  {
+    "file": "src/services/planFeatureGate.ts",
+    "line": 40,
+    "name": "isFeatureUnlocked"
+  },
+  {
+    "file": "src/services/planFeatureGate.ts",
+    "line": 53,
+    "name": "remainingQuota"
+  },
+  {
+    "file": "src/services/planFeatureGate.ts",
+    "line": 69,
+    "name": "lockReason"
+  },
+  {
+    "file": "src/services/planFeatureGate.ts",
+    "line": 76,
+    "name": "humanLabel"
+  },
+  {
+    "file": "src/services/reconciliationEngine.ts",
+    "line": 9,
+    "name": "findOrphanTransactions"
+  },
+  {
+    "file": "src/services/reconciliationEngine.ts",
+    "line": 30,
+    "name": "suggestTransferMatches"
+  },
+  {
+    "file": "src/services/refIntegrity.ts",
+    "line": 9,
+    "name": "refsForAccount"
+  },
+  {
+    "file": "src/services/refIntegrity.ts",
+    "line": 27,
+    "name": "refsForCard"
+  },
+  {
+    "file": "src/services/refIntegrity.ts",
+    "line": 37,
+    "name": "refsForLoan"
+  },
+  {
+    "file": "src/services/refIntegrity.ts",
+    "line": 52,
+    "name": "refsForGoal"
+  },
+  {
+    "file": "src/services/refIntegrity.ts",
+    "line": 67,
+    "name": "refsForInvestment"
+  },
+  {
+    "file": "src/services/refIntegrity.ts",
+    "line": 82,
+    "name": "refsForUdhari"
+  },
+  {
+    "file": "src/services/refIntegrity.ts",
+    "line": 97,
+    "name": "refsForCategory"
+  },
+  {
+    "file": "src/services/sinkingFundEngine.ts",
+    "line": 8,
+    "name": "monthlyRequiredPaise"
+  },
+  {
+    "file": "src/services/sinkingFundEngine.ts",
+    "line": 17,
+    "name": "sinkingFundProgressPaise"
+  },
+  {
+    "file": "src/services/smartBudgetEngine.ts",
+    "line": 19,
+    "name": "recurringRuleAmountPaise"
+  },
+  {
+    "file": "src/services/smartBudgetEngine.ts",
+    "line": 27,
+    "name": "isPaidRecurringThisMonth"
+  },
+  {
+    "file": "src/services/smartBudgetEngine.ts",
+    "line": 44,
+    "name": "fixedRecurringPaidForCategory"
+  },
+  {
+    "file": "src/services/smartBudgetEngine.ts",
+    "line": 70,
+    "name": "variableDailyAveragePaise"
+  },
+  {
+    "file": "src/services/smartBudgetEngine.ts",
+    "line": 107,
+    "name": "smartBudgetStatuses"
+  },
+  {
+    "file": "src/services/statements/classification.ts",
+    "line": 17,
+    "name": "suggestStatementDecision"
+  },
+  {
+    "file": "src/services/statements/classification.ts",
+    "line": 29,
+    "name": "statementDuplicate"
+  },
+  {
+    "file": "src/services/statements/classification.ts",
+    "line": 30,
+    "name": "normalized"
+  },
+  {
+    "file": "src/services/statements/classification.ts",
+    "line": 42,
+    "name": "decisionProblems"
+  },
+  {
+    "file": "src/services/statements/classification.ts",
+    "line": 56,
+    "name": "monthlyStatementTotals"
+  },
+  {
+    "file": "src/services/statements/ocr.ts",
+    "line": 7,
+    "name": "createStatementOcr"
+  },
+  {
+    "file": "src/services/statements/ocr.ts",
+    "line": 10,
+    "name": "terminate"
+  },
+  {
+    "file": "src/services/statements/ocr.ts",
+    "line": 11,
+    "name": "abort"
+  },
+  {
+    "file": "src/services/statements/ocr.ts",
+    "line": 30,
+    "name": "read"
+  },
+  {
+    "file": "src/services/statements/ocr.ts",
+    "line": 42,
+    "name": "cancelRender"
+  },
+  {
+    "file": "src/services/statements/ocr.ts",
+    "line": 61,
+    "name": "destroy"
+  },
+  {
+    "file": "src/services/statements/parser.ts",
+    "line": 8,
+    "name": "statementDate"
+  },
+  {
+    "file": "src/services/statements/parser.ts",
+    "line": 28,
+    "name": "statementPaise"
+  },
+  {
+    "file": "src/services/statements/parser.ts",
+    "line": 47,
+    "name": "lines"
+  },
+  {
+    "file": "src/services/statements/parser.ts",
+    "line": 56,
+    "name": "column"
+  },
+  {
+    "file": "src/services/statements/parser.ts",
+    "line": 70,
+    "name": "header"
+  },
+  {
+    "file": "src/services/statements/parser.ts",
+    "line": 82,
+    "name": "cells"
+  },
+  {
+    "file": "src/services/statements/parser.ts",
+    "line": 107,
+    "name": "blankAmount"
+  },
+  {
+    "file": "src/services/statements/parser.ts",
+    "line": 108,
+    "name": "summaryAmount"
+  },
+  {
+    "file": "src/services/statements/parser.ts",
+    "line": 117,
+    "name": "isKotakNumberedHeader"
+  },
+  {
+    "file": "src/services/statements/parser.ts",
+    "line": 122,
+    "name": "kotakAccountSummary"
+  },
+  {
+    "file": "src/services/statements/parser.ts",
+    "line": 131,
+    "name": "amount"
+  },
+  {
+    "file": "src/services/statements/parser.ts",
+    "line": 136,
+    "name": "reconcileStatement"
+  },
+  {
+    "file": "src/services/statements/parser.ts",
+    "line": 156,
+    "name": "analyzeStatement"
+  },
+  {
+    "file": "src/services/statements/pdf.ts",
+    "line": 8,
+    "name": "sha256"
+  },
+  {
+    "file": "src/services/statements/pdf.ts",
+    "line": 20,
+    "name": "openStatementPdf"
+  },
+  {
+    "file": "src/services/statements/pdf.ts",
+    "line": 35,
+    "name": "armTimeout"
+  },
+  {
+    "file": "src/services/statements/pdf.ts",
+    "line": 37,
+    "name": "abort"
+  },
+  {
+    "file": "src/services/suggestionAiExplain.ts",
+    "line": 20,
+    "name": "numericTokens"
+  },
+  {
+    "file": "src/services/suggestionAiExplain.ts",
+    "line": 28,
+    "name": "buildSuggestionAiRewriteRequest"
+  },
+  {
+    "file": "src/services/suggestionAiExplain.ts",
+    "line": 40,
+    "name": "validateSuggestionAiRewrite"
+  },
+  {
+    "file": "src/services/suggestionAiExplain.ts",
+    "line": 61,
+    "name": "explainSuggestionInSimpleLanguage"
+  },
+  {
+    "file": "src/services/suggestionEngine.ts",
+    "line": 86,
+    "name": "stableCalculationJson"
+  },
+  {
+    "file": "src/services/suggestionEngine.ts",
+    "line": 87,
+    "name": "sort"
+  },
+  {
+    "file": "src/services/suggestionEngine.ts",
+    "line": 99,
+    "name": "validateSuggestionDraft"
+  },
+  {
+    "file": "src/services/suggestionEngine.ts",
+    "line": 120,
+    "name": "draft"
+  },
+  {
+    "file": "src/services/suggestionEngine.ts",
+    "line": 124,
+    "name": "monthKey"
+  },
+  {
+    "file": "src/services/suggestionEngine.ts",
+    "line": 128,
+    "name": "expiresEndOfMonthIso"
+  },
+  {
+    "file": "src/services/suggestionEngine.ts",
+    "line": 132,
+    "name": "categoryName"
+  },
+  {
+    "file": "src/services/suggestionEngine.ts",
+    "line": 136,
+    "name": "median"
+  },
+  {
+    "file": "src/services/suggestionEngine.ts",
+    "line": 143,
+    "name": "buildSuggestionDrafts"
+  },
+  {
+    "file": "src/services/suggestionSync.ts",
+    "line": 14,
+    "name": "sameCalendarMonth"
+  },
+  {
+    "file": "src/services/suggestionSync.ts",
+    "line": 19,
+    "name": "asCalcRecord"
+  },
+  {
+    "file": "src/services/suggestionSync.ts",
+    "line": 25,
+    "name": "appendSuggestionHistory"
+  },
+  {
+    "file": "src/services/suggestionSync.ts",
+    "line": 35,
+    "name": "historyTypeForStatus"
+  },
+  {
+    "file": "src/services/suggestionSync.ts",
+    "line": 41,
+    "name": "shouldSkipSuggestionDraft"
+  },
+  {
+    "file": "src/services/suggestionSync.ts",
+    "line": 51,
+    "name": "syncSuggestionsForUser"
+  },
+  {
+    "file": "src/services/suggestionSync.ts",
+    "line": 149,
+    "name": "buildSuggestionEngineInput"
+  },
+  {
+    "file": "src/services/syncOutbox.ts",
+    "line": 21,
+    "name": "loadMap"
+  },
+  {
+    "file": "src/services/syncOutbox.ts",
+    "line": 40,
+    "name": "persist"
+  },
+  {
+    "file": "src/services/syncOutbox.ts",
+    "line": 50,
+    "name": "subscribeSyncOutbox"
+  },
+  {
+    "file": "src/services/syncOutbox.ts",
+    "line": 55,
+    "name": "enqueueSyncOutbox"
+  },
+  {
+    "file": "src/services/syncOutbox.ts",
+    "line": 69,
+    "name": "markSyncOutboxState"
+  },
+  {
+    "file": "src/services/syncOutbox.ts",
+    "line": 90,
+    "name": "listPendingSyncOutbox"
+  },
+  {
+    "file": "src/services/syncOutbox.ts",
+    "line": 96,
+    "name": "pendingSyncCount"
+  },
+  {
+    "file": "src/services/syncOutbox.ts",
+    "line": 100,
+    "name": "clearSyncedOutbox"
+  },
+  {
+    "file": "src/services/syncOutbox.ts",
+    "line": 108,
+    "name": "resetSyncOutboxForTests"
+  },
+  {
+    "file": "src/services/transactionFormRules.ts",
+    "line": 47,
+    "name": "needsCategory"
+  },
+  {
+    "file": "src/services/transactionFormRules.ts",
+    "line": 51,
+    "name": "trimPerson"
+  },
+  {
+    "file": "src/services/transactionFormRules.ts",
+    "line": 59,
+    "name": "getTransactionFormPhase6Errors"
+  },
+  {
+    "file": "src/services/transactionFormRules.ts",
+    "line": 197,
+    "name": "isTransactionFormPhase6Valid"
+  },
+  {
+    "file": "src/services/transactionIntent.ts",
+    "line": 46,
+    "name": "intentToTransactionType"
+  },
+  {
+    "file": "src/services/transactionIntent.ts",
+    "line": 53,
+    "name": "isOutgoingIntent"
+  },
+  {
+    "file": "src/services/transactionIntent.ts",
+    "line": 57,
+    "name": "transactionTypeToDefaultIntent"
+  },
+  {
+    "file": "src/services/transactionIntent.ts",
+    "line": 123,
+    "name": "inferChannelAndInstrument"
+  },
+  {
+    "file": "src/services/transactionPreview.ts",
+    "line": 56,
+    "name": "accountName"
+  },
+  {
+    "file": "src/services/transactionPreview.ts",
+    "line": 60,
+    "name": "cardLabel"
+  },
+  {
+    "file": "src/services/transactionPreview.ts",
+    "line": 65,
+    "name": "goalTitle"
+  },
+  {
+    "file": "src/services/transactionPreview.ts",
+    "line": 69,
+    "name": "loanLabel"
+  },
+  {
+    "file": "src/services/transactionPreview.ts",
+    "line": 73,
+    "name": "invName"
+  },
+  {
+    "file": "src/services/transactionPreview.ts",
+    "line": 77,
+    "name": "udhariPerson"
+  },
+  {
+    "file": "src/services/transactionPreview.ts",
+    "line": 81,
+    "name": "categoryName"
+  },
+  {
+    "file": "src/services/transactionPreview.ts",
+    "line": 86,
+    "name": "accountBalancePreview"
+  },
+  {
+    "file": "src/services/transactionPreview.ts",
+    "line": 100,
+    "name": "effectSummary"
+  },
+  {
+    "file": "src/services/transactionPreview.ts",
+    "line": 108,
+    "name": "stateToDraftTransaction"
+  },
+  {
+    "file": "src/services/transactionPreview.ts",
+    "line": 151,
+    "name": "estimateEmiSplitForPreview"
+  },
+  {
+    "file": "src/services/transactionPreview.ts",
+    "line": 196,
+    "name": "buildTransactionPreview"
+  },
+  {
+    "file": "src/services/transactionPreview.ts",
+    "line": 206,
+    "name": "ru"
+  },
+  {
+    "file": "src/services/transactionPreview.ts",
+    "line": 389,
+    "name": "newPreviewTransactionId"
+  },
+  {
+    "file": "src/services/udhariEngine.ts",
+    "line": 13,
+    "name": "udhariPersonKey"
+  },
+  {
+    "file": "src/services/udhariEngine.ts",
+    "line": 20,
+    "name": "opaquePhoneHash"
+  },
+  {
+    "file": "src/services/udhariEngine.ts",
+    "line": 30,
+    "name": "udhariRemainingPaise"
+  },
+  {
+    "file": "src/services/udhariEngine.ts",
+    "line": 57,
+    "name": "bucketForEntry"
+  },
+  {
+    "file": "src/services/udhariEngine.ts",
+    "line": 71,
+    "name": "riskFromIntel"
+  },
+  {
+    "file": "src/services/udhariEngine.ts",
+    "line": 82,
+    "name": "buildUdhariPeopleIntel"
+  },
+  {
+    "file": "src/services/udhariEngine.ts",
+    "line": 170,
+    "name": "buildUdhariWhatsAppReminder"
+  },
+  {
+    "file": "src/services/udhariEngine.ts",
+    "line": 196,
+    "name": "validateWriteOffReason"
+  },
+  {
+    "file": "src/services/udhariEngine.ts",
+    "line": 203,
+    "name": "udhariSettlementTxnLabel"
+  },
+  {
+    "file": "src/store/authStore.ts",
+    "line": 32,
+    "name": "getStoredSession"
+  },
+  {
+    "file": "src/store/authStore.ts",
+    "line": 43,
+    "name": "setStoredSession"
+  },
+  {
+    "file": "src/store/authStore.ts",
+    "line": 52,
+    "name": "getUnlockGuard"
+  },
+  {
+    "file": "src/store/authStore.ts",
+    "line": 63,
+    "name": "setUnlockGuard"
+  },
+  {
+    "file": "src/store/authStore.ts",
+    "line": 72,
+    "name": "toUserShape"
+  },
+  {
+    "file": "src/store/dataStore.ts",
+    "line": 55,
+    "name": "computeLedgerSlice"
+  },
+  {
+    "file": "src/store/uiStore.ts",
+    "line": 15,
+    "name": "readLs"
+  },
+  {
+    "file": "src/store/uiStore.ts",
+    "line": 137,
+    "name": "confirm"
+  },
+  {
+    "file": "src/utils/money.ts",
+    "line": 20,
+    "name": "assertValidPaise"
+  },
+  {
+    "file": "src/utils/money.ts",
+    "line": 46,
+    "name": "normalizeMoneyInputText"
+  },
+  {
+    "file": "src/utils/money.ts",
+    "line": 55,
+    "name": "parseMoneyInputToPaise"
+  },
+  {
+    "file": "src/utils/money.ts",
+    "line": 122,
+    "name": "safeParseMoneyInput"
+  },
+  {
+    "file": "src/utils/money.ts",
+    "line": 134,
+    "name": "rupeesToPaise"
+  },
+  {
+    "file": "src/utils/money.ts",
+    "line": 143,
+    "name": "paiseToRupees"
+  },
+  {
+    "file": "src/utils/money.ts",
+    "line": 155,
+    "name": "formatMoney"
+  },
+  {
+    "file": "src/utils/money.ts",
+    "line": 162,
+    "name": "addMoney"
+  },
+  {
+    "file": "src/utils/money.ts",
+    "line": 171,
+    "name": "subtractMoney"
+  },
+  {
+    "file": "src/utils/money.ts",
+    "line": 179,
+    "name": "calculateEMI"
+  },
+  {
+    "file": "src/utils/money.ts",
+    "line": 198,
+    "name": "paiseOrFromRupee"
+  },
+  {
+    "file": "src/utils/money.ts",
+    "line": 205,
+    "name": "transactionAmountPaise"
+  },
+  {
+    "file": "src/utils/money.ts",
+    "line": 209,
+    "name": "accountOpeningBalancePaise"
+  },
+  {
+    "file": "src/utils/money.ts",
+    "line": 213,
+    "name": "cardCreditLimitPaise"
+  },
+  {
+    "file": "src/utils/money.ts",
+    "line": 217,
+    "name": "budgetLimitPaise"
+  },
+  {
+    "file": "src/utils/money.ts",
+    "line": 221,
+    "name": "loanPrincipalPaise"
+  },
+  {
+    "file": "src/utils/money.ts",
+    "line": 225,
+    "name": "loanOutstandingPrincipalPaise"
+  },
+  {
+    "file": "src/utils/money.ts",
+    "line": 238,
+    "name": "loanEmiPaise"
+  },
+  {
+    "file": "src/utils/money.ts",
+    "line": 274,
+    "name": "emiPaymentAmountPaise"
+  },
+  {
+    "file": "src/utils/money.ts",
+    "line": 278,
+    "name": "emiPaymentPaidPaise"
+  },
+  {
+    "file": "src/utils/money.ts",
+    "line": 282,
+    "name": "emiPaymentOutstandingPaise"
+  },
+  {
+    "file": "src/utils/money.ts",
+    "line": 288,
+    "name": "emiPaymentPrincipalPaidPaise"
+  },
+  {
+    "file": "src/utils/money.ts",
+    "line": 294,
+    "name": "emiPaymentInterestPaise"
+  },
+  {
+    "file": "src/utils/money.ts",
+    "line": 300,
+    "name": "goalTargetPaise"
+  },
+  {
+    "file": "src/utils/money.ts",
+    "line": 304,
+    "name": "goalSavedPaise"
+  },
+  {
+    "file": "src/utils/money.ts",
+    "line": 308,
+    "name": "udhariAmountPaise"
+  },
+  {
+    "file": "src/utils/money.ts",
+    "line": 312,
+    "name": "udhariSettledPaise"
+  },
+  {
+    "file": "src/utils/money.ts",
+    "line": 316,
+    "name": "investmentMonthlyPaise"
+  },
+  {
+    "file": "src/utils/money.ts",
+    "line": 320,
+    "name": "investmentTotalContributedPaise"
+  },
+  {
+    "file": "src/utils/moneyEntityNormalize.ts",
+    "line": 12,
+    "name": "roundRupeeMirror"
+  },
+  {
+    "file": "src/utils/moneyEntityNormalize.ts",
+    "line": 17,
+    "name": "pullTransactions"
+  },
+  {
+    "file": "src/utils/moneyEntityNormalize.ts",
+    "line": 23,
+    "name": "pushTransactions"
+  },
+  {
+    "file": "src/utils/moneyEntityNormalize.ts",
+    "line": 32,
+    "name": "pullAccounts"
+  },
+  {
+    "file": "src/utils/moneyEntityNormalize.ts",
+    "line": 38,
+    "name": "pushAccounts"
+  },
+  {
+    "file": "src/utils/moneyEntityNormalize.ts",
+    "line": 47,
+    "name": "pullCards"
+  },
+  {
+    "file": "src/utils/moneyEntityNormalize.ts",
+    "line": 53,
+    "name": "pushCards"
+  },
+  {
+    "file": "src/utils/moneyEntityNormalize.ts",
+    "line": 64,
+    "name": "pullBudgets"
+  },
+  {
+    "file": "src/utils/moneyEntityNormalize.ts",
+    "line": 70,
+    "name": "pushBudgets"
+  },
+  {
+    "file": "src/utils/moneyEntityNormalize.ts",
+    "line": 79,
+    "name": "pullLoans"
+  },
+  {
+    "file": "src/utils/moneyEntityNormalize.ts",
+    "line": 91,
+    "name": "pushLoans"
+  },
+  {
+    "file": "src/utils/moneyEntityNormalize.ts",
+    "line": 118,
+    "name": "pullEmis"
+  },
+  {
+    "file": "src/utils/moneyEntityNormalize.ts",
+    "line": 148,
+    "name": "pushEmis"
+  },
+  {
+    "file": "src/utils/moneyEntityNormalize.ts",
+    "line": 196,
+    "name": "pullGoals"
+  },
+  {
+    "file": "src/utils/moneyEntityNormalize.ts",
+    "line": 205,
+    "name": "pushGoals"
+  },
+  {
+    "file": "src/utils/moneyEntityNormalize.ts",
+    "line": 220,
+    "name": "pullUdhari"
+  },
+  {
+    "file": "src/utils/moneyEntityNormalize.ts",
+    "line": 229,
+    "name": "pushUdhari"
+  },
+  {
+    "file": "src/utils/moneyEntityNormalize.ts",
+    "line": 244,
+    "name": "pullUdhariSettlements"
+  },
+  {
+    "file": "src/utils/moneyEntityNormalize.ts",
+    "line": 250,
+    "name": "pushUdhariSettlements"
+  },
+  {
+    "file": "src/utils/moneyEntityNormalize.ts",
+    "line": 259,
+    "name": "pullInvestments"
+  },
+  {
+    "file": "src/utils/moneyEntityNormalize.ts",
+    "line": 268,
+    "name": "pushInvestments"
+  },
+  {
+    "file": "src/utils/moneyEntityNormalize.ts",
+    "line": 283,
+    "name": "pullGoalContribs"
+  },
+  {
+    "file": "src/utils/moneyEntityNormalize.ts",
+    "line": 289,
+    "name": "pushGoalContribs"
+  },
+  {
+    "file": "src/utils/moneyEntityNormalize.ts",
+    "line": 298,
+    "name": "pullSavingsContribs"
+  },
+  {
+    "file": "src/utils/moneyEntityNormalize.ts",
+    "line": 304,
+    "name": "pushSavingsContribs"
+  },
+  {
+    "file": "src/utils/moneyEntityNormalize.ts",
+    "line": 313,
+    "name": "pullRecurring"
+  },
+  {
+    "file": "src/utils/moneyEntityNormalize.ts",
+    "line": 319,
+    "name": "pushRecurring"
+  },
+  {
+    "file": "src/utils/moneyEntityNormalize.ts",
+    "line": 360,
+    "name": "normalizeMoneyEntity"
+  },
+  {
+    "file": "src/utils/moneyEntityNormalize.ts",
+    "line": 370,
+    "name": "normalizeMoneyEntityDeep"
+  },
+  {
+    "file": "src/utils/moneyEntityNormalize.ts",
+    "line": 381,
+    "name": "formatMoneyRupeeLabel"
+  }
+]

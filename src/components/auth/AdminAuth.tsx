@@ -28,9 +28,10 @@ export function AdminAuth() {
       const sqlUser = await cloudAdminLogin({ username: username.trim(), pin });
       localStorage.setItem(
         "sv:session",
-        JSON.stringify({ userId: sqlUser.id, username: sqlUser.username, locked: false }),
+        JSON.stringify({ userId: sqlUser.id, username: sqlUser.username, locked: false, portal: "admin" }),
       );
       await login(sqlUser.id, pin);
+      if (useAuthStore.getState().currentUser?.mustChangePin) return;
       await loadAll(useAuthStore.getState().currentUser!);
       await hydrateCloudApp();
       toast({ title: "Admin login successful", kind: "success" });
@@ -68,4 +69,3 @@ export function AdminAuth() {
     </Card>
   );
 }
-

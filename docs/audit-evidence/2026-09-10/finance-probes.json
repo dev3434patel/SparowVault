@@ -1,0 +1,154 @@
+{
+  "date": "2026-09-10T07:02:35.121Z",
+  "rows": [
+    {
+      "id": "F01",
+      "name": "exact rupee rounding half up",
+      "expected": 101,
+      "actual": 101,
+      "pass": true
+    },
+    {
+      "id": "F02",
+      "name": "negative rounded amount when expressly allowed",
+      "expected": -101,
+      "actual": -101,
+      "pass": true
+    },
+    {
+      "id": "F03",
+      "name": "zero rate EMI",
+      "expected": 10000,
+      "actual": 10000,
+      "pass": true
+    },
+    {
+      "id": "F04",
+      "name": "net worth includes account opening balance",
+      "expected": 100000,
+      "actual": 0,
+      "pass": false
+    },
+    {
+      "id": "F05",
+      "name": "ageing reads canonical amount/date/direction",
+      "expected": {
+        "outstandingPaise": 40000,
+        "direction": "received",
+        "ageDays": 252
+      },
+      "actual": {
+        "outstandingPaise": 0,
+        "direction": "given",
+        "ageDays": 0
+      },
+      "pass": false
+    },
+    {
+      "id": "F06",
+      "name": "reversed financing cost nets to zero",
+      "expected": 0,
+      "actual": 20000,
+      "pass": false
+    },
+    {
+      "id": "F07",
+      "name": "invalid oversized personal split cannot create negative business amount",
+      "expected": true,
+      "actual": false,
+      "pass": false
+    },
+    {
+      "id": "F08",
+      "name": "percentage split conservation across 14443 cases",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "id": "F09",
+      "name": "CA workbook monthly summary respects transaction date filter",
+      "expected": [
+        "2026-09"
+      ],
+      "actual": [
+        "2026-08",
+        "2026-09"
+      ],
+      "pass": false
+    },
+    {
+      "id": "F10",
+      "name": "Excel master monetary cells are numeric",
+      "expected": "n",
+      "actual": "s",
+      "pass": false
+    },
+    {
+      "id": "F11",
+      "name": "two loans with same lender export successfully",
+      "expected": null,
+      "actual": "Worksheet with name |Amort_Same_Bank| already exists!",
+      "pass": false
+    },
+    {
+      "id": "F12",
+      "name": "CSV formula-like description neutralized",
+      "expected": false,
+      "actual": true,
+      "pass": false
+    },
+    {
+      "id": "F13",
+      "name": "full backup retains current card EMI and household collections",
+      "expected": true,
+      "actual": false,
+      "pass": false
+    },
+    {
+      "id": "F14",
+      "name": "no external statement balance is not certified matched",
+      "expected": false,
+      "actual": true,
+      "pass": false
+    },
+    {
+      "id": "F15",
+      "name": "annual expense is net of refund",
+      "expected": 60,
+      "actual": 100,
+      "pass": false
+    },
+    {
+      "id": "F16",
+      "name": "workbook allocates mixed expense to business and personal",
+      "expected": {
+        "Business": 60,
+        "Personal": 40
+      },
+      "actual": {
+        "Business": 0,
+        "Personal": 0
+      },
+      "pass": false
+    }
+  ],
+  "performance": [
+    {
+      "count": 1000,
+      "milliseconds": 16,
+      "results": 1000
+    },
+    {
+      "count": 10000,
+      "milliseconds": 150,
+      "results": 10000
+    },
+    {
+      "count": 25000,
+      "milliseconds": 508,
+      "results": 25000
+    }
+  ],
+  "splitCases": 14443
+}

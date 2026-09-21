@@ -1,256 +1,117 @@
-/**
- * BaseRepo - SQL-backed repository with a legacy IndexedDB fallback only for
- * entities that have not been mapped to a SQL collection yet.
- *
- * IMPORTANT SAFETY RULES:
- *  1. mirrorLocalList NEVER deletes local records when remote returns 0 rows
- *     for a userId that already has local data (guards against API hiccups).
- *  2. create() attempts cloud first; on failure, saves locally and logs clearly.
- *  3. createMany() syncs each entity to cloud individually (fixes ImportPage).
- */
-
 import type { Table } from "dexie";
 import type { BaseEntity, ID } from "@/types";
 import { nowIso, uid } from "@/lib/utils";
 import type { CloudCollectionKey } from "@/lib/cloud/collections";
-import {
-  canUseCloudRepo,
-  cloudRepoCreate,
-  cloudRepoGet,
-  cloudRepoHardDelete,
-  cloudRepoHardDeleteAll,
-  cloudRepoList,
-  cloudRepoSoftDelete,
-  cloudRepoUpdate,
-} from "@/lib/cloud/repoClient";
-import { enqueueSyncOutbox, markSyncOutboxState } from "@/services/syncOutbox";
+import { ApiError, isRetryableApiError } from "@/lib/apiClient";
+import { useAuthStore } from "@/store/authStore";
+import { canUseCloudRepo, cloudRepoGet, cloudRepoHardDelete, cloudRepoHardDeleteAll, cloudRepoList } from "@/lib/cloud/repoClient";
+import { commitMutation, enqueueMutation, mergeRemoteList, mutationTable, preserveLegacyPending, requireEmptyOutbox } from "@/services/durableOutbox";
 
 export interface CreateInput<T extends BaseEntity> {
-  data: Omit<
-    T,
-    "id" | "userId" | "createdAt" | "updatedAt" | "isDeleted" | "version" | "tags" | "notes"
-  > &
+  data: Omit<T, "id" | "userId" | "createdAt" | "updatedAt" | "isDeleted" | "version" | "tags" | "notes"> &
     Partial<Pick<T, "tags" | "notes" | "id">>;
   userId: ID;
 }
 
 export class BaseRepo<T extends BaseEntity> {
-  constructor(
-    protected table: () => Table<T, string>,
-    protected idPrefix: string,
-    protected cloudCollection?: CloudCollectionKey,
-  ) {}
+  constructor(protected table: () => Table<T, string>, protected idPrefix: string, protected cloudCollection?: CloudCollectionKey) {}
 
   private canRemote(): boolean {
     return !!this.cloudCollection && canUseCloudRepo(this.cloudCollection);
   }
 
-  private async mirrorLocal(entity: T): Promise<void> {
-    await this.table().put(entity);
-  }
-
-  private async mirrorLocalList(userId: ID, rows: T[]): Promise<void> {
-    const table = this.table();
-    const existingKeys = await table.where("userId").equals(userId).primaryKeys();
-    await table.bulkDelete(existingKeys);
-    if (rows.length > 0) {
-      await table.bulkPut(rows);
-    }
-  }
-
-  // ---------------------------------------------------------------------------
-  // CREATE
-  // ---------------------------------------------------------------------------
-
   async create(input: CreateInput<T>): Promise<T> {
     const now = nowIso();
-    const entity = {
-      id: input.data.id ?? uid(this.idPrefix),
-      userId: input.userId,
-      createdAt: now,
-      updatedAt: now,
-      isDeleted: 0,
-      version: 1,
-      tags: input.data.tags ?? [],
-      notes: input.data.notes ?? "",
-      ...input.data,
-    } as unknown as T;
-
+    const entity = { ...input.data, id: input.data.id ?? uid(this.idPrefix), userId: input.userId,
+      createdAt: now, updatedAt: now, isDeleted: 0, version: 1,
+      tags: input.data.tags ?? [], notes: input.data.notes ?? "" } as unknown as T;
+    const table = this.table();
     if (this.canRemote()) {
-      enqueueSyncOutbox(this.cloudCollection!, entity.id);
-      markSyncOutboxState(this.cloudCollection!, entity.id, "syncing");
-      try {
-        const remote = await cloudRepoCreate<T>(
-          this.cloudCollection!,
-          input.userId,
-          entity as Partial<T>,
-          this.idPrefix,
-        );
-        await this.mirrorLocal(remote);
-        markSyncOutboxState(this.cloudCollection!, remote.id, "synced");
-        return remote;
-      } catch (err) {
-        await this.mirrorLocal(entity);
-        markSyncOutboxState(
-          this.cloudCollection!,
-          entity.id,
-          "failed",
-          err instanceof Error ? err.message : "Cloud create failed — saved on device",
-        );
-        return entity;
-      }
+      const mutation = await enqueueMutation(table, this.cloudCollection!, this.idPrefix, "create", entity, entity);
+      return commitMutation(table, mutation);
     }
-
-    await this.table().add(entity);
+    await table.add(entity);
     return entity;
   }
 
-  /**
-   * Bulk create — each entity is synced to cloud individually so imports
-   * don't silently lose data. Uses allSettled so one failure doesn't abort.
-   */
   async createMany(inputs: CreateInput<T>[]): Promise<T[]> {
-    const now = nowIso();
-    const entities = inputs.map(
-      (i) =>
-        ({
-          id: i.data.id ?? uid(this.idPrefix),
-          userId: i.userId,
-          createdAt: now,
-          updatedAt: now,
-          isDeleted: 0,
-          version: 1,
-          tags: i.data.tags ?? [],
-          notes: i.data.notes ?? "",
-          ...i.data,
-        }) as unknown as T,
-    );
-
-    if (this.canRemote()) {
-      const settled = await Promise.allSettled(
-        entities.map(async (entity) => {
-          enqueueSyncOutbox(this.cloudCollection!, entity.id);
-          markSyncOutboxState(this.cloudCollection!, entity.id, "syncing");
-          try {
-            const remote = await cloudRepoCreate<T>(
-              this.cloudCollection!,
-              entity.userId,
-              entity as Partial<T>,
-              this.idPrefix,
-            );
-            markSyncOutboxState(this.cloudCollection!, remote.id, "synced");
-            return remote;
-          } catch (err) {
-            markSyncOutboxState(
-              this.cloudCollection!,
-              entity.id,
-              "failed",
-              err instanceof Error ? err.message : "Cloud create failed — saved on device",
-            );
-            return entity;
-          }
-        }),
-      );
-      const rows = settled.map((r, i) => (r.status === "fulfilled" ? r.value : entities[i]!));
-      if (rows.length > 0) await this.table().bulkPut(rows);
-      return rows;
+    const completed: T[] = [];
+    for (const input of inputs) {
+      try { completed.push(await this.create(input)); }
+      catch (error) {
+        throw new Error(`Created ${completed.length} of ${inputs.length} records. Remaining records were not submitted. ${error instanceof Error ? error.message : "Create failed"}`);
+      }
     }
-
-    await this.table().bulkAdd(entities);
-    return entities;
+    return completed;
   }
 
-  // ---------------------------------------------------------------------------
-  // READ
-  // ---------------------------------------------------------------------------
-
   async get(id: ID): Promise<T | undefined> {
-    if (this.canRemote()) {
-      const remote = await cloudRepoGet<T>(this.cloudCollection!, id);
-      if (remote) await this.mirrorLocal(remote);
-      return remote;
+    const table = this.table();
+    if (!this.canRemote()) return table.get(id);
+    const cached = await table.get(id);
+    const activeUserId = useAuthStore.getState().currentUser?.id;
+    const local = cached && (!activeUserId || cached.userId === activeUserId) ? cached : undefined;
+    if (local) {
+      await preserveLegacyPending(table, this.cloudCollection!, local.userId);
+      const pending = await mutationTable(table.db).where("[userId+collection+entityId]")
+        .equals([local.userId, this.cloudCollection!, id]).count();
+      if (pending) return local;
     }
-    return this.table().get(id);
+    try {
+      const remote = await cloudRepoGet<T>(this.cloudCollection!, id, activeUserId ?? local?.userId);
+      const queue = mutationTable(table.db);
+      return table.db.transaction("rw", [table, queue], async () => {
+        const current = await table.get(id);
+        const pending = await queue.where("[userId+collection+entityId]").equals([remote.userId, this.cloudCollection!, id]).count();
+        if (current && current.userId === remote.userId && (pending || current.version > remote.version)) return current;
+        await table.put(remote);
+        return remote;
+      });
+    } catch (error) {
+      if (isRetryableApiError(error)) return local;
+      if (error instanceof ApiError && error.status === 404) return undefined;
+      throw error;
+    }
   }
 
   async list(userId: ID): Promise<T[]> {
+    const table = this.table();
+    const snapshot = await table.where("userId").equals(userId).toArray();
     if (this.canRemote()) {
-      const remote = await cloudRepoList<T>(this.cloudCollection!, userId);
-      await this.mirrorLocalList(userId, remote);
-      return remote.filter((r) => !r.isDeleted);
+      try {
+        const remote = await cloudRepoList<T>(this.cloudCollection!, userId);
+        return await mergeRemoteList(table, this.cloudCollection!, userId, remote, snapshot);
+      } catch (error) {
+        if (!isRetryableApiError(error)) throw error;
+      }
     }
-    const rows = await this.table().where("userId").equals(userId).toArray();
-    return rows.filter((r) => !r.isDeleted);
+    return (await table.where("userId").equals(userId).toArray()).filter(row => !row.isDeleted);
   }
 
   async listIncludingDeleted(userId: ID): Promise<T[]> {
     return this.table().where("userId").equals(userId).toArray();
   }
 
-  // ---------------------------------------------------------------------------
-  // UPDATE
-  // ---------------------------------------------------------------------------
-
   async update(id: ID, patch: Partial<T>): Promise<T | undefined> {
-    if (this.canRemote()) {
-      enqueueSyncOutbox(this.cloudCollection!, id);
-      markSyncOutboxState(this.cloudCollection!, id, "syncing");
-      try {
-        const updated = await cloudRepoUpdate<T>(this.cloudCollection!, id, patch);
-        if (updated) {
-          await this.mirrorLocal(updated);
-          markSyncOutboxState(this.cloudCollection!, id, "synced");
-        }
-        return updated;
-      } catch (err) {
-        const current = await this.table().get(id);
-        if (!current) {
-          markSyncOutboxState(
-            this.cloudCollection!,
-            id,
-            "failed",
-            err instanceof Error ? err.message : "Cloud update failed",
-          );
-          return undefined;
-        }
-        const next = {
-          ...current,
-          ...patch,
-          updatedAt: nowIso(),
-          version: (current.version ?? 0) + 1,
-        } as T;
-        await this.table().put(next);
-        markSyncOutboxState(
-          this.cloudCollection!,
-          id,
-          "failed",
-          err instanceof Error ? err.message : "Cloud update failed — saved on device",
-        );
-        return next;
-      }
-    }
-    const current = await this.table().get(id);
+    const table = this.table();
+    const cached = await table.get(id);
+    const activeUserId = useAuthStore.getState().currentUser?.id;
+    const current = cached && (!activeUserId || cached.userId === activeUserId) ? cached : await this.get(id);
     if (!current) return undefined;
-    const next = {
-      ...current,
-      ...patch,
-      updatedAt: nowIso(),
-      version: (current.version ?? 0) + 1,
-    } as T;
-    await this.table().put(next);
+    for (const field of ["id", "userId", "createdAt", "version"] as const) {
+      if (field in patch) throw new Error(`Cannot patch ${field}`);
+    }
+    const next = { ...current, ...patch, updatedAt: nowIso(), version: (current.version ?? 0) + 1 } as T;
+    if (this.canRemote()) {
+      await preserveLegacyPending(table, this.cloudCollection!, current.userId);
+      const mutation = await enqueueMutation(table, this.cloudCollection!, this.idPrefix, "patch", next, patch, current);
+      return commitMutation(table, mutation);
+    }
+    await table.put(next);
     return next;
   }
 
   async updateMany(ids: ID[], patch: Partial<T>): Promise<T[]> {
-    if (ids.length === 0) return [];
-    if (this.canRemote()) {
-      const out: T[] = [];
-      for (const id of ids) {
-        const updated = await this.update(id, patch);
-        if (updated) out.push(updated);
-      }
-      return out;
-    }
     const out: T[] = [];
     for (const id of ids) {
       const updated = await this.update(id, patch);
@@ -259,47 +120,12 @@ export class BaseRepo<T extends BaseEntity> {
     return out;
   }
 
-  // ---------------------------------------------------------------------------
-  // DELETE
-  // ---------------------------------------------------------------------------
-
   async softDelete(id: ID): Promise<void> {
-    if (this.canRemote()) {
-      enqueueSyncOutbox(this.cloudCollection!, id);
-      markSyncOutboxState(this.cloudCollection!, id, "syncing");
-      try {
-        const deleted = await cloudRepoSoftDelete<T>(this.cloudCollection!, id);
-        await this.mirrorLocal(deleted);
-        markSyncOutboxState(this.cloudCollection!, id, "synced");
-        return;
-      } catch (err) {
-        const current = await this.table().get(id);
-        if (current) {
-          const next = {
-            ...current,
-            isDeleted: 1,
-            updatedAt: nowIso(),
-            version: (current.version ?? 0) + 1,
-          } as T;
-          await this.table().put(next);
-        }
-        markSyncOutboxState(
-          this.cloudCollection!,
-          id,
-          "failed",
-          err instanceof Error ? err.message : "Cloud delete failed — saved on device",
-        );
-        return;
-      }
-    }
     await this.update(id, { isDeleted: 1 } as Partial<T>);
   }
 
   async softDeleteMany(ids: ID[]): Promise<void> {
-    if (ids.length === 0) return;
-    for (const id of ids) {
-      await this.softDelete(id);
-    }
+    for (const id of ids) await this.softDelete(id);
   }
 
   async restore(id: ID): Promise<void> {
@@ -307,26 +133,29 @@ export class BaseRepo<T extends BaseEntity> {
   }
 
   async hardDelete(id: ID): Promise<void> {
+    const table = this.table();
+    const current = await table.get(id);
     if (this.canRemote()) {
+      if (current) {
+        await preserveLegacyPending(table, this.cloudCollection!, current.userId);
+        await requireEmptyOutbox(table.db, current.userId);
+      }
       await cloudRepoHardDelete(this.cloudCollection!, id);
     }
-    await this.table().delete(id);
+    await table.delete(id);
   }
 
   async hardDeleteAllForUser(userId: ID): Promise<void> {
+    const table = this.table();
     if (this.canRemote()) {
+      await preserveLegacyPending(table, this.cloudCollection!, userId);
+      await requireEmptyOutbox(table.db, userId);
       await cloudRepoHardDeleteAll(this.cloudCollection!, userId);
     }
-    const rows = await this.table().where("userId").equals(userId).primaryKeys();
-    await this.table().bulkDelete(rows);
+    await table.where("userId").equals(userId).delete();
   }
 
-  // ---------------------------------------------------------------------------
-  // UTILITY
-  // ---------------------------------------------------------------------------
-
   async count(userId: ID): Promise<number> {
-    const arr = await this.list(userId);
-    return arr.length;
+    return (await this.list(userId)).length;
   }
 }

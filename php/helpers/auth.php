@@ -47,16 +47,25 @@ function base64url_decode(string $data): string {
     return $decoded === false ? "" : $decoded;
 }
 
-function sign_cloud_token(array $payload): string {
+function sign_cloud_token(array $payload, ?string $verifiedPinHash = null): string {
     $now = time();
     $exp = $now + jwt_expires_in_seconds();
     $header = ["alg" => "HS256", "typ" => "JWT"];
+    $user = user_auth_row_by_id((string)($payload["userId"] ?? ""));
+    if (!$user || (int)$user["is_active"] !== 1) throw new RuntimeException("User unavailable");
+    $sessionId = bin2hex(random_bytes(32));
+    // A concurrent PIN reset must not upgrade an already-verified old credential.
+    $credentialTag = hash_hmac("sha256", $verifiedPinHash ?? (string)$user["pin_hash"], jwt_secret());
+    db_conn()->prepare("DELETE FROM auth_sessions WHERE user_id = ? AND expires_at <= UTC_TIMESTAMP() LIMIT 100")->execute([$user["id"]]);
+    db_conn()->prepare("INSERT INTO auth_sessions (id_hash, user_id, credential_tag, expires_at) VALUES (?, ?, ?, ?)")
+        ->execute([hash("sha256", $sessionId), $user["id"], $credentialTag, gmdate("Y-m-d H:i:s", $exp)]);
     $claims = array_merge($payload, [
         "iat" => $now,
         "nbf" => $now - 5,
         "exp" => $exp,
         "iss" => jwt_issuer(),
         "aud" => jwt_audience(),
+        "sid" => $sessionId,
     ]);
     $h = base64url_encode(json_encode($header, JSON_UNESCAPED_SLASHES));
     $p = base64url_encode(json_encode($claims, JSON_UNESCAPED_SLASHES));
@@ -106,7 +115,8 @@ function verify_cloud_token(string $token): array {
 function auth_cookie_secure(): bool {
     $env = strtolower((string)(($_ENV["APP_ENV"] ?? getenv("APP_ENV")) ?: "development"));
     $https = strtolower((string)($_SERVER["HTTPS"] ?? "")) === "on";
-    $forwarded = strtolower((string)($_SERVER["HTTP_X_FORWARDED_PROTO"] ?? "")) === "https";
+    $proxies = array_filter(array_map("trim", explode(",", (string)(getenv("TRUSTED_PROXY_IPS") ?: ""))));
+    $forwarded = in_array((string)($_SERVER["REMOTE_ADDR"] ?? ""), $proxies, true) && strtolower((string)($_SERVER["HTTP_X_FORWARDED_PROTO"] ?? "")) === "https";
     return $env === "production" || $https || $forwarded;
 }
 
@@ -170,10 +180,18 @@ function require_cloud_user(): array {
         throw new RuntimeException("Missing bearer token");
     }
     $claims = verify_cloud_token($token);
+    $sid = $claims["sid"] ?? null;
+    if (!is_string($sid) || !preg_match('/^[a-f0-9]{64}$/D', $sid)) throw new RuntimeException("Session expired. Sign in again.");
+    $st = db_conn()->prepare("SELECT s.credential_tag, u.pin_hash, u.is_active, u.deleted_at, u.must_change_pin, u.role FROM auth_sessions s JOIN users u ON u.id=s.user_id WHERE s.id_hash=? AND s.user_id=? AND s.expires_at>UTC_TIMESTAMP()");
+    $st->execute([hash("sha256", $sid), $claims["userId"]]);
+    $session = $st->fetch();
+    if (!$session || (int)$session["is_active"] !== 1 || $session["deleted_at"] !== null || !hash_equals($session["credential_tag"], hash_hmac("sha256", $session["pin_hash"], jwt_secret()))) throw new RuntimeException("Session expired. Sign in again.");
+    $path = parse_url($_SERVER["REQUEST_URI"] ?? "", PHP_URL_PATH);
+    if (!empty($session["must_change_pin"]) && !in_array($path, ["/api/auth/me.php", "/api/cloud/me.php", "/api/auth/change-pin.php", "/api/auth/logout.php"], true)) throw new RuntimeException("Change your temporary PIN before accessing account data.");
     return [
         "userId" => (string)($claims["userId"] ?? ""),
         "username" => (string)($claims["username"] ?? ""),
-        "role" => (string)($claims["role"] ?? "user"),
+        "role" => (string)$session["role"],
     ];
 }
 

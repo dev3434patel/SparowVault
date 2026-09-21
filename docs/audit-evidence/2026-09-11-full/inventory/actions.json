@@ -1,0 +1,2178 @@
+[
+  {
+    "file": "src/components/auth/AdminAuth.tsx",
+    "line": 59,
+    "tag": "form",
+    "onSubmit": "{submit}",
+    "className": "\"space-y-3\""
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 170,
+    "tag": "button",
+    "type": "\"button\"",
+    "onClick": "{onBack}",
+    "className": "\"inline-flex items-center gap-1 text-sm text-primary hover:underline\""
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 181,
+    "tag": "button",
+    "type": "\"button\"",
+    "onClick": "{() => { setMode(\"signin\"); setErr(null); }}",
+    "className": "{`flex-1 rounded px-3 py-1.5 transition-colors ${ isSignIn ? \"bg-background font-semibold shadow\" : \"text-muted-foreground hover:text-foreground\" }`}"
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 195,
+    "tag": "button",
+    "type": "\"button\"",
+    "onClick": "{() => { setMode(\"register\"); setErr(null); }}",
+    "className": "{`flex-1 rounded px-3 py-1.5 transition-colors ${ !isSignIn ? \"bg-background font-semibold shadow\" : \"text-muted-foreground hover:text-foreground\" }`}"
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 218,
+    "tag": "form",
+    "onSubmit": "{handleSignIn}",
+    "className": "\"space-y-3\""
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 244,
+    "tag": "Button",
+    "type": "\"button\"",
+    "variant": "\"outline\"",
+    "className": "\"w-full\"",
+    "loading": "{loading}",
+    "onClick": "{async () => { setLoading(true); try { await acceptPolicies(pendingPolicyUser.policyOutstanding); await finishLogin(pendingPolicyUser, pin); setPendingPolicyUser(null); setErr(null); } catch (error) { setErr(error instanceof Error ? error.message : \"Policy acceptance failed\"); } finally { setLoading"
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 268,
+    "tag": "button",
+    "type": "\"button\"",
+    "onClick": "{() => { setMode(\"register\"); setErr(null); }}",
+    "className": "\"text-primary hover:underline\""
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 281,
+    "tag": "form",
+    "onSubmit": "{handleRegister}",
+    "className": "\"space-y-3\""
+  },
+  {
+    "file": "src/components/auth/LockScreen.tsx",
+    "line": 52,
+    "tag": "form",
+    "onSubmit": "{submit}",
+    "className": "\"space-y-3\""
+  },
+  {
+    "file": "src/components/auth/LockScreen.tsx",
+    "line": 66,
+    "tag": "Button",
+    "type": "\"button\"",
+    "variant": "\"ghost\"",
+    "size": "\"sm\"",
+    "onClick": "{() => logout()}",
+    "className": "\"w-full text-xs\""
+  },
+  {
+    "file": "src/components/auth/ProfileLogin.tsx",
+    "line": 65,
+    "tag": "button",
+    "key": "{p.id}",
+    "type": "\"button\"",
+    "onClick": "{() => undefined}",
+    "className": "{`flex w-full items-center gap-3 rounded-lg border p-3 text-left transition-colors ${ \"border-primary bg-info-soft\" }`}"
+  },
+  {
+    "file": "src/components/auth/ProfileLogin.tsx",
+    "line": 88,
+    "tag": "form",
+    "onSubmit": "{(e) => { e.preventDefault(); submit(); }}",
+    "className": "\"space-y-3\""
+  },
+  {
+    "file": "src/components/auth/ProfileLogin.tsx",
+    "line": 116,
+    "tag": "Button",
+    "type": "\"button\"",
+    "variant": "\"outline\"",
+    "className": "\"w-full\"",
+    "onClick": "{onCreateNew}"
+  },
+  {
+    "file": "src/components/auth/ProfileLogin.tsx",
+    "line": 123,
+    "tag": "button",
+    "type": "\"button\"",
+    "onClick": "{onCloudSignIn}",
+    "className": "\"inline-flex items-center gap-1.5 text-primary hover:underline\""
+  },
+  {
+    "file": "src/components/auth/RequiredPinChange.tsx",
+    "line": 15,
+    "tag": "form",
+    "className": "\"space-y-4\"",
+    "onSubmit": "{async e => { e.preventDefault(); if (!user || busy) return; if (next !== confirmation) { setError(\"New PINs do not match\"); return; } setBusy(true); setError(\"\"); try { await changePin(user.id, current, next); await logout(); } catch (error) { setError(error instanceof Error ? error.message : \"PIN "
+  },
+  {
+    "file": "src/components/auth/RequiredPinChange.tsx",
+    "line": 28,
+    "tag": "Button",
+    "type": "\"button\"",
+    "variant": "\"outline\"",
+    "disabled": "{busy}",
+    "onClick": "{() => void logout()}"
+  },
+  {
+    "file": "src/components/categories/CategoryCleanupPanel.tsx",
+    "line": 154,
+    "tag": "Button",
+    "onClick": "{() => void mergeCategories()}",
+    "disabled": "{busy || !fromId || !toId}"
+  },
+  {
+    "file": "src/components/explain/ExplainMetricDrawer.tsx",
+    "line": 27,
+    "tag": "Button",
+    "type": "\"button\"",
+    "variant": "\"ghost\"",
+    "size": "\"icon-sm\"",
+    "className": "\"no-print h-7 w-7 shrink-0 text-muted-foreground hover:text-foreground\"",
+    "aria-label": "{`Explain ${spec.title}`}",
+    "onClick": "{(e) => { e.stopPropagation(); onOpenChange(true); }}"
+  },
+  {
+    "file": "src/components/finance/CardEmiSimulatorDialog.tsx",
+    "line": 103,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "onClick": "{() => onOpenChange(false)}"
+  },
+  {
+    "file": "src/components/finance/PaydayCashflowPanel.tsx",
+    "line": 33,
+    "tag": "button",
+    "key": "{r.label}",
+    "type": "\"button\"",
+    "className": "\"flex w-full items-center justify-between text-sm hover:underline\"",
+    "onClick": "{props.onOpenBills}"
+  },
+  {
+    "file": "src/components/forms/QuickAddDialog.tsx",
+    "line": 77,
+    "tag": "Button",
+    "type": "\"button\"",
+    "variant": "{direction === \"out\" ? \"default\" : \"outline\"}",
+    "onClick": "{() => setDirection(\"out\")}"
+  },
+  {
+    "file": "src/components/forms/QuickAddDialog.tsx",
+    "line": 84,
+    "tag": "Button",
+    "type": "\"button\"",
+    "variant": "{direction === \"in\" ? \"default\" : \"outline\"}",
+    "onClick": "{() => setDirection(\"in\")}"
+  },
+  {
+    "file": "src/components/forms/QuickAddDialog.tsx",
+    "line": 92,
+    "tag": "Button",
+    "type": "\"button\"",
+    "disabled": "{!direction || amount === \"\" || Number(amount) <= 0}",
+    "onClick": "{() => setStep(\"intent\")}"
+  },
+  {
+    "file": "src/components/forms/QuickAddDialog.tsx",
+    "line": 105,
+    "tag": "Button",
+    "key": "{id}",
+    "type": "\"button\"",
+    "variant": "\"outline\"",
+    "className": "\"w-full justify-start text-left h-auto py-3\"",
+    "onClick": "{() => { setSelectedIntent(id); setStep(\"form\"); }}"
+  },
+  {
+    "file": "src/components/forms/QuickAddDialog.tsx",
+    "line": 118,
+    "tag": "Button",
+    "type": "\"button\"",
+    "variant": "\"ghost\"",
+    "onClick": "{() => setStep(\"amount\")}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 263,
+    "tag": "form",
+    "onSubmit": "{submit}",
+    "className": "\"grid grid-cols-1 gap-4 sm:grid-cols-2\""
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 720,
+    "tag": "Button",
+    "type": "\"button\"",
+    "variant": "\"ghost\"",
+    "onClick": "{onCancel}"
+  },
+  {
+    "file": "src/components/layout/AdminAppShell.tsx",
+    "line": 99,
+    "tag": "button",
+    "key": "{item.key}",
+    "onClick": "{() => setActive(item.key)}",
+    "className": "{`flex w-full items-center gap-2 rounded-md px-3 py-2 text-left text-sm ${ isActive ? \"bg-primary text-primary-foreground\" : \"hover:bg-surface-2 text-muted-foreground hover:text-foreground\" }`}"
+  },
+  {
+    "file": "src/components/layout/AdminAppShell.tsx",
+    "line": 121,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "size": "\"sm\"",
+    "onClick": "{() => logout()}"
+  },
+  {
+    "file": "src/components/layout/AdminAppShell.tsx",
+    "line": 131,
+    "tag": "button",
+    "key": "{item.key}",
+    "onClick": "{() => setActive(item.key)}",
+    "className": "{`flex shrink-0 items-center gap-1.5 rounded-md px-3 py-2 text-xs ${ isActive ? \"bg-primary text-primary-foreground\" : \"text-muted-foreground hover:bg-surface-2 hover:text-foreground\" }`}"
+  },
+  {
+    "file": "src/components/layout/AlertsDrawer.tsx",
+    "line": 57,
+    "tag": "Button",
+    "size": "\"sm\"",
+    "variant": "\"outline\"",
+    "onClick": "{dismissAll}"
+  },
+  {
+    "file": "src/components/layout/AlertsDrawer.tsx",
+    "line": 109,
+    "tag": "Button",
+    "size": "\"icon-sm\"",
+    "variant": "\"ghost\"",
+    "aria-label": "\"Dismiss\"",
+    "onClick": "{() => dismiss(a.id)}"
+  },
+  {
+    "file": "src/components/layout/AlertsDrawer.tsx",
+    "line": 135,
+    "tag": "Button",
+    "size": "\"icon-sm\"",
+    "variant": "\"ghost\"",
+    "onClick": "{() => restore(a.id)}"
+  },
+  {
+    "file": "src/components/layout/AlertsDrawer.tsx",
+    "line": 138,
+    "tag": "Button",
+    "size": "\"icon-sm\"",
+    "variant": "\"ghost\"",
+    "onClick": "{() => removeAlert(a.id)}"
+  },
+  {
+    "file": "src/components/layout/CommandPalette.tsx",
+    "line": 178,
+    "tag": "button",
+    "key": "{it.id}",
+    "onClick": "{it.action}",
+    "className": "{cn( \"flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm hover:bg-surface-2\", )}"
+  },
+  {
+    "file": "src/components/layout/Header.tsx",
+    "line": 39,
+    "tag": "button",
+    "aria-label": "\"Search sections\"",
+    "onClick": "{() => setCommandOpen(true)}",
+    "className": "\"flex h-9 min-w-0 flex-1 items-center gap-2 rounded-md border border-border bg-surface px-3 text-left text-sm text-muted-foreground hover:bg-surface-2 sm:max-w-md\""
+  },
+  {
+    "file": "src/components/layout/Header.tsx",
+    "line": 53,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "size": "\"icon-sm\"",
+    "aria-label": "\"Upload bank statement\"",
+    "title": "\"Upload bank statement\"",
+    "onClick": "{() => setStatementOpen(true)}"
+  },
+  {
+    "file": "src/components/layout/Header.tsx",
+    "line": 75,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "size": "\"icon-sm\"",
+    "aria-label": "\"Alerts\"",
+    "onClick": "{() => setAlertsOpen(true)}",
+    "className": "\"relative\""
+  },
+  {
+    "file": "src/components/layout/Sidebar.tsx",
+    "line": 138,
+    "tag": "button",
+    "key": "{it.key}",
+    "onClick": "{() => setActive(it.key)}",
+    "className": "{cn( \"flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors\", isActive ? \"bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))]\" : \"text-muted-foreground hover:bg-surface-2 hover:text-[hsl(var(--foreground))]\", collapsed && \"justify-center px-2\", )}",
+    "title": "{collapsed ? it.label : undefined}"
+  },
+  {
+    "file": "src/components/layout/Sidebar.tsx",
+    "line": 161,
+    "tag": "Button",
+    "variant": "\"ghost\"",
+    "size": "\"sm\"",
+    "onClick": "{() => setCollapsed(!collapsed)}",
+    "className": "\"w-full\"",
+    "title": "{collapsed ? \"Expand\" : \"Collapse\"}"
+  },
+  {
+    "file": "src/components/layout/Sidebar.tsx",
+    "line": 197,
+    "tag": "button",
+    "key": "{it.key}",
+    "onClick": "{() => setActive(it.key)}",
+    "className": "{cn( \"flex flex-col items-center justify-center gap-0.5 py-2 flex-1 text-[10px]\", isActive ? \"text-primary\" : \"text-muted-foreground\", )}"
+  },
+  {
+    "file": "src/components/layout/SyncOutboxBadge.tsx",
+    "line": 61,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "size": "\"sm\"",
+    "title": "\"Review pending changes\"",
+    "aria-label": "{`${pending.length} pending changes`}",
+    "onClick": "{() => setOpen(true)}",
+    "className": "\"gap-1.5 text-xs\""
+  },
+  {
+    "file": "src/components/layout/SyncOutboxBadge.tsx",
+    "line": 73,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "size": "\"icon\"",
+    "title": "\"Download pending changes\"",
+    "aria-label": "\"Download pending changes\"",
+    "disabled": "{!pending.length}",
+    "onClick": "{download}"
+  },
+  {
+    "file": "src/components/layout/SyncOutboxBadge.tsx",
+    "line": 74,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "size": "\"icon\"",
+    "title": "\"Retry synchronization\"",
+    "aria-label": "\"Retry synchronization\"",
+    "disabled": "{busy || !user}",
+    "onClick": "{() => void run(() => replayMutations(getDB(), user!.id, () => useAuthStore.getState().currentUser?.id === user!.id))}"
+  },
+  {
+    "file": "src/components/layout/SyncOutboxBadge.tsx",
+    "line": 87,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "size": "\"sm\"",
+    "disabled": "{busy}",
+    "onClick": "{() => void run(async () => { const confirmed = await requestConfirm({ title: \"Discard local changes?\", description: \"All pending changes for this record will be replaced with the server version. Download pending changes first to retain a copy.\", destructive: true, confirmLabel: \"Use server version\""
+  },
+  {
+    "file": "src/components/pages/AccountsPage.tsx",
+    "line": 86,
+    "tag": "Button",
+    "onClick": "{() => setAdding(true)}"
+  },
+  {
+    "file": "src/components/pages/AccountsPage.tsx",
+    "line": 127,
+    "tag": "Button",
+    "onClick": "{() => setAdding(true)}"
+  },
+  {
+    "file": "src/components/pages/AccountsPage.tsx",
+    "line": 169,
+    "tag": "Button",
+    "size": "\"icon-sm\"",
+    "variant": "\"ghost\"",
+    "onClick": "{() => setEditing(a)}"
+  },
+  {
+    "file": "src/components/pages/AccountsPage.tsx",
+    "line": 176,
+    "tag": "Button",
+    "size": "\"icon-sm\"",
+    "variant": "\"ghost\"",
+    "onClick": "{() => handleDelete(a.id)}"
+  },
+  {
+    "file": "src/components/pages/AccountsPage.tsx",
+    "line": 279,
+    "tag": "form",
+    "onSubmit": "{submit}",
+    "className": "\"grid grid-cols-2 gap-3\""
+  },
+  {
+    "file": "src/components/pages/AccountsPage.tsx",
+    "line": 334,
+    "tag": "Button",
+    "type": "\"button\"",
+    "variant": "\"ghost\"",
+    "onClick": "{onClose}"
+  },
+  {
+    "file": "src/components/pages/AlertsPage.tsx",
+    "line": 79,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "onClick": "{rerun}"
+  },
+  {
+    "file": "src/components/pages/AlertsPage.tsx",
+    "line": 83,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "onClick": "{dismissAll}"
+  },
+  {
+    "file": "src/components/pages/AlertsPage.tsx",
+    "line": 150,
+    "tag": "Button",
+    "size": "\"sm\"",
+    "variant": "\"outline\"",
+    "onClick": "{() => setActive(pathToNav(a.linkHref!), \"user\")}"
+  },
+  {
+    "file": "src/components/pages/AlertsPage.tsx",
+    "line": 158,
+    "tag": "Button",
+    "size": "\"sm\"",
+    "variant": "\"ghost\"",
+    "onClick": "{() => dismiss(a.id)}"
+  },
+  {
+    "file": "src/components/pages/AlertsPage.tsx",
+    "line": 189,
+    "tag": "Button",
+    "size": "\"sm\"",
+    "variant": "\"ghost\"",
+    "onClick": "{() => restore(a.id)}"
+  },
+  {
+    "file": "src/components/pages/AlertsPage.tsx",
+    "line": 192,
+    "tag": "Button",
+    "size": "\"icon-sm\"",
+    "variant": "\"ghost\"",
+    "onClick": "{() => hardDelete(a.id)}"
+  },
+  {
+    "file": "src/components/pages/AuditPage.tsx",
+    "line": 95,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "onClick": "{exportLogs}"
+  },
+  {
+    "file": "src/components/pages/BudgetsPage.tsx",
+    "line": 110,
+    "tag": "Button",
+    "onClick": "{() => setAdding(true)}"
+  },
+  {
+    "file": "src/components/pages/BudgetsPage.tsx",
+    "line": 183,
+    "tag": "Button",
+    "onClick": "{() => setAdding(true)}"
+  },
+  {
+    "file": "src/components/pages/BudgetsPage.tsx",
+    "line": 250,
+    "tag": "Button",
+    "size": "\"icon-sm\"",
+    "variant": "\"ghost\"",
+    "onClick": "{() => setEditing(s.budget)}"
+  },
+  {
+    "file": "src/components/pages/BudgetsPage.tsx",
+    "line": 257,
+    "tag": "Button",
+    "size": "\"icon-sm\"",
+    "variant": "\"ghost\"",
+    "onClick": "{() => handleDelete(s.budget.id)}"
+  },
+  {
+    "file": "src/components/pages/BudgetsPage.tsx",
+    "line": 375,
+    "tag": "form",
+    "onSubmit": "{submit}",
+    "className": "\"grid grid-cols-2 gap-3\""
+  },
+  {
+    "file": "src/components/pages/BudgetsPage.tsx",
+    "line": 475,
+    "tag": "Button",
+    "type": "\"button\"",
+    "variant": "\"ghost\"",
+    "onClick": "{onClose}"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 202,
+    "tag": "Button",
+    "onClick": "{() => setAdding(true)}"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 226,
+    "tag": "Button",
+    "onClick": "{() => setAdding(true)}"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 441,
+    "tag": "Button",
+    "type": "\"button\"",
+    "variant": "\"ghost\"",
+    "size": "\"sm\"",
+    "className": "\"h-7 px-2 text-xs\"",
+    "onClick": "{() => setExpandedId(expandedId === c.id ? null : c.id)}"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 482,
+    "tag": "Button",
+    "size": "\"sm\"",
+    "variant": "\"outline\"",
+    "className": "\"h-8 text-xs\"",
+    "onClick": "{() => setEmiSimCard(c)}"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 490,
+    "tag": "Button",
+    "size": "\"icon-sm\"",
+    "variant": "\"ghost\"",
+    "onClick": "{() => setEditing(c)}"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 497,
+    "tag": "Button",
+    "size": "\"icon-sm\"",
+    "variant": "\"ghost\"",
+    "onClick": "{() => handleDelete(c.id)}"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 523,
+    "tag": "Button",
+    "onClick": "{() => setAdding(true)}"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 550,
+    "tag": "Button",
+    "size": "\"icon-sm\"",
+    "variant": "\"ghost\"",
+    "onClick": "{() => setEditing(c)}"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 557,
+    "tag": "Button",
+    "size": "\"icon-sm\"",
+    "variant": "\"ghost\"",
+    "onClick": "{() => handleDelete(c.id)}"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 641,
+    "tag": "Button",
+    "size": "\"sm\"",
+    "variant": "\"secondary\"",
+    "onClick": "{() => setRepairTxn(t)}"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 645,
+    "tag": "Button",
+    "size": "\"sm\"",
+    "variant": "\"secondary\"",
+    "onClick": "{() => setEditing(issue.card ?? null)}"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 686,
+    "tag": "Button",
+    "onClick": "{() => void applyRepairLinkCard()}",
+    "disabled": "{!repairCardId || repairSaving}",
+    "loading": "{repairSaving}"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 710,
+    "tag": "Button",
+    "className": "\"mt-2\"",
+    "variant": "\"outline\"",
+    "onClick": "{() => void applyRepairConvertUpi()}",
+    "disabled": "{!repairAccountId || repairSaving}",
+    "loading": "{repairSaving}"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 719,
+    "tag": "Button",
+    "className": "\"ml-2 mt-2\"",
+    "variant": "\"ghost\"",
+    "onClick": "{() => void applyRepairMarkLegacy()}",
+    "disabled": "{repairSaving}",
+    "loading": "{repairSaving}"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 732,
+    "tag": "Button",
+    "variant": "\"ghost\"",
+    "onClick": "{() => setRepairTxn(null)}"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 847,
+    "tag": "form",
+    "onSubmit": "{submit}",
+    "className": "\"grid grid-cols-2 gap-3\""
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 975,
+    "tag": "Button",
+    "type": "\"button\"",
+    "variant": "\"ghost\"",
+    "onClick": "{onClose}"
+  },
+  {
+    "file": "src/components/pages/CategoriesPage.tsx",
+    "line": 108,
+    "tag": "Button",
+    "onClick": "{() => setAdding(true)}"
+  },
+  {
+    "file": "src/components/pages/CategoriesPage.tsx",
+    "line": 158,
+    "tag": "Button",
+    "onClick": "{() => setAdding(true)}"
+  },
+  {
+    "file": "src/components/pages/CategoriesPage.tsx",
+    "line": 197,
+    "tag": "Button",
+    "size": "\"icon-sm\"",
+    "variant": "\"ghost\"",
+    "onClick": "{() => setEditing(c)}"
+  },
+  {
+    "file": "src/components/pages/CategoriesPage.tsx",
+    "line": 204,
+    "tag": "Button",
+    "size": "\"icon-sm\"",
+    "variant": "\"ghost\"",
+    "onClick": "{() => handleArchive(c)}"
+  },
+  {
+    "file": "src/components/pages/CategoriesPage.tsx",
+    "line": 215,
+    "tag": "Button",
+    "size": "\"icon-sm\"",
+    "variant": "\"ghost\"",
+    "onClick": "{() => handleDelete(c)}"
+  },
+  {
+    "file": "src/components/pages/CategoriesPage.tsx",
+    "line": 360,
+    "tag": "form",
+    "onSubmit": "{submit}",
+    "className": "\"space-y-3\""
+  },
+  {
+    "file": "src/components/pages/CategoriesPage.tsx",
+    "line": 395,
+    "tag": "button",
+    "type": "\"button\"",
+    "key": "{i}",
+    "onClick": "{() => setState({ ...state, icon: i })}",
+    "className": "{`h-8 w-8 rounded-md text-lg ${state.icon === i ? \"bg-primary text-primary-foreground\" : \"hover:bg-surface-2\"}`}"
+  },
+  {
+    "file": "src/components/pages/CategoriesPage.tsx",
+    "line": 409,
+    "tag": "button",
+    "type": "\"button\"",
+    "key": "{c}",
+    "onClick": "{() => setState({ ...state, color: c })}",
+    "className": "{`h-6 w-6 rounded-full border-2 ${state.color === c ? \"border-foreground\" : \"border-transparent\"}`}",
+    "style": "{{ backgroundColor: c }}"
+  },
+  {
+    "file": "src/components/pages/CategoriesPage.tsx",
+    "line": 454,
+    "tag": "Button",
+    "type": "\"button\"",
+    "variant": "\"ghost\"",
+    "onClick": "{onClose}"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 426,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "size": "\"sm\"",
+    "onClick": "{() => setActive(\"reports\")}"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 429,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "size": "\"sm\"",
+    "onClick": "{() => setActive(\"export\")}"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 446,
+    "tag": "Button",
+    "size": "\"sm\"",
+    "onClick": "{() => setActive(\"accounts\")}"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 447,
+    "tag": "Button",
+    "size": "\"sm\"",
+    "variant": "\"outline\"",
+    "onClick": "{() => setActive(\"categories\")}"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 448,
+    "tag": "Button",
+    "size": "\"sm\"",
+    "variant": "\"outline\"",
+    "onClick": "{() => setActive(\"transactions\")}"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 511,
+    "tag": "button",
+    "type": "\"button\"",
+    "className": "\"font-medium tabular-nums text-primary hover:underline\"",
+    "onClick": "{() => setActive(\"loans\")}"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 521,
+    "tag": "button",
+    "type": "\"button\"",
+    "className": "\"font-medium tabular-nums text-primary hover:underline\"",
+    "onClick": "{() => setActive(\"cards\")}"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 531,
+    "tag": "button",
+    "type": "\"button\"",
+    "className": "\"font-medium tabular-nums text-primary hover:underline\"",
+    "onClick": "{() => setActive(\"udhari\")}"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 553,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "size": "\"sm\"",
+    "onClick": "{() => setActive(\"suggestions\")}"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 560,
+    "tag": "button",
+    "type": "\"button\"",
+    "className": "\"text-primary underline-offset-4 hover:underline\"",
+    "onClick": "{() => setActive(\"suggestions\")}"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 574,
+    "tag": "KpiCard",
+    "icon": "{<ArrowUpRight className=\"h-4 w-4\" />}",
+    "label": "\"True income\"",
+    "value": "{formatINR(paiseToRupees(stats.totalIncome))}",
+    "tone": "\"income\"",
+    "onClick": "{() => setActive(\"income\")}",
+    "explainSpec": "{{ title: \"True income this month\", formula: \"Sum of genuine income effects from the ledger (salary, business, interest, etc.).\", included: [\"Income-category ledger effects dated this month\"], excluded: [ \"Purchase refunds — treated as contra-expense, not income\", \"Loan proceeds, transfers, udhari r"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 593,
+    "tag": "KpiCard",
+    "icon": "{<ArrowDownRight className=\"h-4 w-4\" />}",
+    "label": "\"Consumption expense\"",
+    "value": "{formatINR(paiseToRupees(stats.totalExpense))}",
+    "tone": "\"expense\"",
+    "onClick": "{() => setActive(\"expenses\")}",
+    "explainSpec": "{{ title: \"Consumption expense this month\", formula: \"Sum of expense-category ledger effects (purchases, interest, fees, bad debt).\", included: [\"Recorded consumption and financing charges dated this month\"], excluded: [ \"Credit-card bill payments — debt settlement only\", \"Loan principal repayment, "
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 632,
+    "tag": "KpiCard",
+    "icon": "{<Wallet className=\"h-4 w-4\" />}",
+    "label": "\"Bank & cash\"",
+    "value": "{formatINRCompact(paiseToRupees(stats.bankEstimate + stats.cashInHand))}",
+    "tone": "\"info\"",
+    "sub": "{`Cash ${formatINRCompact(paiseToRupees(stats.cashInHand))}`}",
+    "onClick": "{() => setActive(\"accounts\")}",
+    "explainSpec": "{{ title: \"Bank & cash\", formula: \"Sum of derived balances for non-cash spendable account types + cash-type accounts, from posted transactions.\", included: [\"Bank, UPI wallet, savings, current, etc. per account rules\"], excluded: [\"Credit card limits; credit balances use liability engine elsewhere\"]"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 861,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "size": "\"sm\"",
+    "className": "\"w-full\"",
+    "onClick": "{() => setActive(\"goals\")}"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 960,
+    "tag": "DueRow",
+    "icon": "{<Banknote className=\"h-4 w-4\" />}",
+    "label": "\"EMI this month\"",
+    "value": "{formatINR(paiseToRupees(stats.emiThisMonth))}",
+    "onClick": "{() => setActive(\"loans\")}"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 966,
+    "tag": "DueRow",
+    "icon": "{<CreditCard className=\"h-4 w-4\" />}",
+    "label": "\"Card statement due\"",
+    "value": "{formatINR(paiseToRupees(stats.upcomingCCDue))}",
+    "sub": "{ stats.ccHealth[0]?.nextDueDate ? formatRelativeDue(stats.ccHealth[0].nextDueDate) : undefined }",
+    "onClick": "{() => setActive(\"cards\")}"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 977,
+    "tag": "DueRow",
+    "icon": "{<IndianRupee className=\"h-4 w-4\" />}",
+    "label": "\"Udhari receivable\"",
+    "value": "{formatINR(paiseToRupees(stats.udhariReceivable))}",
+    "onClick": "{() => setActive(\"udhari\")}"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 983,
+    "tag": "DueRow",
+    "icon": "{<IndianRupee className=\"h-4 w-4\" />}",
+    "label": "\"You owe in udhari\"",
+    "value": "{formatINR(paiseToRupees(stats.udhariPayable))}",
+    "onClick": "{() => setActive(\"udhari\")}"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 1004,
+    "tag": "Button",
+    "variant": "\"ghost\"",
+    "size": "\"sm\"",
+    "onClick": "{() => setActive(\"reports\")}"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 1022,
+    "tag": "Pie",
+    "data": "{stats.catBreak}",
+    "dataKey": "\"amount\"",
+    "nameKey": "\"categoryName\"",
+    "innerRadius": "{40}",
+    "outerRadius": "{70}",
+    "paddingAngle": "{2}",
+    "stroke": "\"hsl(var(--card))\"",
+    "cursor": "\"pointer\"",
+    "onClick": "{(e) => { const row = e?.payload as (typeof stats.catBreak)[number] | undefined; if (row) drillCategorySpend(row); }}"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 1046,
+    "tag": "button",
+    "type": "\"button\"",
+    "key": "{c.categoryId}",
+    "className": "\"no-print flex w-full items-center gap-2 rounded-md px-1 py-0.5 text-left text-xs hover:bg-surface-2\"",
+    "onClick": "{() => drillCategorySpend(c)}"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 1080,
+    "tag": "Button",
+    "variant": "\"ghost\"",
+    "size": "\"sm\"",
+    "onClick": "{() => setActive(\"goals\")}"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 1107,
+    "tag": "button",
+    "onClick": "{() => setActive(\"goals\")}",
+    "className": "\"text-primary underline-offset-4 hover:underline\""
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 1131,
+    "tag": "Button",
+    "variant": "\"ghost\"",
+    "size": "\"sm\"",
+    "onClick": "{() => setActive(\"budgets\")}"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 1183,
+    "tag": "Button",
+    "variant": "\"ghost\"",
+    "size": "\"sm\"",
+    "onClick": "{() => setActive(\"transactions\")}"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 1269,
+    "tag": "Card",
+    "className": "{cn( \"relative transition-all\", onClick && \"cursor-pointer hover:shadow-(--shadow-elevated)\", )}",
+    "onClick": "{onClick}"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 1283,
+    "tag": "div",
+    "onClick": "{(e) => e.stopPropagation()}"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 1319,
+    "tag": "button",
+    "onClick": "{onClick}",
+    "className": "{cn( \"flex w-full items-center gap-3 rounded-md border border-border p-2.5 text-left transition-colors\", onClick ? \"hover:bg-surface-2\" : \"cursor-default\", )}"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 1439,
+    "tag": "button",
+    "onClick": "{() => setActive(\"budgets\")}",
+    "className": "\"text-primary underline-offset-4 hover:underline\""
+  },
+  {
+    "file": "src/components/pages/ExportPage.tsx",
+    "line": 274,
+    "tag": "Button",
+    "className": "\"w-full\"",
+    "onClick": "{caExport}",
+    "loading": "{exporting === \"ca\"}"
+  },
+  {
+    "file": "src/components/pages/ExportPage.tsx",
+    "line": 439,
+    "tag": "Button",
+    "className": "\"w-full\"",
+    "variant": "\"outline\"",
+    "onClick": "{requestFullBackup}",
+    "loading": "{exporting === \"backup\"}"
+  },
+  {
+    "file": "src/components/pages/ExportPage.tsx",
+    "line": 496,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "onClick": "{() => setBackupPinOpen(false)}"
+  },
+  {
+    "file": "src/components/pages/ExportPage.tsx",
+    "line": 499,
+    "tag": "Button",
+    "onClick": "{confirmFullBackup}",
+    "disabled": "{!backupPin}",
+    "loading": "{exporting === \"backup\"}"
+  },
+  {
+    "file": "src/components/pages/ExportPage.tsx",
+    "line": 536,
+    "tag": "Button",
+    "className": "\"w-full\"",
+    "variant": "\"outline\"",
+    "onClick": "{onExport}",
+    "loading": "{exporting}"
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 115,
+    "tag": "Button",
+    "onClick": "{() => setAdding(true)}"
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 129,
+    "tag": "Button",
+    "onClick": "{() => setAdding(true)}"
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 221,
+    "tag": "Button",
+    "size": "\"sm\"",
+    "variant": "\"outline\"",
+    "onClick": "{() => setContributing(g)}",
+    "disabled": "{isComplete}"
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 230,
+    "tag": "Button",
+    "size": "\"icon-sm\"",
+    "variant": "\"ghost\"",
+    "onClick": "{() => setEditing(g)}"
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 237,
+    "tag": "Button",
+    "size": "\"icon-sm\"",
+    "variant": "\"ghost\"",
+    "onClick": "{() => handleDelete(g.id)}"
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 269,
+    "tag": "ContributeDialog",
+    "goal": "{contributing}",
+    "onClose": "{() => setContributing(null)}",
+    "onSubmit": "{(amt) => contributing && contribute(contributing, amt)}",
+    "accounts": "{accounts}"
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 308,
+    "tag": "Button",
+    "type": "\"button\"",
+    "variant": "\"ghost\"",
+    "onClick": "{onClose}"
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 311,
+    "tag": "Button",
+    "onClick": "{() => amount > 0 && onSubmit(amount)}",
+    "disabled": "{amount <= 0}"
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 422,
+    "tag": "form",
+    "onSubmit": "{submit}",
+    "className": "\"grid grid-cols-2 gap-3\""
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 492,
+    "tag": "button",
+    "key": "{icon}",
+    "type": "\"button\"",
+    "onClick": "{() => setState({ ...state, icon })}",
+    "className": "{`flex h-10 w-10 items-center justify-center rounded-lg border text-xl ${ state.icon === icon ? \"border-primary bg-primary/10\" : \"border-border hover:bg-surface-2\" }`}"
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 508,
+    "tag": "button",
+    "key": "{color}",
+    "type": "\"button\"",
+    "onClick": "{() => setState({ ...state, color })}",
+    "className": "{`h-8 w-8 rounded-full border-2 ${ state.color === color ? \"border-foreground\" : \"border-transparent\" }`}",
+    "style": "{{ backgroundColor: color }}"
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 527,
+    "tag": "Button",
+    "type": "\"button\"",
+    "variant": "\"ghost\"",
+    "onClick": "{onClose}"
+  },
+  {
+    "file": "src/components/pages/HouseholdDashboardPage.tsx",
+    "line": 133,
+    "tag": "Button",
+    "onClick": "{createHousehold}"
+  },
+  {
+    "file": "src/components/pages/HouseholdDashboardPage.tsx",
+    "line": 161,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "onClick": "{addMember}"
+  },
+  {
+    "file": "src/components/pages/ImportPage.tsx",
+    "line": 541,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "onClick": "{downloadTemplate}"
+  },
+  {
+    "file": "src/components/pages/ImportPage.tsx",
+    "line": 555,
+    "tag": "div",
+    "className": "\"cursor-pointer rounded-xl border-2 border-dashed border-border p-8 text-center hover:border-primary\"",
+    "onClick": "{() => fileInput.current?.click()}"
+  },
+  {
+    "file": "src/components/pages/ImportPage.tsx",
+    "line": 590,
+    "tag": "Button",
+    "size": "\"sm\"",
+    "variant": "\"ghost\"",
+    "onClick": "{() => { setRows([]); setHeaders([]); setMapping({}); }}"
+  },
+  {
+    "file": "src/components/pages/ImportPage.tsx",
+    "line": 688,
+    "tag": "Button",
+    "onClick": "{performImport}",
+    "loading": "{importing}",
+    "disabled": "{valid === 0}"
+  },
+  {
+    "file": "src/components/pages/ImportPage.tsx",
+    "line": 750,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "className": "\"w-full\"",
+    "onClick": "{() => restoreInput.current?.click()}"
+  },
+  {
+    "file": "src/components/pages/ImportPage.tsx",
+    "line": 777,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "onClick": "{downloadTemplate}"
+  },
+  {
+    "file": "src/components/pages/ImportPage.tsx",
+    "line": 800,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "size": "\"sm\"",
+    "loading": "{rollingBack}",
+    "onClick": "{rollbackLastImport}"
+  },
+  {
+    "file": "src/components/pages/ImportPage.tsx",
+    "line": 818,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "onClick": "{() => { setRestoreConfirmOpen(false); setPendingRestoreFile(null); }}"
+  },
+  {
+    "file": "src/components/pages/ImportPage.tsx",
+    "line": 827,
+    "tag": "Button",
+    "onClick": "{confirmRestore}"
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 133,
+    "tag": "Button",
+    "onClick": "{() => setAdding(true)}"
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 140,
+    "tag": "Button",
+    "onClick": "{() => setAdding(true)}"
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 191,
+    "tag": "Button",
+    "onClick": "{() => setAdding(true)}"
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 271,
+    "tag": "Button",
+    "size": "\"sm\"",
+    "variant": "\"outline\"",
+    "onClick": "{() => setContributing(inv)}"
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 279,
+    "tag": "Button",
+    "size": "\"icon-sm\"",
+    "variant": "\"ghost\"",
+    "onClick": "{() => setEditing(inv)}"
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 282,
+    "tag": "Button",
+    "size": "\"icon-sm\"",
+    "variant": "\"ghost\"",
+    "onClick": "{() => handleDelete(inv.id)}"
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 317,
+    "tag": "ContribDialog",
+    "investment": "{contributing}",
+    "onClose": "{() => setContributing(null)}",
+    "onSubmit": "{(amt) => contributing && contribute(contributing, amt)}"
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 350,
+    "tag": "Button",
+    "type": "\"button\"",
+    "variant": "\"ghost\"",
+    "onClick": "{onClose}"
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 353,
+    "tag": "Button",
+    "onClick": "{() => amount > 0 && onSubmit(amount)}",
+    "disabled": "{amount <= 0}"
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 453,
+    "tag": "form",
+    "onSubmit": "{submit}",
+    "className": "\"grid grid-cols-2 gap-3\""
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 533,
+    "tag": "Button",
+    "type": "\"button\"",
+    "variant": "\"ghost\"",
+    "onClick": "{onClose}"
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 189,
+    "tag": "Button",
+    "onClick": "{() => setAdding(true)}"
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 305,
+    "tag": "Button",
+    "onClick": "{() => setAdding(true)}"
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 478,
+    "tag": "Button",
+    "size": "\"sm\"",
+    "variant": "\"outline\"",
+    "onClick": "{() => setViewing(l)}"
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 483,
+    "tag": "Button",
+    "size": "\"sm\"",
+    "variant": "\"outline\"",
+    "onClick": "{() => void handleCloseLoan(l)}",
+    "title": "\"Close loan\""
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 492,
+    "tag": "Button",
+    "size": "\"icon-sm\"",
+    "variant": "\"ghost\"",
+    "onClick": "{() => setEditing(l)}"
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 495,
+    "tag": "Button",
+    "size": "\"icon-sm\"",
+    "variant": "\"ghost\"",
+    "onClick": "{() => handleDelete(l.id)}"
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 764,
+    "tag": "form",
+    "onSubmit": "{submit}",
+    "className": "\"grid grid-cols-2 gap-3\""
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 984,
+    "tag": "Button",
+    "type": "\"button\"",
+    "variant": "\"ghost\"",
+    "onClick": "{onClose}"
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 183,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "className": "\"flex-1\"",
+    "onClick": "{() => lock()}"
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 186,
+    "tag": "Button",
+    "variant": "\"destructive\"",
+    "className": "\"flex-1\"",
+    "onClick": "{() => logout()}"
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 227,
+    "tag": "button",
+    "key": "{e}",
+    "type": "\"button\"",
+    "className": "{`h-9 w-9 rounded-lg text-lg ring-2 transition ${ form.avatarEmoji === e ? \"ring-primary bg-[hsl(var(--primary-soft))]\" : \"ring-transparent bg-surface-2 hover:bg-surface-3\" }`}",
+    "onClick": "{() => setForm({ ...form, avatarEmoji: e })}"
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 245,
+    "tag": "button",
+    "key": "{c}",
+    "type": "\"button\"",
+    "className": "{`h-8 w-8 rounded-full ring-2 transition ${ form.avatarColor === c ? \"ring-foreground scale-110\" : \"ring-transparent\" }`}",
+    "style": "{{ backgroundColor: c }}",
+    "onClick": "{() => setForm({ ...form, avatarColor: c })}"
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 281,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "onClick": "{saveSecurityRecovery}",
+    "loading": "{securitySaving}"
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 284,
+    "tag": "Button",
+    "onClick": "{saveProfile}",
+    "loading": "{saving}"
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 329,
+    "tag": "Button",
+    "onClick": "{savePin}",
+    "loading": "{pinSaving}"
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 374,
+    "tag": "Button",
+    "onClick": "{recoverPin}",
+    "loading": "{recoverySaving}"
+  },
+  {
+    "file": "src/components/pages/ReconciliationPage.tsx",
+    "line": 41,
+    "tag": "Button",
+    "size": "\"sm\"",
+    "variant": "\"outline\"",
+    "onClick": "{() => { setActive(\"transactions\"); toast({ title: \"Opened Transactions — find this row by date/amount\", kind: \"info\" }); }}"
+  },
+  {
+    "file": "src/components/pages/ReconciliationPage.tsx",
+    "line": 66,
+    "tag": "Button",
+    "size": "\"sm\"",
+    "variant": "\"outline\"",
+    "onClick": "{() => { setActive(\"transactions\"); toast({ title: \"Review transfer pair in Transactions\", description: s.label, kind: \"info\", }); }}"
+  },
+  {
+    "file": "src/components/pages/ReportsPage.tsx",
+    "line": 385,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "className": "\"w-full\"",
+    "onClick": "{() => { const { buffer, filename } = buildCAWorkbook({ transactions, categories, accounts, cards, budgets, goals, goalContribs, loans, emis, udhari, investments, savingsContribs, }); downloadBuffer(buffer, filename); }}"
+  },
+  {
+    "file": "src/components/pages/ReportsPage.tsx",
+    "line": 635,
+    "tag": "Button",
+    "size": "\"sm\"",
+    "variant": "\"outline\"",
+    "onClick": "{() => exportModuleToSheet(\"YoY_Summary\", yoy)}"
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 186,
+    "tag": "Button",
+    "onClick": "{save}",
+    "loading": "{saving}",
+    "className": "\"w-full sm:w-auto\""
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 428,
+    "tag": "Button",
+    "className": "\"w-full sm:w-auto\"",
+    "variant": "\"outline\"",
+    "onClick": "{() => { if (!customMode.trim()) return; setForm({ ...form, customPaymentModes: [ ...(form.customPaymentModes ?? []), customMode.trim(), ], }); setCustomMode(\"\"); }}"
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 453,
+    "tag": "button",
+    "type": "\"button\"",
+    "className": "\"ml-1 text-muted-foreground hover:text-expense\"",
+    "onClick": "{() => setForm({ ...form, customPaymentModes: (form.customPaymentModes ?? []).filter( (_, j) => j !== i, ), }) }"
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 503,
+    "tag": "Button",
+    "className": "\"w-full sm:w-auto\"",
+    "variant": "\"outline\"",
+    "onClick": "{() => setConfirmResetOpen(true)}"
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 506,
+    "tag": "Button",
+    "className": "\"w-full sm:w-auto\"",
+    "variant": "\"destructive\"",
+    "onClick": "{() => setConfirmWipeOpen(true)}"
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 523,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "onClick": "{() => setConfirmResetOpen(false)}"
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 526,
+    "tag": "Button",
+    "onClick": "{resetDemo}"
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 547,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "onClick": "{() => { setConfirmWipeOpen(false); setWipeInput(\"\"); }}"
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 556,
+    "tag": "Button",
+    "variant": "\"destructive\"",
+    "onClick": "{wipeAll}"
+  },
+  {
+    "file": "src/components/pages/SubscriptionPage.tsx",
+    "line": 98,
+    "tag": "Button",
+    "loading": "{loadingPlanId === Number(plan.id)}",
+    "onClick": "{() => buyPlan(Number(plan.id))}"
+  },
+  {
+    "file": "src/components/pages/SuggestionsPage.tsx",
+    "line": 308,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "onClick": "{() => void runSync()}",
+    "disabled": "{syncing || !user}"
+  },
+  {
+    "file": "src/components/pages/SuggestionsPage.tsx",
+    "line": 572,
+    "tag": "Button",
+    "size": "\"sm\"",
+    "variant": "\"secondary\"",
+    "onClick": "{onUseful}"
+  },
+  {
+    "file": "src/components/pages/SuggestionsPage.tsx",
+    "line": 575,
+    "tag": "Button",
+    "size": "\"sm\"",
+    "variant": "\"outline\"",
+    "onClick": "{onDismiss}"
+  },
+  {
+    "file": "src/components/pages/SuggestionsPage.tsx",
+    "line": 578,
+    "tag": "Button",
+    "size": "\"sm\"",
+    "variant": "\"outline\"",
+    "onClick": "{onNotUseful}"
+  },
+  {
+    "file": "src/components/pages/SuggestionsPage.tsx",
+    "line": 581,
+    "tag": "Button",
+    "size": "\"sm\"",
+    "variant": "\"outline\"",
+    "onClick": "{onLater}"
+  },
+  {
+    "file": "src/components/pages/SuggestionsPage.tsx",
+    "line": 584,
+    "tag": "Button",
+    "size": "\"sm\"",
+    "variant": "\"outline\"",
+    "onClick": "{onAction}"
+  },
+  {
+    "file": "src/components/pages/SuggestionsPage.tsx",
+    "line": 587,
+    "tag": "Button",
+    "size": "\"sm\"",
+    "variant": "\"ghost\"",
+    "onClick": "{onAi}",
+    "disabled": "{aiBusy}"
+  },
+  {
+    "file": "src/components/pages/TransactionsPage.tsx",
+    "line": 242,
+    "tag": "Button",
+    "onClick": "{() => setAdding(true)}"
+  },
+  {
+    "file": "src/components/pages/TransactionsPage.tsx",
+    "line": 258,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "size": "\"sm\"",
+    "onClick": "{() => setFiltersOpen((v) => !v)}"
+  },
+  {
+    "file": "src/components/pages/TransactionsPage.tsx",
+    "line": 370,
+    "tag": "Button",
+    "variant": "\"ghost\"",
+    "size": "\"sm\"",
+    "onClick": "{resetFilters}"
+  },
+  {
+    "file": "src/components/pages/TransactionsPage.tsx",
+    "line": 393,
+    "tag": "Button",
+    "variant": "\"destructive\"",
+    "size": "\"sm\"",
+    "onClick": "{bulkDelete}"
+  },
+  {
+    "file": "src/components/pages/TransactionsPage.tsx",
+    "line": 396,
+    "tag": "Button",
+    "variant": "\"ghost\"",
+    "size": "\"sm\"",
+    "onClick": "{() => setSelected(new Set())}"
+  },
+  {
+    "file": "src/components/pages/TransactionsPage.tsx",
+    "line": 411,
+    "tag": "Button",
+    "onClick": "{() => setAdding(true)}"
+  },
+  {
+    "file": "src/components/pages/TransactionsPage.tsx",
+    "line": 520,
+    "tag": "Button",
+    "variant": "\"ghost\"",
+    "size": "\"icon-sm\"",
+    "title": "\"Record contribution return\"",
+    "aria-label": "\"Record contribution return\"",
+    "disabled": "{expenseRecovery(t, transactions).remainingPaise === 0}",
+    "onClick": "{() => setContributing(t)}"
+  },
+  {
+    "file": "src/components/pages/TransactionsPage.tsx",
+    "line": 521,
+    "tag": "Button",
+    "variant": "\"ghost\"",
+    "size": "\"icon-sm\"",
+    "onClick": "{() => setEditing(t)}",
+    "aria-label": "\"Edit\""
+  },
+  {
+    "file": "src/components/pages/TransactionsPage.tsx",
+    "line": 529,
+    "tag": "Button",
+    "variant": "\"ghost\"",
+    "size": "\"icon-sm\"",
+    "onClick": "{() => handleDuplicate(t)}",
+    "aria-label": "\"Duplicate\""
+  },
+  {
+    "file": "src/components/pages/TransactionsPage.tsx",
+    "line": 537,
+    "tag": "Button",
+    "variant": "\"ghost\"",
+    "size": "\"icon-sm\"",
+    "onClick": "{() => handleDelete(t.id)}",
+    "aria-label": "\"Delete\""
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 273,
+    "tag": "Button",
+    "onClick": "{() => setAdding(true)}"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 367,
+    "tag": "Button",
+    "size": "\"sm\"",
+    "variant": "\"outline\"",
+    "onClick": "{() => { void navigator.clipboard.writeText(wa); toast({ title: \"Reminder copied\", kind: \"success\" }); }}"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 528,
+    "tag": "Button",
+    "size": "\"icon-sm\"",
+    "variant": "\"ghost\"",
+    "onClick": "{() => setSettling(u)}",
+    "title": "\"Settle with cash\""
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 541,
+    "tag": "Button",
+    "size": "\"icon-sm\"",
+    "variant": "\"ghost\"",
+    "onClick": "{() => setWriteOff(u)}",
+    "title": "\"Write off receivable\""
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 551,
+    "tag": "Button",
+    "size": "\"icon-sm\"",
+    "variant": "\"ghost\"",
+    "title": "\"Copy WhatsApp reminder\"",
+    "onClick": "{() => { void navigator.clipboard.writeText(waText); toast({ title: \"Copied\", kind: \"success\" }); }}"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 563,
+    "tag": "Button",
+    "size": "\"icon-sm\"",
+    "variant": "\"ghost\"",
+    "onClick": "{() => setEditing(u)}"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 570,
+    "tag": "Button",
+    "size": "\"icon-sm\"",
+    "variant": "\"ghost\"",
+    "onClick": "{() => handleDelete(u.id)}"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 651,
+    "tag": "SettleDialog",
+    "record": "{settling}",
+    "accounts": "{accounts}",
+    "onClose": "{() => setSettling(null)}",
+    "onSubmit": "{(amt, accountId) => settling && settle(settling, amt, accountId)}"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 658,
+    "tag": "WriteOffDialog",
+    "record": "{writeOff}",
+    "categories": "{expenseCategories}",
+    "onClose": "{() => setWriteOff(null)}",
+    "onSubmit": "{(amt, categoryId, reason) => writeOff && recordWriteOff(writeOff, amt, categoryId, reason)}"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 725,
+    "tag": "Button",
+    "size": "\"sm\"",
+    "variant": "\"outline\"",
+    "onClick": "{() => setAmount(remaining)}"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 728,
+    "tag": "Button",
+    "size": "\"sm\"",
+    "variant": "\"outline\"",
+    "onClick": "{() => setAmount(Math.round(remaining / 2))}"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 737,
+    "tag": "Button",
+    "type": "\"button\"",
+    "variant": "\"ghost\"",
+    "onClick": "{onClose}"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 740,
+    "tag": "Button",
+    "onClick": "{() => amount > 0 && accountId && onSubmit(amount, accountId)}",
+    "disabled": "{amount <= 0 || amount > remaining || !accountId}"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 814,
+    "tag": "Button",
+    "type": "\"button\"",
+    "variant": "\"ghost\"",
+    "onClick": "{onClose}"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 817,
+    "tag": "Button",
+    "onClick": "{() => amount > 0 && categoryId && !validateWriteOffReason(reason) && onSubmit(amount, categoryId, reason)}",
+    "disabled": "{amount <= 0 || amount > remaining || !categoryId || !!validateWriteOffReason(reason)}"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 917,
+    "tag": "form",
+    "onSubmit": "{submit}",
+    "className": "\"grid grid-cols-2 gap-3\""
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 1012,
+    "tag": "Button",
+    "type": "\"button\"",
+    "variant": "\"ghost\"",
+    "onClick": "{onClose}"
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 222,
+    "tag": "Button",
+    "onClick": "{addFd}",
+    "loading": "{busy}"
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 260,
+    "tag": "Button",
+    "onClick": "{addInsurance}",
+    "loading": "{busy}"
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 309,
+    "tag": "Button",
+    "onClick": "{addValuation}",
+    "loading": "{busy}"
+  },
+  {
+    "file": "src/components/pages/admin/AdminDashboardPage.tsx",
+    "line": 104,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "size": "\"sm\"",
+    "onClick": "{load}",
+    "loading": "{loading}"
+  },
+  {
+    "file": "src/components/pages/admin/AdminDashboardPage.tsx",
+    "line": 114,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "size": "\"sm\"",
+    "onClick": "{load}",
+    "className": "\"ml-auto shrink-0\""
+  },
+  {
+    "file": "src/components/pages/admin/BrandingSettingsPage.tsx",
+    "line": 89,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "size": "\"sm\"",
+    "onClick": "{load}",
+    "loading": "{loading}"
+  },
+  {
+    "file": "src/components/pages/admin/BrandingSettingsPage.tsx",
+    "line": 92,
+    "tag": "Button",
+    "onClick": "{handleSave}",
+    "loading": "{saving}"
+  },
+  {
+    "file": "src/components/pages/admin/BrandingSettingsPage.tsx",
+    "line": 111,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "size": "\"sm\"",
+    "onClick": "{load}",
+    "className": "\"ml-auto\""
+  },
+  {
+    "file": "src/components/pages/admin/FeatureFlagsPage.tsx",
+    "line": 84,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "size": "\"sm\"",
+    "onClick": "{load}",
+    "loading": "{loading}"
+  },
+  {
+    "file": "src/components/pages/admin/FeatureFlagsPage.tsx",
+    "line": 87,
+    "tag": "Button",
+    "onClick": "{handleSave}",
+    "loading": "{saving}",
+    "disabled": "{loading}"
+  },
+  {
+    "file": "src/components/pages/admin/FeatureFlagsPage.tsx",
+    "line": 106,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "size": "\"sm\"",
+    "onClick": "{load}",
+    "className": "\"ml-auto\""
+  },
+  {
+    "file": "src/components/pages/admin/PlanManagementPage.tsx",
+    "line": 111,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "size": "\"sm\"",
+    "onClick": "{load}",
+    "loading": "{loading}"
+  },
+  {
+    "file": "src/components/pages/admin/PlanManagementPage.tsx",
+    "line": 121,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "size": "\"sm\"",
+    "onClick": "{load}",
+    "className": "\"ml-auto\""
+  },
+  {
+    "file": "src/components/pages/admin/PlanManagementPage.tsx",
+    "line": 138,
+    "tag": "form",
+    "onSubmit": "{handleSubmit}",
+    "className": "\"grid grid-cols-1 gap-4 md:grid-cols-2\""
+  },
+  {
+    "file": "src/components/pages/admin/PlanManagementPage.tsx",
+    "line": 225,
+    "tag": "Button",
+    "type": "\"button\"",
+    "variant": "\"outline\"",
+    "onClick": "{() => setEditing(null)}"
+  },
+  {
+    "file": "src/components/pages/admin/PlanManagementPage.tsx",
+    "line": 276,
+    "tag": "Button",
+    "size": "\"sm\"",
+    "variant": "\"outline\"",
+    "onClick": "{() => setEditing({ ...p })}"
+  },
+  {
+    "file": "src/components/pages/admin/SubscriptionManagementPage.tsx",
+    "line": 136,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "size": "\"sm\"",
+    "onClick": "{load}",
+    "loading": "{loading}"
+  },
+  {
+    "file": "src/components/pages/admin/SubscriptionManagementPage.tsx",
+    "line": 146,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "size": "\"sm\"",
+    "onClick": "{load}",
+    "className": "\"ml-auto\""
+  },
+  {
+    "file": "src/components/pages/admin/SubscriptionManagementPage.tsx",
+    "line": 247,
+    "tag": "Button",
+    "size": "\"sm\"",
+    "variant": "\"outline\"",
+    "loading": "{mutatingId === s.id}",
+    "onClick": "{() => mutateSubscription(s.id, \"manual_extend\")}"
+  },
+  {
+    "file": "src/components/pages/admin/SubscriptionManagementPage.tsx",
+    "line": 255,
+    "tag": "Button",
+    "size": "\"sm\"",
+    "variant": "\"destructive\"",
+    "loading": "{mutatingId === s.id}",
+    "onClick": "{() => mutateSubscription(s.id, \"cancel\")}"
+  },
+  {
+    "file": "src/components/pages/admin/UserManagementPage.tsx",
+    "line": 166,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "size": "\"sm\"",
+    "onClick": "{loadData}",
+    "loading": "{loading}"
+  },
+  {
+    "file": "src/components/pages/admin/UserManagementPage.tsx",
+    "line": 176,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "size": "\"sm\"",
+    "onClick": "{loadData}",
+    "className": "\"ml-auto\""
+  },
+  {
+    "file": "src/components/pages/admin/UserManagementPage.tsx",
+    "line": 287,
+    "tag": "Button",
+    "size": "\"sm\"",
+    "variant": "\"outline\"",
+    "loading": "{busyId === `toggle:${u.id}`}",
+    "onClick": "{() => handleToggle(u.id)}"
+  },
+  {
+    "file": "src/components/pages/admin/UserManagementPage.tsx",
+    "line": 295,
+    "tag": "Button",
+    "size": "\"sm\"",
+    "variant": "\"outline\"",
+    "onClick": "{() => { setPinUser(u); setNewPin(\"\"); setConfirmPin(\"\"); }}"
+  },
+  {
+    "file": "src/components/pages/admin/UserManagementPage.tsx",
+    "line": 366,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "onClick": "{() => setPinUser(null)}"
+  },
+  {
+    "file": "src/components/pages/admin/UserManagementPage.tsx",
+    "line": 369,
+    "tag": "Button",
+    "loading": "{busyId === `pin:${pinUser?.id}`}",
+    "onClick": "{handleResetPin}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 51,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "size": "\"icon-sm\"",
+    "aria-label": "\"Zoom out PDF\"",
+    "title": "\"Zoom out PDF\"",
+    "disabled": "{zoom <= 1}",
+    "onClick": "{() => setZoom(z => z - 0.5)}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 51,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "size": "\"icon-sm\"",
+    "aria-label": "\"Zoom in PDF\"",
+    "title": "\"Zoom in PDF\"",
+    "disabled": "{zoom >= 3}",
+    "onClick": "{() => setZoom(z => z + 0.5)}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 184,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "onClick": "{() => { onClose(); useNavStore.getState().setActive(\"accounts\"); }}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 188,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "disabled": "{busy}",
+    "onClick": "{() => fileInput.current?.click()}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 192,
+    "tag": "form",
+    "className": "\"mt-4 flex flex-wrap items-end gap-3\"",
+    "onSubmit": "{event => { event.preventDefault(); if (!password) return; const resolve = passwordResolve.current; passwordResolve.current = null; setPasswordState(null); const value = password; setPassword(\"\"); resolve?.(value); }}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 197,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "onClick": "{() => { controller.current?.abort(); passwordResolve.current?.(null); }}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 197,
+    "tag": "Button",
+    "disabled": "{busy || !file || !accountId || !dataReady}",
+    "onClick": "{() => void analyze()}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 201,
+    "tag": "Button",
+    "size": "\"icon\"",
+    "variant": "\"outline\"",
+    "aria-label": "\"View source PDF\"",
+    "title": "\"View source PDF\"",
+    "onClick": "{() => setShowSource(value => !value)}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 201,
+    "tag": "Button",
+    "size": "\"icon\"",
+    "variant": "\"outline\"",
+    "aria-label": "\"Download statement review\"",
+    "title": "\"Download statement review\"",
+    "onClick": "{downloadReview}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 201,
+    "tag": "Button",
+    "size": "\"icon\"",
+    "variant": "\"outline\"",
+    "aria-label": "\"Replace statement\"",
+    "title": "\"Replace statement\"",
+    "disabled": "{saving}",
+    "onClick": "{() => void reset()}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 228,
+    "tag": "button",
+    "className": "\"mt-1 underline text-muted-foreground\"",
+    "onClick": "{() => { setSourcePage(row.page); setShowSource(true); }}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 239,
+    "tag": "Button",
+    "size": "\"icon-sm\"",
+    "variant": "\"outline\"",
+    "aria-label": "\"Previous transaction page\"",
+    "title": "\"Previous page\"",
+    "disabled": "{page <= 1}",
+    "onClick": "{() => setPage(p => p - 1)}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 239,
+    "tag": "Button",
+    "size": "\"icon-sm\"",
+    "variant": "\"outline\"",
+    "aria-label": "\"Next transaction page\"",
+    "title": "\"Next page\"",
+    "disabled": "{page >= pageCount}",
+    "onClick": "{() => setPage(p => p + 1)}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 241,
+    "tag": "Button",
+    "size": "\"icon-sm\"",
+    "variant": "\"outline\"",
+    "aria-label": "\"Previous PDF page\"",
+    "title": "\"Previous PDF page\"",
+    "disabled": "{sourcePage <= 1}",
+    "onClick": "{() => setSourcePage(p => p - 1)}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 241,
+    "tag": "Button",
+    "size": "\"icon-sm\"",
+    "variant": "\"outline\"",
+    "aria-label": "\"Next PDF page\"",
+    "title": "\"Next PDF page\"",
+    "disabled": "{sourcePage >= analysis.pageCount}",
+    "onClick": "{() => setSourcePage(p => p + 1)}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 245,
+    "tag": "Button",
+    "variant": "\"outline\"",
+    "disabled": "{saving || !included.length}",
+    "onClick": "{() => setDecisions(current => Object.fromEntries(Object.entries(current).map(([id, d]) => { const row = rows.find(r => r.id === id)!; return [id, d.include && !decisionProblems(row, { ...d, reviewed: true }, accountId).length ? { ...d, reviewed: true } : d]; })))}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 245,
+    "tag": "Button",
+    "onClick": "{onClose}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 245,
+    "tag": "Button",
+    "disabled": "{!ready}",
+    "onClick": "{() => void save()}"
+  },
+  {
+    "file": "src/components/ui/ConfirmDialog.tsx",
+    "line": 44,
+    "tag": "Button",
+    "type": "\"button\"",
+    "variant": "\"ghost\"",
+    "onClick": "{() => resolveConfirm(false)}"
+  },
+  {
+    "file": "src/components/ui/ConfirmDialog.tsx",
+    "line": 47,
+    "tag": "Button",
+    "type": "\"button\"",
+    "variant": "{confirmReq?.destructive ? \"destructive\" : \"default\"}",
+    "onClick": "{() => resolveConfirm(true)}"
+  },
+  {
+    "file": "src/components/ui/Toast.tsx",
+    "line": 59,
+    "tag": "button",
+    "onClick": "{() => dismiss(t.id)}",
+    "className": "\"text-muted-foreground hover:text-[hsl(var(--foreground))] rounded p-1\"",
+    "aria-label": "\"Dismiss notification\""
+  }
+]

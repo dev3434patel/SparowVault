@@ -9,9 +9,11 @@
  * Requires sql/migrations/phase_05_financial_ledger.sql applied.
  */
 
+if (PHP_SAPI !== "cli") { http_response_code(403); exit; }
 require_once __DIR__ . "/../config/db.php";
 require_once __DIR__ . "/../helpers/utils.php";
 require_once __DIR__ . "/../helpers/finance_events.php";
+require_once __DIR__ . "/../helpers/cloud_write.php";
 
 $userFilter = null;
 foreach ($argv as $arg) {
@@ -41,7 +43,12 @@ while ($r = $st->fetch()) {
     $p["id"] = (string)$r["entity_id"];
     $p["userId"] = $uid;
     try {
-        finance_events_sync_transaction($db, $uid, $p);
+        cloud_write_atomic($db, $uid, ["operation" => "backfill", "id" => $p["id"]], function () use ($db, $uid, $p) {
+            // Re-read under the same user lock as online writes; the scan may be stale.
+            $current = cloud_write_row($db, $uid, "transactions", $p["id"]);
+            if ($current) finance_events_sync_transaction($db, $uid, $current);
+            return ["id" => $p["id"]];
+        });
         $n++;
     } catch (Throwable $e) {
         fwrite(STDERR, "Skip {$p["id"]}: " . $e->getMessage() . "\n");

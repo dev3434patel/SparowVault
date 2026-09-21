@@ -1,0 +1,191 @@
+{
+  "date": "2026-09-11T08:50:02.996Z",
+  "isolation": "fresh disposable MariaDB database; four PHP workers",
+  "checks": [
+    {
+      "title": "24 identical concurrent retries produce one immutable receipt and record",
+      "pass": true
+    },
+    {
+      "title": "24 different payloads cannot share one mutation key",
+      "pass": true
+    },
+    {
+      "title": "stale PATCH is rejected and retry returns the original committed result",
+      "pass": true
+    },
+    {
+      "title": "invalid sync batch rolls back source, ledger and audit",
+      "pass": true
+    },
+    {
+      "title": "malformed sync rows are rejected rather than silently skipped",
+      "pass": true
+    },
+    {
+      "title": "stale sync cannot resurrect a soft-deleted record",
+      "pass": true
+    },
+    {
+      "title": "nonexistent and foreign transaction references are rejected",
+      "pass": true
+    },
+    {
+      "title": "same transaction ID in two tenants has isolated ledger effects",
+      "pass": true
+    },
+    {
+      "title": "referenced account cannot be deleted",
+      "pass": true
+    },
+    {
+      "title": "ledger failure rolls back entity, receipt and audit",
+      "pass": true
+    },
+    {
+      "title": "batch PATCH rolls back its first row when a later row is missing",
+      "pass": true
+    },
+    {
+      "title": "bulk hard-delete voids posted ledger and retains server audit",
+      "pass": true
+    },
+    {
+      "title": "hard-delete tombstones prevent stale snapshot resurrection",
+      "pass": true
+    },
+    {
+      "title": "mutation keys are isolated by user and bound to collection",
+      "pass": true
+    },
+    {
+      "title": "sync validates a final parent graph independent of collection order",
+      "pass": true
+    },
+    {
+      "title": "household viewer restrictions hold on batch, sync and bulk hard-delete",
+      "pass": true
+    },
+    {
+      "title": "bulk import uses reference validation and retry-safe row writes",
+      "pass": true
+    },
+    {
+      "title": "owner-bound reads and queued patches reject a changed authenticated user",
+      "pass": true
+    },
+    {
+      "title": "browser: real account form creates a durable server record",
+      "pass": true
+    },
+    {
+      "title": "browser: a 503 create survives cloud refresh with a replayable payload",
+      "pass": true
+    },
+    {
+      "title": "browser: sync review renders without overflow at desktop and mobile sizes",
+      "pass": true
+    },
+    {
+      "title": "browser: actual browser process restart preserves IndexedDB payload",
+      "pass": true
+    },
+    {
+      "title": "browser: two-tab reconnect drains queue and persists exactly one server row",
+      "pass": true
+    },
+    {
+      "title": "browser: validation rejection opens actionable sync review",
+      "pass": true
+    },
+    {
+      "title": "browser: pending-change download contains the recoverable rejected payload",
+      "pass": true
+    },
+    {
+      "title": "browser: confirmed server-version resolution clears a rejected queue item",
+      "pass": true
+    },
+    {
+      "title": "browser: no uncaught application errors during durability workflows",
+      "pass": true
+    },
+    {
+      "title": "module workflow: category creation survives reload",
+      "pass": false,
+      "error": "locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'New category', exact: true })\u001b[22m\n"
+    },
+    {
+      "title": "module workflow: monthly budget persists amount and category",
+      "pass": false,
+      "error": "locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('option', { name: 'Test category', exact: true })\u001b[22m\n"
+    },
+    {
+      "title": "module workflow: goal creation and a contribution persist together",
+      "pass": false,
+      "error": "locator.click: Error: strict mode violation: getByRole('button', { name: 'New Goal', exact: true }) resolved to 2 elements:\n    1) <button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] disabled:pointer-events-none disabled:opacity-50 select-none bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] hover:brightness-110 shadow-sm h-9 px-4\">…</button> aka getByRole('button', { name: 'New Goal' }).first()\n    2) <button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] disabled:pointer-events-none disabled:opacity-50 select-none bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] hover:brightness-110 shadow-sm h-9 px-4\">…</button> aka getByRole('button', { name: 'New Goal' }).nth(1)\n\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'New Goal', exact: true })\u001b[22m\n"
+    },
+    {
+      "title": "module workflow: credit card creation retains limit and statement/due days",
+      "pass": true
+    },
+    {
+      "title": "module workflow: new loan creates durable principal and twelve EMI rows",
+      "pass": false,
+      "error": "expect(locator).toHaveCount(expected) failed\n\nLocator:  getByRole('dialog')\nExpected: 0\nReceived: 1\nTimeout:  5000ms\n\nCall log:\n  - Expect \"to.have.count\" with timeout 5000ms\n  - waiting for getByRole('dialog')\n    9 × locator resolved to 1 element\n      - unexpected value \"1\"\n"
+    },
+    {
+      "title": "module workflow: Udhari receivable creation and partial settlement persist",
+      "pass": false,
+      "error": "locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Settle', exact: true })\u001b[22m\n"
+    },
+    {
+      "title": "module workflow: FD creation persists principal and dates",
+      "pass": false,
+      "error": "locator.fill: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('div.rounded-xl').filter({ has: getByText('Add FD/RD') }).last().locator('label').filter({ hasText: /^Name/ }).first().locator('..').locator('input')\u001b[22m\n"
+    },
+    {
+      "title": "module workflow: insurance policy creation persists premium and coverage",
+      "pass": false,
+      "error": "locator.fill: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('div.rounded-xl').filter({ has: getByText('Add insurance policy', { exact: true }) }).last().locator('label').filter({ hasText: /^Policy name/ }).first().locator('..').locator('input')\u001b[22m\n"
+    },
+    {
+      "title": "module workflow: asset valuation persists as a valuation rather than income",
+      "pass": false,
+      "error": "locator.fill: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByPlaceholder('Gold jewellery').locator('xpath=ancestor::div[contains(@class,\\'rounded-xl\\')][1]').locator('label').filter({ hasText: /^Label/ }).first().locator('..').locator('input')\u001b[22m\n"
+    },
+    {
+      "title": "module workflow: household and named partner survive reload",
+      "pass": true
+    },
+    {
+      "title": "module workflow: settings save persists without page error",
+      "pass": false,
+      "error": "locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: /Save settings/i })\u001b[22m\n"
+    },
+    {
+      "title": "module workflow: populated mobile /cards renders at 390px",
+      "pass": true
+    },
+    {
+      "title": "module workflow: populated mobile /loans renders at 390px",
+      "pass": true
+    },
+    {
+      "title": "module workflow: populated mobile /udhari renders at 390px",
+      "pass": true
+    },
+    {
+      "title": "module workflow: populated mobile /goals renders at 390px",
+      "pass": true
+    },
+    {
+      "title": "module workflow: populated mobile /savings renders at 390px",
+      "pass": true
+    },
+    {
+      "title": "module workflow: populated mobile /household renders at 390px",
+      "pass": true
+    }
+  ]
+}

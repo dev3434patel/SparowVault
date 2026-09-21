@@ -1,0 +1,13 @@
+{
+  "label": "validation-api",
+  "command": [
+    "node",
+    "tests/phase-04-validation-e2e.mjs"
+  ],
+  "started": "2026-09-10T06:53:25.768Z",
+  "ended": "2026-09-10T06:53:26.284Z",
+  "seconds": 0.516,
+  "exitCode": 1,
+  "signal": null,
+  "timedOut": false
+}

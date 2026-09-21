@@ -11,6 +11,8 @@
 import { cp, mkdir, rm, stat, readdir, readFile, writeFile, unlink } from "node:fs/promises";
 import { spawn } from "node:child_process";
 import { join, relative } from "node:path";
+import { pathToFileURL } from "node:url";
+import { parse } from "dotenv";
 
 const ROOT = process.cwd();
 const RELEASE_DIR = join(ROOT, "release");
@@ -33,16 +35,14 @@ const FORBIDDEN_PATTERNS = [
   /\.sql\.gpg$/i,
   /\/tests\//,
   /\/tmp[-_]/i,
+  /\/\._/,
+  /^\._/,
+  /\.DS_Store$/i,
 ];
 
 // Phase 1 — placeholder lines that the SANITIZED .env.host must contain.
 // If the file ever contains a NON-empty real secret, the packager aborts.
-const ENV_FORBIDDEN_VALUE_REGEXES = [
-  /^DB_PASS=("?)([^"\s]{1,})\1\s*$/m,
-  /^CLOUD_JWT_SECRET=("?)([^"\s]{1,})\1\s*$/m,
-  /^RAZORPAY_KEY_SECRET=("?)([^"\s]{1,})\1\s*$/m,
-  /^RAZORPAY_WEBHOOK_SECRET=("?)([^"\s]{1,})\1\s*$/m,
-];
+const SECRET_KEYS = ["DB_PASS", "DATABASE_URL", "CLOUD_JWT_SECRET", "RAZORPAY_KEY_SECRET", "RAZORPAY_WEBHOOK_SECRET"];
 
 function run(command, args, options = {}) {
   return new Promise((resolve, reject) => {
@@ -85,28 +85,19 @@ async function purge(dir, ctx = { removed: [] }) {
   return ctx;
 }
 
-async function sanitizeBundleEnvFile() {
-  const envPath = join(ROOT, "release", "hosting-bundle", ".env.host");
-  const templatePath = join(ROOT, ".env.host.example");
+export async function sanitizeBundleEnvFile(root = ROOT, bundleDir = BUNDLE_DIR) {
+  const envPath = join(bundleDir, ".env.host");
+  const templatePath = join(root, ".env.host.example");
   // Prefer a .env.host.example template if present (Phase 1 convention).
-  if (await exists(templatePath)) {
-    const tpl = await readFile(templatePath, "utf8");
-    await writeFile(envPath, tpl, "utf8");
-    return { sanitized: true, source: ".env.host.example" };
+  const hasTemplate = await exists(templatePath);
+  if (!hasTemplate && !(await exists(envPath))) throw new Error("Missing hosting environment template");
+  const body = await readFile(hasTemplate ? templatePath : envPath, "utf8");
+  const values = parse(body);
+  for (const key of SECRET_KEYS) {
+    if (values[key]?.trim()) throw new Error(`REFUSING to ship a non-empty ${key} in the hosting environment template`);
   }
-  // Otherwise read the in-bundle file and assert it is already sanitized.
-  if (!(await exists(envPath))) return { sanitized: false, source: "missing" };
-  const body = await readFile(envPath, "utf8");
-  for (const re of ENV_FORBIDDEN_VALUE_REGEXES) {
-    const m = re.exec(body);
-    if (m && m[2] && m[2].length > 0) {
-      throw new Error(
-        `REFUSING to ship release/hosting-bundle/.env.host — it contains a non-empty secret matching ${re}. ` +
-        `Phase 1 requires placeholders only. Run: npm run host:package after replacing values with empty strings.`
-      );
-    }
-  }
-  return { sanitized: true, source: "in-place (already empty)" };
+  if (hasTemplate) await writeFile(envPath, body, "utf8");
+  return { sanitized: true, source: hasTemplate ? ".env.host.example" : "in-place (already empty)" };
 }
 
 async function copyAllowed() {
@@ -124,6 +115,8 @@ async function copyAllowed() {
   if (await exists(hostingSql)) {
     await cp(hostingSql, join(BUNDLE_DIR, "HOSTING_READY_CLEAN_IMPORT.sql"));
   }
+  await cp(join(ROOT, "sql", "migrations", "20260910_atomic_writes.sql"), join(BUNDLE_DIR, "20260910_atomic_writes.sql"));
+  await cp(join(ROOT, "sql", "migrations", "20260911_security_sessions.sql"), join(BUNDLE_DIR, "20260911_security_sessions.sql"));
   const hostingReadme = join(ROOT, "docs", "HOSTING_DEPLOY.md");
   if (await exists(hostingReadme)) {
     await cp(hostingReadme, join(BUNDLE_DIR, "HOSTING_DEPLOY.md"));
@@ -142,9 +135,37 @@ async function summarize(removed) {
   if (removed.length > 10) console.log(`  • …and ${removed.length - 10} more`);
 }
 
+async function zipBundle() {
+  await rm(ZIP_PATH, { force: true });
+  if (process.platform === "win32") {
+    await run("powershell", [
+      "-NoProfile",
+      "-Command",
+      `Compress-Archive -Path "${BUNDLE_DIR}\\*" -DestinationPath "${ZIP_PATH}" -Force`,
+    ]);
+    return;
+  }
+  await run("zip", [
+    "-r",
+    "-X",
+    ZIP_PATH,
+    ".",
+    "-x",
+    "*.DS_Store",
+    "*._*",
+  ], { cwd: BUNDLE_DIR });
+}
+
 async function main() {
   console.log("Building frontend...");
-  await run("npm", ["run", "build"]);
+  await run("npm", ["run", "build"], {
+    env: {
+      ...process.env,
+      VITE_API_BASE_URL: "",
+      VITE_CLOUD_ONLY_MODE: "true",
+      VITE_ENABLE_RAZORPAY: "false",
+    },
+  });
 
   console.log("Preparing hosting bundle...");
   await rm(BUNDLE_DIR, { recursive: true, force: true });
@@ -155,19 +176,8 @@ async function main() {
   const sanitize = await sanitizeBundleEnvFile();
   console.log(`.env.host       : sanitized via ${sanitize.source}`);
 
-  await rm(ZIP_PATH, { force: true });
-
-  if (process.platform === "win32") {
-    console.log("Creating zip archive...");
-    await run("powershell", [
-      "-NoProfile",
-      "-Command",
-      `Compress-Archive -Path "${BUNDLE_DIR}\\*" -DestinationPath "${ZIP_PATH}" -Force`,
-    ]);
-  } else {
-    console.log("Zip auto-creation is only enabled on Windows. Upload folder directly:");
-    console.log(BUNDLE_DIR);
-  }
+  console.log("Creating zip archive...");
+  await zipBundle();
 
   await summarize(purgeResult.removed);
 
@@ -177,7 +187,9 @@ async function main() {
   console.log("Reminder: set DB_PASS, CLOUD_JWT_SECRET, RAZORPAY_* on the host before going live.");
 }
 
-main().catch((error) => {
-  console.error("Hosting package failed:", error.message);
-  process.exit(1);
-});
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main().catch((error) => {
+    console.error("Hosting package failed:", error.message);
+    process.exit(1);
+  });
+}

@@ -1,0 +1,52 @@
+import { createRequire } from 'node:module';
+import { writeFileSync } from 'node:fs';
+import { pathToFileURL } from 'node:url';
+const root=process.cwd(),require=createRequire(root+'/package.json'),XLSX=require('xlsx');
+const money=await import(pathToFileURL(root+'/src/utils/money.ts').href);
+const reports=await import(pathToFileURL(root+'/src/services/caReports.ts').href);
+const exporter=await import(pathToFileURL(root+'/src/exports/xlsxExporter.ts').href);
+const split=await import(pathToFileURL(root+'/src/services/businessPersonalSplit.ts').href);
+const safety=await import(pathToFileURL(root+'/src/services/exportSafety.ts').href);
+const ledger=await import(pathToFileURL(root+'/src/services/financeEventBuilder.ts').href);
+const rows:any[]=[];
+const check=(id:string,name:string,expected:any,actual:any)=>{const pass=JSON.stringify(expected)===JSON.stringify(actual);rows.push({id,name,expected,actual,pass});console.log(pass?'PASS':'FAIL',id,name,JSON.stringify(actual));};
+const base={userId:'audit',createdAt:'2026-01-01T00:00:00.000Z',updatedAt:'2026-01-01T00:00:00.000Z',isDeleted:0,version:1,tags:[],notes:''};
+const account={...base,id:'acc',name:'Bank',type:'bank',openingBalance:1000,openingBalancePaise:100000,color:'#123456',icon:'bank',isInactive:0};
+const tx=(id:string,date:string,amount:number,type='expense')=>({...base,id,date,type,amount:amount/100,amountPaise:amount,accountId:'acc',categoryId:'cat',paymentMode:'cash',merchantOrPerson:'Vendor',description:'Fixture',billAvailable:0,gstApplicable:0,taxFlag:0,businessOrPersonal:'personal',needWant:'need',fixedVariable:'variable',plannedUnplanned:'planned'});
+const empty={txs:[],events:[],effects:[],accounts:[],cards:[],loans:[],emis:[],goals:[],udharis:[],categories:[]};
+check('F01','exact rupee rounding half up',101,money.parseMoneyInputToPaise('1.005'));
+check('F02','negative rounded amount when expressly allowed',-101,money.parseMoneyInputToPaise('-1.005',{allowNegative:true}));
+check('F03','zero rate EMI',10000,money.calculateEMI(120000,0,12));
+check('F04','net worth includes account opening balance',100000,reports.reportNetWorth({...empty,accounts:[account]}).netWorthPaise);
+const udhari={...base,id:'udh',type:'payable',personName:'Fixture',givenDate:'2026-01-01',dueDate:'2026-02-01',amount:500,amountPaise:50000,amountSettled:100,amountSettledPaise:10000,status:'partial',context:'personal'};
+const aging=reports.reportUdhariAgeing({...empty,udharis:[udhari]},new Date('2026-09-10T00:00:00Z'))[0];
+check('F05','ageing reads canonical amount/date/direction',{outstandingPaise:40000,direction:'received',ageDays:252},{outstandingPaise:aging.outstandingPaise,direction:aging.direction,ageDays:aging.ageDays});
+const cost={id:'f',eventId:'evt',userId:'audit',targetType:'expense_category',targetId:'cat',effectDirection:'increase',amountPaise:10000,component:'interest',createdAt:base.createdAt};
+check('F06','reversed financing cost nets to zero',0,reports.reportFinancingCostPaise({...empty,effects:[cost,{...cost,id:'r',effectDirection:'decrease'}]}));
+const mixed={...tx('m','2026-09-01',10000),businessOrPersonal:'mixed',splitPersonalPaise:15000};
+const parts=split.splitTransaction(mixed);check('F07','invalid oversized personal split cannot create negative business amount',true,parts.businessPaise>=0&&parts.personalPaise>=0&&parts.personalPaise<=10000);
+let splitCases=0,splitFailures=0;for(let amount=1;amount<=1000;amount+=7)for(let pct=0;pct<=100;pct++){const p=split.splitTransaction({...mixed,amountPaise:amount,splitPersonalPaise:undefined,splitBusinessPct:pct});splitCases++;if(p.businessPaise+p.personalPaise!==amount)splitFailures++;}
+check('F08','percentage split conservation across '+splitCases+' cases',0,splitFailures);
+const sep=tx('sep','2026-09-02',10000),aug=tx('aug','2026-08-02',30000);
+const ev=(t:any)=>({id:'ev_'+t.id,userId:'audit',sourceTransactionId:t.id,eventType:'expense_cash',eventDate:t.date,amountPaise:t.amountPaise,currency:'INR',description:'Fixture',source:'transaction',status:'posted',createdAt:base.createdAt,updatedAt:base.updatedAt});
+const fx=(t:any)=>({...cost,id:'fx_'+t.id,eventId:'ev_'+t.id,targetType:'account',targetId:'acc',effectDirection:'decrease',amountPaise:t.amountPaise,component:'cash'});
+const workbookCtx={transactions:[sep],categories:[],accounts:[account],cards:[],budgets:[],goals:[],goalContribs:[],loans:[],emis:[],udhari:[],investments:[],savingsContribs:[],events:[ev(sep),ev(aug)],effects:[fx(sep),fx(aug)],userId:'audit',reportPeriod:'2026-09-01 to 2026-09-30'};
+const built=exporter.buildCAWorkbook(workbookCtx),wb=XLSX.read(built.buffer,{type:'array'});
+writeFileSync(root+'/docs/audit-evidence/2026-09-10/finance-period-fixture.xlsx',Buffer.from(built.buffer));
+check('F09','CA workbook monthly summary respects transaction date filter',['2026-09'],XLSX.utils.sheet_to_json(wb.Sheets.Expense_Summary_Monthly).map((r:any)=>r.Month));
+check('F10','Excel master monetary cells are numeric','n',wb.Sheets.Transactions_Master.H2?.t);
+const loan={...base,id:'loan1',lender:'Same Bank',name:'Test',loanType:'personal',principal:1200,principalPaise:120000,annualInterestRate:0,tenureMonths:12,startDate:'2026-01-01',emiStartDate:'2026-02-01',dueDay:1,status:'active',lifecycleMode:'fresh'};
+let duplicateError:string|null=null;try{exporter.buildCAWorkbook({...workbookCtx,loans:[loan,{...loan,id:'loan2'}]});}catch(e:any){duplicateError=e.message;}
+check('F11','two loans with same lender export successfully',null,duplicateError);
+const dangerous=exporter.mapTransactionRow({...sep,description:'=1+1'},workbookCtx);const csv=XLSX.utils.sheet_to_csv(XLSX.utils.json_to_sheet([dangerous]));
+check('F12','CSV formula-like description neutralized',false,csv.includes(',=1+1,'));
+const backup=safety.buildUserOwnedFullExportPayload({id:'audit',username:'audit',displayName:'Audit'},{...workbookCtx,settings:{},udhariSettlements:[],reminders:[],recurringRules:[],cardEmiPlans:[{id:'plan1'}],households:[{id:'home1'}]});
+check('F13','full backup retains current card EMI and household collections',true,'cardEmiPlans' in backup.collections&&'households' in backup.collections);
+const reconciled=reports.reportAccountReconciliation({...empty,accounts:[account]})[0];check('F14','no external statement balance is not certified matched',false,reconciled.status==='matched');
+const inc=tx('inc','2026-09-01',100000,'income'),refund=tx('refund','2026-09-10',4000,'refund');
+const annualBuilt=exporter.buildCAWorkbook({...workbookCtx,transactions:[inc,sep,refund],effects:[],events:[]});const annualWb=XLSX.read(annualBuilt.buffer,{type:'array'});
+const annual=XLSX.utils.sheet_to_json(annualWb.Sheets['Annual_Personal_Financial_Summary'.slice(0,31)])[0];check('F15','annual expense is net of refund',60,annual.Expense);
+const businessTx={...sep,businessOrPersonal:'mixed',splitBusinessPct:60};const splitBuilt=exporter.buildCAWorkbook({...workbookCtx,transactions:[businessTx],events:[],effects:[]});const splitWb=XLSX.read(splitBuilt.buffer,{type:'array'});const splitRow=XLSX.utils.sheet_to_json(splitWb.Sheets.Business_Personal_Split)[0];check('F16','workbook allocates mixed expense to business and personal',{Business:60,Personal:40},{Business:splitRow.Business,Personal:splitRow.Personal});
+const performance:any[]=[];for(const count of [1000,10000,25000]){const t0=performanceNow();const entries=Array.from({length:count},(_,i)=>tx('load'+i,'2026-09-01',100));const ctx={...empty,accounts:[account]};const built=entries.map(t=>ledger.buildLedgerForTransaction(t,ctx));const t1=performanceNow();performance.push({count,milliseconds:Math.round(t1-t0),results:built.length});}
+function performanceNow(){return globalThis.performance.now();}
+writeFileSync(root+'/docs/audit-evidence/2026-09-10/finance-probes.json',JSON.stringify({date:new Date().toISOString(),rows,performance,splitCases},null,2));

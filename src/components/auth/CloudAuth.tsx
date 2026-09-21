@@ -61,6 +61,7 @@ export function CloudAuth({
       JSON.stringify({ userId: sqlUser.id, username: sqlUser.username, locked: false }),
     );
     await login(sqlUser.id, pinValue);
+    if (useAuthStore.getState().currentUser?.mustChangePin) return;
     await loadAll(useAuthStore.getState().currentUser!);
     await hydrateCloudApp();
     toast({

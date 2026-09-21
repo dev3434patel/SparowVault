@@ -1,0 +1,13 @@
+{
+  "status": 200,
+  "effectiveFeatures": {
+    "exports": true,
+    "advanced_reports": true,
+    "alerts": true,
+    "admin_panel": true,
+    "branding": true,
+    "import": true,
+    "subscriptions": true,
+    "udhari": true
+  }
+}

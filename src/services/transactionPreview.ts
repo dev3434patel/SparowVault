@@ -127,6 +127,8 @@ export function stateToDraftTransaction(
     linkedGoalId: state.linkedGoalId || undefined,
     linkedUdhariId: state.linkedUdhariId || undefined,
     linkedSavingsId: state.linkedSavingsId || undefined,
+    linkedOriginalTransactionId: state.linkedOriginalTransactionId || undefined,
+    transactionIntent: state.transactionIntent,
     paymentMode: state.paymentMode,
     merchantOrPerson: state.merchantOrPerson,
     description: state.description,
@@ -253,7 +255,8 @@ export function buildTransactionPreview(
       }
       if (state.accountId) {
         const balance = accountBalancePreview(ctx, state.accountId, amt);
-        lines.push(`${state.type === "income" ? "Income" : "Refund"} of ${ru(amt)} credits ${accountName(ctx, state.accountId)}.`);
+        lines.push(`${state.transactionIntent === "expense_contribution" ? "Contribution return" : state.type === "income" ? "Income" : "Refund"} of ${ru(amt)} credits ${accountName(ctx, state.accountId)}.`);
+        if (state.transactionIntent === "expense_contribution") lines.push(`Expense reduction: ${ru(amt)}. Income: ${ru(0)}.`);
         if (balance) {
           lines.push(`${accountName(ctx, state.accountId)} balance preview: ${ru(balance.before)} to ${ru(balance.after)}.`);
         }

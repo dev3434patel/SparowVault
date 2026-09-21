@@ -54,6 +54,7 @@ export async function cloudAdminLogin(input: { username: string; pin: string }) 
 
 export async function cloudMe() {
   return apiRequest<{
+    mustChangePin?: boolean;
     id: string;
     username: string;
     displayName: string;
@@ -74,13 +75,16 @@ export async function cloudMe() {
 }
 
 export async function cloudLogout() {
+  let revoked = false;
   try {
     await apiRequest<{ loggedOut: boolean }>("/api/auth/logout.php", { method: "POST" });
+    revoked = true;
   } catch {
     // Best-effort cookie cleanup; local app state is still cleared below.
   }
   clearCloudToken();
   setCsrfToken(null);
+  return revoked;
 }
 
 export async function cloudSyncPush(_collections: Partial<Record<CloudCollectionKey, unknown[]>>) {

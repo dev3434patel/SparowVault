@@ -1,0 +1,14 @@
+{
+  "label": "db-reset",
+  "command": [
+    "npm",
+    "run",
+    "db:test:reset"
+  ],
+  "started": "2026-09-10T06:52:11.618Z",
+  "ended": "2026-09-10T06:52:12.299Z",
+  "seconds": 0.681,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false
+}

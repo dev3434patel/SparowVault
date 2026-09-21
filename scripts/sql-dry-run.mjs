@@ -22,6 +22,7 @@ import path from "node:path";
 const ROOT = process.cwd();
 const SQL_DIR = path.join(ROOT, "sql");
 const LIVE_DRY_RUN_FILES = [
+  path.join(SQL_DIR, "HOSTING_READY_CLEAN_IMPORT.sql"),
   path.join(SQL_DIR, "production_schema.sql"),
   path.join(SQL_DIR, "migrations", "all_phases_combined.sql"),
 ];

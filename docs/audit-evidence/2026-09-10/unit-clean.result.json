@@ -1,0 +1,24 @@
+{
+  "label": "unit-clean",
+  "command": [
+    "npm",
+    "run",
+    "test",
+    "--",
+    "--exclude",
+    "**/._*",
+    "--coverage",
+    "--coverage.exclude",
+    "**/._*",
+    "--coverage.reportsDirectory=docs/audit-evidence/2026-09-10/coverage-clean",
+    "--reporter=default",
+    "--reporter=json",
+    "--outputFile=docs/audit-evidence/2026-09-10/unit-clean-results.json"
+  ],
+  "started": "2026-09-10T06:52:43.515Z",
+  "ended": "2026-09-10T06:52:47.933Z",
+  "seconds": 4.418,
+  "exitCode": 1,
+  "signal": null,
+  "timedOut": false
+}

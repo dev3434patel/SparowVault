@@ -1,0 +1,59 @@
+{
+  "checkedAt": "2026-09-10T09:29:45.717Z",
+  "results": [
+    {
+      "url": "http://localhost:5173/",
+      "status": 200,
+      "ok": true,
+      "html": true
+    },
+    {
+      "url": "http://localhost:8080/api/health.php",
+      "status": 200,
+      "ok": true,
+      "health": {
+        "ok": true,
+        "data": {
+          "status": "healthy",
+          "appEnv": "development",
+          "version": "phase_vnext_mutation_idempotency",
+          "razorpayEnabled": false,
+          "db": {
+            "status": "ok",
+            "latencyMs": 0
+          },
+          "requestId": "7321aac06e944422",
+          "totalMs": 3,
+          "time": "2026-09-10T09:29:45+00:00"
+        }
+      }
+    },
+    {
+      "url": "http://127.0.0.1:5178/",
+      "status": 200,
+      "ok": true,
+      "html": true
+    },
+    {
+      "url": "http://127.0.0.1:8088/api/health.php",
+      "status": 200,
+      "ok": true,
+      "health": {
+        "ok": true,
+        "data": {
+          "status": "healthy",
+          "appEnv": "development",
+          "version": "phase_14_saas_billing_2026_05_13",
+          "razorpayEnabled": false,
+          "db": {
+            "status": "ok",
+            "latencyMs": 1
+          },
+          "requestId": "7b65fb29471d4167",
+          "totalMs": 4,
+          "time": "2026-09-10T09:29:45+00:00"
+        }
+      }
+    }
+  ]
+}

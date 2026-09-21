@@ -36,20 +36,24 @@ function fe_emis_by_transaction_id(PDO $db, string $userId): array {
     return $map;
 }
 
-function fe_event_id_for_transaction(string $txnId): string {
-    return "fevt_" . $txnId;
+function fe_event_id_for_transaction(PDO $db, string $userId, string $txnId): string {
+    // Preserve existing IDs for this owner; new IDs cannot collide across tenants.
+    $st = $db->prepare("SELECT id FROM financial_events WHERE user_id = ? AND source_transaction_id = ? AND source = 'transaction' LIMIT 1");
+    $st->execute([$userId, $txnId]);
+    $row = $st->fetch();
+    return $row ? (string)$row["id"] : "fevt_" . hash("sha256", $userId . "\0" . $txnId);
 }
 
 /** Remove posted effects; keep the financial_events row for audit when possible. */
-function fe_clear_effects_for_event(PDO $db, string $eventId): void {
-    $st = $db->prepare("DELETE FROM financial_effects WHERE event_id = ?");
-    $st->execute([$eventId]);
+function fe_clear_effects_for_event(PDO $db, string $userId, string $eventId): void {
+    $st = $db->prepare("DELETE FROM financial_effects WHERE user_id = ? AND event_id = ?");
+    $st->execute([$userId, $eventId]);
 }
 
 /** Transaction removed or invalid amount — void ledger (effects cleared; event soft-deleted). */
 function fe_void_ledger_for_transaction(PDO $db, string $userId, string $txnId): void {
-    $eid = fe_event_id_for_transaction($txnId);
-    fe_clear_effects_for_event($db, $eid);
+    $eid = fe_event_id_for_transaction($db, $userId, $txnId);
+    fe_clear_effects_for_event($db, $userId, $eid);
     $now = gmdate("Y-m-d H:i:s");
     $st = $db->prepare(
         "UPDATE financial_events SET deleted_at = ?, status = 'reversed', updated_at = ? WHERE user_id = ? AND id = ? AND deleted_at IS NULL",
@@ -72,8 +76,8 @@ function fe_upsert_posted_ledger(
     string $now,
     array $effects,
 ): void {
-    $eid = fe_event_id_for_transaction($txnId);
-    fe_clear_effects_for_event($db, $eid);
+    $eid = fe_event_id_for_transaction($db, $userId, $txnId);
+    fe_clear_effects_for_event($db, $userId, $eid);
 
     $sel = $db->prepare("SELECT id FROM financial_events WHERE id = ? AND user_id = ?");
     $sel->execute([$eid, $userId]);
@@ -157,7 +161,7 @@ function finance_events_sync_transaction(PDO $db, string $userId, array $tx): vo
     }
 
     $emisByTxn = fe_emis_by_transaction_id($db, $userId);
-    $eventId = "fevt_" . $txnId;
+    $eventId = fe_event_id_for_transaction($db, $userId, $txnId);
     $now = gmdate("Y-m-d H:i:s");
     $dateRaw = $tx["date"] ?? "";
     $eventDate = is_string($dateRaw) && strtotime($dateRaw) !== false

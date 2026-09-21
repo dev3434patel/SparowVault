@@ -1,0 +1,78 @@
+{
+  "date": "2026-09-11T08:36:48.063Z",
+  "isolation": "fresh disposable MariaDB database; four PHP workers",
+  "checks": [
+    {
+      "title": "24 identical concurrent retries produce one immutable receipt and record",
+      "pass": true
+    },
+    {
+      "title": "24 different payloads cannot share one mutation key",
+      "pass": true
+    },
+    {
+      "title": "stale PATCH is rejected and retry returns the original committed result",
+      "pass": true
+    },
+    {
+      "title": "invalid sync batch rolls back source, ledger and audit",
+      "pass": true
+    },
+    {
+      "title": "malformed sync rows are rejected rather than silently skipped",
+      "pass": true
+    },
+    {
+      "title": "stale sync cannot resurrect a soft-deleted record",
+      "pass": true
+    },
+    {
+      "title": "nonexistent and foreign transaction references are rejected",
+      "pass": true
+    },
+    {
+      "title": "same transaction ID in two tenants has isolated ledger effects",
+      "pass": true
+    },
+    {
+      "title": "referenced account cannot be deleted",
+      "pass": true
+    },
+    {
+      "title": "ledger failure rolls back entity, receipt and audit",
+      "pass": true
+    },
+    {
+      "title": "batch PATCH rolls back its first row when a later row is missing",
+      "pass": true
+    },
+    {
+      "title": "bulk hard-delete voids posted ledger and retains server audit",
+      "pass": true
+    },
+    {
+      "title": "hard-delete tombstones prevent stale snapshot resurrection",
+      "pass": true
+    },
+    {
+      "title": "mutation keys are isolated by user and bound to collection",
+      "pass": true
+    },
+    {
+      "title": "sync validates a final parent graph independent of collection order",
+      "pass": true
+    },
+    {
+      "title": "household viewer restrictions hold on batch, sync and bulk hard-delete",
+      "pass": true
+    },
+    {
+      "title": "bulk import uses reference validation and retry-safe row writes",
+      "pass": true
+    },
+    {
+      "title": "owner-bound reads and queued patches reject a changed authenticated user",
+      "pass": true
+    }
+  ]
+}

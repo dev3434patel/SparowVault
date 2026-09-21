@@ -51,10 +51,10 @@ export function splitTransaction(tx: Transaction): SplitParts {
   const hasPersonalPaise =
     Number.isInteger(amountSplit.splitPersonalPaise) && amountSplit.splitPersonalPaise! >= 0;
   if (hasBusinessPaise || hasPersonalPaise) {
-    const businessPaise = Math.min(
+    const businessPaise = Math.max(0, Math.min(
       total,
       hasBusinessPaise ? amountSplit.splitBusinessPaise! : total - amountSplit.splitPersonalPaise!,
-    );
+    ));
     return {
       businessPaise,
       personalPaise: total - businessPaise,
@@ -84,6 +84,18 @@ export function sumSplit(txs: Transaction[]): SplitParts {
     const s = splitTransaction(t);
     businessPaise += s.businessPaise;
     personalPaise += s.personalPaise;
+  }
+  return { businessPaise, personalPaise, totalPaise: businessPaise + personalPaise };
+}
+
+export function sumExpenseSplit(txs: Transaction[]): SplitParts {
+  let businessPaise = 0, personalPaise = 0;
+  for (const tx of txs) {
+    if (tx.isDeleted === 1 || !["expense", "refund"].includes(tx.type)) continue;
+    const split = splitTransaction(tx);
+    const sign = tx.type === "refund" ? -1 : 1;
+    businessPaise += sign * split.businessPaise;
+    personalPaise += sign * split.personalPaise;
   }
   return { businessPaise, personalPaise, totalPaise: businessPaise + personalPaise };
 }

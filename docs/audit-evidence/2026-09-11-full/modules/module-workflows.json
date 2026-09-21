@@ -1,0 +1,92 @@
+{
+  "date": "2026-09-11T08:50:02.866Z",
+  "outcomes": [
+    {
+      "name": "category creation survives reload",
+      "pass": false,
+      "error": "locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'New category', exact: true })\u001b[22m\n",
+      "dialogText": ""
+    },
+    {
+      "name": "monthly budget persists amount and category",
+      "pass": false,
+      "error": "locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('option', { name: 'Test category', exact: true })\u001b[22m\n",
+      "dialogText": ""
+    },
+    {
+      "name": "goal creation and a contribution persist together",
+      "pass": false,
+      "error": "locator.click: Error: strict mode violation: getByRole('button', { name: 'New Goal', exact: true }) resolved to 2 elements:\n    1) <button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] disabled:pointer-events-none disabled:opacity-50 select-none bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] hover:brightness-110 shadow-sm h-9 px-4\">…</button> aka getByRole('button', { name: 'New Goal' }).first()\n    2) <button class=\"inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[background,color,border,box-shadow] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] disabled:pointer-events-none disabled:opacity-50 select-none bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] hover:brightness-110 shadow-sm h-9 px-4\">…</button> aka getByRole('button', { name: 'New Goal' }).nth(1)\n\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'New Goal', exact: true })\u001b[22m\n",
+      "dialogText": ""
+    },
+    {
+      "name": "credit card creation retains limit and statement/due days",
+      "pass": true
+    },
+    {
+      "name": "new loan creates durable principal and twelve EMI rows",
+      "pass": false,
+      "error": "expect(locator).toHaveCount(expected) failed\n\nLocator:  getByRole('dialog')\nExpected: 0\nReceived: 1\nTimeout:  5000ms\n\nCall log:\n  - Expect \"to.have.count\" with timeout 5000ms\n  - waiting for getByRole('dialog')\n    9 × locator resolved to 1 element\n      - unexpected value \"1\"\n",
+      "dialogText": "New Loan\nLender*\nLoan type\nPersonal Loan\nHome Loan\nPersonal Loan\nVehicle Loan\nEducation Loan\nBusiness Loan\nGold Loan\nInformal Loan\nCustom Loan\nTracking mode\nFresh new loan\nFresh new loan\nAlready running (legacy)\nOngoing — imported mid-course\nInterest method\nReducing balance\nReducing balance\nFlat interest\nInterest only\nCustom / manual\nStart date*\nPrincipal (₹)*\nDisbursed amount (INR)\nFirst EMI date\nTenure (months)*\nInterest %\nEMI due day (1-28)\nProcessing fee (₹)\nForeclosure charges %\nLinked credit card\nNo linked card\nNo linked card\nBlocked amount on card (INR)\nCalculated EMI\n₹1,066 / month\nToo small: expected number to be >0\nCancel\nSave\nClose"
+    },
+    {
+      "name": "Udhari receivable creation and partial settlement persist",
+      "pass": false,
+      "error": "locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: 'Settle', exact: true })\u001b[22m\n",
+      "dialogText": ""
+    },
+    {
+      "name": "FD creation persists principal and dates",
+      "pass": false,
+      "error": "locator.fill: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('div.rounded-xl').filter({ has: getByText('Add FD/RD') }).last().locator('label').filter({ hasText: /^Name/ }).first().locator('..').locator('input')\u001b[22m\n",
+      "dialogText": ""
+    },
+    {
+      "name": "insurance policy creation persists premium and coverage",
+      "pass": false,
+      "error": "locator.fill: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('div.rounded-xl').filter({ has: getByText('Add insurance policy', { exact: true }) }).last().locator('label').filter({ hasText: /^Policy name/ }).first().locator('..').locator('input')\u001b[22m\n",
+      "dialogText": ""
+    },
+    {
+      "name": "asset valuation persists as a valuation rather than income",
+      "pass": false,
+      "error": "locator.fill: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByPlaceholder('Gold jewellery').locator('xpath=ancestor::div[contains(@class,\\'rounded-xl\\')][1]').locator('label').filter({ hasText: /^Label/ }).first().locator('..').locator('input')\u001b[22m\n",
+      "dialogText": ""
+    },
+    {
+      "name": "household and named partner survive reload",
+      "pass": true
+    },
+    {
+      "name": "settings save persists without page error",
+      "pass": false,
+      "error": "locator.click: Timeout 12000ms exceeded.\nCall log:\n\u001b[2m  - waiting for getByRole('button', { name: /Save settings/i })\u001b[22m\n",
+      "dialogText": ""
+    },
+    {
+      "name": "populated mobile /cards renders at 390px",
+      "pass": true
+    },
+    {
+      "name": "populated mobile /loans renders at 390px",
+      "pass": true
+    },
+    {
+      "name": "populated mobile /udhari renders at 390px",
+      "pass": true
+    },
+    {
+      "name": "populated mobile /goals renders at 390px",
+      "pass": true
+    },
+    {
+      "name": "populated mobile /savings renders at 390px",
+      "pass": true
+    },
+    {
+      "name": "populated mobile /household renders at 390px",
+      "pass": true
+    }
+  ],
+  "errors": []
+}

@@ -1,0 +1,60 @@
+{
+  "date": "2026-09-11T04:38:43.596Z",
+  "head": "54eec068a37cceb9cccc2a63dca824e1e092f52e",
+  "worktree": "Includes uncommitted implementation and preserved user changes; see source-hashes.json",
+  "results": [
+    {
+      "name": "typecheck",
+      "command": "npm run typecheck",
+      "exitCode": 0,
+      "durationMs": 6473,
+      "log": "typecheck.log"
+    },
+    {
+      "name": "lint",
+      "command": "npm run lint",
+      "exitCode": 0,
+      "durationMs": 9197,
+      "log": "lint.log"
+    },
+    {
+      "name": "unit",
+      "command": "npm run test",
+      "exitCode": 0,
+      "durationMs": 3225,
+      "log": "unit.log"
+    },
+    {
+      "name": "integrity-browser",
+      "command": "node tests/atomic-writes-e2e.mjs --browser --statements",
+      "exitCode": 0,
+      "durationMs": 26691,
+      "log": "integrity-browser.log"
+    },
+    {
+      "name": "build",
+      "command": "npm run build",
+      "environmentOverrides": {
+        "VITE_API_BASE_URL": "",
+        "VITE_API_TARGET": ""
+      },
+      "exitCode": 0,
+      "durationMs": 5868,
+      "log": "build.log"
+    },
+    {
+      "name": "production-artifact",
+      "command": "node tests/atomic-writes-e2e.mjs --browser --statements --artifact",
+      "exitCode": 0,
+      "durationMs": 12169,
+      "log": "production-artifact.log"
+    },
+    {
+      "name": "php-syntax",
+      "command": "php -l on all non-metadata api/php files",
+      "fileCount": 79,
+      "exitCode": 0,
+      "log": "php-syntax.log"
+    }
+  ]
+}

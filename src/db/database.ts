@@ -43,6 +43,7 @@ import type {
 } from "@/types";
 import type { CloudCollectionKey } from "@/lib/cloud/collections";
 import { normalizeMoneyEntity } from "@/utils/moneyEntityNormalize";
+import type { DurableMutation } from "@/services/durableOutbox";
 
 const MONEY_TABLES: CloudCollectionKey[] = [
   "transactions",
@@ -61,6 +62,7 @@ const MONEY_TABLES: CloudCollectionKey[] = [
 ];
 
 export class SparowVaultDB extends Dexie {
+  syncMutations!: Table<DurableMutation, number>;
   users!: Table<User, string>;
   sessions!: Table<Session, string>;
   settings!: Table<ProfileSettings, string>;
@@ -102,8 +104,8 @@ export class SparowVaultDB extends Dexie {
   importSources!: Table<ImportSource, string>;
   reconciliationMatches!: Table<ReconciliationMatch, string>;
 
-  constructor() {
-    super("sparowvault_v1");
+  constructor(name = "sparowvault_v1") {
+    super(name);
     this.version(1).stores({
       users: "id, username, isDeleted",
       sessions: "id, userId",
@@ -257,6 +259,9 @@ export class SparowVaultDB extends Dexie {
       importSources: "id, userId, kind, lastImportAt, isDeleted",
       reconciliationMatches:
         "id, userId, leftTransactionId, rightTransactionId, status, isDeleted",
+    });
+    this.version(5).stores({
+      syncMutations: "++sequence,&mutationId,userId,[userId+collection],[userId+collection+entityId],state",
     });
   }
 }

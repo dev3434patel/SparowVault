@@ -1,0 +1,16 @@
+{
+  "verifiedAt": "2026-09-11T05:45:16.964Z",
+  "parserVersion": "statement-text-v2",
+  "pages": 36,
+  "rows": 1240,
+  "fieldsPerRow": 7,
+  "fieldMismatches": 0,
+  "openingAndClosingMatched": true,
+  "monthsChecked": 12,
+  "paginationChecked": true,
+  "mobileOverflow": false,
+  "sourceUnchanged": true,
+  "importRequests": 0,
+  "durationMs": 912,
+  "scope": "Supplied local Kotak numbered statement only; no private row values retained in this evidence file"
+}

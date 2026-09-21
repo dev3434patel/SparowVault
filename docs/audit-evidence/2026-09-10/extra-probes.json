@@ -1,0 +1,60 @@
+{
+  "date": "2026-09-10T07:29:31.617Z",
+  "rows": [
+    {
+      "id": "X01",
+      "name": "must_change_pin=1 blocks privileged reads",
+      "expected": true,
+      "actual": false,
+      "pass": false
+    },
+    {
+      "id": "X02",
+      "name": "replacing recovery and resetting PIN requires original PIN",
+      "expected": true,
+      "actual": false,
+      "pass": false
+    },
+    {
+      "id": "X03",
+      "name": "category schema rejects unsupported appliesTo",
+      "expected": 422,
+      "actual": 201,
+      "pass": false
+    },
+    {
+      "id": "X04",
+      "name": "transactions reject nonexistent financial references",
+      "expected": 422,
+      "actual": 201,
+      "pass": false
+    },
+    {
+      "id": "X05",
+      "name": "properly seeded own category is present in account export",
+      "expected": true,
+      "actual": true,
+      "pass": true
+    },
+    {
+      "id": "X06",
+      "name": "backup restore preserves account and category references",
+      "expected": {
+        "accountExists": true,
+        "categoryExists": true
+      },
+      "actual": {
+        "accountExists": false,
+        "categoryExists": false
+      },
+      "pass": false
+    },
+    {
+      "id": "X07",
+      "name": "wipe all profile data removes household fixture",
+      "expected": 404,
+      "actual": 200,
+      "pass": false
+    }
+  ]
+}

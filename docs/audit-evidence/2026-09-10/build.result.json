@@ -1,0 +1,14 @@
+{
+  "label": "build",
+  "command": [
+    "npm",
+    "run",
+    "build"
+  ],
+  "started": "2026-09-10T06:52:43.532Z",
+  "ended": "2026-09-10T06:52:54.813Z",
+  "seconds": 11.281,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false
+}

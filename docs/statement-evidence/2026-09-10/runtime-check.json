@@ -1,0 +1,8 @@
+{
+  "checkedAt": "2026-09-10T10:27:15Z",
+  "frontend": { "url": "http://127.0.0.1:5178/", "status": 200 },
+  "backend": { "url": "http://127.0.0.1:8088/api/health.php", "status": 200 },
+  "database": { "name": "sparowvault_integrity_preview_test", "version": "10.4.28-MariaDB", "selectSucceeded": true },
+  "apache": { "url": "http://127.0.0.1/", "status": 302, "location": "http://127.0.0.1/dashboard/", "projectDeploymentVerified": false },
+  "note": "XAMPP status cannot read the MySQL PID file as this user. Direct SQL connectivity confirmed the database is running. No service restart performed."
+}

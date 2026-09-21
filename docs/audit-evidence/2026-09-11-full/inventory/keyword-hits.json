@@ -1,0 +1,1122 @@
+[
+  {
+    "file": "src/components/auth/AdminAuth.tsx",
+    "line": 29,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "localStorage.setItem("
+  },
+  {
+    "file": "src/components/auth/AdminAuth.tsx",
+    "line": 64,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<Input type=\"password\" inputMode=\"numeric\" value={pin} onChange={(e) => setPin(e.target.value)} placeholder=\"Enter admin PIN\" />"
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 59,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "localStorage.setItem("
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 136,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "localStorage.setItem("
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 223,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"your.username\""
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 234,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"Enter PIN\""
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 286,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"User Name\""
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 294,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"amit\""
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 303,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"••••\""
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 312,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"••••\""
+  },
+  {
+    "file": "src/components/auth/LockScreen.tsx",
+    "line": 60,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"Enter your PIN\""
+  },
+  {
+    "file": "src/components/auth/ProfileLogin.tsx",
+    "line": 103,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"Enter PIN\""
+  },
+  {
+    "file": "src/components/auth/RequiredPinChange.tsx",
+    "line": 23,
+    "terms": [
+      "temporary"
+    ],
+    "text": "<h1 className=\"text-xl font-semibold\">Change temporary PIN</h1>"
+  },
+  {
+    "file": "src/components/categories/CategoryCleanupPanel.tsx",
+    "line": 128,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<SelectValue placeholder=\"Source category\" />"
+  },
+  {
+    "file": "src/components/categories/CategoryCleanupPanel.tsx",
+    "line": 143,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<SelectValue placeholder=\"Target category\" />"
+  },
+  {
+    "file": "src/components/forms/QuickAddDialog.tsx",
+    "line": 72,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"Amount (₹)\""
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 321,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"0.00\""
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 376,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<SelectValue placeholder=\"Select account\" />"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 398,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<SelectValue placeholder=\"Destination account\" />"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 427,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<SelectValue placeholder=\"Select category\" />"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 448,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<SelectValue placeholder=\"Select card\" />"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 467,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<SelectValue placeholder=\"Select loan\" />"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 486,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<SelectValue placeholder=\"Select loan\" />"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 505,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<SelectValue placeholder=\"Select goal\" />"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 524,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<SelectValue placeholder=\"Select investment\" />"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 545,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<SelectValue placeholder=\"Select card\" />"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 569,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<SelectValue placeholder=\"Select udhari record\" />"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 596,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"e.g. Swiggy, HDFC, Rahul\""
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 604,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"Short description\""
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 620,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"e.g. family, festive\""
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 628,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"Optional notes\""
+  },
+  {
+    "file": "src/components/layout/CommandPalette.tsx",
+    "line": 162,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"Type a command, search transactions, jump to page…\""
+  },
+  {
+    "file": "src/components/pages/AccountsPage.tsx",
+    "line": 284,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"HDFC Savings\""
+  },
+  {
+    "file": "src/components/pages/AccountsPage.tsx",
+    "line": 308,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"HDFC Bank\""
+  },
+  {
+    "file": "src/components/pages/AuditPage.tsx",
+    "line": 142,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"Search details, entity, ID…\""
+  },
+  {
+    "file": "src/components/pages/BudgetsPage.tsx",
+    "line": 398,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<SelectValue placeholder=\"Select category\" />"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 674,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<SelectValue placeholder=\"Select card\" />"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 699,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<SelectValue placeholder=\"Account\" />"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 880,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"HDFC Regalia\""
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 890,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"1234\""
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 908,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<SelectValue placeholder=\"Select account\" />"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 964,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"2x on dining, 4% on fuel\""
+  },
+  {
+    "file": "src/components/pages/CategoriesPage.tsx",
+    "line": 365,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"Groceries\""
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 415,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<SelectValue placeholder=\"Mode\" />"
+  },
+  {
+    "file": "src/components/pages/ExportPage.tsx",
+    "line": 492,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"Enter PIN\""
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 427,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"iPhone 17 Pro\""
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 485,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"🎯\""
+  },
+  {
+    "file": "src/components/pages/HouseholdDashboardPage.tsx",
+    "line": 130,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<Input value={name} onChange={(e) => setName(e.target.value)} placeholder=\"Home\" />"
+  },
+  {
+    "file": "src/components/pages/ImportPage.tsx",
+    "line": 618,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<SelectValue placeholder=\"— not mapped —\" />"
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 458,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"Axis Bluechip SIP\""
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 423,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"e.g. 50000\""
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 769,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"HDFC Bank\""
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 214,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"+91…\""
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 265,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"Your mother's first school\""
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 276,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"Enter your secret answer\""
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 414,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"e.g. Paytm QR, PhonePe Business, Store Credit\""
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 504,
+    "terms": [
+      "demo"
+    ],
+    "text": "Re-seed demo data"
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 517,
+    "terms": [
+      "demo"
+    ],
+    "text": "<DialogTitle>Re-seed demo data?</DialogTitle>"
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 543,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder={user ? `DELETE ${user.username}` : \"DELETE username\"}"
+  },
+  {
+    "file": "src/components/pages/SuggestionsPage.tsx",
+    "line": 416,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<SelectValue placeholder=\"Coach mode\" />"
+  },
+  {
+    "file": "src/components/pages/TransactionsPage.tsx",
+    "line": 252,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"Search merchant, description, notes, tags, category…\""
+  },
+  {
+    "file": "src/components/pages/TransactionsPage.tsx",
+    "line": 293,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<SelectValue placeholder=\"Type\" />"
+  },
+  {
+    "file": "src/components/pages/TransactionsPage.tsx",
+    "line": 310,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<SelectValue placeholder=\"Payment mode\" />"
+  },
+  {
+    "file": "src/components/pages/TransactionsPage.tsx",
+    "line": 326,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<SelectValue placeholder=\"Category\" />"
+  },
+  {
+    "file": "src/components/pages/TransactionsPage.tsx",
+    "line": 342,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<SelectValue placeholder=\"Account\" />"
+  },
+  {
+    "file": "src/components/pages/TransactionsPage.tsx",
+    "line": 357,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"From\""
+  },
+  {
+    "file": "src/components/pages/TransactionsPage.tsx",
+    "line": 363,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"To\""
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 705,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<SelectValue placeholder=\"Select account\" />"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 787,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<SelectValue placeholder=\"Category\" />"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 810,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"e.g. unrecoverable, waived, refused\""
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 928,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"+91 …\""
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 1003,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"Optional\""
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 198,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<Input value={fdName} onChange={(e) => setFdName(e.target.value)} placeholder=\"SBI FD 2026\" />"
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 248,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<Input value={insurer} onChange={(e) => setInsurer(e.target.value)} placeholder=\"LIC / HDFC Life\" />"
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 292,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<Input value={valLabel} onChange={(e) => setValLabel(e.target.value)} placeholder=\"Gold jewellery\" />"
+  },
+  {
+    "file": "src/components/pages/admin/BrandingSettingsPage.tsx",
+    "line": 29,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "const FIELD_META: { key: keyof BrandingFields; label: string; hint?: string; type?: string; placeholder: string }[] = ["
+  },
+  {
+    "file": "src/components/pages/admin/BrandingSettingsPage.tsx",
+    "line": 30,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "{ key: \"app_title\",    label: \"App title\",       hint: \"Shown in browser tab and headings\",       type: \"text\",  placeholder: \"SparowVault\" },"
+  },
+  {
+    "file": "src/components/pages/admin/BrandingSettingsPage.tsx",
+    "line": 31,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "{ key: \"logo_url\",     label: \"Logo URL\",         hint: \"Full https:// URL to your logo image\",    type: \"url\",   placeholder: \"https://example.com/logo.png\" },"
+  },
+  {
+    "file": "src/components/pages/admin/BrandingSettingsPage.tsx",
+    "line": 32,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "{ key: \"favicon_url\",  label: \"Favicon URL\",      hint: \"Full https:// URL to favicon (.ico/.png)\", type: \"url\",   placeholder: \"https://example.com/favicon.ico\" },"
+  },
+  {
+    "file": "src/components/pages/admin/BrandingSettingsPage.tsx",
+    "line": 33,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "{ key: \"support_email\",label: \"Support email\",    hint: \"Shown on error pages and contact links\",  type: \"email\", placeholder: \"support@example.com\" },"
+  },
+  {
+    "file": "src/components/pages/admin/BrandingSettingsPage.tsx",
+    "line": 34,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "{ key: \"privacy_url\",  label: \"Privacy policy URL\", hint: \"Link shown in auth / signup pages\",     type: \"url\",   placeholder: \"https://example.com/privacy\" },"
+  },
+  {
+    "file": "src/components/pages/admin/BrandingSettingsPage.tsx",
+    "line": 35,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "{ key: \"terms_url\",    label: \"Terms of service URL\", hint: \"Link shown in auth / signup pages\",   type: \"url\",   placeholder: \"https://example.com/terms\" },"
+  },
+  {
+    "file": "src/components/pages/admin/BrandingSettingsPage.tsx",
+    "line": 136,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder={f.placeholder}"
+  },
+  {
+    "file": "src/components/pages/admin/BrandingSettingsPage.tsx",
+    "line": 171,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder={f.placeholder}"
+  },
+  {
+    "file": "src/components/pages/admin/FeatureFlagsPage.tsx",
+    "line": 17,
+    "terms": [
+      "demo"
+    ],
+    "text": "demo_mode:                { label: \"Demo mode\",              description: \"Show demo data and disable destructive actions\" },"
+  },
+  {
+    "file": "src/components/pages/admin/PlanManagementPage.tsx",
+    "line": 150,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"e.g. Pro Monthly\""
+  },
+  {
+    "file": "src/components/pages/admin/PlanManagementPage.tsx",
+    "line": 162,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"e.g. PRO_MONTHLY\""
+  },
+  {
+    "file": "src/components/pages/admin/PlanManagementPage.tsx",
+    "line": 172,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"299.00\""
+  },
+  {
+    "file": "src/components/pages/admin/PlanManagementPage.tsx",
+    "line": 204,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"Short description for users\""
+  },
+  {
+    "file": "src/components/pages/admin/SubscriptionManagementPage.tsx",
+    "line": 158,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"Search by user or plan…\""
+  },
+  {
+    "file": "src/components/pages/admin/SubscriptionManagementPage.tsx",
+    "line": 165,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<SelectValue placeholder=\"Status\" />"
+  },
+  {
+    "file": "src/components/pages/admin/UserManagementPage.tsx",
+    "line": 144,
+    "terms": [
+      "temporary"
+    ],
+    "text": ": \"Share the temporary PIN securely with the user.\","
+  },
+  {
+    "file": "src/components/pages/admin/UserManagementPage.tsx",
+    "line": 188,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "placeholder=\"Search by name or username…\""
+  },
+  {
+    "file": "src/components/pages/admin/UserManagementPage.tsx",
+    "line": 195,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<SelectValue placeholder=\"Role\" />"
+  },
+  {
+    "file": "src/components/pages/admin/UserManagementPage.tsx",
+    "line": 205,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<SelectValue placeholder=\"Status\" />"
+  },
+  {
+    "file": "src/components/pages/admin/UserManagementPage.tsx",
+    "line": 316,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<SelectValue placeholder=\"Assign plan…\" />"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 219,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "<div className=\"mb-3 grid grid-cols-2 gap-2 sm:grid-cols-4\"><Input aria-label=\"Search statement narration\" placeholder=\"Search narration\" value={query} onChange={e => { setQuery(e.target.value); setPage(1); }} /><select aria-label=\"Statement month\" className={selectClass} value={month} onChange={e ="
+  },
+  {
+    "file": "src/components/theme/ThemeProvider.tsx",
+    "line": 33,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "const saved = (localStorage.getItem(LS_KEY) as ThemeMode) || \"system\";"
+  },
+  {
+    "file": "src/components/theme/ThemeProvider.tsx",
+    "line": 54,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "localStorage.setItem(LS_KEY, m);"
+  },
+  {
+    "file": "src/components/ui/Input.tsx",
+    "line": 11,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "\"placeholder:text-muted-foreground\","
+  },
+  {
+    "file": "src/components/ui/Input.tsx",
+    "line": 31,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "\"placeholder:text-muted-foreground\","
+  },
+  {
+    "file": "src/components/ui/Select.tsx",
+    "line": 19,
+    "terms": [
+      "placeholder"
+    ],
+    "text": "\"disabled:cursor-not-allowed disabled:opacity-50 data-[placeholder]:text-muted-foreground\","
+  },
+  {
+    "file": "src/lib/apiClient.ts",
+    "line": 29,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "return localStorage.getItem(AUTH_TOKEN_KEY) ?? localStorage.getItem(\"sv:cloud_token\");"
+  },
+  {
+    "file": "src/lib/apiClient.ts",
+    "line": 36,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "localStorage.removeItem(AUTH_TOKEN_KEY);"
+  },
+  {
+    "file": "src/lib/apiClient.ts",
+    "line": 37,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "localStorage.removeItem(\"sv:cloud_token\");"
+  },
+  {
+    "file": "src/lib/apiClient.ts",
+    "line": 39,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "localStorage.removeItem(AUTH_TOKEN_KEY);"
+  },
+  {
+    "file": "src/lib/apiClient.ts",
+    "line": 40,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "localStorage.removeItem(\"sv:cloud_token\");"
+  },
+  {
+    "file": "src/lib/migrateLegacyKeys.ts",
+    "line": 2,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "* One-time migration of pre-rebrand localStorage keys (`rmp:*`) to the new"
+  },
+  {
+    "file": "src/lib/migrateLegacyKeys.ts",
+    "line": 15,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "window.localStorage.removeItem(\"rmp:cloud_token\");"
+  },
+  {
+    "file": "src/lib/migrateLegacyKeys.ts",
+    "line": 16,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "window.localStorage.removeItem(\"sv:auth_token\");"
+  },
+  {
+    "file": "src/lib/migrateLegacyKeys.ts",
+    "line": 17,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "window.localStorage.removeItem(\"sv:cloud_token\");"
+  },
+  {
+    "file": "src/lib/migrateLegacyKeys.ts",
+    "line": 19,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "const legacy = window.localStorage.getItem(oldKey);"
+  },
+  {
+    "file": "src/lib/migrateLegacyKeys.ts",
+    "line": 21,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "if (window.localStorage.getItem(newKey) == null) {"
+  },
+  {
+    "file": "src/lib/migrateLegacyKeys.ts",
+    "line": 22,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "window.localStorage.setItem(newKey, legacy);"
+  },
+  {
+    "file": "src/lib/migrateLegacyKeys.ts",
+    "line": 24,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "window.localStorage.removeItem(oldKey);"
+  },
+  {
+    "file": "src/services/authService.ts",
+    "line": 19,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "const raw = localStorage.getItem(LS_SESSION_KEY);"
+  },
+  {
+    "file": "src/services/authService.ts",
+    "line": 30,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "localStorage.setItem(LS_SESSION_KEY, JSON.stringify(session));"
+  },
+  {
+    "file": "src/services/authService.ts",
+    "line": 31,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "localStorage.setItem(LS_LAST_USER_KEY, session.userId);"
+  },
+  {
+    "file": "src/services/authService.ts",
+    "line": 33,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "localStorage.removeItem(LS_SESSION_KEY);"
+  },
+  {
+    "file": "src/services/authService.ts",
+    "line": 39,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "return localStorage.getItem(LS_LAST_USER_KEY);"
+  },
+  {
+    "file": "src/services/demoData.ts",
+    "line": 1,
+    "terms": [
+      "demo"
+    ],
+    "text": "// Rich Indian demo data seeder. Creates realistic records over 6 months."
+  },
+  {
+    "file": "src/services/demoData.ts",
+    "line": 684,
+    "terms": [
+      "demo"
+    ],
+    "text": "detail: `Seeded demo data on ${format(new Date(), \"dd MMM yyyy\")}`,"
+  },
+  {
+    "file": "src/services/durableOutbox.ts",
+    "line": 40,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "if (typeof localStorage === \"undefined\") return;"
+  },
+  {
+    "file": "src/services/durableOutbox.ts",
+    "line": 41,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "const raw = localStorage.getItem(\"sparowvault_sync_outbox_v1\");"
+  },
+  {
+    "file": "src/services/durableOutbox.ts",
+    "line": 185,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "if (typeof localStorage !== \"undefined\") {"
+  },
+  {
+    "file": "src/services/durableOutbox.ts",
+    "line": 186,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "const raw = localStorage.getItem(\"sparowvault_sync_outbox_v1\");"
+  },
+  {
+    "file": "src/services/durableOutbox.ts",
+    "line": 189,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "if (Array.isArray(entries)) localStorage.setItem(\"sparowvault_sync_outbox_v1\", JSON.stringify(entries.filter(row => row?.collection !== item.collection || row?.entityId !== item.entityId)));"
+  },
+  {
+    "file": "src/services/syncOutbox.ts",
+    "line": 25,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "const raw = localStorage.getItem(LS_KEY);"
+  },
+  {
+    "file": "src/services/syncOutbox.ts",
+    "line": 43,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "localStorage.setItem(LS_KEY, JSON.stringify([...outbox.values()]));"
+  },
+  {
+    "file": "src/services/syncOutbox.ts",
+    "line": 112,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "localStorage.removeItem(LS_KEY);"
+  },
+  {
+    "file": "src/store/authStore.ts",
+    "line": 35,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "const raw = localStorage.getItem(LS_SESSION_KEY);"
+  },
+  {
+    "file": "src/store/authStore.ts",
+    "line": 46,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "localStorage.removeItem(LS_SESSION_KEY);"
+  },
+  {
+    "file": "src/store/authStore.ts",
+    "line": 49,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "localStorage.setItem(LS_SESSION_KEY, JSON.stringify(session));"
+  },
+  {
+    "file": "src/store/authStore.ts",
+    "line": 55,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "const raw = localStorage.getItem(LS_UNLOCK_FAIL_KEY);"
+  },
+  {
+    "file": "src/store/authStore.ts",
+    "line": 66,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "localStorage.removeItem(LS_UNLOCK_FAIL_KEY);"
+  },
+  {
+    "file": "src/store/authStore.ts",
+    "line": 69,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "localStorage.setItem(LS_UNLOCK_FAIL_KEY, JSON.stringify(next));"
+  },
+  {
+    "file": "src/store/uiStore.ts",
+    "line": 18,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "const v = localStorage.getItem(key) as T | null;"
+  },
+  {
+    "file": "src/store/uiStore.ts",
+    "line": 95,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "localStorage.setItem(LS_DASH, m);"
+  },
+  {
+    "file": "src/store/uiStore.ts",
+    "line": 103,
+    "terms": [
+      "localStorage"
+    ],
+    "text": "localStorage.setItem(LS_CHART_A11Y, a);"
+  },
+  {
+    "file": "php/helpers/auth.php",
+    "line": 190,
+    "terms": [
+      "temporary"
+    ],
+    "text": "if (!empty($session[\"must_change_pin\"]) && !in_array($path, [\"/api/auth/me.php\", \"/api/cloud/me.php\", \"/api/auth/change-pin.php\", \"/api/auth/logout.php\"], true)) throw new RuntimeException(\"Change your temporary PIN before accessing account data.\");"
+  }
+]

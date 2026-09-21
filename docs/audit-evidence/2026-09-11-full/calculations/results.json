@@ -1,0 +1,114 @@
+{
+  "date": "2026-09-11T09:01:00.339Z",
+  "scope": "Pure production finance/export functions with synthetic inputs; failures are desired-contract assertions",
+  "checks": [
+    {
+      "name": "10,000 integer-paise round trips remain exact",
+      "pass": true,
+      "durationMs": 10.329791999999998,
+      "evidence": {
+        "cases": 10000
+      }
+    },
+    {
+      "name": "10,000 mixed splits preserve total and nonnegative allocations",
+      "pass": true,
+      "durationMs": 17.912416000000007,
+      "evidence": {
+        "cases": 10000
+      }
+    },
+    {
+      "name": "Contribution agrees across income, expense, account balance and category",
+      "pass": true,
+      "durationMs": 0.302915999999982,
+      "evidence": {
+        "incomePaise": 0,
+        "expensePaise": 20000,
+        "closingPaise": 980000
+      }
+    },
+    {
+      "name": "Deleted original and return have no income/expense effect",
+      "pass": true,
+      "durationMs": 0.017249999999989996
+    },
+    {
+      "name": "Own-account transfer is neutral for consolidated cash and income/expense",
+      "pass": true,
+      "durationMs": 0.02975000000003547
+    },
+    {
+      "name": "CA net worth includes opening bank balance with no transactions",
+      "pass": false,
+      "durationMs": 0.6630829999999719,
+      "error": "{\"assetsPaise\":0,\"liabilitiesPaise\":0,\"netWorthPaise\":0}\n\n0 !== 1000000\n"
+    },
+    {
+      "name": "CA net worth respects canonical receivable and payable fields",
+      "pass": false,
+      "durationMs": 0.22520900000000665,
+      "error": "{\"assetsPaise\":0,\"liabilitiesPaise\":0,\"netWorthPaise\":0}\n\n0 !== 80000\n"
+    },
+    {
+      "name": "CA reconciliation does not invent an independent closing balance",
+      "pass": false,
+      "durationMs": 0.32374999999996135,
+      "error": "[{\"accountId\":\"bank\",\"accountName\":\"Audit bank\",\"openingBalancePaise\":1000000,\"inflowsPaise\":0,\"outflowsPaise\":0,\"calculatedClosingBalancePaise\":1000000,\"reportedClosingBalancePaise\":1000000,\"mismatchPaise\":0,\"status\":\"matched\",\"possibleCauses\":[\"legacy_rows_without_events\"],\"missingAccountTransactionIds\":[],\"deletedOrReversedTransactionIds\":[],\"legacyFallbackTransactionIds\":[\"expense\"]}]"
+    },
+    {
+      "name": "CA Udhari ageing uses canonical outstanding amount and given date",
+      "pass": false,
+      "durationMs": 0.9438329999999837,
+      "error": "[{\"udhariId\":\"debt\",\"counterparty\":\"Audit friend\",\"direction\":\"given\",\"outstandingPaise\":0,\"ageDays\":0,\"bucket\":\"0-7\"}]\n\n0 !== 80000\n"
+    },
+    {
+      "name": "CA income summary excludes a 200 contribution credit",
+      "pass": false,
+      "durationMs": 22.444042000000024,
+      "error": "[{\"Month\":\"2026-09\",\"Income\":200}]\n\n200 !== 0\n"
+    },
+    {
+      "name": "CA income summary excludes an own-account transfer credit",
+      "pass": false,
+      "durationMs": 7.463708999999994,
+      "error": "[{\"Month\":\"2026-09\",\"Income\":400}]\n\n400 !== 0\n"
+    },
+    {
+      "name": "CA expense summary includes card purchases even before a bank bill payment",
+      "pass": false,
+      "durationMs": 7.3950419999999895,
+      "error": "[]\n\n0 !== 400\n"
+    },
+    {
+      "name": "CA monthly cashflow excludes effects of a reversed source event",
+      "pass": false,
+      "durationMs": 0.07929200000000947,
+      "error": "[{\"yyyymm\":\"2026-08\",\"inflowsPaise\":0,\"outflowsPaise\":40000,\"netPaise\":-40000}]\n\n40000 !== 0\n"
+    },
+    {
+      "name": "September-filtered workbook cannot include August cashflow",
+      "pass": false,
+      "durationMs": 5.772500000000036,
+      "error": "[{\"Month\":\"2026-08\",\"Expense\":400,\"Net\":-400}]"
+    },
+    {
+      "name": "Workbook allocates a 70/30 mixed expense into business and personal totals",
+      "pass": false,
+      "durationMs": 6.9525840000000585,
+      "error": "[{\"Month\":\"2026-09\",\"Business\":0,\"Personal\":0,\"Mixed\":400}]\n\n0 !== 280\n"
+    },
+    {
+      "name": "50,000 real-engine transactions match an independent integer oracle",
+      "pass": true,
+      "durationMs": 18.87633299999993,
+      "evidence": {
+        "rows": 50000,
+        "engineDurationMs": 14.57000000000005,
+        "incomePaise": 1244327500,
+        "expensePaise": 1244320000,
+        "browserOrApiBenchmark": false
+      }
+    }
+  ]
+}

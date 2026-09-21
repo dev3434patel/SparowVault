@@ -21,6 +21,8 @@ import {
   summarizeCardHealth,
   summarizeLoan,
   sumExpense,
+  expenseAmountPaise,
+  expenseReportTransactions,
   sumIncome,
 } from "@/services/calculations";
 import {
@@ -175,9 +177,9 @@ export function buildCAWorkbook(ctx: ExportContext, label = "SparowVault_CA_Expo
 
   // By Payment Mode
   const byMode = new Map<string, number>();
-  for (const t of ctx.transactions.filter((x) => x.type === "expense")) {
+  for (const t of expenseReportTransactions(ctx.transactions)) {
     const m = formatPaymentMode(t.paymentMode);
-    byMode.set(m, (byMode.get(m) ?? 0) + transactionAmountPaise(t));
+    byMode.set(m, (byMode.get(m) ?? 0) + expenseAmountPaise(t));
   }
   addSheet(
     wb,
@@ -387,10 +389,10 @@ export function buildCAWorkbook(ctx: ExportContext, label = "SparowVault_CA_Expo
 
   // Business vs personal (expense) by month
   const bp = new Map<string, { Business: number; Personal: number; Mixed: number }>();
-  for (const t of ctx.transactions.filter((x) => x.type === "expense")) {
+  for (const t of expenseReportTransactions(ctx.transactions)) {
     const key = t.date.slice(0, 7);
     const cur = bp.get(key) ?? { Business: 0, Personal: 0, Mixed: 0 };
-    const p = transactionAmountPaise(t);
+    const p = expenseAmountPaise(t);
     if (t.businessOrPersonal === "business") cur.Business += p;
     else if (t.businessOrPersonal === "personal") cur.Personal += p;
     else cur.Mixed += p;

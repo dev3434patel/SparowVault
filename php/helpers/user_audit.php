@@ -12,7 +12,7 @@
 require_once __DIR__ . "/../config/db.php";
 require_once __DIR__ . "/audit.php"; // for actor_ip_address / actor_user_agent
 
-function user_audit_log(string $userId, string $actionKey, string $entityType = "", string $entityId = "", $before = null, $after = null, string $requestId = ""): void {
+function user_audit_log(string $userId, string $actionKey, string $entityType = "", string $entityId = "", $before = null, $after = null, string $requestId = "", bool $strict = false): void {
     try {
         $db = db_conn();
         $st = $db->prepare(
@@ -32,6 +32,7 @@ function user_audit_log(string $userId, string $actionKey, string $entityType = 
             substr($requestId, 0, 64),
         ]);
     } catch (Throwable $e) {
+        if ($strict) throw $e;
         // Phase 13 known issue: tolerate the table being absent on legacy
         // environments. Still log to error_log so it isn't invisible.
         error_log("[user_audit_log] " . $e->getMessage());

@@ -1,0 +1,3317 @@
+{
+  "columns": [
+    {
+      "TABLE_NAME": "admin_audit_logs",
+      "COLUMN_NAME": "id",
+      "COLUMN_TYPE": "bigint(20) unsigned",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "PRI"
+    },
+    {
+      "TABLE_NAME": "admin_audit_logs",
+      "COLUMN_NAME": "actor_user_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "admin_audit_logs",
+      "COLUMN_NAME": "actor_role",
+      "COLUMN_TYPE": "varchar(32)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "'system'",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "admin_audit_logs",
+      "COLUMN_NAME": "action_key",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "admin_audit_logs",
+      "COLUMN_NAME": "entity_type",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "admin_audit_logs",
+      "COLUMN_NAME": "entity_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "admin_audit_logs",
+      "COLUMN_NAME": "before_json",
+      "COLUMN_TYPE": "longtext",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "admin_audit_logs",
+      "COLUMN_NAME": "after_json",
+      "COLUMN_TYPE": "longtext",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "admin_audit_logs",
+      "COLUMN_NAME": "ip_address",
+      "COLUMN_TYPE": "varchar(64)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "''",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "admin_audit_logs",
+      "COLUMN_NAME": "user_agent",
+      "COLUMN_TYPE": "varchar(512)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "''",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "admin_audit_logs",
+      "COLUMN_NAME": "created_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "ai_suggestions",
+      "COLUMN_NAME": "id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "PRI"
+    },
+    {
+      "TABLE_NAME": "ai_suggestions",
+      "COLUMN_NAME": "user_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "ai_suggestions",
+      "COLUMN_NAME": "dedupe_key",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "''",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "ai_suggestions",
+      "COLUMN_NAME": "suggestion_type",
+      "COLUMN_TYPE": "varchar(32)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "ai_suggestions",
+      "COLUMN_NAME": "severity",
+      "COLUMN_TYPE": "varchar(16)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "'info'",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "ai_suggestions",
+      "COLUMN_NAME": "title",
+      "COLUMN_TYPE": "varchar(200)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "''",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "ai_suggestions",
+      "COLUMN_NAME": "reason",
+      "COLUMN_TYPE": "varchar(2000)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "''",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "ai_suggestions",
+      "COLUMN_NAME": "calculation_inputs_json",
+      "COLUMN_TYPE": "longtext",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "ai_suggestions",
+      "COLUMN_NAME": "recommended_action",
+      "COLUMN_TYPE": "varchar(500)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "''",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "ai_suggestions",
+      "COLUMN_NAME": "expected_impact_json",
+      "COLUMN_TYPE": "longtext",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "ai_suggestions",
+      "COLUMN_NAME": "confidence_score",
+      "COLUMN_TYPE": "decimal(4,3)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0.700",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "ai_suggestions",
+      "COLUMN_NAME": "source_module",
+      "COLUMN_TYPE": "varchar(64)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "'suggestionEngine.v1'",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "ai_suggestions",
+      "COLUMN_NAME": "status",
+      "COLUMN_TYPE": "varchar(24)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "'active'",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "ai_suggestions",
+      "COLUMN_NAME": "ai_explanation",
+      "COLUMN_TYPE": "varchar(2000)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "ai_suggestions",
+      "COLUMN_NAME": "remind_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "ai_suggestions",
+      "COLUMN_NAME": "expires_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "ai_suggestions",
+      "COLUMN_NAME": "created_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "ai_suggestions",
+      "COLUMN_NAME": "updated_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "ai_suggestions",
+      "COLUMN_NAME": "deleted_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "api_rate_limits",
+      "COLUMN_NAME": "id",
+      "COLUMN_TYPE": "bigint(20) unsigned",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "PRI"
+    },
+    {
+      "TABLE_NAME": "api_rate_limits",
+      "COLUMN_NAME": "bucket_key",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "UNI"
+    },
+    {
+      "TABLE_NAME": "api_rate_limits",
+      "COLUMN_NAME": "hit_count",
+      "COLUMN_TYPE": "int(11)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "api_rate_limits",
+      "COLUMN_NAME": "window_start",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "api_rate_limits",
+      "COLUMN_NAME": "updated_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "app_settings",
+      "COLUMN_NAME": "id",
+      "COLUMN_TYPE": "bigint(20) unsigned",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "PRI"
+    },
+    {
+      "TABLE_NAME": "app_settings",
+      "COLUMN_NAME": "setting_key",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "UNI"
+    },
+    {
+      "TABLE_NAME": "app_settings",
+      "COLUMN_NAME": "setting_value",
+      "COLUMN_TYPE": "longtext",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "app_settings",
+      "COLUMN_NAME": "is_public",
+      "COLUMN_TYPE": "tinyint(1)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "app_settings",
+      "COLUMN_NAME": "updated_by_user_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "app_settings",
+      "COLUMN_NAME": "updated_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "app_settings",
+      "COLUMN_NAME": "created_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "audit_logs",
+      "COLUMN_NAME": "id",
+      "COLUMN_TYPE": "bigint(20) unsigned",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "PRI"
+    },
+    {
+      "TABLE_NAME": "audit_logs",
+      "COLUMN_NAME": "actor_user_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "audit_logs",
+      "COLUMN_NAME": "actor_role",
+      "COLUMN_TYPE": "varchar(32)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "'system'",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "audit_logs",
+      "COLUMN_NAME": "action_key",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "audit_logs",
+      "COLUMN_NAME": "entity_type",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "''",
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "audit_logs",
+      "COLUMN_NAME": "entity_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "''",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "audit_logs",
+      "COLUMN_NAME": "before_json",
+      "COLUMN_TYPE": "longtext",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "audit_logs",
+      "COLUMN_NAME": "after_json",
+      "COLUMN_TYPE": "longtext",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "audit_logs",
+      "COLUMN_NAME": "ip_address",
+      "COLUMN_TYPE": "varchar(64)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "''",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "audit_logs",
+      "COLUMN_NAME": "user_agent",
+      "COLUMN_TYPE": "varchar(512)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "''",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "audit_logs",
+      "COLUMN_NAME": "created_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "cloud_collection_rows",
+      "COLUMN_NAME": "id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "PRI"
+    },
+    {
+      "TABLE_NAME": "cloud_collection_rows",
+      "COLUMN_NAME": "user_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "cloud_collection_rows",
+      "COLUMN_NAME": "collection_name",
+      "COLUMN_TYPE": "varchar(64)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "cloud_collection_rows",
+      "COLUMN_NAME": "entity_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "cloud_collection_rows",
+      "COLUMN_NAME": "payload",
+      "COLUMN_TYPE": "longtext",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "cloud_collection_rows",
+      "COLUMN_NAME": "amount_paise",
+      "COLUMN_TYPE": "bigint(20)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "cloud_collection_rows",
+      "COLUMN_NAME": "updated_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "cloud_collection_rows",
+      "COLUMN_NAME": "deleted_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "cloud_collection_rows",
+      "COLUMN_NAME": "created_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "cloud_collection_rows",
+      "COLUMN_NAME": "schema_version",
+      "COLUMN_TYPE": "int(11)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "1",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "cloud_collection_rows",
+      "COLUMN_NAME": "txn_local_date",
+      "COLUMN_TYPE": "date",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "cloud_collection_rows",
+      "COLUMN_NAME": "txn_month",
+      "COLUMN_TYPE": "char(7)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "cloud_collection_rows",
+      "COLUMN_NAME": "txn_type",
+      "COLUMN_TYPE": "varchar(32)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "cloud_collection_rows",
+      "COLUMN_NAME": "payment_mode",
+      "COLUMN_TYPE": "varchar(32)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "cloud_collection_rows",
+      "COLUMN_NAME": "category_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "cloud_collection_rows",
+      "COLUMN_NAME": "account_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "cloud_collection_rows",
+      "COLUMN_NAME": "card_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "cloud_collection_rows",
+      "COLUMN_NAME": "loan_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "cloud_collection_rows",
+      "COLUMN_NAME": "goal_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "cloud_collection_rows",
+      "COLUMN_NAME": "udhari_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "cloud_collection_rows",
+      "COLUMN_NAME": "business_or_personal",
+      "COLUMN_TYPE": "varchar(32)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "cloud_collection_rows",
+      "COLUMN_NAME": "source_device_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "cloud_collection_rows",
+      "COLUMN_NAME": "payload_hash",
+      "COLUMN_TYPE": "char(64)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "cloud_users",
+      "COLUMN_NAME": "id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "PRI"
+    },
+    {
+      "TABLE_NAME": "cloud_users",
+      "COLUMN_NAME": "username",
+      "COLUMN_TYPE": "varchar(24)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "UNI"
+    },
+    {
+      "TABLE_NAME": "cloud_users",
+      "COLUMN_NAME": "display_name",
+      "COLUMN_TYPE": "varchar(60)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "cloud_users",
+      "COLUMN_NAME": "pin_hash",
+      "COLUMN_TYPE": "varchar(255)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "cloud_users",
+      "COLUMN_NAME": "pin_salt",
+      "COLUMN_TYPE": "varchar(64)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "cloud_users",
+      "COLUMN_NAME": "created_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "cloud_users",
+      "COLUMN_NAME": "updated_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "feature_flags_global",
+      "COLUMN_NAME": "id",
+      "COLUMN_TYPE": "bigint(20) unsigned",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "PRI"
+    },
+    {
+      "TABLE_NAME": "feature_flags_global",
+      "COLUMN_NAME": "feature_key",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "UNI"
+    },
+    {
+      "TABLE_NAME": "feature_flags_global",
+      "COLUMN_NAME": "is_enabled",
+      "COLUMN_TYPE": "tinyint(1)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "feature_flags_global",
+      "COLUMN_NAME": "description",
+      "COLUMN_TYPE": "varchar(255)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "feature_flags_global",
+      "COLUMN_NAME": "updated_by_user_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "feature_flags_global",
+      "COLUMN_NAME": "updated_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "feature_flags_global",
+      "COLUMN_NAME": "created_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "financial_effects",
+      "COLUMN_NAME": "id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "PRI"
+    },
+    {
+      "TABLE_NAME": "financial_effects",
+      "COLUMN_NAME": "event_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "financial_effects",
+      "COLUMN_NAME": "user_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "financial_effects",
+      "COLUMN_NAME": "target_type",
+      "COLUMN_TYPE": "varchar(32)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "financial_effects",
+      "COLUMN_NAME": "target_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "financial_effects",
+      "COLUMN_NAME": "effect_direction",
+      "COLUMN_TYPE": "enum('increase','decrease')",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "financial_effects",
+      "COLUMN_NAME": "amount_paise",
+      "COLUMN_TYPE": "bigint(20)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "financial_effects",
+      "COLUMN_NAME": "component",
+      "COLUMN_TYPE": "varchar(32)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "financial_effects",
+      "COLUMN_NAME": "created_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "financial_events",
+      "COLUMN_NAME": "id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "PRI"
+    },
+    {
+      "TABLE_NAME": "financial_events",
+      "COLUMN_NAME": "user_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "financial_events",
+      "COLUMN_NAME": "source_transaction_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "financial_events",
+      "COLUMN_NAME": "event_type",
+      "COLUMN_TYPE": "varchar(64)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "financial_events",
+      "COLUMN_NAME": "event_date",
+      "COLUMN_TYPE": "date",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "financial_events",
+      "COLUMN_NAME": "amount_paise",
+      "COLUMN_TYPE": "bigint(20)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "financial_events",
+      "COLUMN_NAME": "currency",
+      "COLUMN_TYPE": "char(3)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "'INR'",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "financial_events",
+      "COLUMN_NAME": "description",
+      "COLUMN_TYPE": "varchar(512)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "''",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "financial_events",
+      "COLUMN_NAME": "source",
+      "COLUMN_TYPE": "varchar(32)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "'transaction'",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "financial_events",
+      "COLUMN_NAME": "status",
+      "COLUMN_TYPE": "varchar(32)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "'posted'",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "financial_events",
+      "COLUMN_NAME": "reversal_of_event_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "financial_events",
+      "COLUMN_NAME": "created_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "financial_events",
+      "COLUMN_NAME": "updated_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "financial_events",
+      "COLUMN_NAME": "deleted_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "financial_mutation_keys",
+      "COLUMN_NAME": "id",
+      "COLUMN_TYPE": "bigint(20) unsigned",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "PRI"
+    },
+    {
+      "TABLE_NAME": "financial_mutation_keys",
+      "COLUMN_NAME": "user_id",
+      "COLUMN_TYPE": "varchar(64)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "financial_mutation_keys",
+      "COLUMN_NAME": "mutation_id",
+      "COLUMN_TYPE": "varchar(128)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "financial_mutation_keys",
+      "COLUMN_NAME": "collection_name",
+      "COLUMN_TYPE": "varchar(64)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "financial_mutation_keys",
+      "COLUMN_NAME": "entity_id",
+      "COLUMN_TYPE": "varchar(64)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "financial_mutation_keys",
+      "COLUMN_NAME": "operation",
+      "COLUMN_TYPE": "varchar(32)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "'create'",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "financial_mutation_keys",
+      "COLUMN_NAME": "created_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "login_attempts",
+      "COLUMN_NAME": "id",
+      "COLUMN_TYPE": "bigint(20) unsigned",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "PRI"
+    },
+    {
+      "TABLE_NAME": "login_attempts",
+      "COLUMN_NAME": "username",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "login_attempts",
+      "COLUMN_NAME": "ip_address",
+      "COLUMN_TYPE": "varchar(64)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "login_attempts",
+      "COLUMN_NAME": "attempt_count",
+      "COLUMN_TYPE": "int(11)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "login_attempts",
+      "COLUMN_NAME": "locked_until",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "login_attempts",
+      "COLUMN_NAME": "first_attempt_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "login_attempts",
+      "COLUMN_NAME": "updated_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "payments",
+      "COLUMN_NAME": "id",
+      "COLUMN_TYPE": "bigint(20) unsigned",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "PRI"
+    },
+    {
+      "TABLE_NAME": "payments",
+      "COLUMN_NAME": "user_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "payments",
+      "COLUMN_NAME": "subscription_id",
+      "COLUMN_TYPE": "bigint(20) unsigned",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "payments",
+      "COLUMN_NAME": "amount_inr",
+      "COLUMN_TYPE": "decimal(10,2)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "payments",
+      "COLUMN_NAME": "currency",
+      "COLUMN_TYPE": "varchar(10)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "'INR'",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "payments",
+      "COLUMN_NAME": "expected_amount_paise",
+      "COLUMN_TYPE": "bigint(20) unsigned",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "payments",
+      "COLUMN_NAME": "captured_amount_paise",
+      "COLUMN_TYPE": "bigint(20) unsigned",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "payments",
+      "COLUMN_NAME": "status",
+      "COLUMN_TYPE": "enum('created','authorized','captured','failed','refunded')",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "'created'",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "payments",
+      "COLUMN_NAME": "provider",
+      "COLUMN_TYPE": "enum('razorpay','manual')",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "'razorpay'",
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "payments",
+      "COLUMN_NAME": "provider_order_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "payments",
+      "COLUMN_NAME": "provider_payment_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "payments",
+      "COLUMN_NAME": "provider_signature",
+      "COLUMN_TYPE": "varchar(512)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "payments",
+      "COLUMN_NAME": "failure_reason",
+      "COLUMN_TYPE": "text",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "payments",
+      "COLUMN_NAME": "refund_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "payments",
+      "COLUMN_NAME": "paid_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "payments",
+      "COLUMN_NAME": "created_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "payments",
+      "COLUMN_NAME": "updated_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "plans",
+      "COLUMN_NAME": "id",
+      "COLUMN_TYPE": "bigint(20) unsigned",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "PRI"
+    },
+    {
+      "TABLE_NAME": "plans",
+      "COLUMN_NAME": "code",
+      "COLUMN_TYPE": "varchar(64)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "UNI"
+    },
+    {
+      "TABLE_NAME": "plans",
+      "COLUMN_NAME": "name",
+      "COLUMN_TYPE": "varchar(120)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "plans",
+      "COLUMN_NAME": "description",
+      "COLUMN_TYPE": "text",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "plans",
+      "COLUMN_NAME": "price_inr",
+      "COLUMN_TYPE": "decimal(10,2)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0.00",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "plans",
+      "COLUMN_NAME": "billing_interval",
+      "COLUMN_TYPE": "enum('monthly','yearly')",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "'monthly'",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "plans",
+      "COLUMN_NAME": "trial_days",
+      "COLUMN_TYPE": "int(11)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "plans",
+      "COLUMN_NAME": "is_active",
+      "COLUMN_TYPE": "tinyint(1)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "1",
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "plans",
+      "COLUMN_NAME": "sort_order",
+      "COLUMN_TYPE": "int(11)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "plans",
+      "COLUMN_NAME": "created_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "plans",
+      "COLUMN_NAME": "updated_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "plan_features",
+      "COLUMN_NAME": "id",
+      "COLUMN_TYPE": "bigint(20) unsigned",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "PRI"
+    },
+    {
+      "TABLE_NAME": "plan_features",
+      "COLUMN_NAME": "plan_id",
+      "COLUMN_TYPE": "bigint(20) unsigned",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "plan_features",
+      "COLUMN_NAME": "feature_key",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "plan_features",
+      "COLUMN_NAME": "is_enabled",
+      "COLUMN_TYPE": "tinyint(1)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "plan_features",
+      "COLUMN_NAME": "limit_value",
+      "COLUMN_TYPE": "bigint(20)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "plan_features",
+      "COLUMN_NAME": "limit_unit",
+      "COLUMN_TYPE": "varchar(32)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "plan_features",
+      "COLUMN_NAME": "created_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "plan_features",
+      "COLUMN_NAME": "updated_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "plan_prices",
+      "COLUMN_NAME": "id",
+      "COLUMN_TYPE": "bigint(20) unsigned",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "PRI"
+    },
+    {
+      "TABLE_NAME": "plan_prices",
+      "COLUMN_NAME": "plan_id",
+      "COLUMN_TYPE": "bigint(20) unsigned",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "plan_prices",
+      "COLUMN_NAME": "amount_paise",
+      "COLUMN_TYPE": "bigint(20) unsigned",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "plan_prices",
+      "COLUMN_NAME": "currency",
+      "COLUMN_TYPE": "char(3)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "'INR'",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "plan_prices",
+      "COLUMN_NAME": "billing_interval",
+      "COLUMN_TYPE": "enum('monthly','yearly')",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "'monthly'",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "plan_prices",
+      "COLUMN_NAME": "starts_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "plan_prices",
+      "COLUMN_NAME": "ends_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "plan_prices",
+      "COLUMN_NAME": "notes",
+      "COLUMN_TYPE": "varchar(255)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "plan_prices",
+      "COLUMN_NAME": "created_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "retention_jobs",
+      "COLUMN_NAME": "id",
+      "COLUMN_TYPE": "bigint(20) unsigned",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "PRI"
+    },
+    {
+      "TABLE_NAME": "retention_jobs",
+      "COLUMN_NAME": "job_key",
+      "COLUMN_TYPE": "varchar(64)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "retention_jobs",
+      "COLUMN_NAME": "started_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "retention_jobs",
+      "COLUMN_NAME": "finished_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "retention_jobs",
+      "COLUMN_NAME": "rows_swept",
+      "COLUMN_TYPE": "int(11)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "retention_jobs",
+      "COLUMN_NAME": "status",
+      "COLUMN_TYPE": "enum('running','ok','failed')",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "'running'",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "retention_jobs",
+      "COLUMN_NAME": "error_message",
+      "COLUMN_TYPE": "text",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "retention_jobs",
+      "COLUMN_NAME": "notes_json",
+      "COLUMN_TYPE": "longtext",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "schema_version",
+      "COLUMN_NAME": "version_key",
+      "COLUMN_TYPE": "varchar(64)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "PRI"
+    },
+    {
+      "TABLE_NAME": "schema_version",
+      "COLUMN_NAME": "applied_at",
+      "COLUMN_TYPE": "timestamp",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "subscriptions",
+      "COLUMN_NAME": "id",
+      "COLUMN_TYPE": "bigint(20) unsigned",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "PRI"
+    },
+    {
+      "TABLE_NAME": "subscriptions",
+      "COLUMN_NAME": "user_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "subscriptions",
+      "COLUMN_NAME": "plan_id",
+      "COLUMN_TYPE": "bigint(20) unsigned",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "subscriptions",
+      "COLUMN_NAME": "status",
+      "COLUMN_TYPE": "enum('pending','trial','active','past_due','cancelled','expired')",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "'pending'",
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "subscriptions",
+      "COLUMN_NAME": "trial_ends_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "subscriptions",
+      "COLUMN_NAME": "current_period_start",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "subscriptions",
+      "COLUMN_NAME": "current_period_end",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "subscriptions",
+      "COLUMN_NAME": "previous_period_end",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "subscriptions",
+      "COLUMN_NAME": "renewed_from_subscription_id",
+      "COLUMN_TYPE": "bigint(20) unsigned",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "subscriptions",
+      "COLUMN_NAME": "scheduled_plan_id",
+      "COLUMN_TYPE": "bigint(20) unsigned",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "subscriptions",
+      "COLUMN_NAME": "scheduled_change_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "subscriptions",
+      "COLUMN_NAME": "cancel_at_period_end",
+      "COLUMN_TYPE": "tinyint(1)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "subscriptions",
+      "COLUMN_NAME": "cancelled_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "subscriptions",
+      "COLUMN_NAME": "provider",
+      "COLUMN_TYPE": "enum('razorpay','manual')",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "'razorpay'",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "subscriptions",
+      "COLUMN_NAME": "provider_subscription_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "subscriptions",
+      "COLUMN_NAME": "provider_customer_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "subscriptions",
+      "COLUMN_NAME": "provider_order_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "subscriptions",
+      "COLUMN_NAME": "notes",
+      "COLUMN_TYPE": "text",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "subscriptions",
+      "COLUMN_NAME": "created_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "subscriptions",
+      "COLUMN_NAME": "updated_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "udhari_entries",
+      "COLUMN_NAME": "id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "PRI"
+    },
+    {
+      "TABLE_NAME": "udhari_entries",
+      "COLUMN_NAME": "user_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "udhari_entries",
+      "COLUMN_NAME": "person_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "udhari_entries",
+      "COLUMN_NAME": "direction",
+      "COLUMN_TYPE": "enum('given','received')",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "udhari_entries",
+      "COLUMN_NAME": "amount_paise",
+      "COLUMN_TYPE": "bigint(20)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "udhari_entries",
+      "COLUMN_NAME": "due_date",
+      "COLUMN_TYPE": "date",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "udhari_entries",
+      "COLUMN_NAME": "settlement_status",
+      "COLUMN_TYPE": "varchar(32)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "'open'",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "udhari_entries",
+      "COLUMN_NAME": "notes",
+      "COLUMN_TYPE": "varchar(500)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "''",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "udhari_entries",
+      "COLUMN_NAME": "linked_transaction_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "udhari_entries",
+      "COLUMN_NAME": "created_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "udhari_people",
+      "COLUMN_NAME": "id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "PRI"
+    },
+    {
+      "TABLE_NAME": "udhari_people",
+      "COLUMN_NAME": "user_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "udhari_people",
+      "COLUMN_NAME": "display_name",
+      "COLUMN_TYPE": "varchar(120)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "''",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "udhari_people",
+      "COLUMN_NAME": "phone_hash",
+      "COLUMN_TYPE": "varchar(128)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "''",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "udhari_people",
+      "COLUMN_NAME": "relationship",
+      "COLUMN_TYPE": "varchar(64)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "'other'",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "udhari_people",
+      "COLUMN_NAME": "total_receivable_paise",
+      "COLUMN_TYPE": "bigint(20)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "udhari_people",
+      "COLUMN_NAME": "total_payable_paise",
+      "COLUMN_TYPE": "bigint(20)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "udhari_people",
+      "COLUMN_NAME": "risk_level",
+      "COLUMN_TYPE": "varchar(32)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "'ok'",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "udhari_people",
+      "COLUMN_NAME": "created_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "udhari_people",
+      "COLUMN_NAME": "updated_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "udhari_people",
+      "COLUMN_NAME": "deleted_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "udhari_settlements",
+      "COLUMN_NAME": "id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "PRI"
+    },
+    {
+      "TABLE_NAME": "udhari_settlements",
+      "COLUMN_NAME": "user_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "udhari_settlements",
+      "COLUMN_NAME": "person_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "udhari_settlements",
+      "COLUMN_NAME": "udhari_entry_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "udhari_settlements",
+      "COLUMN_NAME": "amount_paise",
+      "COLUMN_TYPE": "bigint(20)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "udhari_settlements",
+      "COLUMN_NAME": "settlement_date",
+      "COLUMN_TYPE": "date",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "udhari_settlements",
+      "COLUMN_NAME": "account_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "udhari_settlements",
+      "COLUMN_NAME": "notes",
+      "COLUMN_TYPE": "varchar(500)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "''",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "udhari_settlements",
+      "COLUMN_NAME": "created_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "users",
+      "COLUMN_NAME": "id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "PRI"
+    },
+    {
+      "TABLE_NAME": "users",
+      "COLUMN_NAME": "username",
+      "COLUMN_TYPE": "varchar(24)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "UNI"
+    },
+    {
+      "TABLE_NAME": "users",
+      "COLUMN_NAME": "display_name",
+      "COLUMN_TYPE": "varchar(60)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "users",
+      "COLUMN_NAME": "pin_hash",
+      "COLUMN_TYPE": "varchar(255)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "users",
+      "COLUMN_NAME": "pin_salt",
+      "COLUMN_TYPE": "varchar(64)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "users",
+      "COLUMN_NAME": "role",
+      "COLUMN_TYPE": "enum('user','admin')",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "'user'",
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "users",
+      "COLUMN_NAME": "is_active",
+      "COLUMN_TYPE": "tinyint(1)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "1",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "users",
+      "COLUMN_NAME": "last_login_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "users",
+      "COLUMN_NAME": "must_change_pin",
+      "COLUMN_TYPE": "tinyint(1)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "users",
+      "COLUMN_NAME": "deleted_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "users",
+      "COLUMN_NAME": "deleted_reason",
+      "COLUMN_TYPE": "varchar(120)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "users",
+      "COLUMN_NAME": "last_policy_check_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "users",
+      "COLUMN_NAME": "mobile",
+      "COLUMN_TYPE": "varchar(20)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "users",
+      "COLUMN_NAME": "email",
+      "COLUMN_TYPE": "varchar(254)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "users",
+      "COLUMN_NAME": "mobile_e164",
+      "COLUMN_TYPE": "varchar(20)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "users",
+      "COLUMN_NAME": "email_lc",
+      "COLUMN_TYPE": "varchar(254)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "users",
+      "COLUMN_NAME": "avatar_emoji",
+      "COLUMN_TYPE": "varchar(16)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "users",
+      "COLUMN_NAME": "avatar_color",
+      "COLUMN_TYPE": "varchar(32)",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "users",
+      "COLUMN_NAME": "created_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "users",
+      "COLUMN_NAME": "updated_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_audit_logs",
+      "COLUMN_NAME": "id",
+      "COLUMN_TYPE": "bigint(20) unsigned",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "PRI"
+    },
+    {
+      "TABLE_NAME": "user_audit_logs",
+      "COLUMN_NAME": "user_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "user_audit_logs",
+      "COLUMN_NAME": "action_key",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "user_audit_logs",
+      "COLUMN_NAME": "entity_type",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "''",
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "user_audit_logs",
+      "COLUMN_NAME": "entity_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "''",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_audit_logs",
+      "COLUMN_NAME": "before_json",
+      "COLUMN_TYPE": "longtext",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_audit_logs",
+      "COLUMN_NAME": "after_json",
+      "COLUMN_TYPE": "longtext",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_audit_logs",
+      "COLUMN_NAME": "ip_address",
+      "COLUMN_TYPE": "varchar(64)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "''",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_audit_logs",
+      "COLUMN_NAME": "user_agent",
+      "COLUMN_TYPE": "varchar(512)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "''",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_audit_logs",
+      "COLUMN_NAME": "request_id",
+      "COLUMN_TYPE": "varchar(64)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "''",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_audit_logs",
+      "COLUMN_NAME": "created_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_credit_cards",
+      "COLUMN_NAME": "id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "PRI"
+    },
+    {
+      "TABLE_NAME": "user_credit_cards",
+      "COLUMN_NAME": "user_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "user_credit_cards",
+      "COLUMN_NAME": "card_name",
+      "COLUMN_TYPE": "varchar(120)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "''",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_credit_cards",
+      "COLUMN_NAME": "issuer_name",
+      "COLUMN_TYPE": "varchar(120)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "''",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_credit_cards",
+      "COLUMN_NAME": "last4",
+      "COLUMN_TYPE": "char(4)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "''",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_credit_cards",
+      "COLUMN_NAME": "credit_limit_paise",
+      "COLUMN_TYPE": "bigint(20)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_credit_cards",
+      "COLUMN_NAME": "current_outstanding_paise",
+      "COLUMN_TYPE": "bigint(20)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_credit_cards",
+      "COLUMN_NAME": "unbilled_amount_paise",
+      "COLUMN_TYPE": "bigint(20)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_credit_cards",
+      "COLUMN_NAME": "statement_balance_paise",
+      "COLUMN_TYPE": "bigint(20)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_credit_cards",
+      "COLUMN_NAME": "minimum_due_paise",
+      "COLUMN_TYPE": "bigint(20)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_credit_cards",
+      "COLUMN_NAME": "statement_day",
+      "COLUMN_TYPE": "tinyint(3) unsigned",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "1",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_credit_cards",
+      "COLUMN_NAME": "due_day",
+      "COLUMN_TYPE": "tinyint(3) unsigned",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "15",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_credit_cards",
+      "COLUMN_NAME": "last_statement_date",
+      "COLUMN_TYPE": "date",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_credit_cards",
+      "COLUMN_NAME": "next_due_date",
+      "COLUMN_TYPE": "date",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_credit_cards",
+      "COLUMN_NAME": "interest_rate_bps",
+      "COLUMN_TYPE": "int(10) unsigned",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_credit_cards",
+      "COLUMN_NAME": "annual_fee_paise",
+      "COLUMN_TYPE": "bigint(20)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_credit_cards",
+      "COLUMN_NAME": "is_active",
+      "COLUMN_TYPE": "tinyint(1)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "1",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_credit_cards",
+      "COLUMN_NAME": "deleted_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_credit_cards",
+      "COLUMN_NAME": "created_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_credit_cards",
+      "COLUMN_NAME": "updated_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loans",
+      "COLUMN_NAME": "id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "PRI"
+    },
+    {
+      "TABLE_NAME": "user_loans",
+      "COLUMN_NAME": "user_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "user_loans",
+      "COLUMN_NAME": "loan_name",
+      "COLUMN_TYPE": "varchar(120)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "''",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loans",
+      "COLUMN_NAME": "lender_name",
+      "COLUMN_TYPE": "varchar(120)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "''",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loans",
+      "COLUMN_NAME": "loan_type",
+      "COLUMN_TYPE": "varchar(32)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "'personal'",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loans",
+      "COLUMN_NAME": "principal_sanctioned_paise",
+      "COLUMN_TYPE": "bigint(20)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loans",
+      "COLUMN_NAME": "disbursed_amount_paise",
+      "COLUMN_TYPE": "bigint(20)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loans",
+      "COLUMN_NAME": "current_principal_paise",
+      "COLUMN_TYPE": "bigint(20)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loans",
+      "COLUMN_NAME": "annual_interest_bps",
+      "COLUMN_TYPE": "int(10) unsigned",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loans",
+      "COLUMN_NAME": "interest_type",
+      "COLUMN_TYPE": "varchar(32)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "'reducing_balance'",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loans",
+      "COLUMN_NAME": "emi_amount_paise",
+      "COLUMN_TYPE": "bigint(20)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loans",
+      "COLUMN_NAME": "original_tenure_months",
+      "COLUMN_TYPE": "int(10) unsigned",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loans",
+      "COLUMN_NAME": "remaining_tenure_months",
+      "COLUMN_TYPE": "int(10) unsigned",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loans",
+      "COLUMN_NAME": "start_date",
+      "COLUMN_TYPE": "date",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loans",
+      "COLUMN_NAME": "first_emi_date",
+      "COLUMN_TYPE": "date",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loans",
+      "COLUMN_NAME": "due_day",
+      "COLUMN_TYPE": "tinyint(3) unsigned",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "1",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loans",
+      "COLUMN_NAME": "processing_fee_paise",
+      "COLUMN_TYPE": "bigint(20)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loans",
+      "COLUMN_NAME": "insurance_fee_paise",
+      "COLUMN_TYPE": "bigint(20)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loans",
+      "COLUMN_NAME": "prepayment_allowed",
+      "COLUMN_TYPE": "tinyint(1)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "1",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loans",
+      "COLUMN_NAME": "foreclosure_charge_bps",
+      "COLUMN_TYPE": "int(10) unsigned",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loans",
+      "COLUMN_NAME": "status",
+      "COLUMN_TYPE": "varchar(32)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "'active'",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loans",
+      "COLUMN_NAME": "lifecycle_mode",
+      "COLUMN_TYPE": "varchar(32)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "'fresh'",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loans",
+      "COLUMN_NAME": "deleted_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loans",
+      "COLUMN_NAME": "created_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loans",
+      "COLUMN_NAME": "updated_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loan_payments",
+      "COLUMN_NAME": "id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "PRI"
+    },
+    {
+      "TABLE_NAME": "user_loan_payments",
+      "COLUMN_NAME": "user_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "user_loan_payments",
+      "COLUMN_NAME": "loan_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "user_loan_payments",
+      "COLUMN_NAME": "due_month",
+      "COLUMN_TYPE": "char(7)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loan_payments",
+      "COLUMN_NAME": "due_date",
+      "COLUMN_TYPE": "date",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loan_payments",
+      "COLUMN_NAME": "paid_date",
+      "COLUMN_TYPE": "date",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loan_payments",
+      "COLUMN_NAME": "scheduled_emi_paise",
+      "COLUMN_TYPE": "bigint(20)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loan_payments",
+      "COLUMN_NAME": "actual_paid_paise",
+      "COLUMN_TYPE": "bigint(20)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loan_payments",
+      "COLUMN_NAME": "principal_component_paise",
+      "COLUMN_TYPE": "bigint(20)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loan_payments",
+      "COLUMN_NAME": "interest_component_paise",
+      "COLUMN_TYPE": "bigint(20)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loan_payments",
+      "COLUMN_NAME": "penalty_paise",
+      "COLUMN_TYPE": "bigint(20)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loan_payments",
+      "COLUMN_NAME": "fee_paise",
+      "COLUMN_TYPE": "bigint(20)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loan_payments",
+      "COLUMN_NAME": "extra_principal_paise",
+      "COLUMN_TYPE": "bigint(20)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loan_payments",
+      "COLUMN_NAME": "opening_principal_paise",
+      "COLUMN_TYPE": "bigint(20)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loan_payments",
+      "COLUMN_NAME": "closing_principal_paise",
+      "COLUMN_TYPE": "bigint(20)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loan_payments",
+      "COLUMN_NAME": "status",
+      "COLUMN_TYPE": "varchar(32)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "'due'",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loan_payments",
+      "COLUMN_NAME": "created_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_loan_payments",
+      "COLUMN_NAME": "updated_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_policy_acceptances",
+      "COLUMN_NAME": "id",
+      "COLUMN_TYPE": "bigint(20) unsigned",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "PRI"
+    },
+    {
+      "TABLE_NAME": "user_policy_acceptances",
+      "COLUMN_NAME": "user_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "user_policy_acceptances",
+      "COLUMN_NAME": "policy_key",
+      "COLUMN_TYPE": "varchar(64)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_policy_acceptances",
+      "COLUMN_NAME": "version",
+      "COLUMN_TYPE": "varchar(32)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_policy_acceptances",
+      "COLUMN_NAME": "accepted_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_policy_acceptances",
+      "COLUMN_NAME": "ip_address",
+      "COLUMN_TYPE": "varchar(64)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "''",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_policy_acceptances",
+      "COLUMN_NAME": "user_agent",
+      "COLUMN_TYPE": "varchar(512)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "''",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_policy_acceptances",
+      "COLUMN_NAME": "withdrawn_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_policy_acceptances",
+      "COLUMN_NAME": "created_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_security_recovery",
+      "COLUMN_NAME": "user_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "PRI"
+    },
+    {
+      "TABLE_NAME": "user_security_recovery",
+      "COLUMN_NAME": "security_question",
+      "COLUMN_TYPE": "varchar(255)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_security_recovery",
+      "COLUMN_NAME": "security_answer_hash",
+      "COLUMN_TYPE": "varchar(255)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_security_recovery",
+      "COLUMN_NAME": "updated_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "user_security_recovery",
+      "COLUMN_NAME": "created_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "webhook_events",
+      "COLUMN_NAME": "id",
+      "COLUMN_TYPE": "bigint(20) unsigned",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "PRI"
+    },
+    {
+      "TABLE_NAME": "webhook_events",
+      "COLUMN_NAME": "provider",
+      "COLUMN_TYPE": "enum('razorpay')",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "'razorpay'",
+      "COLUMN_KEY": "MUL"
+    },
+    {
+      "TABLE_NAME": "webhook_events",
+      "COLUMN_NAME": "event_id",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": "UNI"
+    },
+    {
+      "TABLE_NAME": "webhook_events",
+      "COLUMN_NAME": "event_type",
+      "COLUMN_TYPE": "varchar(191)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "webhook_events",
+      "COLUMN_NAME": "signature_valid",
+      "COLUMN_TYPE": "tinyint(1)",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "webhook_events",
+      "COLUMN_NAME": "payload_json",
+      "COLUMN_TYPE": "longtext",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": null,
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "webhook_events",
+      "COLUMN_NAME": "processing_status",
+      "COLUMN_TYPE": "enum('pending','processed','failed')",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "'pending'",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "webhook_events",
+      "COLUMN_NAME": "processed_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "webhook_events",
+      "COLUMN_NAME": "error_message",
+      "COLUMN_TYPE": "text",
+      "IS_NULLABLE": "YES",
+      "COLUMN_DEFAULT": "NULL",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "webhook_events",
+      "COLUMN_NAME": "retry_count",
+      "COLUMN_TYPE": "tinyint(3) unsigned",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "0",
+      "COLUMN_KEY": ""
+    },
+    {
+      "TABLE_NAME": "webhook_events",
+      "COLUMN_NAME": "created_at",
+      "COLUMN_TYPE": "datetime",
+      "IS_NULLABLE": "NO",
+      "COLUMN_DEFAULT": "current_timestamp()",
+      "COLUMN_KEY": "MUL"
+    }
+  ],
+  "keys": [
+    {
+      "TABLE_NAME": "admin_audit_logs",
+      "COLUMN_NAME": "id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "admin_audit_logs",
+      "COLUMN_NAME": "actor_user_id",
+      "REFERENCED_TABLE_NAME": "users",
+      "REFERENCED_COLUMN_NAME": "id"
+    },
+    {
+      "TABLE_NAME": "ai_suggestions",
+      "COLUMN_NAME": "id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "ai_suggestions",
+      "COLUMN_NAME": "user_id",
+      "REFERENCED_TABLE_NAME": "users",
+      "REFERENCED_COLUMN_NAME": "id"
+    },
+    {
+      "TABLE_NAME": "api_rate_limits",
+      "COLUMN_NAME": "id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "api_rate_limits",
+      "COLUMN_NAME": "bucket_key",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "app_settings",
+      "COLUMN_NAME": "id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "app_settings",
+      "COLUMN_NAME": "setting_key",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "app_settings",
+      "COLUMN_NAME": "updated_by_user_id",
+      "REFERENCED_TABLE_NAME": "users",
+      "REFERENCED_COLUMN_NAME": "id"
+    },
+    {
+      "TABLE_NAME": "audit_logs",
+      "COLUMN_NAME": "id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "audit_logs",
+      "COLUMN_NAME": "actor_user_id",
+      "REFERENCED_TABLE_NAME": "users",
+      "REFERENCED_COLUMN_NAME": "id"
+    },
+    {
+      "TABLE_NAME": "cloud_collection_rows",
+      "COLUMN_NAME": "id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "cloud_collection_rows",
+      "COLUMN_NAME": "user_id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "cloud_collection_rows",
+      "COLUMN_NAME": "collection_name",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "cloud_collection_rows",
+      "COLUMN_NAME": "entity_id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "cloud_collection_rows",
+      "COLUMN_NAME": "user_id",
+      "REFERENCED_TABLE_NAME": "users",
+      "REFERENCED_COLUMN_NAME": "id"
+    },
+    {
+      "TABLE_NAME": "cloud_users",
+      "COLUMN_NAME": "id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "cloud_users",
+      "COLUMN_NAME": "username",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "feature_flags_global",
+      "COLUMN_NAME": "id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "feature_flags_global",
+      "COLUMN_NAME": "feature_key",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "feature_flags_global",
+      "COLUMN_NAME": "updated_by_user_id",
+      "REFERENCED_TABLE_NAME": "users",
+      "REFERENCED_COLUMN_NAME": "id"
+    },
+    {
+      "TABLE_NAME": "financial_effects",
+      "COLUMN_NAME": "id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "financial_effects",
+      "COLUMN_NAME": "event_id",
+      "REFERENCED_TABLE_NAME": "financial_events",
+      "REFERENCED_COLUMN_NAME": "id"
+    },
+    {
+      "TABLE_NAME": "financial_effects",
+      "COLUMN_NAME": "user_id",
+      "REFERENCED_TABLE_NAME": "users",
+      "REFERENCED_COLUMN_NAME": "id"
+    },
+    {
+      "TABLE_NAME": "financial_events",
+      "COLUMN_NAME": "id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "financial_events",
+      "COLUMN_NAME": "user_id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "financial_events",
+      "COLUMN_NAME": "source_transaction_id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "financial_events",
+      "COLUMN_NAME": "user_id",
+      "REFERENCED_TABLE_NAME": "users",
+      "REFERENCED_COLUMN_NAME": "id"
+    },
+    {
+      "TABLE_NAME": "financial_mutation_keys",
+      "COLUMN_NAME": "id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "financial_mutation_keys",
+      "COLUMN_NAME": "user_id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "financial_mutation_keys",
+      "COLUMN_NAME": "mutation_id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "login_attempts",
+      "COLUMN_NAME": "id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "login_attempts",
+      "COLUMN_NAME": "username",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "login_attempts",
+      "COLUMN_NAME": "ip_address",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "payments",
+      "COLUMN_NAME": "id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "payments",
+      "COLUMN_NAME": "provider",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "payments",
+      "COLUMN_NAME": "provider_order_id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "payments",
+      "COLUMN_NAME": "provider",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "payments",
+      "COLUMN_NAME": "provider_payment_id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "payments",
+      "COLUMN_NAME": "subscription_id",
+      "REFERENCED_TABLE_NAME": "subscriptions",
+      "REFERENCED_COLUMN_NAME": "id"
+    },
+    {
+      "TABLE_NAME": "payments",
+      "COLUMN_NAME": "user_id",
+      "REFERENCED_TABLE_NAME": "users",
+      "REFERENCED_COLUMN_NAME": "id"
+    },
+    {
+      "TABLE_NAME": "plan_features",
+      "COLUMN_NAME": "id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "plan_features",
+      "COLUMN_NAME": "plan_id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "plan_features",
+      "COLUMN_NAME": "feature_key",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "plan_features",
+      "COLUMN_NAME": "plan_id",
+      "REFERENCED_TABLE_NAME": "plans",
+      "REFERENCED_COLUMN_NAME": "id"
+    },
+    {
+      "TABLE_NAME": "plan_prices",
+      "COLUMN_NAME": "id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "plan_prices",
+      "COLUMN_NAME": "plan_id",
+      "REFERENCED_TABLE_NAME": "plans",
+      "REFERENCED_COLUMN_NAME": "id"
+    },
+    {
+      "TABLE_NAME": "plans",
+      "COLUMN_NAME": "id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "plans",
+      "COLUMN_NAME": "code",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "retention_jobs",
+      "COLUMN_NAME": "id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "schema_version",
+      "COLUMN_NAME": "version_key",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "subscriptions",
+      "COLUMN_NAME": "id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "subscriptions",
+      "COLUMN_NAME": "plan_id",
+      "REFERENCED_TABLE_NAME": "plans",
+      "REFERENCED_COLUMN_NAME": "id"
+    },
+    {
+      "TABLE_NAME": "subscriptions",
+      "COLUMN_NAME": "user_id",
+      "REFERENCED_TABLE_NAME": "users",
+      "REFERENCED_COLUMN_NAME": "id"
+    },
+    {
+      "TABLE_NAME": "udhari_entries",
+      "COLUMN_NAME": "id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "udhari_entries",
+      "COLUMN_NAME": "person_id",
+      "REFERENCED_TABLE_NAME": "udhari_people",
+      "REFERENCED_COLUMN_NAME": "id"
+    },
+    {
+      "TABLE_NAME": "udhari_entries",
+      "COLUMN_NAME": "user_id",
+      "REFERENCED_TABLE_NAME": "users",
+      "REFERENCED_COLUMN_NAME": "id"
+    },
+    {
+      "TABLE_NAME": "udhari_people",
+      "COLUMN_NAME": "id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "udhari_people",
+      "COLUMN_NAME": "user_id",
+      "REFERENCED_TABLE_NAME": "users",
+      "REFERENCED_COLUMN_NAME": "id"
+    },
+    {
+      "TABLE_NAME": "udhari_settlements",
+      "COLUMN_NAME": "id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "udhari_settlements",
+      "COLUMN_NAME": "udhari_entry_id",
+      "REFERENCED_TABLE_NAME": "udhari_entries",
+      "REFERENCED_COLUMN_NAME": "id"
+    },
+    {
+      "TABLE_NAME": "udhari_settlements",
+      "COLUMN_NAME": "person_id",
+      "REFERENCED_TABLE_NAME": "udhari_people",
+      "REFERENCED_COLUMN_NAME": "id"
+    },
+    {
+      "TABLE_NAME": "udhari_settlements",
+      "COLUMN_NAME": "user_id",
+      "REFERENCED_TABLE_NAME": "users",
+      "REFERENCED_COLUMN_NAME": "id"
+    },
+    {
+      "TABLE_NAME": "user_audit_logs",
+      "COLUMN_NAME": "id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "user_audit_logs",
+      "COLUMN_NAME": "user_id",
+      "REFERENCED_TABLE_NAME": "users",
+      "REFERENCED_COLUMN_NAME": "id"
+    },
+    {
+      "TABLE_NAME": "user_credit_cards",
+      "COLUMN_NAME": "id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "user_credit_cards",
+      "COLUMN_NAME": "user_id",
+      "REFERENCED_TABLE_NAME": "users",
+      "REFERENCED_COLUMN_NAME": "id"
+    },
+    {
+      "TABLE_NAME": "user_loan_payments",
+      "COLUMN_NAME": "id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "user_loan_payments",
+      "COLUMN_NAME": "loan_id",
+      "REFERENCED_TABLE_NAME": "user_loans",
+      "REFERENCED_COLUMN_NAME": "id"
+    },
+    {
+      "TABLE_NAME": "user_loan_payments",
+      "COLUMN_NAME": "user_id",
+      "REFERENCED_TABLE_NAME": "users",
+      "REFERENCED_COLUMN_NAME": "id"
+    },
+    {
+      "TABLE_NAME": "user_loans",
+      "COLUMN_NAME": "id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "user_loans",
+      "COLUMN_NAME": "user_id",
+      "REFERENCED_TABLE_NAME": "users",
+      "REFERENCED_COLUMN_NAME": "id"
+    },
+    {
+      "TABLE_NAME": "user_policy_acceptances",
+      "COLUMN_NAME": "id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "user_policy_acceptances",
+      "COLUMN_NAME": "user_id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "user_policy_acceptances",
+      "COLUMN_NAME": "policy_key",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "user_policy_acceptances",
+      "COLUMN_NAME": "version",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "user_policy_acceptances",
+      "COLUMN_NAME": "user_id",
+      "REFERENCED_TABLE_NAME": "users",
+      "REFERENCED_COLUMN_NAME": "id"
+    },
+    {
+      "TABLE_NAME": "user_security_recovery",
+      "COLUMN_NAME": "user_id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "user_security_recovery",
+      "COLUMN_NAME": "user_id",
+      "REFERENCED_TABLE_NAME": "users",
+      "REFERENCED_COLUMN_NAME": "id"
+    },
+    {
+      "TABLE_NAME": "users",
+      "COLUMN_NAME": "id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "users",
+      "COLUMN_NAME": "username",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "webhook_events",
+      "COLUMN_NAME": "id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    },
+    {
+      "TABLE_NAME": "webhook_events",
+      "COLUMN_NAME": "event_id",
+      "REFERENCED_TABLE_NAME": null,
+      "REFERENCED_COLUMN_NAME": null
+    }
+  ],
+  "version": [
+    {
+      "version": "10.4.28-MariaDB"
+    }
+  ]
+}

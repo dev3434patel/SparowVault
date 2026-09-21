@@ -2,6 +2,7 @@ import { create } from "zustand";
 import type { User } from "@/types";
 import { cloudAdminLogin, cloudLogin, cloudLogout, cloudMe } from "@/lib/cloud/client";
 import { nowIso } from "@/lib/utils";
+import { useUIStore } from "@/store/uiStore";
 
 const LS_SESSION_KEY = "sv:session";
 const LS_UNLOCK_FAIL_KEY = "sv:unlock_fail";
@@ -25,7 +26,7 @@ interface AuthState {
   setError: (e: string | null) => void;
 }
 
-type StoredSession = { userId: string; username?: string; locked: boolean };
+type StoredSession = { userId: string; username?: string; locked: boolean; portal?: "admin" | "user" };
 type UnlockGuard = { attempts: number; blockedUntil?: number };
 
 function getStoredSession(): StoredSession | null {
@@ -77,6 +78,7 @@ function toUserShape(input: {
   avatarEmoji?: string | null;
   avatarColor?: string | null;
   securityQuestion?: string | null;
+  mustChangePin?: boolean;
 }): User {
   const now = nowIso();
   return {
@@ -91,6 +93,7 @@ function toUserShape(input: {
     mobile: input.mobile || undefined,
     email: input.email || undefined,
     securityQuestion: input.securityQuestion || undefined,
+    mustChangePin: input.mustChangePin ?? false,
     themePreference: "system",
     financialYearStartMonth: 4,
     isLocked: 0,
@@ -134,7 +137,11 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   },
 
   refreshProfiles: async () => {
-    set({ profiles: [] });
+    const current = get().currentUser;
+    if (!current) return;
+    const me = await cloudMe();
+    if (me.id !== current.id) throw new Error("Account changed. Sign in again.");
+    set({ profiles: [], currentUser: toUserShape(me) });
   },
 
   login: async (userId, pin) => {
@@ -143,12 +150,12 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       const session = getStoredSession();
       const username = session?.username;
       if (!username) throw new Error("Session expired. Please sign in again.");
-      const fn = username.toLowerCase() === "admin" ? cloudAdminLogin : cloudLogin;
+      const fn = session?.portal === "admin" || username.toLowerCase() === "admin" ? cloudAdminLogin : cloudLogin;
       const authUser = await fn({ username, pin });
       if (authUser.id !== userId) throw new Error("Account mismatch");
-      setStoredSession({ userId: authUser.id, username: authUser.username, locked: false });
+      setStoredSession({ userId: authUser.id, username: authUser.username, locked: false, portal: authUser.role === "admin" ? "admin" : "user" });
       setUnlockGuard(null);
-      set({ currentUser: toUserShape(authUser), locked: false, loading: false });
+      set({ currentUser: toUserShape(await cloudMe()), locked: false, loading: false });
     } catch (e) {
       const msg = e instanceof Error ? e.message : "Login failed";
       set({ loading: false, error: msg });
@@ -157,10 +164,11 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   },
 
   logout: async () => {
-    await cloudLogout();
+    const revoked = await cloudLogout();
     setStoredSession(null);
     setUnlockGuard(null);
     set({ currentUser: null, locked: false });
+    if (!revoked) useUIStore.getState().toast({ title: "Local session closed", description: "Server sign-out could not be confirmed. Reconnect and sign out again, or change your PIN to revoke earlier sessions.", kind: "warning" });
   },
 
   lock: async () => {
@@ -177,12 +185,12 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       const waitSeconds = Math.ceil((guard.blockedUntil - Date.now()) / 1000);
       throw new Error(`Too many attempts. Try again in ${waitSeconds}s.`);
     }
-    const fn = session.username.toLowerCase() === "admin" ? cloudAdminLogin : cloudLogin;
+    const fn = session.portal === "admin" || session.username.toLowerCase() === "admin" ? cloudAdminLogin : cloudLogin;
     try {
       await fn({ username: session.username, pin });
       setStoredSession({ ...session, locked: false });
       setUnlockGuard(null);
-      set({ locked: false, error: null });
+      set({ currentUser: toUserShape(await cloudMe()), locked: false, error: null });
     } catch (e) {
       const attempts = (guard.attempts ?? 0) + 1;
       const blockedUntil =

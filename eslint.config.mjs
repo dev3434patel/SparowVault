@@ -4,7 +4,11 @@ import tseslint from "typescript-eslint";
 export default [
   {
     ignores: [
+      "**/._*",
+      "docs/audit-evidence/**",
+      "docs/implementation-evidence/**",
       "node_modules/**",
+      "public/ocr/**",
       "dist/**",
       "build/**",
       "dist-server/**",

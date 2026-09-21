@@ -1,0 +1,121 @@
+{
+  "date": "2026-09-10T07:37:52.818Z",
+  "head": "54eec068a37cceb9cccc2a63dca824e1e092f52e",
+  "remoteMaster": "54eec068a37cceb9cccc2a63dca824e1e092f52e",
+  "changedScannedFiles": [],
+  "brokenLinks": [],
+  "invalidLineLinks": [],
+  "mainSections": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25
+  ],
+  "findings": 39,
+  "counts": {
+    "Critical": 2,
+    "High": 21,
+    "Medium": 14,
+    "Low": 2
+  },
+  "reports": [
+    {
+      "name": "CURRENT-FULL-A-TO-Z-AUDIT-REPORT.md",
+      "lines": 688,
+      "sha256": "c14c57938facfd957b174a3920d00ce8cac4989f51f5a32cadad959cffe0b280"
+    },
+    {
+      "name": "MODULE-WISE-AUDIT.md",
+      "lines": 2464,
+      "sha256": "2ed3f725ca0e9c1b27647f0b783a9f7df39ceb97df0e769c11e78ca85e23bd1f"
+    },
+    {
+      "name": "API-AUDIT.md",
+      "lines": 951,
+      "sha256": "20b4368218f3c9fb654e9d5f2474efa72ec0674d56eace478bc4a467f2a939cb"
+    },
+    {
+      "name": "UI-UX-AUDIT.md",
+      "lines": 85,
+      "sha256": "1d0678c340af8adc23fd54a0e4a5f44f3a06d4092f5862dd437f6d1df0b445ba"
+    },
+    {
+      "name": "FINANCE-CALCULATION-AUDIT.md",
+      "lines": 213,
+      "sha256": "2bf5e1bac916816f8aca36a5402f150d0f04bc8bb751acbf4ab59031c3263b4f"
+    },
+    {
+      "name": "RBAC-SECURITY-AUDIT.md",
+      "lines": 99,
+      "sha256": "463d76d2e5ca636470245ae441428dace5223c296ae34fb814570119121a3d68"
+    },
+    {
+      "name": "BUGS-AND-GAPS-REPORT.md",
+      "lines": 483,
+      "sha256": "2429eed2b80478b8616330d9d141c3d0761d7bea9e0e7f1ceca3f930b9fa5da3"
+    },
+    {
+      "name": "TESTING-COVERAGE-REPORT.md",
+      "lines": 289,
+      "sha256": "11529d96b88bdf930228b2abbc4a8f62d0c13cdebcb2b32546f8cc02c4693eb2"
+    },
+    {
+      "name": "PRODUCTION-READINESS-REPORT.md",
+      "lines": 328,
+      "sha256": "d27ad98d90c5d051299df26cfb3c2f912389890dc48a78e3fffca970a42b6de5"
+    }
+  ],
+  "network": {
+    "5173": {
+      "status": 200
+    },
+    "5176": {
+      "reachable": false
+    },
+    "8080": {
+      "status": 200,
+      "health": {
+        "ok": true,
+        "data": {
+          "status": "healthy",
+          "appEnv": "development",
+          "version": "phase_vnext_mutation_idempotency",
+          "razorpayEnabled": false,
+          "db": {
+            "status": "ok",
+            "latencyMs": 1
+          },
+          "requestId": "bd23a8876dc8eda2",
+          "totalMs": 6,
+          "time": "2026-09-10T07:37:52+00:00"
+        }
+      }
+    },
+    "8086": {
+      "reachable": false
+    }
+  },
+  "preexistingWhitespaceWarning": "README.md:30: trailing whitespace.\n+- API (auto via `npm run dev`): http://localhost:8080",
+  "trackedDiff": "README.md                          |   2 +-\n docs/HOSTING_DEPLOY.md             |  14 +++\n package.json                       |   4 +-\n scripts/package-hosting.mjs        |  48 ++++++---\n scripts/sql-dry-run.mjs            |   1 +\n sql/HOSTING_READY_CLEAN_IMPORT.sql | 206 ++++++++++++++++++++++++++-----------\n tests/sql-smoke.php                |  87 ++++++++++++++--\n vite.config.ts                     |   2 +-\n 8 files changed, 278 insertions(+), 86 deletions(-)"
+}

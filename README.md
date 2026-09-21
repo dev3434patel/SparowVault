@@ -27,7 +27,7 @@ npm run dev
 ```
 
 - Frontend: http://localhost:5173  
-- API (auto via `npm run dev`): http://localhost:5000  
+- API (auto via `npm run dev`): http://localhost:8080  
 
 ## Hosting
 

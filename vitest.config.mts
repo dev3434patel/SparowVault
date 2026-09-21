@@ -15,6 +15,7 @@ export default defineConfig({
       "tests/unit/**/*.test.ts",
     ],
     exclude: [
+      "**/._*",
       "node_modules/**",
       "dist/**",
       "release/**",

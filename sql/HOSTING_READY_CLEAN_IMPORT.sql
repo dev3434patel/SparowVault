@@ -1,34 +1,38 @@
 -- ============================================================================
 -- SparowVault — HOSTING-READY CLEAN DATABASE IMPORT
--- Version: 2.0 | Fresh install only | No test / E2E user data
+-- Version: 3.0 | Fresh install | phpMyAdmin + mysql CLI | MariaDB 10.4 / MySQL 5.7+
 -- ============================================================================
--- USE THIS FILE for a brand-new empty hosting database (cPanel / phpMyAdmin / mysql CLI).
+-- Canonical one-file install. Use this for a brand-new empty hosting database.
+--
+-- phpMyAdmin-safe by design:
+--   - No DELIMITER / stored procedures
+--   - No SET @sql := IF(...) / PREPARE (phpMyAdmin parser bug: table named `if`)
+--   - No ALTER ... ADD COLUMN IF NOT EXISTS (fails on MySQL 5.7)
+--   - Plain CREATE TABLE IF NOT EXISTS + INSERT ... ON DUPLICATE KEY UPDATE
 --
 -- WHAT YOU GET:
---   • Full production schema (users, cloud sync, ledger, cards, loans, udhari,
---     SaaS plans, financial_mutation_keys idempotency, etc.)
---   • Seed: subscription plans + feature flags + public app settings
---   • Seed admin account (CHANGE PIN IMMEDIATELY after first login):
---       username: admin
---       PIN:      12345678
+--   Full production schema (users, cloud sync, ledger, cards, loans, udhari,
+--   SaaS plans, plan_prices, financial_mutation_keys, privacy/audit, recovery)
+--   Seed: plans + features + quotas + public settings
+--   Seed admin (CHANGE PIN IMMEDIATELY): username admin / PIN 12345678
 --
 -- WHAT YOU DO NOT GET:
---   • No E2E / certification / Alice-Bob test users
---   • No sample transactions
+--   No E2E / Alice-Bob test users, no sample transactions
 --
--- IMPORT STEPS:
---   1. Create empty DB (utf8mb4_unicode_ci), e.g. sparowvault
---   2. phpMyAdmin → Import → choose this file → Go
---   OR: mysql -u USER -p DBNAME < HOSTING_READY_CLEAN_IMPORT.sql
+-- IMPORT:
+--   1. Create empty DB, collation utf8mb4_unicode_ci
+--   2. phpMyAdmin → Import → this file → Go
+--   OR: mysql -u USER -p DBNAME < sql/HOSTING_READY_CLEAN_IMPORT.sql
 --
--- SAFE TO RE-RUN on empty/partial installs (IF NOT EXISTS / ON DUPLICATE KEY).
--- Do NOT use as an upgrade on a live DB that already has real users —
--- use sql/migrations/ for upgrades instead.
+-- Safe to re-run on empty/partial installs. Do not use as an in-place upgrade
+-- of a live user database — use sql/migrations/ for that.
 -- ============================================================================
 
 SET NAMES utf8mb4;
+SET CHARACTER SET utf8mb4;
 SET time_zone = '+00:00';
 SET FOREIGN_KEY_CHECKS = 0;
+SET sql_mode = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION';
 
 -- ============================================================================
 -- TABLE: users
@@ -106,6 +110,7 @@ CREATE TABLE IF NOT EXISTS cloud_collection_rows (
   KEY idx_ccr_uid_loan_txn_date (user_id, loan_id, txn_local_date),
   KEY idx_ccr_uid_goal_txn_date (user_id, goal_id, txn_local_date),
   KEY idx_ccr_uid_amount_paise (user_id, amount_paise),
+  KEY idx_ccr_collection_deleted (user_id, collection_name, deleted_at),
   CONSTRAINT fk_ccr_user
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
@@ -398,6 +403,8 @@ CREATE TABLE IF NOT EXISTS plan_features (
   plan_id      BIGINT UNSIGNED NOT NULL,
   feature_key  VARCHAR(191)    NOT NULL,
   is_enabled   TINYINT(1)      NOT NULL DEFAULT 0,
+  limit_value  BIGINT          NULL     COMMENT 'Phase 14: numeric quota',
+  limit_unit   VARCHAR(32)     NULL     COMMENT 'per_month | per_day | total | mb | seconds',
   created_at   DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at   DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
@@ -406,7 +413,24 @@ CREATE TABLE IF NOT EXISTS plan_features (
   CONSTRAINT fk_plan_features_plan
     FOREIGN KEY (plan_id) REFERENCES plans(id) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
-  COMMENT='Feature entitlements per plan';
+  COMMENT='Feature entitlements per plan with Phase 14 numeric quotas';
+
+CREATE TABLE IF NOT EXISTS plan_prices (
+  id                BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  plan_id           BIGINT UNSIGNED NOT NULL,
+  amount_paise      BIGINT UNSIGNED NOT NULL,
+  currency          CHAR(3)         NOT NULL DEFAULT 'INR',
+  billing_interval  ENUM('monthly','yearly') NOT NULL DEFAULT 'monthly',
+  starts_at         DATETIME        NOT NULL,
+  ends_at           DATETIME        NULL,
+  notes             VARCHAR(255)    NULL,
+  created_at        DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (id),
+  KEY idx_pp_plan_starts (plan_id, starts_at),
+  CONSTRAINT fk_pp_plan FOREIGN KEY (plan_id) REFERENCES plans(id)
+    ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+  COMMENT='Phase 14 historical plan pricing (append-only)';
 
 
 -- ============================================================================
@@ -414,26 +438,31 @@ CREATE TABLE IF NOT EXISTS plan_features (
 -- User subscription state. One active subscription per user at a time.
 -- ============================================================================
 CREATE TABLE IF NOT EXISTS subscriptions (
-  id                      BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-  user_id                 VARCHAR(191)    NOT NULL,
-  plan_id                 BIGINT UNSIGNED NOT NULL,
-  status                  ENUM('pending','trial','active','past_due','cancelled','expired')
-                                          NOT NULL DEFAULT 'pending',
-  trial_ends_at           DATETIME        NULL,
-  current_period_start    DATETIME        NULL,
-  current_period_end      DATETIME        NULL,
-  cancel_at_period_end    TINYINT(1)      NOT NULL DEFAULT 0,
-  cancelled_at            DATETIME        NULL,
-  provider                ENUM('razorpay','manual') NOT NULL DEFAULT 'razorpay',
-  provider_subscription_id VARCHAR(191)   NULL,
-  provider_customer_id     VARCHAR(191)   NULL,
-  provider_order_id        VARCHAR(191)   NULL,
-  notes                   TEXT            NULL     COMMENT 'admin notes',
-  created_at              DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at              DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  id                            BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+  user_id                       VARCHAR(191)    NOT NULL,
+  plan_id                       BIGINT UNSIGNED NOT NULL,
+  status                        ENUM('pending','trial','active','past_due','cancelled','expired')
+                                                NOT NULL DEFAULT 'pending',
+  trial_ends_at                 DATETIME        NULL,
+  current_period_start          DATETIME        NULL,
+  current_period_end            DATETIME        NULL,
+  previous_period_end           DATETIME        NULL  COMMENT 'Phase 14: fair early renewal anchor',
+  renewed_from_subscription_id  BIGINT UNSIGNED NULL,
+  scheduled_plan_id             BIGINT UNSIGNED NULL,
+  scheduled_change_at           DATETIME        NULL,
+  cancel_at_period_end          TINYINT(1)      NOT NULL DEFAULT 0,
+  cancelled_at                  DATETIME        NULL,
+  provider                      ENUM('razorpay','manual') NOT NULL DEFAULT 'razorpay',
+  provider_subscription_id      VARCHAR(191)    NULL,
+  provider_customer_id          VARCHAR(191)    NULL,
+  provider_order_id             VARCHAR(191)    NULL,
+  notes                         TEXT            NULL     COMMENT 'admin notes',
+  created_at                    DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at                    DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
   KEY idx_sub_user_status         (user_id, status),
   KEY idx_sub_period_end          (current_period_end),
+  KEY idx_sub_expires             (status, current_period_end),
   KEY idx_sub_provider_sub_id     (provider_subscription_id),
   KEY idx_sub_provider_order_id   (provider_order_id),
   CONSTRAINT fk_sub_user
@@ -441,7 +470,7 @@ CREATE TABLE IF NOT EXISTS subscriptions (
   CONSTRAINT fk_sub_plan
     FOREIGN KEY (plan_id)  REFERENCES plans(id)  ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
-  COMMENT='User subscription records';
+  COMMENT='User subscriptions with Phase 14 fairness columns';
 
 
 -- ============================================================================
@@ -468,6 +497,8 @@ CREATE TABLE IF NOT EXISTS payments (
   created_at           DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at           DATETIME        NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
+  UNIQUE KEY uq_pay_provider_order_id   (provider, provider_order_id),
+  UNIQUE KEY uq_pay_provider_payment_id (provider, provider_payment_id),
   KEY idx_pay_user_status         (user_id, status),
   KEY idx_pay_provider_order      (provider_order_id),
   KEY idx_pay_provider_payment    (provider_payment_id),
@@ -702,6 +733,24 @@ CREATE TABLE IF NOT EXISTS cloud_users (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
   COMMENT='Legacy table — kept for migration only, do not use';
 
+CREATE TABLE IF NOT EXISTS user_security_recovery (
+  user_id              VARCHAR(191) NOT NULL PRIMARY KEY,
+  security_question    VARCHAR(255) NOT NULL,
+  security_answer_hash VARCHAR(255) NOT NULL,
+  updated_at           DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  created_at           DATETIME     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_security_recovery_user FOREIGN KEY (user_id) REFERENCES users(id)
+    ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+  COMMENT='Per-user security recovery Q+A (hashed)';
+
+CREATE TABLE IF NOT EXISTS schema_version (
+  version_key VARCHAR(64) NOT NULL,
+  applied_at  TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (version_key)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+  COMMENT='Applied schema markers for ops and /api/public/config';
+
 -- Migrate any existing cloud_users into the main users table
 INSERT INTO users (id, username, display_name, pin_hash, pin_salt, role, is_active, created_at, updated_at)
 SELECT cu.id, cu.username, cu.display_name, cu.pin_hash, cu.pin_salt, 'user', 1, cu.created_at, cu.updated_at
@@ -759,6 +808,35 @@ INSERT INTO plan_features (plan_id, feature_key, is_enabled)
 SELECT p.id, 'udhari', 1 FROM plans p
 ON DUPLICATE KEY UPDATE is_enabled = VALUES(is_enabled);
 
+INSERT INTO plan_features (plan_id, feature_key, is_enabled)
+SELECT p.id, 'ca_reports', CASE WHEN p.code IN ('PRO','PRO_YEARLY') THEN 1 ELSE 0 END FROM plans p
+ON DUPLICATE KEY UPDATE is_enabled = VALUES(is_enabled);
+
+INSERT INTO plan_features (plan_id, feature_key, is_enabled, limit_value, limit_unit)
+SELECT p.id, 'max_transactions_per_month', 1,
+  CASE p.code
+    WHEN 'FREE'       THEN 100
+    WHEN 'BASIC'      THEN 1000
+    WHEN 'PRO'        THEN 10000
+    WHEN 'PRO_YEARLY' THEN 10000
+    ELSE 100
+  END,
+  'per_month'
+FROM plans p
+ON DUPLICATE KEY UPDATE limit_value = VALUES(limit_value), limit_unit = VALUES(limit_unit), is_enabled = VALUES(is_enabled);
+
+INSERT INTO plan_features (plan_id, feature_key, is_enabled, limit_value, limit_unit)
+SELECT p.id, 'max_exports_per_month', CASE WHEN p.code IN ('PRO','PRO_YEARLY') THEN 1 ELSE 0 END,
+  CASE p.code WHEN 'PRO' THEN 30 WHEN 'PRO_YEARLY' THEN 30 ELSE 0 END,
+  'per_month'
+FROM plans p
+ON DUPLICATE KEY UPDATE limit_value = VALUES(limit_value), limit_unit = VALUES(limit_unit), is_enabled = VALUES(is_enabled);
+
+INSERT INTO plan_prices (plan_id, amount_paise, currency, billing_interval, starts_at, notes)
+SELECT p.id, ROUND(p.price_inr * 100), 'INR', p.billing_interval, UTC_TIMESTAMP(), 'initial seed price'
+FROM plans p
+WHERE NOT EXISTS (SELECT 1 FROM plan_prices pp WHERE pp.plan_id = p.id);
+
 -- Global feature flags (platform-wide defaults)
 INSERT INTO feature_flags_global (feature_key, is_enabled, description)
 VALUES
@@ -768,7 +846,9 @@ VALUES
   ('admin_panel',      1, 'Access to admin console at /admin'),
   ('branding',         1, 'Platform branding customisation'),
   ('import',           1, 'Bulk import from CSV/Excel'),
-  ('subscriptions',    1, 'Razorpay subscription and payment flow')
+  ('subscriptions',    1, 'Razorpay subscription and payment flow'),
+  ('ca_reports',       0, 'CA reports + business/personal split'),
+  ('ai_suggestions',   1, 'Suggestion engine')
 ON DUPLICATE KEY UPDATE
   is_enabled  = VALUES(is_enabled),
   description = VALUES(description);
@@ -793,7 +873,7 @@ ON DUPLICATE KEY UPDATE
 -- Default PIN: 12345678  (change immediately after first login!)
 -- Hash was generated with: password_hash("12345678:seed", PASSWORD_BCRYPT, ["cost"=>12])
 -- ============================================================================
-INSERT INTO users (id, username, display_name, pin_hash, pin_salt, role, is_active)
+INSERT INTO users (id, username, display_name, pin_hash, pin_salt, role, is_active, must_change_pin)
 SELECT
   'admin_seed_001',
   'admin',
@@ -801,35 +881,41 @@ SELECT
   '$2y$12$FqIIvM4sok70cXgH9Ufuf.7xKeFch4kXAK6ArhLZtIf2RoPvHUXPS',
   'seed',
   'admin',
+  1,
   1
 FROM DUAL
 WHERE NOT EXISTS (SELECT 1 FROM users WHERE role = 'admin' LIMIT 1);
 
--- ============================================================================
--- PERFORMANCE INDEXES (additional for large scale)
--- Safe to run even if indexes already exist — uses IF NOT EXISTS equivalent
--- ============================================================================
-
--- Speed up collection queries for high-traffic users
-SET @idx := (SELECT COUNT(*) FROM information_schema.statistics
-  WHERE table_schema = DATABASE() AND table_name = 'cloud_collection_rows'
-  AND index_name = 'idx_ccr_collection_deleted');
-SET @sql := IF(@idx = 0,
-  'ALTER TABLE cloud_collection_rows ADD KEY idx_ccr_collection_deleted (user_id, collection_name, deleted_at)',
-  'SELECT "index idx_ccr_collection_deleted already exists"');
-PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
-
--- Speed up subscription expiry checks (cron/webhook)
-SET @idx := (SELECT COUNT(*) FROM information_schema.statistics
-  WHERE table_schema = DATABASE() AND table_name = 'subscriptions'
-  AND index_name = 'idx_sub_expires');
-SET @sql := IF(@idx = 0,
-  'ALTER TABLE subscriptions ADD KEY idx_sub_expires (status, current_period_end)',
-  'SELECT "index idx_sub_expires already exists"');
-PREPARE stmt FROM @sql; EXECUTE stmt; DEALLOCATE PREPARE stmt;
+INSERT INTO schema_version (version_key) VALUES
+  ('phase_00_baseline'),
+  ('phase_01_security'),
+  ('phase_03_cloud_amount_paise'),
+  ('phase_04_indexed_sync_fields'),
+  ('phase_05_financial_ledger'),
+  ('phase_07_user_credit_cards'),
+  ('phase_08_user_loans'),
+  ('phase_09_udhari_engine'),
+  ('phase_11_ai_suggestions'),
+  ('phase_13_privacy_audit'),
+  ('phase_14_saas_billing'),
+  ('phase_vnext_mutation_idempotency'),
+  ('hosting_ready_clean_v3')
+ON DUPLICATE KEY UPDATE applied_at = applied_at;
 
 SET FOREIGN_KEY_CHECKS = 1;
 
+-- Import health check (phpMyAdmin shows this result grid after a successful Go)
+SELECT
+  DATABASE() AS imported_database,
+  (SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = DATABASE()) AS table_count,
+  (SELECT COUNT(*) FROM schema_version) AS schema_markers,
+  (SELECT COUNT(*) FROM plans) AS plans_seeded,
+  (SELECT COUNT(*) FROM plan_prices) AS plan_prices_seeded,
+  (SELECT COUNT(*) FROM users WHERE role = 'admin') AS admin_users,
+  (SELECT COUNT(*) FROM feature_flags_global) AS global_flags;
+
 -- ============================================================================
 -- END OF SCHEMA
+-- Expected table_count >= 28, schema_markers = 13, plans_seeded = 4, admin_users = 1
+-- Default admin PIN is 12345678 — change it on first login.
 -- ============================================================================

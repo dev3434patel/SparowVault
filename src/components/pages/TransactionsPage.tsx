@@ -38,12 +38,14 @@ import {
   SlidersHorizontal,
   Trash2,
   X,
+  UsersRound,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { PAYMENT_MODES, TRANSACTION_TYPES } from "@/constants";
 import { useAuthStore } from "@/store/authStore";
-import { isIncomeTx, sumExpense, sumIncome } from "@/services/calculations";
+import { isCashInflow, sumExpense, sumIncome } from "@/services/calculations";
 import { paiseToRupees, transactionAmountPaise } from "@/utils/money";
+import { expenseRecovery, isExpenseContribution } from "@/services/expenseContributions";
 
 export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expense" } = {}) {
   const user = useAuthStore((s) => s.currentUser);
@@ -68,6 +70,7 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [editing, setEditing] = useState<Transaction | null>(null);
   const [adding, setAdding] = useState(false);
+  const [contributing, setContributing] = useState<Transaction | null>(null);
   const [selected, setSelected] = useState<Set<string>>(new Set());
 
   useEffect(() => {
@@ -84,9 +87,9 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
   const filtered = useMemo(() => {
     let list = transactions;
     if (fixedType === "income") {
-      list = list.filter((t) => ["income", "refund"].includes(t.type));
+      list = list.filter((t) => t.type === "income" && t.transactionIntent !== "reimbursement");
     } else if (fixedType === "expense") {
-      list = list.filter((t) => t.type === "expense");
+      list = list.filter((t) => t.type === "expense" || t.type === "refund");
     } else if (typeFilter !== "all") {
       list = list.filter((t) => t.type === typeFilter);
     }
@@ -230,7 +233,7 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
         }
         description={
           fixedType === "income"
-            ? "All incoming cash flows — salary, freelance, refunds."
+            ? "Income"
             : fixedType === "expense"
               ? "Every expense tracked across accounts, cards, and categories."
               : "Unified ledger across every transaction type."
@@ -428,7 +431,7 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
               <TableBody>
                 {filtered.map((t) => {
                   const cat = categories.find((c) => c.id === t.categoryId);
-                  const isIncome = isIncomeTx(t);
+                  const isIncome = isCashInflow(t);
                   return (
                     <TableRow key={t.id}>
                       <TableCell>
@@ -464,6 +467,7 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
                                 {t.description}
                               </div>
                             ) : null}
+                            {t.type === "expense" && expenseRecovery(t, transactions).recoveredPaise > 0 && <div className="mt-1 whitespace-normal text-[11px] text-muted-foreground">Recovered {formatINR(expenseRecovery(t, transactions).recoveredPaise / 100)} / Net {formatINR(expenseRecovery(t, transactions).remainingPaise / 100)}</div>}
                           </div>
                         </div>
                       </TableCell>
@@ -471,7 +475,7 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
                       <TableCell>
                         <Badge
                           variant={
-                            t.type === "income" || t.type === "refund"
+                            isExpenseContribution(t) ? "info" : t.type === "income" || t.type === "refund"
                               ? "income"
                               : t.type === "expense" ||
                                   t.type === "emi_payment" ||
@@ -481,7 +485,7 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
                                 : "info"
                           }
                         >
-                          {formatTxType(t.type)}
+                          {isExpenseContribution(t) ? "Contribution return" : formatTxType(t.type)}
                         </Badge>
                       </TableCell>
                       <TableCell className="text-xs">
@@ -513,6 +517,7 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
                       </TableCell>
                       <TableCell>
                         <div className="flex items-center justify-end gap-1">
+                          {t.type === "expense" && !t.isReimbursable && t.businessOrPersonal !== "mixed" && <Button variant="ghost" size="icon-sm" title="Record contribution return" aria-label="Record contribution return" disabled={expenseRecovery(t, transactions).remainingPaise === 0} onClick={() => setContributing(t)}><UsersRound className="h-3.5 w-3.5" /></Button>}
                           <Button
                             variant="ghost"
                             size="icon-sm"
@@ -567,6 +572,12 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
         </DialogContent>
       </Dialog>
 
+      <Dialog open={!!contributing} onOpenChange={(o) => !o && setContributing(null)}>
+        <DialogContent size="lg">
+          <DialogHeader><DialogTitle>Contribution return</DialogTitle></DialogHeader>
+          {contributing && <TransactionForm initial={{ type: "refund", transactionIntent: "expense_contribution", linkedOriginalTransactionId: contributing.id, categoryId: contributing.categoryId, businessOrPersonal: contributing.businessOrPersonal, paymentMode: "bank_transfer", description: `Contribution: ${contributing.description || contributing.merchantOrPerson}`.slice(0, 200) }} onCancel={() => setContributing(null)} onSaved={() => setContributing(null)} />}
+        </DialogContent>
+      </Dialog>
       <Dialog open={!!editing} onOpenChange={(o) => !o && setEditing(null)}>
         <DialogContent size="lg">
           <DialogHeader>

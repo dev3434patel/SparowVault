@@ -1,0 +1,13 @@
+{
+  "label": "api-vnext",
+  "command": [
+    "node",
+    "tests/api-vnext-collections-e2e.mjs"
+  ],
+  "started": "2026-09-10T06:53:24.107Z",
+  "ended": "2026-09-10T06:53:24.377Z",
+  "seconds": 0.27,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false
+}

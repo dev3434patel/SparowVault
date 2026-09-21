@@ -19,19 +19,20 @@ export async function cloudRepoCreate<T extends { userId: string }>(
   userId: string,
   data: Partial<T>,
   idPrefix: string,
+  mutationId?: string,
 ) {
   const body = push<T>(collection, data);
   const raw = await apiRequest<unknown>(`/api/data/entity.php?collection=${encodeURIComponent(collection)}`, {
     method: "POST",
     auth: true,
-    body: JSON.stringify({ userId, data: body, idPrefix }),
+    body: JSON.stringify({ userId, data: body, idPrefix, mutationId }),
   });
   return pull<T>(collection, raw);
 }
 
-export async function cloudRepoGet<T>(collection: CloudCollectionKey, id: string) {
+export async function cloudRepoGet<T>(collection: CloudCollectionKey, id: string, userId?: string) {
   const raw = await apiRequest<unknown>(
-    `/api/data/entity-item.php?collection=${encodeURIComponent(collection)}&id=${encodeURIComponent(id)}`,
+    `/api/data/entity-item.php?collection=${encodeURIComponent(collection)}&id=${encodeURIComponent(id)}${userId ? `&userId=${encodeURIComponent(userId)}` : ""}`,
     { method: "GET", auth: true },
   );
   return pull<T>(collection, raw);
@@ -52,6 +53,7 @@ export async function cloudRepoUpdate<T>(
   collection: CloudCollectionKey,
   id: string,
   patch: Partial<T>,
+  mutation?: { userId: string; mutationId: string; expectedVersion: number },
 ) {
   const body = push<T>(collection, patch);
   const raw = await apiRequest<unknown>(
@@ -59,7 +61,7 @@ export async function cloudRepoUpdate<T>(
     {
       method: "PATCH",
       auth: true,
-      body: JSON.stringify({ patch: body }),
+      body: JSON.stringify({ patch: body, ...mutation }),
     },
   );
   return pull<T>(collection, raw);

@@ -36,7 +36,7 @@ import {
   udhariAmountPaise,
   udhariSettledPaise,
 } from "@/utils/money";
-import { splitTransaction, sumSplit } from "@/services/businessPersonalSplit";
+import { splitTransaction, sumExpenseSplit } from "@/services/businessPersonalSplit";
 import { amortizationSchedule } from "@/services/calculations";
 
 export interface ReportContext {
@@ -353,9 +353,9 @@ export function reportUdhariAgeing(ctx: ReportContext, today = new Date()): Udha
 // ---------------------------------------------------------------------------
 export function reportBusinessExpense(ctx: ReportContext) {
   const businessTxs = ctx.txs.filter(isLive).filter((t) =>
-    t.type === "expense" && (t.businessOrPersonal === "business" || t.businessOrPersonal === "mixed")
+    ["expense", "refund"].includes(t.type) && (t.businessOrPersonal === "business" || t.businessOrPersonal === "mixed")
   );
-  const split = sumSplit(businessTxs);
+  const split = sumExpenseSplit(businessTxs);
   return {
     totalPaise: split.businessPaise,  // only the business portion
     txs: businessTxs.length,
@@ -364,9 +364,9 @@ export function reportBusinessExpense(ctx: ReportContext) {
 
 export function reportPersonalExpense(ctx: ReportContext) {
   const personalTxs = ctx.txs.filter(isLive).filter((t) =>
-    t.type === "expense" && (t.businessOrPersonal === "personal" || t.businessOrPersonal === "mixed")
+    ["expense", "refund"].includes(t.type) && (t.businessOrPersonal === "personal" || t.businessOrPersonal === "mixed")
   );
-  const split = sumSplit(personalTxs);
+  const split = sumExpenseSplit(personalTxs);
   return {
     totalPaise: split.personalPaise,
     txs: personalTxs.length,

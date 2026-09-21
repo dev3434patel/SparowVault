@@ -1,0 +1,89 @@
+{
+  "date": "2026-09-11T09:05:03.543Z",
+  "outcomes": [
+    {
+      "name": "category creation survives reload",
+      "pass": true
+    },
+    {
+      "name": "monthly budget persists amount and category",
+      "pass": true
+    },
+    {
+      "name": "goal creation and a contribution persist together",
+      "pass": true
+    },
+    {
+      "name": "credit card creation retains limit and statement/due days",
+      "pass": true
+    },
+    {
+      "name": "new loan creates durable principal and twelve EMI rows",
+      "pass": false,
+      "error": "expect(locator).toHaveCount(expected) failed\n\nLocator:  getByRole('dialog')\nExpected: 0\nReceived: 1\nTimeout:  5000ms\n\nCall log:\n  - Expect \"to.have.count\" with timeout 5000ms\n  - waiting for getByRole('dialog')\n    9 × locator resolved to 1 element\n      - unexpected value \"1\"\n",
+      "dialogText": "New Loan\nLender*\nLoan type\nPersonal Loan\nHome Loan\nPersonal Loan\nVehicle Loan\nEducation Loan\nBusiness Loan\nGold Loan\nInformal Loan\nCustom Loan\nTracking mode\nFresh new loan\nFresh new loan\nAlready running (legacy)\nOngoing — imported mid-course\nInterest method\nReducing balance\nReducing balance\nFlat interest\nInterest only\nCustom / manual\nStart date*\nPrincipal (₹)*\nDisbursed amount (INR)\nFirst EMI date\nTenure (months)*\nInterest %\nEMI due day (1-28)\nProcessing fee (₹)\nForeclosure charges %\nLinked credit card\nNo linked card\nNo linked card\nBlocked amount on card (INR)\nCalculated EMI\n₹1,066 / month\nToo small: expected number to be >0\nCancel\nSave\nClose"
+    },
+    {
+      "name": "Udhari receivable creation and partial settlement persist",
+      "pass": true
+    },
+    {
+      "name": "FD creation persists principal and dates",
+      "pass": true
+    },
+    {
+      "name": "insurance policy creation persists premium and coverage",
+      "pass": true
+    },
+    {
+      "name": "asset valuation persists as a valuation rather than income",
+      "pass": true
+    },
+    {
+      "name": "household and named partner survive reload",
+      "pass": true
+    },
+    {
+      "name": "settings save persists without page error",
+      "pass": true
+    },
+    {
+      "name": "populated mobile /cards renders at 390px",
+      "pass": true
+    },
+    {
+      "name": "populated mobile /loans renders at 390px",
+      "pass": true
+    },
+    {
+      "name": "populated mobile /udhari renders at 390px",
+      "pass": true
+    },
+    {
+      "name": "populated mobile /goals renders at 390px",
+      "pass": true
+    },
+    {
+      "name": "populated mobile /savings renders at 390px",
+      "pass": true
+    },
+    {
+      "name": "populated mobile /household renders at 390px",
+      "pass": true
+    },
+    {
+      "name": "clean-wipe-response",
+      "status": 409,
+      "remainingRows": 19
+    },
+    {
+      "name": "clean profile wipe handles existing transaction references",
+      "pass": false,
+      "error": "Profile wipe fails while deleting accounts before referenced transactions\n\n409 !== 200\n",
+      "dialogText": "Confirm profile wipe\n\nType DELETE aw_wf_mtwqcje8 to permanently remove all profile data.\n\nConfirmation text\nCancel\nDelete all data\nClose"
+    }
+  ],
+  "errors": [
+    "Record is referenced by an active transaction"
+  ]
+}

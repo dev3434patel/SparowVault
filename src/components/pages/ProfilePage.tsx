@@ -49,6 +49,7 @@ export function ProfilePage() {
   const [pinSaving, setPinSaving] = useState(false);
   const [pinErr, setPinErr] = useState<string | null>(null);
   const [securityAnswer, setSecurityAnswer] = useState("");
+  const [securityPin, setSecurityPin] = useState("");
   const [securitySaving, setSecuritySaving] = useState(false);
   const [recoveryAnswer, setRecoveryAnswer] = useState("");
   const [recoveryNewPin, setRecoveryNewPin] = useState("");
@@ -95,6 +96,7 @@ export function ProfilePage() {
       setNewPin("");
       setConfirmNew("");
       toast({ title: "PIN changed", kind: "success" });
+      await logout();
     } catch (e) {
       setPinErr(e instanceof Error ? e.message : "Failed");
     } finally {
@@ -106,8 +108,9 @@ export function ProfilePage() {
     if (!user) return;
     setSecuritySaving(true);
     try {
-      await saveSecurityAnswerService(user.id, form.securityQuestion, securityAnswer);
+      await saveSecurityAnswerService(user.id, form.securityQuestion, securityAnswer, securityPin);
       setSecurityAnswer("");
+      setSecurityPin("");
       toast({ title: "Security recovery updated", kind: "success" });
       await refresh();
     } catch (e) {
@@ -136,6 +139,7 @@ export function ProfilePage() {
       setRecoveryNewPin("");
       setRecoveryConfirmPin("");
       toast({ title: "PIN reset successful", kind: "success" });
+      await logout();
     } catch (e) {
       setRecoveryErr(e instanceof Error ? e.message : "PIN reset failed");
     } finally {
@@ -260,6 +264,9 @@ export function ProfilePage() {
                     }
                     placeholder="Your mother's first school"
                   />
+                </Field>
+                <Field label="Current PIN for recovery changes" className="col-span-2">
+                  <Input aria-label="Current PIN for recovery changes" type="password" autoComplete="current-password" value={securityPin} onChange={e => setSecurityPin(e.target.value)} />
                 </Field>
                 <Field label="Security answer (hidden hash)" className="col-span-2">
                   <Input

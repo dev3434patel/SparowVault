@@ -85,7 +85,7 @@ export const EXPENSE_TYPES: TransactionType[] = [
 ];
 
 export function isIncomeTx(t: Transaction): boolean {
-  return INCOME_TYPES.includes(t.type);
+  return t.isDeleted !== 1 && INCOME_TYPES.includes(t.type) && t.transactionIntent !== "reimbursement" && !(t.tags ?? []).includes("reimbursement_settlement");
 }
 export function isExpenseTx(t: Transaction): boolean {
   return t.type === "expense";
@@ -109,14 +109,26 @@ export function isCashInflow(t: Transaction): boolean {
 }
 
 export function sumIncome(txs: Transaction[]): number {
-  return sumBy(txs.filter((t) => INCOME_TYPES.includes(t.type)), (t) => transactionAmountPaise(t));
+  return sumBy(txs.filter(isIncomeTx), (t) => transactionAmountPaise(t));
 }
 
 export function sumExpense(txs: Transaction[]): number {
-  return sumBy(
-    txs.filter((t) => t.type === "expense"),
-    (t) => transactionAmountPaise(t),
-  );
+  return sumBy(txs, expenseAmountPaise);
+}
+
+export function expenseAmountPaise(tx: Transaction): number {
+  if (tx.isDeleted === 1 || !["expense", "refund"].includes(tx.type)) return 0;
+  return transactionAmountPaise(tx) * (tx.type === "refund" ? -1 : 1);
+}
+
+/** Attribute a recovery to the original cost dimensions, without changing its receipt date or stored cash leg. */
+export function expenseReportTransactions(txs: Transaction[], allTransactions = txs): Transaction[] {
+  const originals = new Map(allTransactions.filter(t => !t.isDeleted && t.type === "expense").map(t => [t.id, t]));
+  return txs.filter(t => !t.isDeleted && ["expense", "refund"].includes(t.type)).map(tx => {
+    const original = tx.type === "refund" ? originals.get(tx.linkedOriginalTransactionId ?? "") : undefined;
+    if (!original || original.userId !== tx.userId) return tx;
+    return { ...tx, merchantOrPerson: original.merchantOrPerson, needWant: original.needWant, fixedVariable: original.fixedVariable, paymentMode: original.paymentMode };
+  });
 }
 
 export function sumByType(txs: Transaction[], types: TransactionType[]): number {
@@ -506,8 +518,8 @@ export function categoryBreakdown(
   txs: Transaction[],
   categories: Category[],
 ): CategorySlice[] {
-  const expenses = txs.filter((t) => t.type === "expense");
-  const total = sumBy(expenses, (t) => transactionAmountPaise(t));
+  const expenses = expenseReportTransactions(txs);
+  const total = sumExpense(expenses);
   const map = new Map<string, { amountPaise: number; name: string; color: string }>();
   for (const tx of expenses) {
     const catId = tx.categoryId ?? "uncategorized";
@@ -515,7 +527,7 @@ export function categoryBreakdown(
     const name = cat?.name ?? "Uncategorized";
     const color = cat?.color ?? "#9aa4b2";
     const cur = map.get(catId) ?? { amountPaise: 0, name, color };
-    cur.amountPaise += transactionAmountPaise(tx);
+    cur.amountPaise += expenseAmountPaise(tx);
     cur.name = name;
     cur.color = color;
     map.set(catId, cur);
@@ -574,10 +586,7 @@ export function budgetStatuses(
       } else {
         relevant = txs.filter((t) => parseISO(t.date).getFullYear() === b.year);
       }
-      spentPaise = sumBy(
-        relevant.filter((t) => t.type === "expense" && t.categoryId === b.categoryId),
-        (t) => transactionAmountPaise(t),
-      );
+      spentPaise = sumExpense(relevant.filter((t) => t.categoryId === b.categoryId));
     }
     const cap = budgetLimitPaise(b);
     const remainingPaise = Math.max(0, cap - spentPaise);

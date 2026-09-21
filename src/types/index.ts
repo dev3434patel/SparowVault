@@ -19,6 +19,7 @@ export interface BaseEntity {
 
 // --------------------------- Users / Profiles / Sessions ---------------------
 export interface User extends BaseEntity {
+  mustChangePin?: boolean;
   username: string;
   displayName: string;
   pinHash: string;
@@ -122,6 +123,7 @@ export type IncomingIntent =
   | "purchase_refund"
   | "credit_card_refund"
   | "reimbursement"
+  | "expense_contribution"
   | "loan_received"
   | "udhari_repayment"
   | "investment_redemption"
@@ -394,6 +396,20 @@ export type FixedVariable = "fixed" | "variable" | "unassigned";
 export type PersonalBusiness = "personal" | "business" | "mixed";
 
 export interface Transaction extends BaseEntity {
+  statementSource?: {
+    fingerprint: string;
+    documentHash: string;
+    bank: string;
+    accountId: string;
+    page: number;
+    debitPaise: number;
+    creditPaise: number;
+    balancePaise: number;
+    reference: string;
+    valueDate: string | null;
+    parserVersion: string;
+    reviewedAt: string;
+  };
   date: ISODate;
   type: TransactionType;
   amount: number; // legacy rupees mirror; canonical is amountPaise

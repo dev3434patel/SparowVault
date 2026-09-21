@@ -1,0 +1,14 @@
+{
+  "label": "php-syntax",
+  "command": [
+    "npm",
+    "run",
+    "check:php"
+  ],
+  "started": "2026-09-10T06:51:37.071Z",
+  "ended": "2026-09-10T06:51:49.372Z",
+  "seconds": 12.301,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false
+}

@@ -1,0 +1,29 @@
+{
+  "statuses": [
+    {
+      "status": 401,
+      "body": {
+        "ok": false,
+        "error": "Invalid webhook signature",
+        "requestId": "2e827f1f7dae0bd9",
+        "code": "INVALID_SIGNATURE"
+      }
+    },
+    {
+      "status": 200,
+      "body": {
+        "ok": true,
+        "data": {
+          "idempotent": true
+        }
+      }
+    }
+  ],
+  "payment": {
+    "status": "created"
+  },
+  "event": {
+    "signature_valid": 0,
+    "processing_status": "failed"
+  }
+}

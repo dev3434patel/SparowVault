@@ -197,7 +197,8 @@
         "feePaise",
         "taxPaise",
         "interestPaise",
-        "principalComponentPaise"
+        "principalComponentPaise",
+        "statementSource"
       ],
       "hotFields": [
         "amount_paise",

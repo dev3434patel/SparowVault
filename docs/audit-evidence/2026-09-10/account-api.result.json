@@ -1,0 +1,13 @@
+{
+  "label": "account-api",
+  "command": [
+    "node",
+    "tests/account-endpoints-e2e.mjs"
+  ],
+  "started": "2026-09-10T06:53:24.406Z",
+  "ended": "2026-09-10T06:53:25.732Z",
+  "seconds": 1.326,
+  "exitCode": 1,
+  "signal": null,
+  "timedOut": false
+}

@@ -1,0 +1,19 @@
+{
+  "date": "2026-09-11T09:20:57.843Z",
+  "head": "54eec068a37cceb9cccc2a63dca824e1e092f52e",
+  "remote": "https://github.com/dev3434patel/SparowVault.git",
+  "node": "v20.20.2",
+  "php": "8.5.4",
+  "sourceFiles": 421,
+  "apiFiles": 41,
+  "pageFiles": 31,
+  "tsTestFiles": 52,
+  "topLevelE2eScripts": 26,
+  "serviceAndLibTsFiles": 64,
+  "componentTsxFiles": 73,
+  "todoFixmeHackLines": 0,
+  "namedTsFunctions": 844,
+  "jsxActionDefinitions": 269,
+  "fieldDefinitions": 401,
+  "caveat": "Static AST inventory is not execution coverage. Generated/test/binary files hashed; AppleDouble metadata excluded. No secrets included."
+}

@@ -1,23 +1,33 @@
 import { describe, it, expect } from "vitest";
-import { readFileSync } from "node:fs";
+import { readFileSync, mkdtempSync, mkdirSync, writeFileSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { execFileSync } from "node:child_process";
+import { pathToFileURL } from "node:url";
 import { resolve } from "node:path";
 
 const ROOT = resolve(process.cwd());
 
 describe("Phase 1 - secrets sanitisation", () => {
-  it.each([".env.host", "release/hosting-bundle/.env.host", "release/hosting-bundle-check/.env.host"])(
-    "%s ships with no real secrets",
-    (file) => {
-      const text = readFileSync(resolve(ROOT, file), "utf8");
-      const forbidden = [
-        /^DB_PASS="[^"\s]+"$/m,
-        /^CLOUD_JWT_SECRET="[^"\s]+"$/m,
-        /^RAZORPAY_KEY_SECRET="[^"\s]+"$/m,
-        /^RAZORPAY_WEBHOOK_SECRET="[^"\s]+"$/m,
-      ];
-      for (const re of forbidden) expect(text).not.toMatch(re);
-    },
-  );
+  function packageEnv(template: string): string {
+    const fixture = mkdtempSync(resolve(tmpdir(), "sparow-env-test-"));
+    const bundle = resolve(fixture, "bundle");
+    mkdirSync(bundle);
+    writeFileSync(resolve(fixture, ".env.host.example"), template);
+    try {
+      const script = `import { sanitizeBundleEnvFile } from ${JSON.stringify(pathToFileURL(resolve(ROOT, "scripts/package-hosting.mjs")).href)}; await sanitizeBundleEnvFile(${JSON.stringify(fixture)}, ${JSON.stringify(bundle)});`;
+      execFileSync(process.execPath, ["--input-type=module", "-e", script], { stdio: "pipe" });
+      return readFileSync(resolve(bundle, ".env.host"), "utf8");
+    } finally { rmSync(fixture, { recursive: true, force: true }); }
+  }
+
+  it("packages the committed placeholder template into an isolated artifact", () => {
+    const template = readFileSync(resolve(ROOT, ".env.host.example"), "utf8");
+    expect(packageEnv(template)).toBe(template);
+  });
+
+  it.each(['DB_PASS="fixture-secret"', "CLOUD_JWT_SECRET='fixture-secret'", "RAZORPAY_KEY_SECRET=fixture-secret", "RAZORPAY_WEBHOOK_SECRET=fixture-secret", "DATABASE_URL=mysql://user:fixture-secret@localhost/db"])("refuses to package a populated secret: %s", line => {
+    expect(() => packageEnv(line)).toThrow();
+  });
 
   it(".env.host.example exists and is placeholder-only", () => {
     const text = readFileSync(resolve(ROOT, ".env.host.example"), "utf8");
@@ -53,7 +63,9 @@ describe("Phase 1 - .htaccess hardening", () => {
     expect(text).toContain("php/config");
     expect(text).toContain("data|backups|sql");
     expect(text).toMatch(/dump\|map\|zip/);
-    expect(text).toMatch(/script-src 'self' https:\/\/checkout\.razorpay\.com/);
+    expect(text).toMatch(/script-src 'self' 'wasm-unsafe-eval' https:\/\/checkout\.razorpay\.com/);
+    expect(text).not.toMatch(/script-src[^;]*'unsafe-eval'/);
+    expect(text).not.toMatch(/script-src[^;]*'unsafe-inline'/);
   });
 });
 

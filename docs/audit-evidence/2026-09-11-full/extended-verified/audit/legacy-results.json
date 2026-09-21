@@ -1,0 +1,44 @@
+[
+  {
+    "file": "api-e2e.mjs",
+    "exitCode": 1,
+    "durationMs": 1271,
+    "passLines": 55,
+    "failLines": 10
+  },
+  {
+    "file": "account-endpoints-e2e.mjs",
+    "exitCode": 1,
+    "durationMs": 2364,
+    "passLines": 9,
+    "failLines": 2
+  },
+  {
+    "file": "phase-04-validation-e2e.mjs",
+    "exitCode": 1,
+    "durationMs": 825,
+    "passLines": 10,
+    "failLines": 3
+  },
+  {
+    "file": "api-vnext-collections-e2e.mjs",
+    "exitCode": 1,
+    "durationMs": 363,
+    "passLines": 10,
+    "failLines": 1
+  },
+  {
+    "file": "webhook-replay-e2e.mjs",
+    "exitCode": 1,
+    "durationMs": 126,
+    "passLines": 0,
+    "failLines": 0
+  },
+  {
+    "file": "webhook-ownership-e2e.mjs",
+    "exitCode": 0,
+    "durationMs": 284,
+    "passLines": 10,
+    "failLines": 0
+  }
+]

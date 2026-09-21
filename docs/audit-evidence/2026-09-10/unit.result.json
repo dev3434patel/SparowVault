@@ -1,0 +1,20 @@
+{
+  "label": "unit",
+  "command": [
+    "npm",
+    "run",
+    "test",
+    "--",
+    "--coverage",
+    "--coverage.reportsDirectory=docs/audit-evidence/2026-09-10/coverage",
+    "--reporter=default",
+    "--reporter=json",
+    "--outputFile=docs/audit-evidence/2026-09-10/unit-results.json"
+  ],
+  "started": "2026-09-10T06:51:37.069Z",
+  "ended": "2026-09-10T06:51:46.896Z",
+  "seconds": 9.827,
+  "exitCode": 1,
+  "signal": null,
+  "timedOut": false
+}

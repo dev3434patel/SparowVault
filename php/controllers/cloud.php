@@ -34,6 +34,11 @@ function auth_clear_failures_safe(string $username, string $ip): void {
 }
 
 function cloud_logout(): void {
+    $token = get_bearer_token();
+    if ($token !== null) {
+        try { $claims = verify_cloud_token($token); } catch (RuntimeException) { $claims = []; }
+        if (is_string($claims["sid"] ?? null)) db_conn()->prepare("DELETE FROM auth_sessions WHERE id_hash=? AND user_id=?")->execute([hash("sha256", $claims["sid"]), $claims["userId"]]);
+    }
     clear_auth_cookie();
     json_ok(["loggedOut" => true]);
 }
@@ -176,7 +181,7 @@ function cloud_login(): void {
     policy_mark_user_checked((string)$user["id"]);
     user_audit_log((string)$user["id"], "LOGIN", "user", (string)$user["id"], null, ["username" => $username, "policyOutstanding" => count($policyOutstanding)]);
 
-    $token = sign_cloud_token(["userId" => $user["id"], "username" => $user["username"], "role" => $user["role"]]);
+    $token = sign_cloud_token(["userId" => $user["id"], "username" => $user["username"], "role" => $user["role"]], (string)$user["pin_hash"]);
     set_auth_cookie($token);
     $csrf = csrf_issue_token();
     json_ok(cloud_auth_response($token, ["id" => $user["id"], "username" => $user["username"], "displayName" => $user["display_name"], "role" => $user["role"], "policyOutstanding" => $policyOutstanding], $csrf));
@@ -220,7 +225,7 @@ function cloud_admin_login(): void {
         return;
     }
     auth_clear_failures_safe($username, $ip);
-    $token = sign_cloud_token(["userId" => $user["id"], "username" => $user["username"], "role" => "admin"]);
+    $token = sign_cloud_token(["userId" => $user["id"], "username" => $user["username"], "role" => "admin"], (string)$user["pin_hash"]);
     set_auth_cookie($token);
     $csrf = csrf_issue_token();
     json_ok(cloud_auth_response($token, ["id" => $user["id"], "username" => $user["username"], "displayName" => $user["display_name"], "role" => "admin"], $csrf));
@@ -258,7 +263,7 @@ function cloud_me(): void {
         json_error("Cloud user not found", 404);
         return;
     }
-    $csrf = csrf_issue_token();
+    $csrf = csrf_read_cookie_token() ?? csrf_issue_token();
     json_ok([
         "id" => $user["id"],
         "username" => $user["username"],
@@ -344,6 +349,7 @@ function ensure_security_recovery_table(): void {
 }
 
 function cloud_change_pin(): void {
+    rate_limit_guard("change_pin", 10, 300);
     try {
         $auth = auth_require_active_user();
     } catch (Throwable $e) {
@@ -373,29 +379,18 @@ function cloud_change_pin(): void {
     $nextSalt = create_pin_salt();
     $nextHash = hash_secret($newPin . ":" . $nextSalt);
     $db = db_conn();
-    // Phase 1 (F): also clear must_change_pin if the column exists.
-    $hasMustChange = false;
-    try {
-        $check = $db->query("SELECT must_change_pin FROM users LIMIT 0");
-        $hasMustChange = $check !== false;
-    } catch (Throwable) {
-        $hasMustChange = false;
-    }
-    if ($hasMustChange) {
-        $db->prepare("UPDATE users SET pin_hash = ?, pin_salt = ?, must_change_pin = 0, updated_at = UTC_TIMESTAMP() WHERE id = ? LIMIT 1")
-            ->execute([$nextHash, $nextSalt, $auth["id"]]);
-    } else {
-        $db->prepare("UPDATE users SET pin_hash = ?, pin_salt = ?, updated_at = UTC_TIMESTAMP() WHERE id = ? LIMIT 1")
-            ->execute([$nextHash, $nextSalt, $auth["id"]]);
-    }
+    $change = $db->prepare("UPDATE users SET pin_hash = ?, pin_salt = ?, must_change_pin = 0, updated_at = UTC_TIMESTAMP() WHERE id = ? AND BINARY pin_hash = BINARY ? LIMIT 1");
+    $change->execute([$nextHash, $nextSalt, $auth["id"], $user["pin_hash"]]);
+    if ($change->rowCount() !== 1) { json_error("Credential changed during this request. Sign in again.", 409, "CREDENTIAL_CONFLICT"); return; }
     user_audit_log($auth["id"], "PIN_CHANGED", "user", $auth["id"], null, [
         "method" => "current_pin",
-        "mustChangePinCleared" => $hasMustChange,
+        "mustChangePinCleared" => true,
     ]);
     json_ok(["updated" => true]);
 }
 
 function cloud_set_security_recovery(): void {
+    rate_limit_guard("recovery_settings", 10, 300);
     try {
         $auth = auth_require_active_user();
     } catch (Throwable $e) {
@@ -419,13 +414,16 @@ function cloud_set_security_recovery(): void {
         return;
     }
     ensure_security_recovery_table();
-    $answerHash = hash_secret($answer . ":" . (string)$user["pin_salt"]);
+    $currentPin = (string)($body["currentPin"] ?? "");
+    if (!verify_secret($currentPin . ":" . (string)$user["pin_salt"], (string)$user["pin_hash"])) { json_error("Current PIN is required to change recovery settings", 401); return; }
+    $answerSalt = create_pin_salt();
+    $answerHash = hash_secret($answer . ":" . $answerSalt);
     $db = db_conn();
     $db->prepare(
-        "INSERT INTO user_security_recovery (user_id, security_question, security_answer_hash, updated_at, created_at)
-         VALUES (?, ?, ?, UTC_TIMESTAMP(), UTC_TIMESTAMP())
-         ON DUPLICATE KEY UPDATE security_question = VALUES(security_question), security_answer_hash = VALUES(security_answer_hash), updated_at = UTC_TIMESTAMP()"
-    )->execute([$auth["id"], $question, $answerHash]);
+        "INSERT INTO user_security_recovery (user_id, security_question, security_answer_hash, security_answer_salt, updated_at, created_at)
+         VALUES (?, ?, ?, ?, UTC_TIMESTAMP(), UTC_TIMESTAMP())
+         ON DUPLICATE KEY UPDATE security_question = VALUES(security_question), security_answer_hash = VALUES(security_answer_hash), security_answer_salt = VALUES(security_answer_salt), updated_at = UTC_TIMESTAMP()"
+    )->execute([$auth["id"], $question, $answerHash, $answerSalt]);
     user_audit_log($auth["id"], "SECURITY_RECOVERY_UPDATED", "user_security_recovery", $auth["id"], null, [
         "securityQuestionLength" => strlen($question),
     ]);
@@ -433,6 +431,7 @@ function cloud_set_security_recovery(): void {
 }
 
 function cloud_reset_pin_with_security(): void {
+    rate_limit_guard("security_reset", 5, 900);
     try {
         $auth = auth_require_active_user();
     } catch (Throwable $e) {
@@ -457,25 +456,22 @@ function cloud_reset_pin_with_security(): void {
     }
     ensure_security_recovery_table();
     $db = db_conn();
-    $rowSt = $db->prepare("SELECT security_answer_hash FROM user_security_recovery WHERE user_id = ? LIMIT 1");
+    $rowSt = $db->prepare("SELECT security_answer_hash, security_answer_salt FROM user_security_recovery WHERE user_id = ? LIMIT 1");
     $rowSt->execute([$auth["id"]]);
     $recovery = $rowSt->fetch();
     if (!$recovery) {
         json_error("Security recovery is not configured", 422);
         return;
     }
-    $ok = verify_secret($answer . ":" . (string)$user["pin_salt"], (string)$recovery["security_answer_hash"]);
+    $ok = verify_secret($answer . ":" . (string)$recovery["security_answer_salt"], (string)$recovery["security_answer_hash"]);
     if (!$ok) {
         json_error("Security answer is incorrect", 401);
         return;
     }
     $nextSalt = create_pin_salt();
     $nextPinHash = hash_secret($newPin . ":" . $nextSalt);
-    $nextAnswerHash = hash_secret($answer . ":" . $nextSalt);
     $db->prepare("UPDATE users SET pin_hash = ?, pin_salt = ?, updated_at = UTC_TIMESTAMP() WHERE id = ? LIMIT 1")
         ->execute([$nextPinHash, $nextSalt, $auth["id"]]);
-    $db->prepare("UPDATE user_security_recovery SET security_answer_hash = ?, updated_at = UTC_TIMESTAMP() WHERE user_id = ? LIMIT 1")
-        ->execute([$nextAnswerHash, $auth["id"]]);
     user_audit_log($auth["id"], "PIN_RESET_WITH_SECURITY_ANSWER", "user", $auth["id"], null, [
         "method" => "security_answer",
     ]);

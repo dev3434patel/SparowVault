@@ -1,0 +1,2978 @@
+[
+  {
+    "file": "src/components/auth/AdminAuth.tsx",
+    "line": 60,
+    "tag": "Field",
+    "label": "\"Admin username\""
+  },
+  {
+    "file": "src/components/auth/AdminAuth.tsx",
+    "line": 61,
+    "tag": "Input",
+    "value": "{username}",
+    "onChange": "{(e) => setUsername(e.target.value)}"
+  },
+  {
+    "file": "src/components/auth/AdminAuth.tsx",
+    "line": 63,
+    "tag": "Field",
+    "label": "\"PIN\"",
+    "error": "{err ?? undefined}"
+  },
+  {
+    "file": "src/components/auth/AdminAuth.tsx",
+    "line": 64,
+    "tag": "Input",
+    "type": "\"password\"",
+    "inputMode": "\"numeric\"",
+    "value": "{pin}",
+    "onChange": "{(e) => setPin(e.target.value)}",
+    "placeholder": "\"Enter admin PIN\""
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 219,
+    "tag": "Field",
+    "label": "\"Username\""
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 220,
+    "tag": "Input",
+    "value": "{username}",
+    "onChange": "{(e) => setUsername(e.target.value)}",
+    "placeholder": "\"your.username\""
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 227,
+    "tag": "Field",
+    "label": "\"PIN\"",
+    "error": "{err ?? undefined}"
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 229,
+    "tag": "Input",
+    "type": "\"password\"",
+    "inputMode": "\"numeric\"",
+    "value": "{pin}",
+    "onChange": "{(e) => setPin(e.target.value)}",
+    "placeholder": "\"Enter PIN\"",
+    "className": "\"pr-10\""
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 282,
+    "tag": "Field",
+    "label": "\"Display name\""
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 283,
+    "tag": "Input",
+    "value": "{displayName}",
+    "onChange": "{(e) => setDisplayName(e.target.value)}",
+    "placeholder": "\"User Name\""
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 290,
+    "tag": "Field",
+    "label": "\"Username\"",
+    "hint": "\"3-24 chars. Letters, numbers, . _ -\""
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 291,
+    "tag": "Input",
+    "value": "{username}",
+    "onChange": "{(e) => setUsername(e.target.value)}",
+    "placeholder": "\"amit\""
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 297,
+    "tag": "Field",
+    "label": "\"PIN\"",
+    "hint": "\"4 to 8 digits; avoid common or date-like PINs\""
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 298,
+    "tag": "Input",
+    "type": "\"password\"",
+    "inputMode": "\"numeric\"",
+    "value": "{pin}",
+    "onChange": "{(e) => setPin(e.target.value)}",
+    "placeholder": "\"••••\""
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 306,
+    "tag": "Field",
+    "label": "\"Confirm PIN\"",
+    "error": "{err ?? undefined}"
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 307,
+    "tag": "Input",
+    "type": "\"password\"",
+    "inputMode": "\"numeric\"",
+    "value": "{confirmPin}",
+    "onChange": "{(e) => setConfirmPin(e.target.value)}",
+    "placeholder": "\"••••\""
+  },
+  {
+    "file": "src/components/auth/CloudAuth.tsx",
+    "line": 316,
+    "tag": "input",
+    "type": "\"checkbox\"",
+    "className": "\"mt-0.5\"",
+    "checked": "{acceptedPolicies}",
+    "onChange": "{(e) => setAcceptedPolicies(e.target.checked)}"
+  },
+  {
+    "file": "src/components/auth/LockScreen.tsx",
+    "line": 53,
+    "tag": "Field",
+    "label": "\"Enter PIN\"",
+    "error": "{err ?? undefined}"
+  },
+  {
+    "file": "src/components/auth/LockScreen.tsx",
+    "line": 54,
+    "tag": "Input",
+    "type": "\"password\"",
+    "inputMode": "\"numeric\"",
+    "value": "{pin}",
+    "onChange": "{(e) => setPin(e.target.value)}",
+    "placeholder": "\"Enter your PIN\""
+  },
+  {
+    "file": "src/components/auth/ProfileLogin.tsx",
+    "line": 95,
+    "tag": "Field",
+    "label": "{`PIN for @${selected.username}`}",
+    "error": "{err ?? undefined}"
+  },
+  {
+    "file": "src/components/auth/ProfileLogin.tsx",
+    "line": 97,
+    "tag": "Input",
+    "type": "\"password\"",
+    "inputMode": "\"numeric\"",
+    "value": "{pin}",
+    "onChange": "{(e) => setPin(e.target.value)}",
+    "placeholder": "\"Enter PIN\"",
+    "className": "\"pr-10\""
+  },
+  {
+    "file": "src/components/auth/RequiredPinChange.tsx",
+    "line": 24,
+    "tag": "Input",
+    "type": "\"password\"",
+    "autoComplete": "\"current-password\"",
+    "value": "{current}",
+    "onChange": "{e => setCurrent(e.target.value)}"
+  },
+  {
+    "file": "src/components/auth/RequiredPinChange.tsx",
+    "line": 25,
+    "tag": "Input",
+    "type": "\"password\"",
+    "autoComplete": "\"new-password\"",
+    "value": "{next}",
+    "onChange": "{e => setNext(e.target.value)}"
+  },
+  {
+    "file": "src/components/auth/RequiredPinChange.tsx",
+    "line": 26,
+    "tag": "Input",
+    "type": "\"password\"",
+    "autoComplete": "\"new-password\"",
+    "value": "{confirmation}",
+    "onChange": "{e => setConfirmation(e.target.value)}"
+  },
+  {
+    "file": "src/components/categories/CategoryCleanupPanel.tsx",
+    "line": 126,
+    "tag": "Select",
+    "value": "{fromId}",
+    "onValueChange": "{setFromId}"
+  },
+  {
+    "file": "src/components/categories/CategoryCleanupPanel.tsx",
+    "line": 141,
+    "tag": "Select",
+    "value": "{toId}",
+    "onValueChange": "{setToId}"
+  },
+  {
+    "file": "src/components/finance/CardEmiSimulatorDialog.tsx",
+    "line": 56,
+    "tag": "Field",
+    "label": "\"Purchase amount (₹)\""
+  },
+  {
+    "file": "src/components/finance/CardEmiSimulatorDialog.tsx",
+    "line": 57,
+    "tag": "Input",
+    "type": "\"number\"",
+    "value": "{principal}",
+    "onChange": "{(e) => setPrincipal(e.target.value)}"
+  },
+  {
+    "file": "src/components/finance/CardEmiSimulatorDialog.tsx",
+    "line": 59,
+    "tag": "Field",
+    "label": "\"Annual rate %\""
+  },
+  {
+    "file": "src/components/finance/CardEmiSimulatorDialog.tsx",
+    "line": 60,
+    "tag": "Input",
+    "type": "\"number\"",
+    "value": "{rate}",
+    "onChange": "{(e) => setRate(e.target.value)}"
+  },
+  {
+    "file": "src/components/finance/CardEmiSimulatorDialog.tsx",
+    "line": 62,
+    "tag": "Field",
+    "label": "\"Processing fee (₹)\""
+  },
+  {
+    "file": "src/components/finance/CardEmiSimulatorDialog.tsx",
+    "line": 63,
+    "tag": "Input",
+    "type": "\"number\"",
+    "value": "{fee}",
+    "onChange": "{(e) => setFee(e.target.value)}"
+  },
+  {
+    "file": "src/components/forms/QuickAddDialog.tsx",
+    "line": 69,
+    "tag": "Input",
+    "type": "\"number\"",
+    "min": "{0}",
+    "placeholder": "\"Amount (₹)\"",
+    "value": "{amount}",
+    "onChange": "{(e) => setAmount(e.target.value === \"\" ? \"\" : Number(e.target.value))}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 264,
+    "tag": "Field",
+    "label": "\"Type\"",
+    "error": "{fieldError(\"type\")}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 265,
+    "tag": "Select",
+    "value": "{isContribution ? \"contribution\" : state.type}",
+    "onValueChange": "{(v) => { const type = v === \"contribution\" ? \"refund\" : v as TransactionType; setState((s) => ({ ...s, type, transactionIntent: v === \"contribution\" ? \"expense_contribution\" : undefined, linkedOriginalTransactionId: \"\", paymentMode: type === \"transfer\" || v === \"contribution\" ? \"bank_transfer\" : s."
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 292,
+    "tag": "Field",
+    "label": "\"Original shared expense\"",
+    "error": "{contributionProblem ?? fieldError(\"linkedOriginalTransactionId\")}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 293,
+    "tag": "select",
+    "aria-label": "\"Original shared expense\"",
+    "className": "\"w-full rounded-md border border-border bg-background p-2 text-sm\"",
+    "value": "{state.linkedOriginalTransactionId}",
+    "onChange": "{e => { const original = transactions.find(t => t.id === e.target.value); setState(s => ({ ...s, linkedOriginalTransactionId: e.target.value, categoryId: original?.categoryId ?? \"\", businessOrPersonal: original?.businessOrPersonal ?? \"personal\" })); }}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 303,
+    "tag": "Field",
+    "label": "\"Date\"",
+    "error": "{fieldError(\"date\")}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 304,
+    "tag": "Input",
+    "type": "\"date\"",
+    "aria-label": "\"Transaction date\"",
+    "value": "{state.date}",
+    "onChange": "{(e) => setState({ ...state, date: e.target.value })}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 311,
+    "tag": "Field",
+    "label": "\"Amount (₹)\"",
+    "error": "{fieldError(\"amount\")}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 312,
+    "tag": "Input",
+    "type": "\"number\"",
+    "aria-label": "\"Transaction amount\"",
+    "step": "\"0.01\"",
+    "inputMode": "\"decimal\"",
+    "value": "{state.amount as number}",
+    "onChange": "{(e) => setState({ ...state, amount: e.target.value === \"\" ? \"\" : +e.target.value }) }",
+    "placeholder": "\"0.00\""
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 325,
+    "tag": "Field",
+    "label": "\"Payment Mode\"",
+    "error": "{fieldError(\"paymentMode\")}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 326,
+    "tag": "Select",
+    "value": "{state.paymentMode}",
+    "onValueChange": "{(v) => setState({ ...state, paymentMode: v as PaymentMode })}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 343,
+    "tag": "Field",
+    "label": "{ (state.type === \"expense\" || state.type === \"refund\") && state.paymentMode === \"credit_card\" ? \"Tag account (optional — does not move cash)\" : \"Account\" }",
+    "required": "{ !( (state.type === \"expense\" || state.type === \"refund\") && state.paymentMode === \"credit_card\" ) && state.type !== \"udhari_write_off\" }",
+    "error": "{fieldError(\"accountId\")}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 357,
+    "tag": "Select",
+    "value": "{ (state.type === \"expense\" || state.type === \"refund\") && state.paymentMode === \"credit_card\" ? state.accountId || \"__none__\" : state.accountId || undefined }",
+    "onValueChange": "{(v) => setState({ ...state, accountId: (state.type === \"expense\" || state.type === \"refund\") && state.paymentMode === \"credit_card\" && v === \"__none__\" ? \"\" : v, }) }"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 392,
+    "tag": "Field",
+    "label": "\"To Account\"",
+    "error": "{fieldError(\"toAccountId\")}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 393,
+    "tag": "Select",
+    "value": "{state.toAccountId || undefined}",
+    "onValueChange": "{(v) => setState({ ...state, toAccountId: v })}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 412,
+    "tag": "Field",
+    "label": "\"Category\"",
+    "required": "{ state.type === \"income\" || state.type === \"expense\" || state.type === \"refund\" || state.type === \"udhari_write_off\" }",
+    "error": "{fieldError(\"categoryId\")}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 422,
+    "tag": "Select",
+    "value": "{state.categoryId || undefined}",
+    "onValueChange": "{(v) => setState({ ...state, categoryId: v })}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 442,
+    "tag": "Field",
+    "label": "\"Credit Card\"",
+    "className": "\"sm:col-span-2\"",
+    "error": "{fieldError(\"linkedCardId\")}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 443,
+    "tag": "Select",
+    "value": "{state.linkedCardId || undefined}",
+    "onValueChange": "{(v) => setState({ ...state, linkedCardId: v })}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 461,
+    "tag": "Field",
+    "label": "\"Loan\"",
+    "className": "\"sm:col-span-2\"",
+    "error": "{fieldError(\"linkedLoanId\")}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 462,
+    "tag": "Select",
+    "value": "{state.linkedLoanId || undefined}",
+    "onValueChange": "{(v) => setState({ ...state, linkedLoanId: v })}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 480,
+    "tag": "Field",
+    "label": "\"Loan\"",
+    "className": "\"sm:col-span-2\"",
+    "error": "{fieldError(\"linkedLoanId\")}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 481,
+    "tag": "Select",
+    "value": "{state.linkedLoanId || undefined}",
+    "onValueChange": "{(v) => setState({ ...state, linkedLoanId: v })}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 499,
+    "tag": "Field",
+    "label": "\"Goal\"",
+    "className": "\"sm:col-span-2\"",
+    "error": "{fieldError(\"linkedGoalId\")}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 500,
+    "tag": "Select",
+    "value": "{state.linkedGoalId || undefined}",
+    "onValueChange": "{(v) => setState({ ...state, linkedGoalId: v })}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 518,
+    "tag": "Field",
+    "label": "\"Investment\"",
+    "className": "\"sm:col-span-2\"",
+    "error": "{fieldError(\"linkedSavingsId\")}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 519,
+    "tag": "Select",
+    "value": "{state.linkedSavingsId || undefined}",
+    "onValueChange": "{(v) => setState({ ...state, linkedSavingsId: v })}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 539,
+    "tag": "Field",
+    "label": "\"Credit card used\"",
+    "className": "\"sm:col-span-2\"",
+    "error": "{fieldError(\"linkedCardId\")}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 540,
+    "tag": "Select",
+    "value": "{state.linkedCardId || undefined}",
+    "onValueChange": "{(v) => setState({ ...state, linkedCardId: v })}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 563,
+    "tag": "Field",
+    "label": "\"Udhari Record\"",
+    "className": "\"sm:col-span-2\"",
+    "error": "{fieldError(\"linkedUdhariId\")}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 564,
+    "tag": "Select",
+    "value": "{state.linkedUdhariId || undefined}",
+    "onValueChange": "{(v) => setState({ ...state, linkedUdhariId: v })}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 582,
+    "tag": "Field",
+    "label": "\"Merchant / Person\"",
+    "className": "\"sm:col-span-2\"",
+    "required": "{ state.type === \"udhari_given\" || state.type === \"udhari_received\" || state.type === \"udhari_collect\" || state.type === \"udhari_repay\" }",
+    "error": "{fieldError(\"merchantOrPerson\")}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 593,
+    "tag": "Input",
+    "value": "{state.merchantOrPerson}",
+    "onChange": "{(e) => setState({ ...state, merchantOrPerson: e.target.value })}",
+    "placeholder": "\"e.g. Swiggy, HDFC, Rahul\""
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 600,
+    "tag": "Field",
+    "label": "\"Description\"",
+    "className": "\"sm:col-span-2\""
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 601,
+    "tag": "Input",
+    "value": "{state.description}",
+    "onChange": "{(e) => setState({ ...state, description: e.target.value })}",
+    "placeholder": "\"Short description\""
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 608,
+    "tag": "Field",
+    "label": "\"Tags (comma-separated)\"",
+    "className": "\"sm:col-span-2\""
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 609,
+    "tag": "Input",
+    "value": "{state.tags.join(\", \")}",
+    "onChange": "{(e) => setState({ ...state, tags: e.target.value .split(\",\") .map((t) => t.trim()) .filter(Boolean), }) }",
+    "placeholder": "\"e.g. family, festive\""
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 624,
+    "tag": "Field",
+    "label": "\"Notes\"",
+    "className": "\"sm:col-span-2\""
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 635,
+    "tag": "Checkbox",
+    "checked": "{!!state.billAvailable}",
+    "onCheckedChange": "{(c) => setState({ ...state, billAvailable: c ? 1 : 0 })}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 642,
+    "tag": "Checkbox",
+    "checked": "{!!state.gstApplicable}",
+    "onCheckedChange": "{(c) => setState({ ...state, gstApplicable: c ? 1 : 0 })}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 649,
+    "tag": "Checkbox",
+    "checked": "{!!state.taxFlag}",
+    "onCheckedChange": "{(c) => setState({ ...state, taxFlag: c ? 1 : 0 })}"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 656,
+    "tag": "Checkbox",
+    "checked": "{state.businessOrPersonal === \"business\"}",
+    "onCheckedChange": "{(c) => setState({ ...state, businessOrPersonal: c ? \"business\" : \"personal\" }) }"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 666,
+    "tag": "Field",
+    "label": "\"Need / Want\""
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 667,
+    "tag": "Select",
+    "value": "{state.needWant}",
+    "onValueChange": "{(v) => setState({ ...state, needWant: v as typeof state.needWant }) }"
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 684,
+    "tag": "Field",
+    "label": "\"Fixed / Variable\""
+  },
+  {
+    "file": "src/components/forms/TransactionForm.tsx",
+    "line": 685,
+    "tag": "Select",
+    "value": "{state.fixedVariable}",
+    "onValueChange": "{(v) => setState({ ...state, fixedVariable: v as typeof state.fixedVariable }) }"
+  },
+  {
+    "file": "src/components/layout/CommandPalette.tsx",
+    "line": 158,
+    "tag": "input",
+    "value": "{query}",
+    "onChange": "{(e) => setQuery(e.target.value)}",
+    "placeholder": "\"Type a command, search transactions, jump to page…\"",
+    "className": "\"flex-1 bg-transparent py-3 text-sm outline-none\""
+  },
+  {
+    "file": "src/components/pages/AccountsPage.tsx",
+    "line": 280,
+    "tag": "Field",
+    "label": "\"Name\"",
+    "className": "\"col-span-2\""
+  },
+  {
+    "file": "src/components/pages/AccountsPage.tsx",
+    "line": 281,
+    "tag": "Input",
+    "value": "{state.name}",
+    "onChange": "{(e) => setState({ ...state, name: e.target.value })}",
+    "placeholder": "\"HDFC Savings\""
+  },
+  {
+    "file": "src/components/pages/AccountsPage.tsx",
+    "line": 287,
+    "tag": "Field",
+    "label": "\"Type\""
+  },
+  {
+    "file": "src/components/pages/AccountsPage.tsx",
+    "line": 288,
+    "tag": "Select",
+    "value": "{state.type}",
+    "onValueChange": "{(v) => setState({ ...state, type: v as Account[\"type\"] })}"
+  },
+  {
+    "file": "src/components/pages/AccountsPage.tsx",
+    "line": 304,
+    "tag": "Field",
+    "label": "\"Institution\""
+  },
+  {
+    "file": "src/components/pages/AccountsPage.tsx",
+    "line": 305,
+    "tag": "Input",
+    "value": "{state.institution}",
+    "onChange": "{(e) => setState({ ...state, institution: e.target.value })}",
+    "placeholder": "\"HDFC Bank\""
+  },
+  {
+    "file": "src/components/pages/AccountsPage.tsx",
+    "line": 311,
+    "tag": "Field",
+    "label": "\"Opening balance (₹)\"",
+    "className": "\"col-span-2\""
+  },
+  {
+    "file": "src/components/pages/AccountsPage.tsx",
+    "line": 312,
+    "tag": "Input",
+    "type": "\"number\"",
+    "value": "{state.openingBalance}",
+    "onChange": "{(e) => setState({ ...state, openingBalance: +e.target.value }) }"
+  },
+  {
+    "file": "src/components/pages/AccountsPage.tsx",
+    "line": 320,
+    "tag": "Field",
+    "label": "\"Color\""
+  },
+  {
+    "file": "src/components/pages/AccountsPage.tsx",
+    "line": 321,
+    "tag": "Input",
+    "type": "\"color\"",
+    "value": "{state.color}",
+    "onChange": "{(e) => setState({ ...state, color: e.target.value })}",
+    "className": "\"h-9 p-1\""
+  },
+  {
+    "file": "src/components/pages/AuditPage.tsx",
+    "line": 141,
+    "tag": "Input",
+    "placeholder": "\"Search details, entity, ID…\"",
+    "value": "{search}",
+    "onChange": "{(e) => setSearch(e.target.value)}",
+    "className": "\"max-w-xs\""
+  },
+  {
+    "file": "src/components/pages/AuditPage.tsx",
+    "line": 147,
+    "tag": "Select",
+    "value": "{action}",
+    "onValueChange": "{setAction}"
+  },
+  {
+    "file": "src/components/pages/AuditPage.tsx",
+    "line": 160,
+    "tag": "Select",
+    "value": "{entity}",
+    "onValueChange": "{setEntity}"
+  },
+  {
+    "file": "src/components/pages/BudgetsPage.tsx",
+    "line": 117,
+    "tag": "Select",
+    "value": "{String(month)}",
+    "onValueChange": "{(v) => setMonth(+v)}"
+  },
+  {
+    "file": "src/components/pages/BudgetsPage.tsx",
+    "line": 129,
+    "tag": "Select",
+    "value": "{String(year)}",
+    "onValueChange": "{(v) => setYear(+v)}"
+  },
+  {
+    "file": "src/components/pages/BudgetsPage.tsx",
+    "line": 376,
+    "tag": "Field",
+    "label": "\"Period\""
+  },
+  {
+    "file": "src/components/pages/BudgetsPage.tsx",
+    "line": 377,
+    "tag": "Select",
+    "value": "{state.period}",
+    "onValueChange": "{(v) => setState({ ...state, period: v as typeof state.period }) }"
+  },
+  {
+    "file": "src/components/pages/BudgetsPage.tsx",
+    "line": 392,
+    "tag": "Field",
+    "label": "\"Category\""
+  },
+  {
+    "file": "src/components/pages/BudgetsPage.tsx",
+    "line": 393,
+    "tag": "Select",
+    "value": "{state.categoryId || undefined}",
+    "onValueChange": "{(v) => setState({ ...state, categoryId: v })}"
+  },
+  {
+    "file": "src/components/pages/BudgetsPage.tsx",
+    "line": 409,
+    "tag": "Field",
+    "label": "\"Year\""
+  },
+  {
+    "file": "src/components/pages/BudgetsPage.tsx",
+    "line": 410,
+    "tag": "Input",
+    "type": "\"number\"",
+    "value": "{state.year}",
+    "onChange": "{(e) => setState({ ...state, year: +e.target.value })}"
+  },
+  {
+    "file": "src/components/pages/BudgetsPage.tsx",
+    "line": 417,
+    "tag": "Field",
+    "label": "\"Month\""
+  },
+  {
+    "file": "src/components/pages/BudgetsPage.tsx",
+    "line": 418,
+    "tag": "Input",
+    "type": "\"number\"",
+    "min": "{1}",
+    "max": "{12}",
+    "value": "{state.month}",
+    "onChange": "{(e) => setState({ ...state, month: +e.target.value })}"
+  },
+  {
+    "file": "src/components/pages/BudgetsPage.tsx",
+    "line": 429,
+    "tag": "Field",
+    "label": "\"Amount (₹)\"",
+    "className": "\"col-span-2\""
+  },
+  {
+    "file": "src/components/pages/BudgetsPage.tsx",
+    "line": 430,
+    "tag": "Input",
+    "type": "\"number\"",
+    "step": "\"0.01\"",
+    "value": "{state.amount}",
+    "onChange": "{(e) => setState({ ...state, amount: +e.target.value })}"
+  },
+  {
+    "file": "src/components/pages/BudgetsPage.tsx",
+    "line": 437,
+    "tag": "Field",
+    "label": "\"Mode\"",
+    "className": "\"col-span-2\""
+  },
+  {
+    "file": "src/components/pages/BudgetsPage.tsx",
+    "line": 438,
+    "tag": "Select",
+    "value": "{state.mode}",
+    "onValueChange": "{(v) => setState({ ...state, mode: v as typeof state.mode })}"
+  },
+  {
+    "file": "src/components/pages/BudgetsPage.tsx",
+    "line": 452,
+    "tag": "Checkbox",
+    "checked": "{!!state.carryForward}",
+    "onCheckedChange": "{(v) => setState({ ...state, carryForward: v ? 1 : 0 }) }"
+  },
+  {
+    "file": "src/components/pages/BudgetsPage.tsx",
+    "line": 461,
+    "tag": "Checkbox",
+    "checked": "{!!state.rolloverSavings}",
+    "onCheckedChange": "{(v) => setState({ ...state, rolloverSavings: v ? 1 : 0 }) }"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 671,
+    "tag": "Field",
+    "label": "\"Link to credit card\""
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 672,
+    "tag": "Select",
+    "value": "{repairCardId || undefined}",
+    "onValueChange": "{setRepairCardId}"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 696,
+    "tag": "Field",
+    "label": "\"Account (cash source)\""
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 697,
+    "tag": "Select",
+    "value": "{repairAccountId || undefined}",
+    "onValueChange": "{setRepairAccountId}"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 848,
+    "tag": "Field",
+    "label": "\"Type\""
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 849,
+    "tag": "Select",
+    "value": "{state.type}",
+    "onValueChange": "{(v) => setState({ ...state, type: v as \"credit\" | \"debit\" })}"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 862,
+    "tag": "Field",
+    "label": "\"Bank\""
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 863,
+    "tag": "Select",
+    "value": "{state.bank}",
+    "onValueChange": "{(v) => setState({ ...state, bank: v })}"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 876,
+    "tag": "Field",
+    "label": "\"Nickname\"",
+    "className": "\"col-span-2\""
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 877,
+    "tag": "Input",
+    "value": "{state.nickname}",
+    "onChange": "{(e) => setState({ ...state, nickname: e.target.value })}",
+    "placeholder": "\"HDFC Regalia\""
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 883,
+    "tag": "Field",
+    "label": "\"Last 4 digits\""
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 884,
+    "tag": "Input",
+    "value": "{state.last4}",
+    "maxLength": "{4}",
+    "onChange": "{(e) => setState({ ...state, last4: e.target.value.replace(/\\D/g, \"\").slice(0, 4) }) }",
+    "placeholder": "\"1234\""
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 893,
+    "tag": "Field",
+    "label": "\"Color\""
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 894,
+    "tag": "Input",
+    "type": "\"color\"",
+    "value": "{state.color}",
+    "onChange": "{(e) => setState({ ...state, color: e.target.value })}",
+    "className": "\"h-9 p-1\""
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 902,
+    "tag": "Field",
+    "label": "\"Linked account\"",
+    "className": "\"col-span-2\""
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 903,
+    "tag": "Select",
+    "value": "{state.linkedAccountId}",
+    "onValueChange": "{(v) => setState({ ...state, linkedAccountId: v })}"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 921,
+    "tag": "Field",
+    "label": "\"Credit limit (₹)\""
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 922,
+    "tag": "Input",
+    "type": "\"number\"",
+    "value": "{state.creditLimit}",
+    "onChange": "{(e) => setState({ ...state, creditLimit: +e.target.value })}"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 928,
+    "tag": "Field",
+    "label": "\"Interest rate % (APR)\""
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 929,
+    "tag": "Input",
+    "type": "\"number\"",
+    "value": "{state.interestRate}",
+    "onChange": "{(e) => setState({ ...state, interestRate: +e.target.value })}"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 935,
+    "tag": "Field",
+    "label": "\"Statement day\""
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 936,
+    "tag": "Input",
+    "type": "\"number\"",
+    "min": "{1}",
+    "max": "{31}",
+    "value": "{state.statementDay}",
+    "onChange": "{(e) => setState({ ...state, statementDay: +e.target.value })}"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 944,
+    "tag": "Field",
+    "label": "\"Due day\""
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 945,
+    "tag": "Input",
+    "type": "\"number\"",
+    "min": "{1}",
+    "max": "{31}",
+    "value": "{state.dueDay}",
+    "onChange": "{(e) => setState({ ...state, dueDay: +e.target.value })}"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 953,
+    "tag": "Field",
+    "label": "\"Annual fee (₹)\""
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 954,
+    "tag": "Input",
+    "type": "\"number\"",
+    "value": "{state.annualFee}",
+    "onChange": "{(e) => setState({ ...state, annualFee: +e.target.value })}"
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 960,
+    "tag": "Field",
+    "label": "\"Reward note\""
+  },
+  {
+    "file": "src/components/pages/CardsPage.tsx",
+    "line": 961,
+    "tag": "Input",
+    "value": "{state.rewardNote}",
+    "onChange": "{(e) => setState({ ...state, rewardNote: e.target.value })}",
+    "placeholder": "\"2x on dining, 4% on fuel\""
+  },
+  {
+    "file": "src/components/pages/CategoriesPage.tsx",
+    "line": 128,
+    "tag": "Select",
+    "value": "{filter}",
+    "onValueChange": "{(v) => setFilter(v as typeof filter)}"
+  },
+  {
+    "file": "src/components/pages/CategoriesPage.tsx",
+    "line": 139,
+    "tag": "Checkbox",
+    "checked": "{showArchived}",
+    "onCheckedChange": "{(c) => setShowArchived(!!c)}"
+  },
+  {
+    "file": "src/components/pages/CategoriesPage.tsx",
+    "line": 361,
+    "tag": "Field",
+    "label": "\"Name\""
+  },
+  {
+    "file": "src/components/pages/CategoriesPage.tsx",
+    "line": 362,
+    "tag": "Input",
+    "value": "{state.name}",
+    "onChange": "{(e) => setState({ ...state, name: e.target.value })}",
+    "placeholder": "\"Groceries\""
+  },
+  {
+    "file": "src/components/pages/CategoriesPage.tsx",
+    "line": 368,
+    "tag": "Field",
+    "label": "\"Applies to\""
+  },
+  {
+    "file": "src/components/pages/CategoriesPage.tsx",
+    "line": 369,
+    "tag": "Select",
+    "value": "{state.appliesTo}",
+    "onValueChange": "{(v) => { const appliesTo = v as typeof state.appliesTo; setState((prev) => ({ ...prev, appliesTo, color: category ? prev.color : suggestNextCategoryColor(appliesTo, allCategories, chartAccessibility), })); }}"
+  },
+  {
+    "file": "src/components/pages/CategoriesPage.tsx",
+    "line": 392,
+    "tag": "Field",
+    "label": "\"Icon\""
+  },
+  {
+    "file": "src/components/pages/CategoriesPage.tsx",
+    "line": 406,
+    "tag": "Field",
+    "label": "\"Color\""
+  },
+  {
+    "file": "src/components/pages/CategoriesPage.tsx",
+    "line": 427,
+    "tag": "Checkbox",
+    "checked": "{!!state.budgetable}",
+    "onCheckedChange": "{(v) => setState({ ...state, budgetable: v ? 1 : 0 })}"
+  },
+  {
+    "file": "src/components/pages/CategoriesPage.tsx",
+    "line": 434,
+    "tag": "Checkbox",
+    "checked": "{!!state.taxRelevant}",
+    "onCheckedChange": "{(v) => setState({ ...state, taxRelevant: v ? 1 : 0 })}"
+  },
+  {
+    "file": "src/components/pages/CategoriesPage.tsx",
+    "line": 441,
+    "tag": "Checkbox",
+    "checked": "{!!state.gstRelevant}",
+    "onCheckedChange": "{(v) => setState({ ...state, gstRelevant: v ? 1 : 0 })}"
+  },
+  {
+    "file": "src/components/pages/DashboardPage.tsx",
+    "line": 413,
+    "tag": "Select",
+    "value": "{dashboardMode}",
+    "onValueChange": "{(v) => setDashboardMode(v as typeof dashboardMode)}"
+  },
+  {
+    "file": "src/components/pages/ExportPage.tsx",
+    "line": 228,
+    "tag": "Field",
+    "label": "\"From\""
+  },
+  {
+    "file": "src/components/pages/ExportPage.tsx",
+    "line": 229,
+    "tag": "Input",
+    "type": "\"date\"",
+    "value": "{from}",
+    "onChange": "{(e) => setFrom(e.target.value)}"
+  },
+  {
+    "file": "src/components/pages/ExportPage.tsx",
+    "line": 231,
+    "tag": "Field",
+    "label": "\"To\""
+  },
+  {
+    "file": "src/components/pages/ExportPage.tsx",
+    "line": 232,
+    "tag": "Input",
+    "type": "\"date\"",
+    "value": "{to}",
+    "onChange": "{(e) => setTo(e.target.value)}"
+  },
+  {
+    "file": "src/components/pages/ExportPage.tsx",
+    "line": 234,
+    "tag": "Field",
+    "label": "\"Format\""
+  },
+  {
+    "file": "src/components/pages/ExportPage.tsx",
+    "line": 235,
+    "tag": "Select",
+    "value": "{format}",
+    "onValueChange": "{(v) => setFormat(v as \"xlsx\" | \"csv\" | \"json\")}"
+  },
+  {
+    "file": "src/components/pages/ExportPage.tsx",
+    "line": 487,
+    "tag": "Field",
+    "label": "\"PIN\""
+  },
+  {
+    "file": "src/components/pages/ExportPage.tsx",
+    "line": 488,
+    "tag": "Input",
+    "type": "\"password\"",
+    "value": "{backupPin}",
+    "onChange": "{(e) => setBackupPin(e.target.value)}",
+    "placeholder": "\"Enter PIN\""
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 296,
+    "tag": "Field",
+    "label": "\"Amount (₹)\""
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 299,
+    "tag": "Input",
+    "type": "\"number\"",
+    "className": "\"pl-8\"",
+    "value": "{amount}",
+    "onChange": "{(e) => setAmount(+e.target.value)}"
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 423,
+    "tag": "Field",
+    "label": "\"Title\"",
+    "className": "\"col-span-2\""
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 424,
+    "tag": "Input",
+    "value": "{state.title}",
+    "onChange": "{(e) => setState({ ...state, title: e.target.value })}",
+    "placeholder": "\"iPhone 17 Pro\""
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 430,
+    "tag": "Field",
+    "label": "\"Goal type\""
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 431,
+    "tag": "Select",
+    "value": "{state.goalType}",
+    "onValueChange": "{(v) => setState({ ...state, goalType: v as typeof state.goalType }) }"
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 449,
+    "tag": "Field",
+    "label": "\"Priority (1 high — 5 low)\""
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 450,
+    "tag": "Input",
+    "type": "\"number\"",
+    "min": "{1}",
+    "max": "{5}",
+    "value": "{state.priority}",
+    "onChange": "{(e) => setState({ ...state, priority: +e.target.value as 1 | 2 | 3 | 4 | 5 }) }"
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 460,
+    "tag": "Field",
+    "label": "\"Target amount (₹)\""
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 461,
+    "tag": "Input",
+    "type": "\"number\"",
+    "value": "{state.targetAmount}",
+    "onChange": "{(e) => setState({ ...state, targetAmount: +e.target.value })}"
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 467,
+    "tag": "Field",
+    "label": "\"Target date\""
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 468,
+    "tag": "Input",
+    "type": "\"date\"",
+    "value": "{state.targetDate}",
+    "onChange": "{(e) => setState({ ...state, targetDate: e.target.value })}"
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 474,
+    "tag": "Field",
+    "label": "\"Current saved\""
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 475,
+    "tag": "Input",
+    "type": "\"number\"",
+    "value": "{state.currentSaved}",
+    "onChange": "{(e) => setState({ ...state, currentSaved: +e.target.value })}"
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 481,
+    "tag": "Field",
+    "label": "\"Icon\""
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 482,
+    "tag": "Input",
+    "value": "{state.icon}",
+    "onChange": "{(e) => setState({ ...state, icon: e.target.value })}",
+    "placeholder": "\"🎯\""
+  },
+  {
+    "file": "src/components/pages/GoalsPage.tsx",
+    "line": 488,
+    "tag": "Field",
+    "label": "\"Goal style\"",
+    "className": "\"col-span-2\""
+  },
+  {
+    "file": "src/components/pages/HouseholdDashboardPage.tsx",
+    "line": 129,
+    "tag": "Field",
+    "label": "\"Household name\"",
+    "className": "\"min-w-[200px] flex-1\""
+  },
+  {
+    "file": "src/components/pages/HouseholdDashboardPage.tsx",
+    "line": 130,
+    "tag": "Input",
+    "value": "{name}",
+    "onChange": "{(e) => setName(e.target.value)}",
+    "placeholder": "\"Home\""
+  },
+  {
+    "file": "src/components/pages/HouseholdDashboardPage.tsx",
+    "line": 157,
+    "tag": "Field",
+    "label": "\"Add partner / member\"",
+    "className": "\"min-w-[200px] flex-1\""
+  },
+  {
+    "file": "src/components/pages/HouseholdDashboardPage.tsx",
+    "line": 158,
+    "tag": "Input",
+    "value": "{memberName}",
+    "onChange": "{(e) => setMemberName(e.target.value)}"
+  },
+  {
+    "file": "src/components/pages/ImportPage.tsx",
+    "line": 564,
+    "tag": "input",
+    "ref": "{fileInput}",
+    "type": "\"file\"",
+    "accept": "\".xlsx,.xls,.csv\"",
+    "className": "\"hidden\"",
+    "onChange": "{(e) => { const f = e.target.files?.[0]; if (f) handleFile(f); }}"
+  },
+  {
+    "file": "src/components/pages/ImportPage.tsx",
+    "line": 604,
+    "tag": "Field",
+    "key": "{tf.key}",
+    "label": "{tf.label + (tf.required ? \" *\" : \"\")}"
+  },
+  {
+    "file": "src/components/pages/ImportPage.tsx",
+    "line": 608,
+    "tag": "Select",
+    "value": "{mapping[tf.key] ?? \"none\"}",
+    "onValueChange": "{(v) => setMapping({ ...mapping, [tf.key]: v === \"none\" ? undefined : v, }) }"
+  },
+  {
+    "file": "src/components/pages/ImportPage.tsx",
+    "line": 673,
+    "tag": "Field",
+    "label": "\"Duplicates\""
+  },
+  {
+    "file": "src/components/pages/ImportPage.tsx",
+    "line": 674,
+    "tag": "Select",
+    "value": "{duplicateMode}",
+    "onValueChange": "{(v) => setDuplicateMode(v as \"skip\" | \"allow\")}"
+  },
+  {
+    "file": "src/components/pages/ImportPage.tsx",
+    "line": 757,
+    "tag": "input",
+    "ref": "{restoreInput}",
+    "type": "\"file\"",
+    "accept": "\".json\"",
+    "className": "\"hidden\"",
+    "onChange": "{(e) => { const f = e.target.files?.[0]; if (f) handleRestoreFile(f); }}"
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 342,
+    "tag": "Field",
+    "label": "\"Amount (₹)\""
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 343,
+    "tag": "Input",
+    "type": "\"number\"",
+    "value": "{amount}",
+    "onChange": "{(e) => setAmount(+e.target.value)}"
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 454,
+    "tag": "Field",
+    "label": "\"Name\"",
+    "className": "\"col-span-2\""
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 455,
+    "tag": "Input",
+    "value": "{state.name}",
+    "onChange": "{(e) => setState({ ...state, name: e.target.value })}",
+    "placeholder": "\"Axis Bluechip SIP\""
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 461,
+    "tag": "Field",
+    "label": "\"Type\""
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 462,
+    "tag": "Select",
+    "value": "{state.type}",
+    "onValueChange": "{(v) => setState({ ...state, type: v as Investment[\"type\"] })}"
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 478,
+    "tag": "Field",
+    "label": "\"Frequency\""
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 479,
+    "tag": "Select",
+    "value": "{state.frequency}",
+    "onValueChange": "{(v) => setState({ ...state, frequency: v as Investment[\"frequency\"] }) }"
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 496,
+    "tag": "Field",
+    "label": "\"Start date\""
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 497,
+    "tag": "Input",
+    "type": "\"date\"",
+    "value": "{state.startDate}",
+    "onChange": "{(e) => setState({ ...state, startDate: e.target.value })}"
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 503,
+    "tag": "Field",
+    "label": "\"Maturity date\""
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 504,
+    "tag": "Input",
+    "type": "\"date\"",
+    "value": "{state.maturityDate}",
+    "onChange": "{(e) => setState({ ...state, maturityDate: e.target.value })}"
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 510,
+    "tag": "Field",
+    "label": "\"Monthly target (₹)\""
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 511,
+    "tag": "Input",
+    "type": "\"number\"",
+    "value": "{state.monthlyTarget}",
+    "onChange": "{(e) => setState({ ...state, monthlyTarget: +e.target.value })}"
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 517,
+    "tag": "Field",
+    "label": "\"Expected return %\""
+  },
+  {
+    "file": "src/components/pages/InvestmentsPage.tsx",
+    "line": 518,
+    "tag": "Input",
+    "type": "\"number\"",
+    "step": "\"0.1\"",
+    "value": "{state.expectedReturnRate}",
+    "onChange": "{(e) => setState({ ...state, expectedReturnRate: +e.target.value }) }"
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 420,
+    "tag": "Field",
+    "label": "\"Prepayment simulator (₹)\"",
+    "className": "\"min-w-[140px] flex-1\""
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 421,
+    "tag": "Input",
+    "inputMode": "\"decimal\"",
+    "placeholder": "\"e.g. 50000\"",
+    "value": "{prepKey}",
+    "onChange": "{(e) => setPrepayByLoan((m) => ({ ...m, [l.id]: e.target.value })) }"
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 765,
+    "tag": "Field",
+    "label": "\"Lender\"",
+    "className": "\"col-span-2\""
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 766,
+    "tag": "Input",
+    "value": "{state.lender}",
+    "onChange": "{(e) => setState({ ...state, lender: e.target.value })}",
+    "placeholder": "\"HDFC Bank\""
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 772,
+    "tag": "Field",
+    "label": "\"Loan type\""
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 773,
+    "tag": "Select",
+    "value": "{state.loanType}",
+    "onValueChange": "{(v) => setState({ ...state, loanType: v as typeof state.loanType }) }"
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 791,
+    "tag": "Field",
+    "label": "\"Tracking mode\""
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 792,
+    "tag": "Select",
+    "value": "{state.lifecycleMode}",
+    "onValueChange": "{(v) => setState({ ...state, lifecycleMode: v as typeof state.lifecycleMode }) }"
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 808,
+    "tag": "Field",
+    "label": "\"Interest method\""
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 809,
+    "tag": "Select",
+    "value": "{state.interestType}",
+    "onValueChange": "{(v) => setState({ ...state, interestType: v as typeof state.interestType })}"
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 824,
+    "tag": "Field",
+    "label": "\"Start date\""
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 825,
+    "tag": "Input",
+    "type": "\"date\"",
+    "value": "{state.startDate}",
+    "onChange": "{(e) => setState({ ...state, startDate: e.target.value })}"
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 831,
+    "tag": "Field",
+    "label": "\"Principal (₹)\""
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 832,
+    "tag": "Input",
+    "type": "\"number\"",
+    "value": "{state.principal}",
+    "onChange": "{(e) => setState({ ...state, principal: +e.target.value })}"
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 838,
+    "tag": "Field",
+    "label": "\"Disbursed amount (INR)\""
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 839,
+    "tag": "Input",
+    "type": "\"number\"",
+    "min": "{0}",
+    "value": "{state.disbursedAmount}",
+    "onChange": "{(e) => setState({ ...state, disbursedAmount: +e.target.value })}"
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 846,
+    "tag": "Field",
+    "label": "\"First EMI date\""
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 847,
+    "tag": "Input",
+    "type": "\"date\"",
+    "value": "{state.firstEmiDate}",
+    "onChange": "{(e) => setState({ ...state, firstEmiDate: e.target.value })}"
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 853,
+    "tag": "Field",
+    "label": "\"Tenure (months)\""
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 854,
+    "tag": "Input",
+    "type": "\"number\"",
+    "value": "{state.tenureMonths}",
+    "onChange": "{(e) => setState({ ...state, tenureMonths: +e.target.value })}"
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 860,
+    "tag": "Field",
+    "label": "\"Interest %\""
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 861,
+    "tag": "Input",
+    "type": "\"number\"",
+    "step": "\"0.01\"",
+    "value": "{state.annualInterestRate}",
+    "onChange": "{(e) => setState({ ...state, annualInterestRate: +e.target.value }) }"
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 870,
+    "tag": "Field",
+    "label": "\"EMI due day (1-28)\""
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 871,
+    "tag": "Input",
+    "type": "\"number\"",
+    "min": "{1}",
+    "max": "{28}",
+    "value": "{state.emiDueDay}",
+    "onChange": "{(e) => setState({ ...state, emiDueDay: +e.target.value })}"
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 879,
+    "tag": "Field",
+    "label": "\"Processing fee (₹)\""
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 880,
+    "tag": "Input",
+    "type": "\"number\"",
+    "value": "{state.processingFee}",
+    "onChange": "{(e) => setState({ ...state, processingFee: +e.target.value })}"
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 888,
+    "tag": "Field",
+    "label": "\"Completed EMIs\""
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 889,
+    "tag": "Input",
+    "type": "\"number\"",
+    "min": "{0}",
+    "value": "{state.completedEmis}",
+    "onChange": "{(e) => setState({ ...state, completedEmis: +e.target.value })}"
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 896,
+    "tag": "Field",
+    "label": "\"Remaining EMIs\""
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 897,
+    "tag": "Input",
+    "type": "\"number\"",
+    "min": "{0}",
+    "value": "{state.remainingEmis}",
+    "onChange": "{(e) => setState({ ...state, remainingEmis: +e.target.value })}"
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 904,
+    "tag": "Field",
+    "label": "\"Outstanding principal (INR)\""
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 905,
+    "tag": "Input",
+    "type": "\"number\"",
+    "min": "{0}",
+    "value": "{state.outstandingPrincipal}",
+    "onChange": "{(e) => setState({ ...state, outstandingPrincipal: +e.target.value }) }"
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 914,
+    "tag": "Field",
+    "label": "\"Next due date\""
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 915,
+    "tag": "Input",
+    "type": "\"date\"",
+    "value": "{state.nextDueDate}",
+    "onChange": "{(e) => setState({ ...state, nextDueDate: e.target.value })}"
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 921,
+    "tag": "Field",
+    "label": "\"EMI override (optional)\""
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 922,
+    "tag": "Input",
+    "type": "\"number\"",
+    "min": "{0}",
+    "value": "{state.emiAmountOverride}",
+    "onChange": "{(e) => setState({ ...state, emiAmountOverride: +e.target.value })}"
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 931,
+    "tag": "Field",
+    "label": "\"Foreclosure charges %\""
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 932,
+    "tag": "Input",
+    "type": "\"number\"",
+    "value": "{state.foreclosureCharges}",
+    "onChange": "{(e) => setState({ ...state, foreclosureCharges: +e.target.value }) }"
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 940,
+    "tag": "Field",
+    "label": "\"Linked credit card\""
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 941,
+    "tag": "Select",
+    "value": "{state.linkedCardId || \"__none__\"}",
+    "onValueChange": "{(v) => setState({ ...state, linkedCardId: v === \"__none__\" ? \"\" : v }) }"
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 960,
+    "tag": "Field",
+    "label": "\"Blocked amount on card (INR)\""
+  },
+  {
+    "file": "src/components/pages/LoansPage.tsx",
+    "line": 961,
+    "tag": "Input",
+    "type": "\"number\"",
+    "min": "{0}",
+    "value": "{state.blockedAmount}",
+    "onChange": "{(e) => setState({ ...state, blockedAmount: +e.target.value })}"
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 204,
+    "tag": "Field",
+    "label": "\"Display name\"",
+    "className": "\"col-span-2\""
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 205,
+    "tag": "Input",
+    "value": "{form.displayName}",
+    "onChange": "{(e) => setForm({ ...form, displayName: e.target.value })}"
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 210,
+    "tag": "Field",
+    "label": "\"Mobile\""
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 211,
+    "tag": "Input",
+    "value": "{form.mobile}",
+    "onChange": "{(e) => setForm({ ...form, mobile: e.target.value })}",
+    "placeholder": "\"+91…\""
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 217,
+    "tag": "Field",
+    "label": "\"Email\""
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 218,
+    "tag": "Input",
+    "type": "\"email\"",
+    "value": "{form.email}",
+    "onChange": "{(e) => setForm({ ...form, email: e.target.value })}"
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 224,
+    "tag": "Field",
+    "label": "\"Avatar emoji\"",
+    "className": "\"col-span-2\""
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 242,
+    "tag": "Field",
+    "label": "\"Avatar color\"",
+    "className": "\"col-span-2\""
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 259,
+    "tag": "Field",
+    "label": "\"Security question\"",
+    "className": "\"col-span-2\""
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 260,
+    "tag": "Input",
+    "value": "{form.securityQuestion}",
+    "onChange": "{(e) => setForm({ ...form, securityQuestion: e.target.value }) }",
+    "placeholder": "\"Your mother's first school\""
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 268,
+    "tag": "Field",
+    "label": "\"Current PIN for recovery changes\"",
+    "className": "\"col-span-2\""
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 269,
+    "tag": "Input",
+    "aria-label": "\"Current PIN for recovery changes\"",
+    "type": "\"password\"",
+    "autoComplete": "\"current-password\"",
+    "value": "{securityPin}",
+    "onChange": "{e => setSecurityPin(e.target.value)}"
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 271,
+    "tag": "Field",
+    "label": "\"Security answer (hidden hash)\"",
+    "className": "\"col-span-2\""
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 272,
+    "tag": "Input",
+    "type": "\"password\"",
+    "value": "{securityAnswer}",
+    "onChange": "{(e) => setSecurityAnswer(e.target.value)}",
+    "placeholder": "\"Enter your secret answer\""
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 301,
+    "tag": "Field",
+    "label": "\"Current PIN\""
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 302,
+    "tag": "Input",
+    "type": "\"password\"",
+    "value": "{oldPin}",
+    "onChange": "{(e) => setOldPin(e.target.value)}"
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 308,
+    "tag": "Field",
+    "label": "\"New PIN\""
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 309,
+    "tag": "Input",
+    "type": "\"password\"",
+    "value": "{newPin}",
+    "onChange": "{(e) => setNewPin(e.target.value)}"
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 315,
+    "tag": "Field",
+    "label": "\"Confirm new\""
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 316,
+    "tag": "Input",
+    "type": "\"password\"",
+    "value": "{confirmNew}",
+    "onChange": "{(e) => setConfirmNew(e.target.value)}"
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 346,
+    "tag": "Field",
+    "label": "\"Security answer\""
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 347,
+    "tag": "Input",
+    "type": "\"password\"",
+    "value": "{recoveryAnswer}",
+    "onChange": "{(e) => setRecoveryAnswer(e.target.value)}"
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 353,
+    "tag": "Field",
+    "label": "\"New PIN\""
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 354,
+    "tag": "Input",
+    "type": "\"password\"",
+    "value": "{recoveryNewPin}",
+    "onChange": "{(e) => setRecoveryNewPin(e.target.value)}"
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 360,
+    "tag": "Field",
+    "label": "\"Confirm new PIN\""
+  },
+  {
+    "file": "src/components/pages/ProfilePage.tsx",
+    "line": 361,
+    "tag": "Input",
+    "type": "\"password\"",
+    "value": "{recoveryConfirmPin}",
+    "onChange": "{(e) => setRecoveryConfirmPin(e.target.value)}"
+  },
+  {
+    "file": "src/components/pages/ReportsPage.tsx",
+    "line": 344,
+    "tag": "Select",
+    "value": "{String(monthsBack)}",
+    "onValueChange": "{(v) => setMonthsBack(+v)}"
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 208,
+    "tag": "Field",
+    "label": "\"Theme\""
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 209,
+    "tag": "Select",
+    "value": "{mode}",
+    "onValueChange": "{(v) => setMode(v as typeof mode)}"
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 220,
+    "tag": "Field",
+    "label": "\"Date format\""
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 221,
+    "tag": "Select",
+    "value": "{form.dateFormat ?? \"dd/MM/yyyy\"}",
+    "onValueChange": "{(v) => setForm({ ...form, dateFormat: v as ProfileSettings[\"dateFormat\"] }) }"
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 246,
+    "tag": "Field",
+    "label": "\"Default dashboard mode\""
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 247,
+    "tag": "Select",
+    "value": "{dashboardMode}",
+    "onValueChange": "{(v) => setDashboardMode(v as typeof dashboardMode)}"
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 261,
+    "tag": "Field",
+    "label": "\"Chart colors\""
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 262,
+    "tag": "Select",
+    "value": "{chartAccessibility}",
+    "onValueChange": "{(v) => setChartAccessibility(v as typeof chartAccessibility)}"
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 288,
+    "tag": "Field",
+    "label": "\"Start month\""
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 289,
+    "tag": "Select",
+    "value": "{String(form.financialYearStartMonth ?? 4)}",
+    "onValueChange": "{(v) => setForm({ ...form, financialYearStartMonth: +v })}"
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 318,
+    "tag": "Field",
+    "label": "\"Warning %\"",
+    "hint": "\"Show warning badge when spent reaches this %\""
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 319,
+    "tag": "Input",
+    "type": "\"number\"",
+    "min": "{0}",
+    "max": "{200}",
+    "value": "{form.budgetThresholds?.warning ?? 80}",
+    "onChange": "{(e) => setForm({ ...form, budgetThresholds: { warning: +e.target.value, critical: form.budgetThresholds?.critical ?? 100, }, }) }"
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 335,
+    "tag": "Field",
+    "label": "\"Critical %\"",
+    "hint": "\"Show danger badge when spent reaches this %\""
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 336,
+    "tag": "Input",
+    "type": "\"number\"",
+    "min": "{0}",
+    "max": "{200}",
+    "value": "{form.budgetThresholds?.critical ?? 100}",
+    "onChange": "{(e) => setForm({ ...form, budgetThresholds: { warning: form.budgetThresholds?.warning ?? 80, critical: +e.target.value, }, }) }"
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 377,
+    "tag": "Switch",
+    "checked": "{form.warningPreferences?.[key] ?? true}",
+    "onCheckedChange": "{(v) => setForm({ ...form, warningPreferences: { budgetAlerts: true, dueAlerts: true, udhariAlerts: true, savingsAlerts: true, unusualSpendAlerts: true, duplicateAlerts: true, ...(form.warningPreferences ?? {}), [key]: v, }, }) }"
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 410,
+    "tag": "Input",
+    "className": "\"min-w-0\"",
+    "value": "{customMode}",
+    "onChange": "{(e) => setCustomMode(e.target.value)}",
+    "placeholder": "\"e.g. Paytm QR, PhonePe Business, Store Credit\"",
+    "onKeyDown": "{(e) => { if (e.key === \"Enter\" && customMode.trim()) { setForm({ ...form, customPaymentModes: [ ...(form.customPaymentModes ?? []), customMode.trim(), ], }); setCustomMode(\"\"); } }}"
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 539,
+    "tag": "Field",
+    "label": "\"Confirmation text\""
+  },
+  {
+    "file": "src/components/pages/SettingsPage.tsx",
+    "line": 540,
+    "tag": "Input",
+    "value": "{wipeInput}",
+    "onChange": "{(e) => setWipeInput(e.target.value)}",
+    "placeholder": "{user ? `DELETE ${user.username}` : \"DELETE username\"}"
+  },
+  {
+    "file": "src/components/pages/SuggestionsPage.tsx",
+    "line": 414,
+    "tag": "Select",
+    "value": "{personaMode}",
+    "onValueChange": "{(value) => onPersonaModeChange(value as Persona | \"auto\")}"
+  },
+  {
+    "file": "src/components/pages/TransactionsPage.tsx",
+    "line": 251,
+    "tag": "Input",
+    "placeholder": "\"Search merchant, description, notes, tags, category…\"",
+    "value": "{search}",
+    "onChange": "{(e) => setSearch(e.target.value)}",
+    "className": "\"pl-8\""
+  },
+  {
+    "file": "src/components/pages/TransactionsPage.tsx",
+    "line": 270,
+    "tag": "Select",
+    "value": "{sort}",
+    "onValueChange": "{(v) => setSort(v as typeof sort)}"
+  },
+  {
+    "file": "src/components/pages/TransactionsPage.tsx",
+    "line": 288,
+    "tag": "Select",
+    "value": "{typeFilter}",
+    "onValueChange": "{(v) => setTypeFilter(v as typeof typeFilter)}"
+  },
+  {
+    "file": "src/components/pages/TransactionsPage.tsx",
+    "line": 305,
+    "tag": "Select",
+    "value": "{paymentFilter}",
+    "onValueChange": "{(v) => setPaymentFilter(v as typeof paymentFilter)}"
+  },
+  {
+    "file": "src/components/pages/TransactionsPage.tsx",
+    "line": 321,
+    "tag": "Select",
+    "value": "{categoryFilter}",
+    "onValueChange": "{(v) => setCategoryFilter(v)}"
+  },
+  {
+    "file": "src/components/pages/TransactionsPage.tsx",
+    "line": 337,
+    "tag": "Select",
+    "value": "{accountFilter}",
+    "onValueChange": "{(v) => setAccountFilter(v)}"
+  },
+  {
+    "file": "src/components/pages/TransactionsPage.tsx",
+    "line": 353,
+    "tag": "Input",
+    "type": "\"date\"",
+    "value": "{dateFrom}",
+    "onChange": "{(e) => setDateFrom(e.target.value)}",
+    "placeholder": "\"From\""
+  },
+  {
+    "file": "src/components/pages/TransactionsPage.tsx",
+    "line": 359,
+    "tag": "Input",
+    "type": "\"date\"",
+    "value": "{dateTo}",
+    "onChange": "{(e) => setDateTo(e.target.value)}",
+    "placeholder": "\"To\""
+  },
+  {
+    "file": "src/components/pages/TransactionsPage.tsx",
+    "line": 438,
+    "tag": "input",
+    "type": "\"checkbox\"",
+    "className": "\"h-4 w-4 rounded border-border-strong\"",
+    "checked": "{selected.has(t.id)}",
+    "onChange": "{(e) => { const s = new Set(selected); if (e.target.checked) s.add(t.id); else s.delete(t.id); setSelected(s); }}"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 702,
+    "tag": "Field",
+    "label": "\"Account (cash in/out)\""
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 703,
+    "tag": "Select",
+    "value": "{accountId || undefined}",
+    "onValueChange": "{(v) => setAccountId(v)}"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 716,
+    "tag": "Field",
+    "label": "\"Amount to settle (₹)\""
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 717,
+    "tag": "Input",
+    "type": "\"number\"",
+    "value": "{amount || \"\"}",
+    "onChange": "{(e) => setAmount(+e.target.value)}",
+    "max": "{remaining}"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 784,
+    "tag": "Field",
+    "label": "\"Expense category\""
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 785,
+    "tag": "Select",
+    "value": "{categoryId || undefined}",
+    "onValueChange": "{(v) => setCategoryId(v)}"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 798,
+    "tag": "Field",
+    "label": "\"Amount (₹)\""
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 799,
+    "tag": "Input",
+    "type": "\"number\"",
+    "value": "{amount || \"\"}",
+    "onChange": "{(e) => setAmount(+e.target.value)}",
+    "max": "{remaining}"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 806,
+    "tag": "Field",
+    "label": "\"Reason\""
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 807,
+    "tag": "Input",
+    "value": "{reason}",
+    "onChange": "{(e) => setReason(e.target.value)}",
+    "placeholder": "\"e.g. unrecoverable, waived, refused\""
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 918,
+    "tag": "Field",
+    "label": "\"Person\"",
+    "className": "\"col-span-2\""
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 919,
+    "tag": "Input",
+    "value": "{state.personName}",
+    "onChange": "{(e) => setState({ ...state, personName: e.target.value })}"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 924,
+    "tag": "Field",
+    "label": "\"Phone\""
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 925,
+    "tag": "Input",
+    "value": "{state.phone}",
+    "onChange": "{(e) => setState({ ...state, phone: e.target.value })}",
+    "placeholder": "\"+91 …\""
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 931,
+    "tag": "Field",
+    "label": "\"Type\""
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 932,
+    "tag": "Select",
+    "value": "{state.type}",
+    "onValueChange": "{(v) => setState({ ...state, type: v as UdhariRecord[\"type\"] })}"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 945,
+    "tag": "Field",
+    "label": "\"Amount (₹)\""
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 946,
+    "tag": "Input",
+    "type": "\"number\"",
+    "value": "{state.amount}",
+    "onChange": "{(e) => setState({ ...state, amount: +e.target.value })}"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 952,
+    "tag": "Field",
+    "label": "\"Context\""
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 953,
+    "tag": "Select",
+    "value": "{state.context}",
+    "onValueChange": "{(v) => setState({ ...state, context: v as UdhariRecord[\"context\"] })}"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 969,
+    "tag": "Field",
+    "label": "\"Given date\""
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 970,
+    "tag": "Input",
+    "type": "\"date\"",
+    "value": "{state.givenDate}",
+    "onChange": "{(e) => setState({ ...state, givenDate: e.target.value })}"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 976,
+    "tag": "Field",
+    "label": "\"Due date\""
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 977,
+    "tag": "Input",
+    "type": "\"date\"",
+    "value": "{state.dueDate}",
+    "onChange": "{(e) => setState({ ...state, dueDate: e.target.value })}"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 983,
+    "tag": "Field",
+    "label": "\"Reminder\""
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 984,
+    "tag": "Select",
+    "value": "{String(state.reminderOn)}",
+    "onValueChange": "{(v) => setState({ ...state, reminderOn: (v === \"1\" ? 1 : 0) as 0 | 1 }) }"
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 999,
+    "tag": "Field",
+    "label": "\"Notes\"",
+    "className": "\"col-span-2\""
+  },
+  {
+    "file": "src/components/pages/UdhariPage.tsx",
+    "line": 1000,
+    "tag": "Input",
+    "value": "{state.notes}",
+    "onChange": "{(e) => setState({ ...state, notes: e.target.value })}",
+    "placeholder": "\"Optional\""
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 197,
+    "tag": "Field",
+    "label": "\"Name\""
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 198,
+    "tag": "Input",
+    "value": "{fdName}",
+    "onChange": "{(e) => setFdName(e.target.value)}",
+    "placeholder": "\"SBI FD 2026\""
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 200,
+    "tag": "Field",
+    "label": "\"Type\""
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 201,
+    "tag": "Select",
+    "value": "{fdType}",
+    "onValueChange": "{(v) => setFdType(v as \"fd\" | \"rd\")}"
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 209,
+    "tag": "Field",
+    "label": "\"Principal (₹)\""
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 210,
+    "tag": "Input",
+    "type": "\"number\"",
+    "min": "{0}",
+    "value": "{fdPrincipal}",
+    "onChange": "{(e) => setFdPrincipal(e.target.value)}"
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 212,
+    "tag": "Field",
+    "label": "\"Annual rate %\""
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 213,
+    "tag": "Input",
+    "type": "\"number\"",
+    "step": "\"0.01\"",
+    "value": "{fdRate}",
+    "onChange": "{(e) => setFdRate(e.target.value)}"
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 215,
+    "tag": "Field",
+    "label": "\"Start date\""
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 216,
+    "tag": "Input",
+    "type": "\"date\"",
+    "value": "{fdStart}",
+    "onChange": "{(e) => setFdStart(e.target.value)}"
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 218,
+    "tag": "Field",
+    "label": "\"Maturity date\""
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 219,
+    "tag": "Input",
+    "type": "\"date\"",
+    "value": "{fdMaturity}",
+    "onChange": "{(e) => setFdMaturity(e.target.value)}"
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 244,
+    "tag": "Field",
+    "label": "\"Policy name\""
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 245,
+    "tag": "Input",
+    "value": "{insName}",
+    "onChange": "{(e) => setInsName(e.target.value)}"
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 247,
+    "tag": "Field",
+    "label": "\"Insurer\""
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 248,
+    "tag": "Input",
+    "value": "{insurer}",
+    "onChange": "{(e) => setInsurer(e.target.value)}",
+    "placeholder": "\"LIC / HDFC Life\""
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 250,
+    "tag": "Field",
+    "label": "\"Premium (₹)\""
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 251,
+    "tag": "Input",
+    "type": "\"number\"",
+    "value": "{insPremium}",
+    "onChange": "{(e) => setInsPremium(e.target.value)}"
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 253,
+    "tag": "Field",
+    "label": "\"Coverage (₹)\""
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 254,
+    "tag": "Input",
+    "type": "\"number\"",
+    "value": "{insCoverage}",
+    "onChange": "{(e) => setInsCoverage(e.target.value)}"
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 256,
+    "tag": "Field",
+    "label": "\"Premium due day (1–28)\""
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 257,
+    "tag": "Input",
+    "type": "\"number\"",
+    "min": "{1}",
+    "max": "{28}",
+    "value": "{insDueDay}",
+    "onChange": "{(e) => setInsDueDay(e.target.value)}"
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 291,
+    "tag": "Field",
+    "label": "\"Label\""
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 292,
+    "tag": "Input",
+    "value": "{valLabel}",
+    "onChange": "{(e) => setValLabel(e.target.value)}",
+    "placeholder": "\"Gold jewellery\""
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 294,
+    "tag": "Field",
+    "label": "\"Type\""
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 295,
+    "tag": "Select",
+    "value": "{valType}",
+    "onValueChange": "{(v) => setValType(v as typeof valType)}"
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 305,
+    "tag": "Field",
+    "label": "\"Value (₹)\""
+  },
+  {
+    "file": "src/components/pages/WealthHubPage.tsx",
+    "line": 306,
+    "tag": "Input",
+    "type": "\"number\"",
+    "value": "{valAmount}",
+    "onChange": "{(e) => setValAmount(e.target.value)}"
+  },
+  {
+    "file": "src/components/pages/admin/BrandingSettingsPage.tsx",
+    "line": 131,
+    "tag": "Field",
+    "key": "{f.key}",
+    "label": "{f.label}",
+    "hint": "{f.hint}"
+  },
+  {
+    "file": "src/components/pages/admin/BrandingSettingsPage.tsx",
+    "line": 132,
+    "tag": "Input",
+    "type": "{f.type}",
+    "value": "{fields[f.key]}",
+    "onChange": "{(e) => setFields((prev) => ({ ...prev, [f.key]: e.target.value }))}",
+    "placeholder": "{f.placeholder}"
+  },
+  {
+    "file": "src/components/pages/admin/BrandingSettingsPage.tsx",
+    "line": 166,
+    "tag": "Field",
+    "key": "{f.key}",
+    "label": "{f.label}",
+    "hint": "{f.hint}"
+  },
+  {
+    "file": "src/components/pages/admin/BrandingSettingsPage.tsx",
+    "line": 167,
+    "tag": "Input",
+    "type": "{f.type}",
+    "value": "{fields[f.key]}",
+    "onChange": "{(e) => setFields((prev) => ({ ...prev, [f.key]: e.target.value }))}",
+    "placeholder": "{f.placeholder}"
+  },
+  {
+    "file": "src/components/pages/admin/FeatureFlagsPage.tsx",
+    "line": 155,
+    "tag": "Switch",
+    "checked": "{value}",
+    "onCheckedChange": "{(v) => setFlags((f) => ({ ...f, [key]: v }))}"
+  },
+  {
+    "file": "src/components/pages/admin/PlanManagementPage.tsx",
+    "line": 139,
+    "tag": "Field",
+    "label": "\"Plan name\""
+  },
+  {
+    "file": "src/components/pages/admin/PlanManagementPage.tsx",
+    "line": 140,
+    "tag": "Input",
+    "value": "{activeForm.name}",
+    "onChange": "{(e) => { const name = e.target.value; setActiveForm({ ...activeForm, name, code: activeForm.id ? activeForm.code : autoCode(name), } as PlanRow); }}",
+    "placeholder": "\"e.g. Pro Monthly\""
+  },
+  {
+    "file": "src/components/pages/admin/PlanManagementPage.tsx",
+    "line": 153,
+    "tag": "Field",
+    "label": "\"Plan code\"",
+    "hint": "\"Uppercase letters, numbers and _ only\""
+  },
+  {
+    "file": "src/components/pages/admin/PlanManagementPage.tsx",
+    "line": 154,
+    "tag": "Input",
+    "value": "{activeForm.code}",
+    "onChange": "{(e) => setActiveForm({ ...activeForm, code: e.target.value.toUpperCase().replace(/[^A-Z0-9_]/g, \"\"), } as PlanRow) }",
+    "placeholder": "\"e.g. PRO_MONTHLY\""
+  },
+  {
+    "file": "src/components/pages/admin/PlanManagementPage.tsx",
+    "line": 165,
+    "tag": "Field",
+    "label": "\"Price (₹ INR)\""
+  },
+  {
+    "file": "src/components/pages/admin/PlanManagementPage.tsx",
+    "line": 166,
+    "tag": "Input",
+    "type": "\"number\"",
+    "min": "\"0\"",
+    "step": "\"0.01\"",
+    "value": "{activeForm.price_inr}",
+    "onChange": "{(e) => setActiveForm({ ...activeForm, price_inr: e.target.value } as PlanRow)}",
+    "placeholder": "\"299.00\""
+  },
+  {
+    "file": "src/components/pages/admin/PlanManagementPage.tsx",
+    "line": 175,
+    "tag": "Field",
+    "label": "\"Billing interval\""
+  },
+  {
+    "file": "src/components/pages/admin/PlanManagementPage.tsx",
+    "line": 176,
+    "tag": "Select",
+    "value": "{activeForm.billing_interval}",
+    "onValueChange": "{(v) => setActiveForm({ ...activeForm, billing_interval: v as \"monthly\" | \"yearly\" } as PlanRow) }"
+  },
+  {
+    "file": "src/components/pages/admin/PlanManagementPage.tsx",
+    "line": 191,
+    "tag": "Field",
+    "label": "\"Trial days\"",
+    "hint": "\"0 = no trial\""
+  },
+  {
+    "file": "src/components/pages/admin/PlanManagementPage.tsx",
+    "line": 192,
+    "tag": "Input",
+    "type": "\"number\"",
+    "min": "\"0\"",
+    "max": "\"90\"",
+    "value": "{activeForm.trial_days}",
+    "onChange": "{(e) => setActiveForm({ ...activeForm, trial_days: +e.target.value } as PlanRow)}"
+  },
+  {
+    "file": "src/components/pages/admin/PlanManagementPage.tsx",
+    "line": 200,
+    "tag": "Field",
+    "label": "\"Description (optional)\""
+  },
+  {
+    "file": "src/components/pages/admin/PlanManagementPage.tsx",
+    "line": 201,
+    "tag": "Input",
+    "value": "{activeForm.description ?? \"\"}",
+    "onChange": "{(e) => setActiveForm({ ...activeForm, description: e.target.value } as PlanRow)}",
+    "placeholder": "\"Short description for users\""
+  },
+  {
+    "file": "src/components/pages/admin/PlanManagementPage.tsx",
+    "line": 208,
+    "tag": "Switch",
+    "checked": "{activeForm.is_active === 1}",
+    "onCheckedChange": "{(v) => setActiveForm({ ...activeForm, is_active: v ? 1 : 0 } as PlanRow)}"
+  },
+  {
+    "file": "src/components/pages/admin/SubscriptionManagementPage.tsx",
+    "line": 156,
+    "tag": "Input",
+    "className": "\"pl-8\"",
+    "placeholder": "\"Search by user or plan…\"",
+    "value": "{search}",
+    "onChange": "{(e) => setSearch(e.target.value)}"
+  },
+  {
+    "file": "src/components/pages/admin/SubscriptionManagementPage.tsx",
+    "line": 163,
+    "tag": "Select",
+    "value": "{statusFilter}",
+    "onValueChange": "{(v) => setStatusFilter(v as StatusFilter)}"
+  },
+  {
+    "file": "src/components/pages/admin/UserManagementPage.tsx",
+    "line": 186,
+    "tag": "Input",
+    "className": "\"pl-8\"",
+    "placeholder": "\"Search by name or username…\"",
+    "value": "{search}",
+    "onChange": "{(e) => setSearch(e.target.value)}"
+  },
+  {
+    "file": "src/components/pages/admin/UserManagementPage.tsx",
+    "line": 193,
+    "tag": "Select",
+    "value": "{roleFilter}",
+    "onValueChange": "{(v) => setRoleFilter(v as typeof roleFilter)}"
+  },
+  {
+    "file": "src/components/pages/admin/UserManagementPage.tsx",
+    "line": 203,
+    "tag": "Select",
+    "value": "{statusFilter}",
+    "onValueChange": "{(v) => setStatusFilter(v as typeof statusFilter)}"
+  },
+  {
+    "file": "src/components/pages/admin/UserManagementPage.tsx",
+    "line": 308,
+    "tag": "Select",
+    "key": "{`${planSelectKey}:${u.id}`}",
+    "onValueChange": "{(planId) => { const plan = plans.find((p) => String(p.id) === planId); if (plan) handleAssignPlan(u.id, plan.id, plan.code); }}"
+  },
+  {
+    "file": "src/components/pages/admin/UserManagementPage.tsx",
+    "line": 347,
+    "tag": "Field",
+    "label": "\"New PIN (4–8 digits, avoid 1234 / 0000)\""
+  },
+  {
+    "file": "src/components/pages/admin/UserManagementPage.tsx",
+    "line": 348,
+    "tag": "Input",
+    "type": "\"password\"",
+    "inputMode": "\"numeric\"",
+    "autoComplete": "\"new-password\"",
+    "value": "{newPin}",
+    "onChange": "{(e) => setNewPin(e.target.value.replace(/\\D/g, \"\").slice(0, 8))}"
+  },
+  {
+    "file": "src/components/pages/admin/UserManagementPage.tsx",
+    "line": 356,
+    "tag": "Field",
+    "label": "\"Confirm PIN\""
+  },
+  {
+    "file": "src/components/pages/admin/UserManagementPage.tsx",
+    "line": 357,
+    "tag": "Input",
+    "type": "\"password\"",
+    "inputMode": "\"numeric\"",
+    "autoComplete": "\"new-password\"",
+    "value": "{confirmPin}",
+    "onChange": "{(e) => setConfirmPin(e.target.value.replace(/\\D/g, \"\").slice(0, 8))}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 181,
+    "tag": "select",
+    "aria-label": "\"Statement bank\"",
+    "className": "{selectClass}",
+    "disabled": "{busy}",
+    "value": "{bank}",
+    "onChange": "{e => setBank(e.target.value as BankId | \"auto\")}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 182,
+    "tag": "select",
+    "aria-label": "\"Statement account\"",
+    "className": "{selectClass}",
+    "disabled": "{busy || !dataReady}",
+    "value": "{accountId}",
+    "onChange": "{e => setAccountId(e.target.value)}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 187,
+    "tag": "input",
+    "ref": "{fileInput}",
+    "type": "\"file\"",
+    "accept": "\"application/pdf,.pdf\"",
+    "aria-label": "\"Statement PDF\"",
+    "className": "\"sr-only\"",
+    "disabled": "{busy}",
+    "onChange": "{event => { setFile(event.target.files?.[0] ?? null); setError(\"\"); }}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 191,
+    "tag": "select",
+    "aria-label": "\"PDF extraction mode\"",
+    "className": "{selectClass}",
+    "value": "{ocrMode}",
+    "disabled": "{busy}",
+    "onChange": "{e => setOcrMode(e.target.value as typeof ocrMode)}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 193,
+    "tag": "Input",
+    "type": "\"password\"",
+    "aria-label": "\"PDF password\"",
+    "autoComplete": "\"off\"",
+    "value": "{password}",
+    "onChange": "{e => setPassword(e.target.value)}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 211,
+    "tag": "input",
+    "type": "\"checkbox\"",
+    "checked": "{ocrSourceConfirmed}",
+    "disabled": "{saving || !!result}",
+    "onChange": "{e => setOcrSourceConfirmed(e.target.checked)}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 213,
+    "tag": "Input",
+    "aria-label": "\"Statement opening balance\"",
+    "inputMode": "\"decimal\"",
+    "value": "{openingText}",
+    "disabled": "{saving || !!result}",
+    "onChange": "{e => setOpeningText(e.target.value)}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 214,
+    "tag": "Input",
+    "aria-label": "\"Statement closing balance\"",
+    "inputMode": "\"decimal\"",
+    "value": "{closingText}",
+    "disabled": "{saving || !!result}",
+    "onChange": "{e => setClosingText(e.target.value)}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 215,
+    "tag": "input",
+    "type": "\"checkbox\"",
+    "checked": "{currencyConfirmed}",
+    "disabled": "{saving || !!result}",
+    "onChange": "{e => setCurrencyConfirmed(e.target.checked)}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 219,
+    "tag": "Input",
+    "aria-label": "\"Search statement narration\"",
+    "placeholder": "\"Search narration\"",
+    "value": "{query}",
+    "onChange": "{e => { setQuery(e.target.value); setPage(1); }}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 219,
+    "tag": "select",
+    "aria-label": "\"Statement month\"",
+    "className": "{selectClass}",
+    "value": "{month}",
+    "onChange": "{e => { setMonth(e.target.value); setPage(1); }}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 219,
+    "tag": "select",
+    "aria-label": "\"Statement row filter\"",
+    "className": "{selectClass}",
+    "value": "{filter}",
+    "onChange": "{e => { setFilter(e.target.value); setPage(1); }}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 219,
+    "tag": "select",
+    "aria-label": "\"Scope for selected rows\"",
+    "className": "{selectClass}",
+    "value": "\"\"",
+    "disabled": "{saving || !!result}",
+    "onChange": "{e => { const scope = e.target.value as \"personal\" | \"business\"; setDecisions(current => Object.fromEntries(Object.entries(current).map(([id, d]) => [id, d.include ? { ...d, scope, reviewed: false } : d]))); }}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 227,
+    "tag": "input",
+    "type": "\"checkbox\"",
+    "aria-label": "{`Include row ${row.id}`}",
+    "checked": "{decision.include}",
+    "disabled": "{saving || !!result || row.issues.length > 0}",
+    "onChange": "{e => changeDecision(row.id, { include: e.target.checked })}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 230,
+    "tag": "select",
+    "aria-label": "{`Purpose row ${row.id}`}",
+    "className": "{selectClass}",
+    "value": "{decision.kind}",
+    "disabled": "{saving || !!result || !decision.include}",
+    "onChange": "{e => changeDecision(row.id, { kind: e.target.value as StatementKind | \"\", categoryId: \"\", counterpartId: \"\" })}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 231,
+    "tag": "select",
+    "aria-label": "{`Category row ${row.id}`}",
+    "className": "{selectClass}",
+    "value": "{decision.categoryId}",
+    "disabled": "{saving || !!result || !decision.include}",
+    "onChange": "{e => changeDecision(row.id, { categoryId: e.target.value, ...([\"refund\", \"contribution\"].includes(decision.kind) ? { counterpartId: \"\" } : {}) })}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 232,
+    "tag": "select",
+    "aria-label": "{`Linked record row ${row.id}`}",
+    "className": "{selectClass}",
+    "value": "{decision.counterpartId}",
+    "disabled": "{saving || !!result || !decision.include}",
+    "onChange": "{e => changeDecision(row.id, { counterpartId: e.target.value })}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 233,
+    "tag": "select",
+    "aria-label": "{`Scope row ${row.id}`}",
+    "className": "{selectClass}",
+    "value": "{decision.scope}",
+    "disabled": "{saving || !!result || !decision.include}",
+    "onChange": "{e => changeDecision(row.id, { scope: e.target.value as \"personal\" | \"business\" | \"\" })}"
+  },
+  {
+    "file": "src/components/statements/StatementImportDialog.tsx",
+    "line": 234,
+    "tag": "input",
+    "type": "\"checkbox\"",
+    "aria-label": "{`Reviewed row ${row.id}`}",
+    "checked": "{decision.reviewed}",
+    "disabled": "{saving || !!result || !decision.include}",
+    "onChange": "{e => changeDecision(row.id, { reviewed: e.target.checked })}"
+  },
+  {
+    "file": "src/components/ui/Input.tsx",
+    "line": 6,
+    "tag": "input",
+    "ref": "{ref}",
+    "type": "{type}",
+    "className": "{cn( \"flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-1 text-sm shadow-sm transition-colors\", \"placeholder:text-muted-foreground\", \"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:border-[hsl(var(--ring))]"
+  },
+  {
+    "file": "src/components/ui/Input.tsx",
+    "line": 27,
+    "tag": "textarea",
+    "ref": "{ref}",
+    "className": "{cn( \"flex min-h-[72px] w-full rounded-md border border-[hsl(var(--input))] bg-[hsl(var(--card))] px-3 py-2 text-sm shadow-sm transition-colors\", \"placeholder:text-muted-foreground\", \"focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--ring))] focus-visible:border-[hsl(var("
+  }
+]

@@ -1,0 +1,13 @@
+{
+  "label": "extra-probes",
+  "command": [
+    "node",
+    "/tmp/sparow-audit-extra.mjs"
+  ],
+  "started": "2026-09-10T07:29:25.871Z",
+  "ended": "2026-09-10T07:29:31.630Z",
+  "seconds": 5.759,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false
+}

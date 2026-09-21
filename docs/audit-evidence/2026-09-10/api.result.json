@@ -1,0 +1,13 @@
+{
+  "label": "api",
+  "command": [
+    "node",
+    "tests/api-e2e.mjs"
+  ],
+  "started": "2026-09-10T06:53:23.056Z",
+  "ended": "2026-09-10T06:53:24.072Z",
+  "seconds": 1.016,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false
+}

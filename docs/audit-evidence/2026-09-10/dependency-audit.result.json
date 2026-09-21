@@ -1,0 +1,14 @@
+{
+  "label": "dependency-audit",
+  "command": [
+    "npm",
+    "audit",
+    "--json"
+  ],
+  "started": "2026-09-10T06:51:37.069Z",
+  "ended": "2026-09-10T06:51:45.131Z",
+  "seconds": 8.062,
+  "exitCode": 1,
+  "signal": null,
+  "timedOut": false
+}

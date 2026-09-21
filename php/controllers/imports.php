@@ -8,6 +8,7 @@ require_once __DIR__ . "/../helpers/security.php";
 require_once __DIR__ . "/../helpers/cloud_payload.php";
 require_once __DIR__ . "/../helpers/finance_events.php";
 require_once __DIR__ . "/../helpers/money_paise.php";
+require_once __DIR__ . "/../helpers/cloud_write.php";
 
 function imports_transactions_bulk(): void {
     rate_limit_guard("imports_transactions", 20, 60);
@@ -97,22 +98,23 @@ function imports_transactions_bulk(): void {
         }
 
         try {
-            [$sql, $params] = cloud_ccr_build_upsert(
-                $auth["id"],
-                "transactions",
-                $id,
-                $payload,
-                date("Y-m-d H:i:s", strtotime((string)$payload["updatedAt"])),
-                ((int)$payload["isDeleted"] === 1) ? date("Y-m-d H:i:s") : null,
-                uid("row"),
-            );
-        } catch (InvalidArgumentException $e) {
+            cloud_write_atomic($db, $auth["id"], [
+                "operation" => "import_transaction", "row" => $row,
+                "mutationId" => $row["mutationId"] ?? "",
+            ], function () use ($db, $auth, $id, $payload) {
+                if (cloud_write_row($db, $auth["id"], "transactions", $id)) {
+                    throw new CloudWriteException("Entity already exists", 409, "ENTITY_EXISTS");
+                }
+                return cloud_write_save($db, $auth["id"], "transactions", $payload);
+            }, 201);
+        } catch (InvalidArgumentException | CloudWriteException $e) {
             $rejected[] = ["index" => $idx, "reason" => $e->getMessage()];
             continue;
+        } catch (Throwable $e) {
+            error_log("[import_write] " . $e->getMessage());
+            $rejected[] = ["index" => $idx, "reason" => "Write unavailable; row was not committed"];
+            continue;
         }
-        $st = $db->prepare($sql);
-        $st->execute($params);
-        finance_events_sync_transaction_safe($db, $auth["id"], $payload);
         $created++;
     }
 

@@ -2,11 +2,12 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tsconfigPaths from "vite-tsconfig-paths";
 import tailwindcss from "@tailwindcss/vite";
+import { prepareOcr } from "./scripts/prepare-ocr.mjs";
 
-const API_TARGET = process.env.VITE_API_TARGET ?? "http://localhost:5000";
+const API_TARGET = process.env.VITE_API_TARGET ?? "http://localhost:8080";
 
 export default defineConfig({
-  plugins: [react(), tsconfigPaths(), tailwindcss()],
+  plugins: [{ name: "self-hosted-ocr", async configResolved() { await prepareOcr(); } }, react(), tsconfigPaths(), tailwindcss()],
   server: {
     port: 5173,
     proxy: {

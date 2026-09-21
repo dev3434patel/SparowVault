@@ -64,6 +64,8 @@ export const transactionSchema = z.object({
   linkedGoalId: z.string().optional(),
   linkedUdhariId: z.string().optional(),
   linkedSavingsId: z.string().optional(),
+  linkedOriginalTransactionId: z.string().optional(),
+  transactionIntent: z.string().max(64).optional(),
   paymentMode: z.enum([
     "cash",
     "upi",
