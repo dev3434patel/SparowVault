@@ -1,0 +1,16 @@
+
+> sparowvault@0.1.0 test
+> vitest run tests/unit/phase-01-secrets.test.ts tests/unit/privacyPhase15Static.test.ts tests/unit/billingPhase14Static.test.ts
+
+
+ RUN  v2.1.9 D:/Claude/SparowVault
+
+ ✓ tests/unit/billingPhase14Static.test.ts (4 tests) 9ms
+ ✓ tests/unit/phase-01-secrets.test.ts (16 tests) 23ms
+ ✓ tests/unit/privacyPhase15Static.test.ts (6 tests) 11ms
+
+ Test Files  3 passed (3)
+      Tests  26 passed (26)
+   Start at  00:52:06
+   Duration  816ms (transform 98ms, setup 0ms, collect 163ms, tests 42ms, environment 1ms, prepare 652ms)
+

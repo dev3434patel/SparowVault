@@ -1,0 +1,17 @@
+
+--- API vNext collections ---
+  PASS  register  -- cu_c9bad40d6daa0a1954dcede2
+  PASS  pull has households
+  PASS  pull has obligations
+  PASS  pull has sinkingFunds
+  PASS  pull has cardEmiPlans
+  PASS  pull has fixedIncomeAssets
+  PASS  pull has insurancePolicies
+  PASS  pull has reconciliationMatches
+  PASS  create household  -- 201
+  PASS  mutationId idempotent replay same entity
+  PASS  unauth create rejected  -- 401
+
+=================================================
+  API vNext failed=0
+=================================================

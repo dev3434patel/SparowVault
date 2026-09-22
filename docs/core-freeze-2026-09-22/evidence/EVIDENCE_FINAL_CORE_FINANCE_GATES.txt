@@ -1,0 +1,170 @@
+
+> sparowvault@0.1.0 finance:gate:all
+> node scripts/finance-gate-all.mjs
+
+
+SparowVault — Phase ALL-vNext (Aggregate finance gates (vNext Phase L)) gate runner
+  • [FILES] Phase B KPI engine … ✅
+  • [FILES] Phase C intent … ✅
+  • [FILES] Phase D statements … ✅
+  • [FILES] Phase E EMI … ✅
+  • [FILES] Phase F obligations … ✅
+  • [FILES] Phase G household … ✅
+  • [FILES] Phase I reconciliation … ✅
+  • [FILES] Phase J i18n … ✅
+  • [FILES] Phase J adaptive mode … ✅
+  • [FILES] Phase K alert priority … ✅
+  • [FILES] Phase L certification … ✅
+  • [TEST] KPI tests … 
+> sparowvault@0.1.0 test
+> vitest run src/services/__tests__/financeKpiEngine.test.ts --reporter=basic
+
+
+ RUN  v2.1.9 D:/Claude/SparowVault
+
+ ✓ src/services/__tests__/financeKpiEngine.test.ts (2 tests) 7ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  00:50:11
+   Duration  2.20s (transform 198ms, setup 0ms, collect 1.52s, tests 7ms, environment 0ms, prepare 255ms)
+
+✅
+  • [TEST] transfer tests … 
+> sparowvault@0.1.0 test
+> vitest run src/services/__tests__/transferReceivedMoney.test.ts --reporter=basic
+
+
+ RUN  v2.1.9 D:/Claude/SparowVault
+
+ ✓ src/services/__tests__/transferReceivedMoney.test.ts (3 tests) 5ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  00:50:15
+   Duration  1.67s (transform 108ms, setup 0ms, collect 1.08s, tests 5ms, environment 0ms, prepare 196ms)
+
+✅
+  • [TEST] card tests … 
+> sparowvault@0.1.0 test
+> vitest run src/services/__tests__/cardEngine.test.ts --reporter=basic
+
+
+ RUN  v2.1.9 D:/Claude/SparowVault
+
+ ✓ src/services/__tests__/cardEngine.test.ts (9 tests) 14ms
+
+ Test Files  1 passed (1)
+      Tests  9 passed (9)
+   Start at  00:50:17
+   Duration  1.66s (transform 89ms, setup 0ms, collect 1.08s, tests 14ms, environment 0ms, prepare 125ms)
+
+✅
+  • [TEST] EMI golden tests … 
+> sparowvault@0.1.0 test
+> vitest run src/services/__tests__/cardEmiEngine.test.ts --reporter=basic
+
+
+ RUN  v2.1.9 D:/Claude/SparowVault
+
+ ✓ src/services/__tests__/cardEmiEngine.test.ts (3 tests) 8ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  00:50:20
+   Duration  1.67s (transform 89ms, setup 0ms, collect 1.06s, tests 8ms, environment 0ms, prepare 187ms)
+
+✅
+  • [TEST] T-126 lifecycle … 
+> sparowvault@0.1.0 test
+> vitest run src/services/__tests__/cardEmiLifecycle.t126.test.ts --reporter=basic
+
+
+ RUN  v2.1.9 D:/Claude/SparowVault
+
+ ✓ src/services/__tests__/cardEmiLifecycle.t126.test.ts (3 tests) 9ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  00:50:23
+   Duration  1.74s (transform 137ms, setup 0ms, collect 1.18s, tests 9ms, environment 0ms, prepare 226ms)
+
+✅
+  • [TEST] acceptance matrix … 
+> sparowvault@0.1.0 test
+> vitest run src/services/__tests__/acceptanceMatrix.test.ts --reporter=basic
+
+
+ RUN  v2.1.9 D:/Claude/SparowVault
+
+ ✓ src/services/__tests__/acceptanceMatrix.test.ts (12 tests) 8ms
+
+ Test Files  1 passed (1)
+      Tests  12 passed (12)
+   Start at  00:50:26
+   Duration  1.69s (transform 123ms, setup 0ms, collect 1.11s, tests 8ms, environment 0ms, prepare 209ms)
+
+✅
+  • [TEST] cross-view … 
+> sparowvault@0.1.0 test
+> vitest run tests/unit/financeCrossView.test.ts --reporter=basic
+
+
+ RUN  v2.1.9 D:/Claude/SparowVault
+
+ ✓ tests/unit/financeCrossView.test.ts (2 tests) 7ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  00:50:28
+   Duration  1.75s (transform 219ms, setup 0ms, collect 1.20s, tests 7ms, environment 0ms, prepare 207ms)
+
+✅
+  • [TEST] obligation tests … 
+> sparowvault@0.1.0 test
+> vitest run src/services/__tests__/obligationEngine.test.ts --reporter=basic
+
+
+ RUN  v2.1.9 D:/Claude/SparowVault
+
+ ✓ src/services/__tests__/obligationEngine.test.ts (2 tests) 3ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  00:50:31
+   Duration  1.70s (transform 78ms, setup 0ms, collect 1.11s, tests 3ms, environment 0ms, prepare 218ms)
+
+✅
+  • [TEST] invariant tests … 
+> sparowvault@0.1.0 test
+> vitest run src/services/__tests__/financeInvariants.test.ts --reporter=basic
+
+
+ RUN  v2.1.9 D:/Claude/SparowVault
+
+ ✓ src/services/__tests__/financeInvariants.test.ts (4 tests) 5ms
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  00:50:34
+   Duration  1.68s (transform 108ms, setup 0ms, collect 1.10s, tests 5ms, environment 0ms, prepare 231ms)
+
+✅
+  • [TEST] adaptive mode tests … 
+> sparowvault@0.1.0 test
+> vitest run src/services/__tests__/adaptiveModeEngine.test.ts --reporter=basic
+
+
+ RUN  v2.1.9 D:/Claude/SparowVault
+
+ ✓ src/services/__tests__/adaptiveModeEngine.test.ts (3 tests) 3ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  00:50:37
+   Duration  615ms (transform 54ms, setup 0ms, collect 47ms, tests 3ms, environment 0ms, prepare 222ms)
+
+✅
+
+✅ all automated checks green (21 pass · 0 warn · 0 skip)
+Wrote PHASE_L_VNEXT_FINANCE_GATE_REPORT.md

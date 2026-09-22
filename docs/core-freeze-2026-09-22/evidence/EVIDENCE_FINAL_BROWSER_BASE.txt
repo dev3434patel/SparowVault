@@ -1,0 +1,63 @@
+
+> sparowvault@0.1.0 test:browser
+> node scripts/with-local-test-runtime.mjs node tests/browser-e2e.mjs
+
+
+--- LOAD APP ---
+  PASS  initial load: no actionable console/page errors
+  PASS  CloudAuth screen rendered
+
+--- CREATE PROFILE / CLOUD ACCOUNT ---
+  PASS  after create profile: no console/page errors
+  PASS  Dashboard top heading visible  -- Good morning, E2E.
+
+--- CLEAN DASHBOARD (zero data) ---
+  PASS  Dashboard shows ₹0 stat tiles
+  PASS  Transactions page has 0 rows on fresh profile
+  PASS  Categories page has default seeded categories
+  PASS  Accounts page has default seeded accounts
+
+--- NAVIGATE EVERY PAGE ---
+  PASS  Dashboard: rendered
+  PASS  Transactions: rendered
+  PASS  Income: rendered
+  PASS  Expenses: rendered
+  PASS  Categories: rendered
+  PASS  Budgets: rendered
+  PASS  Goals: rendered
+  PASS  Savings & Investments: rendered
+  PASS  Accounts: rendered
+  PASS  Cards: rendered
+  PASS  Loans & EMI: rendered
+  PASS  Udhari & Advances: rendered
+  PASS  Reports: rendered
+  PASS  Alerts Center: rendered
+  PASS  Export Center: rendered
+  PASS  Import Center: rendered
+  PASS  Settings: rendered
+  PASS  Profile & Security: rendered
+  PASS  Audit & Backup: rendered
+
+--- QUICK ADD DIALOG ---
+  PASS  Add Transaction button present
+  PASS  Add Transaction dialog opens
+
+--- PROFILE SECURITY FLOWS ---
+  PASS  Security recovery configured
+  PASS  PIN change flow executed
+  PASS  PIN recovery reset flow executed
+
+--- EXPORT / IMPORT FLOWS ---
+  PASS  Export transactions action executed
+  PASS  Import file uploaded and validation kept import action disabled for invalid/unresolved rows
+
+--- LOGOUT + CLOUD REGISTER FLOW ---
+  PASS  Logged out (heading not strictly matched)
+  PASS  Cloud Auth already visible after logout
+
+--- FINAL ERROR CHECK ---
+  PASS  end of test: no actionable console/page errors
+
+=================================================
+  BROWSER RESULTS: 37/37 passed, 0 failed
+=================================================

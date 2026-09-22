@@ -1,0 +1,14 @@
+
+> sparowvault@0.1.0 test
+> vitest run tests/unit/vnextFinanceMigrationGolden.test.ts
+
+
+ RUN  v2.1.9 D:/Claude/SparowVault
+
+ ✓ tests/unit/vnextFinanceMigrationGolden.test.ts (2 tests) 7ms
+
+ Test Files  1 passed (1)
+      Tests  2 passed (2)
+   Start at  00:50:39
+   Duration  2.13s (transform 157ms, setup 0ms, collect 1.49s, tests 7ms, environment 0ms, prepare 258ms)
+

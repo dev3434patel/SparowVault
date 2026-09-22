@@ -1,0 +1,11 @@
+{
+  "transactions": 50000,
+  "ms": 4,
+  "perSec": 12877968,
+  "income": 426633660,
+  "expense": 746611690,
+  "cardLiability": 26300,
+  "transfers": 355480500,
+  "netWorthProxy": -320004330
+}
+PASS: finance-load-test

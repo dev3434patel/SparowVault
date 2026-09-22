@@ -1,0 +1,49 @@
+# Migration financial checksum
+
+```json
+{
+  "dbName": "sparowvault_test",
+  "migrationApplied": true,
+  "before": {
+    "counts": {
+      "cloud_collection_rows": 96,
+      "financial_events": 5,
+      "financial_effects": 10,
+      "financial_write_receipts": 106,
+      "users": 20
+    },
+    "effectSum": 260000,
+    "eventCount": 5,
+    "txRows": 5,
+    "txAmount": 130000,
+    "sha256": "d95e1db5e4107354637bef4ef8da3199624d1dad7fa7b70e6062040b896305b8",
+    "material": "{\"counts\":{\"cloud_collection_rows\":96,\"financial_events\":5,\"financial_effects\":10,\"financial_write_receipts\":106,\"users\":20},\"effectSum\":260000,\"eventCount\":5,\"txRows\":5,\"txAmount\":130000}"
+  },
+  "after": {
+    "counts": {
+      "cloud_collection_rows": 96,
+      "financial_events": 5,
+      "financial_effects": 10,
+      "financial_write_receipts": 106,
+      "users": 20
+    },
+    "effectSum": 260000,
+    "eventCount": 5,
+    "txRows": 5,
+    "txAmount": 130000,
+    "sha256": "d95e1db5e4107354637bef4ef8da3199624d1dad7fa7b70e6062040b896305b8",
+    "material": "{\"counts\":{\"cloud_collection_rows\":96,\"financial_events\":5,\"financial_effects\":10,\"financial_write_receipts\":106,\"users\":20},\"effectSum\":260000,\"eventCount\":5,\"txRows\":5,\"txAmount\":130000}"
+  },
+  "economicChecksumMatch": true,
+  "fieldsCompared": [
+    "effectSum",
+    "eventCount",
+    "txRows",
+    "txAmount",
+    "tableCounts",
+    "sha256"
+  ],
+  "status": "PASS",
+  "note": "Checksum proves economic aggregates unchanged after re-applying mutation migration on disposable TEST_DB."
+}
+```

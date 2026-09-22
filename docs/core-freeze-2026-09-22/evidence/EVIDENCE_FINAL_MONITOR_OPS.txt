@@ -1,0 +1,55 @@
+
+> sparowvault@0.1.0 monitor:ops
+> node scripts/monitoring-check.mjs
+
+{
+  "ok": true,
+  "checkedAt": "2026-08-21T19:22:09.604Z",
+  "results": [
+    {
+      "name": "health",
+      "ok": true,
+      "detail": {
+        "statusCode": 200,
+        "appStatus": "healthy",
+        "dbStatus": "ok",
+        "requestId": "monitor-1787340129505"
+      }
+    },
+    {
+      "name": "failed_webhooks",
+      "ok": true,
+      "detail": {
+        "failedWebhookCount": 0,
+        "maxFailedWebhooks": 0
+      }
+    },
+    {
+      "name": "db_size",
+      "ok": true,
+      "detail": {
+        "database": "sparowvault_test",
+        "dbSizeMb": 1.69,
+        "maxDbSizeMb": 1024
+      }
+    },
+    {
+      "name": "backup_freshness",
+      "ok": true,
+      "detail": {
+        "newestFile": "db_20260821_191933.sql",
+        "ageHours": 0.04,
+        "maxBackupAgeHours": 30
+      }
+    },
+    {
+      "name": "disk_storage",
+      "ok": true,
+      "detail": {
+        "platform": "win32",
+        "note": "Use host monitor for exact free disk on Windows/shared hosting, or set MONITOR_FREE_DISK_MB_OVERRIDE.",
+        "minFreeDiskMb": 1024
+      }
+    }
+  ]
+}

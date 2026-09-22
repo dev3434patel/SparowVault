@@ -1,0 +1,31 @@
+
+> sparowvault@0.1.0 check:sql
+> node scripts/sql-dry-run.mjs
+
+Inspecting 11 SQL files…
+
+• sql\20260427_all_in_one.sql  [createTable:12  createIfNotEx:12  insert:8]
+• sql\20260427_p0_rollback.sql  [dropTable:9]
+    ⚠ contains 9 DROP TABLE — confirm intentional
+• sql\20260427_p0_saas_mvp.sql  [createTable:10  createIfNotEx:10  insert:1]
+• sql\20260427_p0_seed.sql  [insert:7]
+• sql\20260501_sql_only_full.sql  [createTable:15  createIfNotEx:15  alterTable:7  insert:10]
+    ⚠ ALTER TABLE without IF EXISTS — re-run will fail
+• sql\FINAL_HOSTING_WITH_DATA.sql  [createTable:29  dropTable:29  insert:10]
+    ⚠ contains 29 DROP TABLE — confirm intentional
+    ⚠ not all CREATE TABLE statements use IF NOT EXISTS (idempotency risk)
+• sql\HOSTING_FRESH_MYSQL57_IMPORT.sql  [createTable:40  createIfNotEx:31  alterTable:1  insert:15]
+    ⚠ not all CREATE TABLE statements use IF NOT EXISTS (idempotency risk)
+    ⚠ ALTER TABLE without IF EXISTS — re-run will fail
+• sql\SPAROWVAULT_FULL_DATABASE.sql  [createTable:32  createIfNotEx:32  alterTable:9  insert:15]
+    ⚠ ALTER TABLE without IF EXISTS — re-run will fail
+• sql\final_schema.sql  [createTable:2  createIfNotEx:2]
+• sql\production_schema.sql  [createTable:27  createIfNotEx:27  alterTable:2  insert:10]
+    ⚠ ALTER TABLE without IF EXISTS — re-run will fail
+• sql\schema.sql  [createTable:2  createIfNotEx:2]
+
+→ Live dry-run against sparowvault_test
+  ✓ production_schema.sql (rolled back)
+  ✓ all_phases_combined.sql (rolled back)
+
+⚠ Static report flagged 8 item(s) — review above.

@@ -1,0 +1,74 @@
+# Feature-flag QA matrix
+
+```json
+{
+  "status": "PASS_STATIC_MATRIX",
+  "checks": [
+    {
+      "id": "RAZORPAY_ENV",
+      "pass": true,
+      "note": "Subscription gated by env"
+    },
+    {
+      "id": "EXPORTS_FLAG",
+      "pass": true,
+      "note": "Export center plan-gated"
+    },
+    {
+      "id": "ADVANCED_REPORTS",
+      "pass": true,
+      "note": "Reports depth plan-gated"
+    },
+    {
+      "id": "ADMIN_ROUTES",
+      "pass": true,
+      "note": "Admin nav keys present"
+    },
+    {
+      "id": "USER_VS_ADMIN_SHELL",
+      "pass": true,
+      "note": "Admin shell distinct"
+    },
+    {
+      "id": "SUBSCRIPTION_ROUTE",
+      "pass": true,
+      "note": "Subscription route registered"
+    }
+  ],
+  "qaProfiles": [
+    {
+      "profile": "Razorpay OFF",
+      "expect": "Subscription nav hidden or unavailable; no crash on /subscription deep-link"
+    },
+    {
+      "profile": "Razorpay ON",
+      "expect": "Subscription page loads; checkout path present"
+    },
+    {
+      "profile": "exports OFF",
+      "expect": "Export Center hidden; deep navigation does not throw"
+    },
+    {
+      "profile": "exports ON",
+      "expect": "Export Center available"
+    },
+    {
+      "profile": "advanced_reports OFF",
+      "expect": "Reports page gated/limited without crash"
+    },
+    {
+      "profile": "advanced_reports ON",
+      "expect": "Full report tabs available"
+    },
+    {
+      "profile": "admin role",
+      "expect": "Admin shell routes only"
+    },
+    {
+      "profile": "normal user",
+      "expect": "User shell; admin routes blocked"
+    }
+  ],
+  "note": "Static presence of gates verified. Live Razorpay provider flows remain environment-dependent (NOT_TESTED without keys)."
+}
+```

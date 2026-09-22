@@ -1,0 +1,12 @@
+
+--- BROWSER FINANCE vNEXT ---
+  PASS  app shell visible
+  PASS  opened Cards
+  PASS  opened Savings & Investments
+  PASS  opened optional Household
+  PASS  opened optional Reconciliation
+  PASS  opened optional Bill
+
+=================================================
+  BROWSER vNEXT failed=0
+=================================================

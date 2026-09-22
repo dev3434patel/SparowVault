@@ -1,0 +1,21 @@
+{
+  "freezeId": "SPAROWVAULT_CORE_VNEXT_SOFTWARE_COMPLETE",
+  "frozenAt": "2026-09-22T19:30:00+00:00",
+  "conclusion": "LOCAL_SOFTWARE_COMPLETE_WITH_EXTERNAL_EVIDENCE_GAPS",
+  "approvedForNextFeatureDevelopment": true,
+  "internalGates": {
+    "typecheck": 0,
+    "php": 0,
+    "vitest": "54/54 files, 438/438 tests",
+    "financeGateAll": "21 pass",
+    "testStatements": 0,
+    "statementsCertify": 0,
+    "statementsGateStrict": "1 expected (0 verified-for-scope)",
+    "migrationChecksum": "PASS",
+    "restoreDrill": "PASS",
+    "load50k": "PASS",
+    "featureFlagMatrix": "PASS_STATIC_MATRIX",
+    "build": 0
+  },
+  "externalOpen": ["real-bank-holdouts", "hosted-production", "physical-multi-device"]
+}

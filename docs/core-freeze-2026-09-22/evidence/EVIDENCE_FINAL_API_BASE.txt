@@ -1,0 +1,97 @@
+
+> sparowvault@0.1.0 test:api
+> node scripts/with-local-test-runtime.mjs node tests/api-e2e.mjs
+
+
+--- REGISTER ---
+  PASS  register Alice -> 201  -- (201)
+  PASS  register Bob -> 201  -- (201)
+  PASS  Alice got token + id  -- cu_e1e4d0d7447e4a6bfdeb2684
+  PASS  Bob got token + id  -- cu_ca764d47784758fb5c0e6f79
+  PASS  duplicate username -> 409  -- (409)
+  PASS  invalid register payload -> 400  -- (400)
+  PASS  username regex violation -> 400  -- (400)
+
+--- LOGIN ---
+  PASS  login Alice -> 200  -- (200)
+  PASS  wrong pin -> 401  -- (401)
+  PASS  unknown user -> 401  -- (401)
+  PASS  invalid login payload -> 422  -- (422)
+
+--- ME ---
+  PASS  me w/o token -> 401  -- (401)
+  PASS  me bad token -> 401  -- (401)
+  PASS  me Alice -> 200  -- (200)
+  PASS  me returns Alice username  -- ("alice_mt3c4zwr")
+
+--- SYNC PULL (initial empty) ---
+  PASS  pull w/o token -> 401  -- (401)
+  PASS  pull Alice empty -> 200  -- (200)
+  PASS  empty collections have 0 rows
+  PASS  pull returns all 21 SQL collection keys
+
+--- SYNC PUSH ---
+  PASS  push w/o token -> 401  -- (401)
+  PASS  push Alice -> 200  -- (200)
+  PASS  upserted count = 4  -- (4)
+  PASS  push bad payload -> 400  -- (400)
+
+--- SYNC PULL (after push) ---
+  PASS  pulled account Checking
+  PASS  pulled txn 250
+  PASS  pulled SQL attachment
+  PASS  pulled SQL snapshot
+  PASS  patch transaction full form fields -> 200  -- (200)
+  PASS  transaction amount updated  -- (275)
+  PASS  patch transaction system id rejected -> 422  -- (422)
+
+--- ISOLATION ---
+  PASS  Bob sees no Alice accounts
+
+--- ENTITY CRUD ---
+  PASS  create category -> 201  -- (201)
+  PASS  auto-id has cat_ prefix  -- cat_0196afbc63a155013c059d07
+  PASS  get category by id -> 200  -- (200)
+  PASS  category name  -- ("Groceries")
+  PASS  list categories -> 200  -- (200)
+  PASS  list returns 1 category
+  PASS  list missing userId -> 400  -- (400)
+  PASS  invalid collection -> 400  -- (400)
+  PASS  patch category -> 200  -- (200)
+  PASS  name updated  -- ("Groceries & Home")
+  PASS  version bumped
+  PASS  patch w/o patch field -> 400  -- (400)
+  PASS  patch missing entity -> 404  -- (404)
+  PASS  soft delete -> 200  -- (200)
+  PASS  isDeleted=1  -- (1)
+  PASS  list excludes soft-deleted
+  PASS  hard delete -> 200  -- (200)
+  PASS  get after hard delete -> 404  -- (404)
+  PASS  bulk delete txns -> 200  -- (200)
+  PASS  bulk delete cleared txns
+
+--- CROSS-USER ENTITY ISOLATION ---
+  PASS  Bob 404s on Alice entity  -- (404)
+  PASS  Bob cannot patch Alice entity  -- (404)
+  PASS  Bob cannot delete Alice entity  -- (404)
+
+--- SYNC PUSH IDEMPOTENCY ---
+  PASS  re-push -> 200  -- (200)
+  PASS  re-push kept 1 account (upsert)
+  PASS  unknown coll push returns 400  -- (400)
+  PASS  unknown coll error code  -- ("INVALID_COLLECTION")
+
+--- ROUTING ---
+  PASS  unknown API -> 404
+
+--- SAAS ENDPOINTS ---
+  PASS  public config -> 200  -- (200)
+  PASS  plans list -> 200  -- (200)
+  PASS  create order without auth -> 401  -- (401)
+  PASS  my subscription -> 200  -- (200)
+  PASS  effective features available
+  PASS  invalid webhook signature rejected -> 401  -- (401)
+
+=================================================
+  RESULTS: 65/65 passed, 0 failed
+=================================================

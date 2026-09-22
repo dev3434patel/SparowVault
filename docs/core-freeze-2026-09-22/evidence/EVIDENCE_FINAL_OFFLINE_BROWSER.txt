@@ -1,0 +1,16 @@
+
+--- OFFLINE FINANCE E2E ---
+  PASS  session established or auth visible
+  PASS  wrote pending outbox marker while online
+  PASS  outbox readable before close
+  PASS  network set offline
+  PASS  app shell remains while offline
+  PASS  outbox survives offline session
+  PASS  browser context closed
+  PASS  browser reopened
+  PASS  outbox restored after reopen
+  PASS  reconnected online after reopen
+
+=================================================
+  OFFLINE RESULTS: failed=0
+=================================================

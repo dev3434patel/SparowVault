@@ -132,7 +132,7 @@ export function npmScript(scriptName, label = scriptName) {
     section: "RUN",
     name: label,
     async run() {
-      const r = await npm(["run", scriptName, "--", "--reporter=basic"]);
+      const r = await npm(["run", scriptName]);
       return { status: r.ok ? "pass" : "fail", detail: r.ok ? `exit 0 in ${ms(r.ms)}` : `exit ${r.code}` };
     },
   };
@@ -144,7 +144,7 @@ export function vitestFile(relTestFile, label) {
     section: "TEST",
     name: label ?? path.basename(relTestFile),
     async run() {
-      const r = await npm(["run", "test", "--", relTestFile, "--reporter=basic"]);
+      const r = await npm(["run", "test", "--", relTestFile]);
       return { status: r.ok ? "pass" : "fail", detail: r.ok ? `exit 0 in ${ms(r.ms)}` : `exit ${r.code}` };
     },
   };

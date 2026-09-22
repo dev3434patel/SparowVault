@@ -650,7 +650,8 @@
         "sourceDeviceId",
         "schemaVersion",
         "sourceAccountId",
-        "transactionId"
+        "transactionId",
+        "fundingMode"
       ],
       "hotFields": [
         "source_device_id",
@@ -667,7 +668,8 @@
         "userId must match authenticated user_id",
         "isDeleted must be 0, 1, true, or false",
         "payload must fit max row JSON size",
-        "amountPaise must be a positive paise integer"
+        "amountPaise must be a non-negative paise integer",
+        "fundingMode when present must be earmark, funded_transfer, or linked_asset_allocation"
       ]
     },
     {

@@ -1,0 +1,14 @@
+  PASS  MQ-01  -- Quick Add / transaction form opened
+  PASS  MQ-02  -- Cards readable at 390px
+  PASS  MQ-03  -- Waiting to sync badge visible
+  PASS  MQ-04  -- Badge cleared after sync/outbox empty
+  PASS  MQ-05  -- Auth register/login PIN path verified via API
+  PASS  MQ-06  -- Household create OK; viewer write blocked by household_auth.php
+  PASS  MQ-07  -- Esc closed dialog
+  PASS  MQ-08  -- 1 items waiting to sync
+  PASS  MQ-09  -- Accounts page OK; transfer Δincome/expense=0 covered by acceptanceMatrix T-134
+  PASS  MQ-10  -- Transactions page OK; refund no-income covered by cardRefundLifecycle.fullMatrix
+
+=================================================
+  MANUAL QA: PASS
+=================================================

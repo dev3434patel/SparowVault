@@ -1,0 +1,19 @@
+
+--- ACCESSIBILITY AUDIT ---
+  PASS  A11Y-01 navigation landmark (aside) -- 1
+  PASS  A11Y-02 buttons/links named
+  PASS  A11Y-03 dialog role present
+  PASS  A11Y-04 Esc closes dialog
+  PASS  A11Y-05 sync badge screen-reader label
+  PASS  A11Y-06 non-color status text -- Waiting to sync
+1
+  PASS  A11Y-07 touch target size -- 40x32
+  PASS  A11Y-08 no severe overflow @390 -- overflow=0
+  PASS  A11Y-08 no severe overflow @768 -- overflow=0
+  PASS  A11Y-08 no severe overflow @1440 -- overflow=0
+  PASS  A11Y-09 headings present -- 1
+  PASS  A11Y-10 auth form placeholders present (verified at login)
+
+=================================================
+  A11Y RESULTS: failed=0
+=================================================

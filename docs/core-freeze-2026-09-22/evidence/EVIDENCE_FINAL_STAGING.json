@@ -1,0 +1,43 @@
+{
+  "environment": "staging-local",
+  "database": "sparowvault_staging_test",
+  "startedAt": "2026-08-21T19:23:12.523Z",
+  "steps": [
+    {
+      "label": "create_staging_db",
+      "exit": 0
+    },
+    {
+      "label": "staging_db_reset",
+      "exit": 0,
+      "tail": "settings\n   dropped audit_logs\n   dropped cloud_collection_rows\n   dropped cloud_users\n   dropped feature_flags_global\n   dropped financial_effects\n   dropped financial_events\n   dropped financial_mutation_keys\n   dropped login_attempts\n   dropped payments\n   dropped plan_features\n   dropped plan_prices\n   dropped plans\n   dropped retention_jobs\n   dropped schema_version\n   dropped subscriptions\n   dropped udhari_entries\n   dropped udhari_people\n   dropped udhari_settlements\n   dropped user_audit_logs\n   dropped user_credit_cards\n   dropped user_loan_payments\n   dropped user_loans\n   dropped user_policy_acceptances\n   dropped users\n   dropped webhook_events\n→ Applying sql\\production_schema.sql…\n→ Applying sql\\migrations\\all_phases_combined.sql…\n✓ Test DB reset (schema-only, no user data).\n"
+    },
+    {
+      "label": "staging_backup",
+      "exit": 0,
+      "tail": "\n> sparowvault@0.1.0 backup:db\n> php scripts/backup_db.php\n\n\nWarning: Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0\nDB backup created: D:\\Claude\\SparowVault\\scripts/../backups/db_20260821_192314.sql\r\nPHP Warning:  Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0\n'mysqldump' is not recognized as an internal or external command,\r\noperable program or batch file.\r\nmysqldump failed or is unavailable; falling back to PDO SQL export\n"
+    },
+    {
+      "label": "staging_restore_drill",
+      "exit": 0,
+      "tail": " {\n    \"admin_audit_logs\": 0,\n    \"ai_suggestions\": 0,\n    \"api_rate_limits\": 0,\n    \"app_settings\": 8,\n    \"audit_logs\": 0,\n    \"cloud_collection_rows\": 0,\n    \"cloud_users\": 0,\n    \"feature_flags_global\": 7,\n    \"financial_effects\": 0,\n    \"financial_events\": 0,\n    \"financial_mutation_keys\": 0,\n    \"login_attempts\": 0,\n    \"payments\": 0,\n    \"plans\": 4,\n    \"plan_features\": 20,\n    \"plan_prices\": 0,\n    \"retention_jobs\": 0,\n    \"schema_version\": 10,\n    \"subscriptions\": 0,\n    \"udhari_entries\": 0,\n    \"udhari_people\": 0,\n    \"udhari_settlements\": 0,\n    \"users\": 1,\n    \"user_audit_logs\": 0,\n    \"user_credit_cards\": 0,\n    \"user_loans\": 0,\n    \"user_loan_payments\": 0,\n    \"user_policy_acceptances\": 0,\n    \"webhook_events\": 0\n  },\n  \"rtoMs\": 804,\n  \"ok\": true\n}\nPASS: backup-restore drill\n"
+    },
+    {
+      "label": "staging_monitor",
+      "exit": 0,
+      "tail": "{\n      \"name\": \"failed_webhooks\",\n      \"ok\": true,\n      \"detail\": {\n        \"failedWebhookCount\": 0,\n        \"maxFailedWebhooks\": 0\n      }\n    },\n    {\n      \"name\": \"db_size\",\n      \"ok\": true,\n      \"detail\": {\n        \"database\": \"sparowvault_staging_test\",\n        \"dbSizeMb\": 1.69,\n        \"maxDbSizeMb\": 1024\n      }\n    },\n    {\n      \"name\": \"backup_freshness\",\n      \"ok\": true,\n      \"detail\": {\n        \"newestFile\": \"db_20260821_192314.sql\",\n        \"ageHours\": 0,\n        \"maxBackupAgeHours\": 30\n      }\n    },\n    {\n      \"name\": \"disk_storage\",\n      \"ok\": true,\n      \"detail\": {\n        \"platform\": \"win32\",\n        \"note\": \"Use host monitor for exact free disk on Windows/shared hosting, or set MONITOR_FREE_DISK_MB_OVERRIDE.\",\n        \"minFreeDiskMb\": 1024\n      }\n    }\n  ]\n}\n"
+    },
+    {
+      "label": "staging_migration_golden",
+      "exit": 0,
+      "tail": "\n> sparowvault@0.1.0 test\n> vitest run tests/unit/vnextFinanceMigrationGolden.test.ts\n\n\n RUN  v2.1.9 D:/Claude/SparowVault\n\n ✓ tests/unit/vnextFinanceMigrationGolden.test.ts (2 tests) 7ms\n\n Test Files  1 passed (1)\n      Tests  2 passed (2)\n   Start at  00:53:18\n   Duration  2.02s (transform 144ms, setup 0ms, collect 1.31s, tests 7ms, environment 0ms, prepare 202ms)\n\n"
+    }
+  ],
+  "ok": true,
+  "finishedAt": "2026-08-21T19:23:20.225Z",
+  "signoff": {
+    "statement": "Staging-local environment (sparowvault_staging_test) certified: schema reset, backup, restore drill, and monitoring PASS. Safe to promote same migration set to production after Production Release gate.",
+    "signedBy": "finance-staging-certify.mjs",
+    "signedAt": "2026-08-21T19:23:20.225Z"
+  }
+}

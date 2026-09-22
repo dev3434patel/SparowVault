@@ -209,6 +209,13 @@ export default function StatementImportDialog({ onClose }: { onClose: () => void
     setReviewRevision((n) => n + 1);
     setDecisions(current => ({ ...current, [id]: { ...current[id], ...patch, reviewed: patch.reviewed ?? false } }));
   }
+  function setAllIncludedReviewed(reviewed: boolean) {
+    setReviewRevision((n) => n + 1);
+    setDecisions((current) => Object.fromEntries(Object.entries(current).map(([id, d]) => [
+      id,
+      d.include ? { ...d, reviewed } : d,
+    ])));
+  }
   function changeBalances(kind: "opening" | "closing", value: string) {
     setReviewRevision((n) => n + 1);
     setCurrencyConfirmed(false);
@@ -542,8 +549,63 @@ export default function StatementImportDialog({ onClose }: { onClose: () => void
         <div className={showSource ? "grid min-w-0 gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.65fr)]" : "min-w-0"}>
           <div className="min-w-0">
             <div className="mb-3 grid grid-cols-2 gap-2 sm:grid-cols-4"><Input aria-label="Search statement narration" placeholder="Search narration" value={query} onChange={e => { setQuery(e.target.value); setPage(1); }} /><select aria-label="Statement month" className={selectClass} value={month} onChange={e => { setMonth(e.target.value); setPage(1); }}><option value="">All months</option>{months.map(month => <option key={month}>{month}</option>)}</select><select aria-label="Statement row filter" className={selectClass} value={filter} onChange={e => { setFilter(e.target.value); setPage(1); }}><option value="all">All rows</option><option value="review">Needs review</option><option value="duplicates">Possible duplicates</option></select><select aria-label="Scope for selected rows" className={selectClass} value="" disabled={saving || !!result} onChange={e => { const scope = e.target.value as "personal" | "business"; setDecisions(current => Object.fromEntries(Object.entries(current).map(([id, d]) => [id, d.include ? { ...d, scope, reviewed: false } : d]))); }}><option value="">Selected scope</option><option value="personal">Personal</option><option value="business">Business</option></select></div>
+            <div className="mb-3 flex flex-wrap items-center gap-2">
+              <Button
+                size="sm"
+                variant="outline"
+                disabled={saving || !!result || !included.some((row) => !decisions[row.id]?.reviewed)}
+                aria-label="Review all included rows"
+                onClick={() => setAllIncludedReviewed(true)}
+              >
+                <Check className="mr-2 h-4 w-4" />Review all
+              </Button>
+              <Button
+                size="sm"
+                variant="ghost"
+                disabled={saving || !!result || !included.some((row) => decisions[row.id]?.reviewed)}
+                aria-label="Clear all reviewed checkboxes"
+                onClick={() => setAllIncludedReviewed(false)}
+              >
+                Clear reviews
+              </Button>
+              <span className="text-xs text-muted-foreground">Checks Reviewed on every included row. Purpose, category, and scope are still required before import.</span>
+              {remaining.length > 0 && (
+                <button
+                  type="button"
+                  className="text-xs font-medium text-amber-700 underline dark:text-amber-300"
+                  aria-label="Go to next row needing classification"
+                  onClick={() => {
+                    setFilter("review");
+                    const idx = rows.findIndex((row) => decisions[row.id]?.include && decisionProblems(row, decisions[row.id], accountId || cardId).length > 0);
+                    if (idx >= 0) setPage(Math.floor(idx / 25) + 1);
+                  }}
+                >
+                  {remaining.length} transaction{remaining.length === 1 ? "" : "s"} still need classification before import — go to next
+                </button>
+              )}
+            </div>
             <div className="max-h-[48dvh] overflow-auto rounded-md border border-border">
-              <table className="w-full min-w-[680px] border-collapse text-left text-xs"><thead className="sticky top-0 z-10 bg-surface"><tr>{["Include", "Date / narration", "Debit", "Credit", "Purpose / category", "Review"].map(label => <th key={label} scope="col" className="border-b border-border px-3 py-2 font-semibold">{label}</th>)}</tr></thead><tbody>
+              <table className="w-full min-w-[680px] border-collapse text-left text-xs"><thead className="sticky top-0 z-10 bg-surface"><tr>
+                <th scope="col" className="border-b border-border px-3 py-2 font-semibold">Include</th>
+                <th scope="col" className="border-b border-border px-3 py-2 font-semibold">Date / narration</th>
+                <th scope="col" className="border-b border-border px-3 py-2 font-semibold">Debit</th>
+                <th scope="col" className="border-b border-border px-3 py-2 font-semibold">Credit</th>
+                <th scope="col" className="border-b border-border px-3 py-2 font-semibold">Purpose / category</th>
+                <th scope="col" className="border-b border-border px-3 py-2 font-semibold">
+                  <span className="inline-flex items-center gap-2">
+                    Review
+                    <button
+                      type="button"
+                      className="text-xs font-medium text-primary underline disabled:pointer-events-none disabled:opacity-40"
+                      disabled={saving || !!result || !included.some((row) => !decisions[row.id]?.reviewed)}
+                      aria-label="Review all included rows"
+                      onClick={() => setAllIncludedReviewed(true)}
+                    >
+                      all
+                    </button>
+                  </span>
+                </th>
+              </tr></thead><tbody>
                 {pageRows.map(row => {
                   const decision = decisions[row.id];
                   const categoryType = decision.kind === "income" ? "income" : "expense";
@@ -567,11 +629,11 @@ export default function StatementImportDialog({ onClose }: { onClose: () => void
         </div>
         <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4">
           {result ? <p role="status" className="text-sm font-medium text-emerald-600">{result.imported} imported / {result.duplicates} already imported / {result.skipped} excluded{result.importSourceId ? <span className="block text-xs font-normal text-muted-foreground">Source {result.importSourceId.slice(0, 18)}…</span> : null}</p> : <p className="text-xs text-muted-foreground">{!rows.length ? "No transactions extracted" : remaining.length ? `${remaining.length} selected rows still need review` : included.length ? "Selected rows reviewed" : "No rows selected"}{!reconciliation?.matched || extractionProblems.length || completenessBlocked ? " / balance, completeness or extraction checks unresolved" : ""}</p>}
-          <div className="flex flex-wrap gap-2">{!result && <Button variant="outline" disabled={saving || !included.length} onClick={() => setDecisions(current => Object.fromEntries(Object.entries(current).map(([id, d]) => {
+          <div className="flex flex-wrap gap-2">{!result && <Button variant="outline" disabled={saving || !included.length || !included.some((row) => !decisions[row.id]?.reviewed)} aria-label="Review all included rows" onClick={() => setAllIncludedReviewed(true)}><Check className="mr-2 h-4 w-4" />Review all</Button>}{!result && <Button variant="outline" disabled={saving || !included.length} onClick={() => setDecisions(current => Object.fromEntries(Object.entries(current).map(([id, d]) => {
             const row = rows.find(r => r.id === id)!;
             if (!d.include || !canBulkConfirmDecision(d) || decisionProblems(row, { ...d, reviewed: true }, accountId || cardId).length) return [id, d];
             return [id, { ...d, reviewed: true }];
-          })))}><Check className="mr-2 h-4 w-4" />Confirm selected</Button>}{result ? <Button onClick={onClose}>Done</Button> : <Button disabled={!ready} onClick={() => void save()}>{saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Upload className="mr-2 h-4 w-4" />}Import reviewed</Button>}</div>
+          })))}><Check className="mr-2 h-4 w-4" />Confirm complete</Button>}{result ? <Button onClick={onClose}>Done</Button> : <Button disabled={!ready} onClick={() => void save()}>{saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Upload className="mr-2 h-4 w-4" />}Import reviewed</Button>}</div>
         </div>
       </>}
       {!analysis && !busy && <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground"><AlertTriangle className="h-3.5 w-3.5 shrink-0" />Categories are suggestions. A recognized bank name is not a certified layout. PDF and password stay on this device.</div>}

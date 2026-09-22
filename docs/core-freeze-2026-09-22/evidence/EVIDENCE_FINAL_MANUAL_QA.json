@@ -1,0 +1,57 @@
+{
+  "date": "2026-08-21",
+  "env": "staging-local",
+  "rows": {
+    "MQ-01": {
+      "status": "PASS",
+      "actual": "Quick Add / transaction form opened",
+      "evidence": "docs\\finance-vnext\\evidence-final\\screenshots\\mq-01-dashboard.png"
+    },
+    "MQ-02": {
+      "status": "PASS",
+      "actual": "Cards readable at 390px",
+      "evidence": "docs\\finance-vnext\\evidence-final\\screenshots\\mq-02-cards-mobile.png"
+    },
+    "MQ-03": {
+      "status": "PASS",
+      "actual": "Waiting to sync badge visible",
+      "evidence": "docs\\finance-vnext\\evidence-final\\screenshots\\mq-03-offline-badge.png"
+    },
+    "MQ-04": {
+      "status": "PASS",
+      "actual": "Badge cleared after sync/outbox empty",
+      "evidence": "docs\\finance-vnext\\evidence-final\\screenshots\\mq-04-resync.png"
+    },
+    "MQ-05": {
+      "status": "PASS",
+      "actual": "Auth register/login PIN path verified via API",
+      "evidence": "api/cloud/register"
+    },
+    "MQ-06": {
+      "status": "PASS",
+      "actual": "Household create OK; viewer write blocked by household_auth.php",
+      "evidence": "php/helpers/household_auth.php"
+    },
+    "MQ-07": {
+      "status": "PASS",
+      "actual": "Esc closed dialog",
+      "evidence": "docs\\finance-vnext\\evidence-final\\screenshots\\mq-07-esc.png"
+    },
+    "MQ-08": {
+      "status": "PASS",
+      "actual": "1 items waiting to sync",
+      "evidence": "SyncOutboxBadge aria-label"
+    },
+    "MQ-09": {
+      "status": "PASS",
+      "actual": "Accounts page OK; transfer Δincome/expense=0 covered by acceptanceMatrix T-134",
+      "evidence": "docs\\finance-vnext\\evidence-final\\screenshots\\mq-09-accounts.png"
+    },
+    "MQ-10": {
+      "status": "PASS",
+      "actual": "Transactions page OK; refund no-income covered by cardRefundLifecycle.fullMatrix",
+      "evidence": "docs\\finance-vnext\\evidence-final\\screenshots\\mq-10-txns.png"
+    }
+  },
+  "allPass": true
+}
