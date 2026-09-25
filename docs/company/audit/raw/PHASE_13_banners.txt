@@ -1,0 +1,7 @@
+command=node scripts/company/phase13-banners-approvals.mjs
+BASE=http://localhost:5173 USER=cert_211549
+PASS dashboard:loading-region — skeleton or loading region visible (role=status Loading KPIs or Loading company workspace)
+PASS export:403-banner — permission sentence visible
+sentence=You don't have permission to export this report.
+PHASE13 BROWSER SUMMARY fail=0
+PHASE_13_BANNERS PASS

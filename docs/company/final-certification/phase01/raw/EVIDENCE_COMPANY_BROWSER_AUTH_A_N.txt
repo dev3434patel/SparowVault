@@ -1,0 +1,62 @@
+AUTHENTICATED BROWSER A–N 2026-09-24T13:57:07.234Z
+BASE=http://localhost:5173
+USER=cert_211549
+
+PASS A Create company → dashboard url=http://localhost:5173/company/app api=true name=Cert Co muflht9b
+PASS B Create party Ramesh Patel api=true
+PASS C Loan received preview+post preview=true saveStatus=201 post=true
+PASS D Farmer advance form+preview 
+PASS E Property purpose variants variants=4 Property expense|Property advance|Property investment / asset
+PASS F Voucher list/search rows=1 api=true
+PASS G Reversal UI reversed
+PASS H Receivables page 
+PASS I Reports hub opens core reports opened=4
+PASS J Users & roles page 
+PASS K Approvals/RBAC surface SparowVault Company Books OVERVIEW Dashboard Activity / Day Book MONEY Money Rec
+PASS L Settings / period lock surface 
+PASS M Export page formats pdf=false xlsx=true
+PASS N Session lock blocks /company lock UI or redirected
+
+SUMMARY pass=14 fail=0
+
+API_HITS_SAMPLE
+GET 401 http://localhost:8080/api/auth/me.php
+GET 401 http://localhost:8080/api/auth/me.php
+GET 401 http://localhost:8080/api/auth/me.php
+GET 401 http://localhost:8080/api/auth/me.php
+POST 200 http://localhost:8080/api/auth/login.php
+POST 200 http://localhost:8080/api/auth/login.php
+GET 200 http://localhost:8080/api/auth/me.php
+GET 200 http://localhost:8080/api/auth/me.php
+GET 200 http://localhost:8080/api/company/workspaces.php
+GET 200 http://localhost:8080/api/auth/me.php
+GET 200 http://localhost:8080/api/auth/me.php
+GET 200 http://localhost:8080/api/auth/me.php
+GET 200 http://localhost:8080/api/auth/me.php
+GET 200 http://localhost:8080/api/auth/me.php
+GET 200 http://localhost:8080/api/company/workspaces.php
+GET 200 http://localhost:8080/api/company/workspaces.php
+POST 201 http://localhost:8080/api/company/workspaces.php
+GET 200 http://localhost:8080/api/company/workspaces.php
+GET 200 http://localhost:8080/api/company/approvals.php?companyId=8e5e5711-44ac-418c-bc6e-94c8866e8fc1
+GET 200 http://localhost:8080/api/company/approvals.php?companyId=8e5e5711-44ac-418c-bc6e-94c8866e8fc1
+GET 200 http://localhost:8080/api/company/workspace.php?companyId=8e5e5711-44ac-418c-bc6e-94c8866e8fc1
+GET 200 http://localhost:8080/api/auth/me.php
+GET 200 http://localhost:8080/api/auth/me.php
+GET 200 http://localhost:8080/api/auth/me.php
+GET 200 http://localhost:8080/api/auth/me.php
+GET 200 http://localhost:8080/api/auth/me.php
+GET 200 http://localhost:8080/api/company/workspaces.php
+GET 200 http://localhost:8080/api/company/workspaces.php
+GET 200 http://localhost:8080/api/company/workspace.php?companyId=8e5e5711-44ac-418c-bc6e-94c8866e8fc1
+GET 200 http://localhost:8080/api/company/workspace.php?companyId=8e5e5711-44ac-418c-bc6e-94c8866e8fc1
+GET 200 http://localhost:8080/api/company/approvals.php?companyId=8e5e5711-44ac-418c-bc6e-94c8866e8fc1
+GET 200 http://localhost:8080/api/company/approvals.php?companyId=8e5e5711-44ac-418c-bc6e-94c8866e8fc1
+GET 200 http://localhost:8080/api/company/parties.php?companyId=8e5e5711-44ac-418c-bc6e-94c8866e8fc1
+GET 200 http://localhost:8080/api/company/parties.php?companyId=8e5e5711-44ac-418c-bc6e-94c8866e8fc1
+POST 201 http://localhost:8080/api/company/parties.php
+GET 200 http://localhost:8080/api/company/party-item.php?companyId=8e5e5711-44ac-418c-bc6e-94c8866e8fc1&partyId=905cd8e6-01a8-4fe3-a7dd-75b9345eb21c
+GET 200 http://localhost:8080/api/company/party-item.php?companyId=8e5e5711-44ac-418c-bc6e-94c8866e8fc1&partyId=905cd8e6-01a8-4fe3-a7dd-75b9345eb21c
+GET 200 http://localhost:8080/api/company/reports.php?companyId=8e5e5711-44ac-418c-bc6e-94c8866e8fc1&report=party-statement&from=2026-06-24&to=2026-09-24&partyId=905cd8e6-01a8-4fe3-a7dd-75b9345eb21c
+GET 200 http://localhost:8080/api/company/bills.php?companyId=8e5e5711-44ac-418c-bc6e-94c8866e8fc1&side=RECEIVABLE
+GET 200 http://localhost:8080/api/company/bills.php?companyId=8e5e5711-44ac-418c-bc6e-94c8866e8fc1&side=PAYABLE

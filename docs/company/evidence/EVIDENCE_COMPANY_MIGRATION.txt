@@ -1,0 +1,2 @@
+﻿EVIDENCE_COMPANY_MIGRATION
+probe-db company_* tables present; apply-migration + bill on_account + indexes SQL

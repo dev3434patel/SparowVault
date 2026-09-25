@@ -1,0 +1,286 @@
+
+Warning: Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+company=0 voucher=2000
+company=0 voucher=4000
+company=0 voucher=6000
+company=0 voucher=8000
+REPORT_BUDGETS scale=3.20434 globalVouchers=480651 {"trial-balance":20000,"profit-loss":15000,"balance-sheet":20000,"day-book":12000}
+REPORT company=0 trial-balance=6644ms budget=20000ms PASS
+REPORT company=0 profit-loss=4604ms budget=15000ms PASS
+REPORT company=0 balance-sheet=3279ms budget=20000ms PASS
+REPORT company=0 day-book=1005ms budget=12000ms PASS
+DONE company=0 id=c4bb10e8-46ee-47ed-b58c-80cf9e0ba78b lines=35000
+company=1 voucher=2000
+company=1 voucher=4000
+company=1 voucher=6000
+company=1 voucher=8000
+REPORT company=1 trial-balance=7043ms budget=20000ms PASS
+REPORT company=1 profit-loss=5124ms budget=15000ms PASS
+REPORT company=1 balance-sheet=3584ms budget=20000ms PASS
+REPORT company=1 day-book=989ms budget=12000ms PASS
+BLEED company=1 vs prev PASS
+DONE company=1 id=004e16e6-7795-4f20-b2ce-f30f139e55c2 lines=35000
+company=2 voucher=2000
+company=2 voucher=4000
+company=2 voucher=6000
+company=2 voucher=8000
+REPORT company=2 trial-balance=7121ms budget=20000ms PASS
+REPORT company=2 profit-loss=3997ms budget=15000ms PASS
+REPORT company=2 balance-sheet=3554ms budget=20000ms PASS
+REPORT company=2 day-book=1564ms budget=12000ms PASS
+BLEED company=2 vs prev PASS
+DONE company=2 id=c4421df3-faa7-46b6-8175-5bb3bdfa450d lines=35000
+company=3 voucher=2000
+company=3 voucher=4000
+company=3 voucher=6000
+company=3 voucher=8000
+REPORT company=3 trial-balance=8084ms budget=20000ms PASS
+REPORT company=3 profit-loss=4157ms budget=15000ms PASS
+REPORT company=3 balance-sheet=3208ms budget=20000ms PASS
+REPORT company=3 day-book=1530ms budget=12000ms PASS
+BLEED company=3 vs prev PASS
+DONE company=3 id=5a9d28d3-1cb1-4901-a6e8-6689e01cf4da lines=35000
+company=4 voucher=2000
+company=4 voucher=4000
+company=4 voucher=6000
+company=4 voucher=8000
+REPORT company=4 trial-balance=7455ms budget=20000ms PASS
+REPORT company=4 profit-loss=4333ms budget=15000ms PASS
+REPORT company=4 balance-sheet=4154ms budget=20000ms PASS
+REPORT company=4 day-book=1693ms budget=12000ms PASS
+BLEED company=4 vs prev PASS
+DONE company=4 id=981e24d6-71c5-402d-9501-0e9febb22b70 lines=35000
+company=5 voucher=2000
+company=5 voucher=4000
+company=5 voucher=6000
+company=5 voucher=8000
+REPORT company=5 trial-balance=9587ms budget=20000ms PASS
+REPORT company=5 profit-loss=6404ms budget=15000ms PASS
+REPORT company=5 balance-sheet=6005ms budget=20000ms PASS
+REPORT company=5 day-book=1414ms budget=12000ms PASS
+BLEED company=5 vs prev PASS
+DONE company=5 id=da602cf9-2efe-4d9c-9a9d-75bd4c7debc7 lines=35000
+company=6 voucher=2000
+company=6 voucher=4000
+company=6 voucher=6000
+company=6 voucher=8000
+REPORT company=6 trial-balance=9325ms budget=20000ms PASS
+REPORT company=6 profit-loss=6160ms budget=15000ms PASS
+REPORT company=6 balance-sheet=6377ms budget=20000ms PASS
+REPORT company=6 day-book=1940ms budget=12000ms PASS
+BLEED company=6 vs prev PASS
+DONE company=6 id=0e268509-0fab-4180-919c-e629e4817f15 lines=35000
+company=7 voucher=2000
+company=7 voucher=4000
+company=7 voucher=6000
+company=7 voucher=8000
+REPORT company=7 trial-balance=8603ms budget=20000ms PASS
+REPORT company=7 profit-loss=4925ms budget=15000ms PASS
+REPORT company=7 balance-sheet=4522ms budget=20000ms PASS
+REPORT company=7 day-book=2103ms budget=12000ms PASS
+BLEED company=7 vs prev PASS
+DONE company=7 id=841bd696-0d45-4010-9d9b-42c16570d4e9 lines=35000
+company=8 voucher=2000
+company=8 voucher=4000
+company=8 voucher=6000
+company=8 voucher=8000
+REPORT company=8 trial-balance=12683ms budget=20000ms PASS
+REPORT company=8 profit-loss=6525ms budget=15000ms PASS
+REPORT company=8 balance-sheet=6565ms budget=20000ms PASS
+REPORT company=8 day-book=2486ms budget=12000ms PASS
+BLEED company=8 vs prev PASS
+DONE company=8 id=de9c600e-6751-4c91-803b-3bae1a67bb20 lines=35000
+company=9 voucher=2000
+company=9 voucher=4000
+company=9 voucher=6000
+company=9 voucher=8000
+REPORT company=9 trial-balance=10026ms budget=20000ms PASS
+REPORT company=9 profit-loss=4906ms budget=15000ms PASS
+REPORT company=9 balance-sheet=4255ms budget=20000ms PASS
+REPORT company=9 day-book=2582ms budget=12000ms PASS
+BLEED company=9 vs prev PASS
+DONE company=9 id=e78a49c7-4059-4894-9e03-97db730618e1 lines=35000
+{
+    "elapsedSec": 2869.197,
+    "companies": 10,
+    "vouchers": 100000,
+    "lines": 350000,
+    "parties": 5000,
+    "bills": 5000,
+    "errors": 0,
+    "targetVouchers": 100000,
+    "targetLinesMin": 500000,
+    "passVouchers": true,
+    "passLines": true,
+    "detail": [
+        {
+            "id": "c4bb10e8-46ee-47ed-b58c-80cf9e0ba78b",
+            "vouchers": 10000,
+            "tb": [
+                854824,
+                854824
+            ],
+            "lines": 35000,
+            "reportsMs": {
+                "trial-balance": 6644,
+                "profit-loss": 4604,
+                "balance-sheet": 3279,
+                "day-book": 1005
+            },
+            "postThroughputVps": 40.3
+        },
+        {
+            "id": "004e16e6-7795-4f20-b2ce-f30f139e55c2",
+            "vouchers": 10000,
+            "tb": [
+                854824,
+                854824
+            ],
+            "lines": 35000,
+            "reportsMs": {
+                "trial-balance": 7043,
+                "profit-loss": 5124,
+                "balance-sheet": 3584,
+                "day-book": 989
+            },
+            "postThroughputVps": 39.2
+        },
+        {
+            "id": "c4421df3-faa7-46b6-8175-5bb3bdfa450d",
+            "vouchers": 10000,
+            "tb": [
+                854824,
+                854824
+            ],
+            "lines": 35000,
+            "reportsMs": {
+                "trial-balance": 7121,
+                "profit-loss": 3997,
+                "balance-sheet": 3554,
+                "day-book": 1564
+            },
+            "postThroughputVps": 37.6
+        },
+        {
+            "id": "5a9d28d3-1cb1-4901-a6e8-6689e01cf4da",
+            "vouchers": 10000,
+            "tb": [
+                854824,
+                854824
+            ],
+            "lines": 35000,
+            "reportsMs": {
+                "trial-balance": 8084,
+                "profit-loss": 4157,
+                "balance-sheet": 3208,
+                "day-book": 1530
+            },
+            "postThroughputVps": 36.4
+        },
+        {
+            "id": "981e24d6-71c5-402d-9501-0e9febb22b70",
+            "vouchers": 10000,
+            "tb": [
+                854824,
+                854824
+            ],
+            "lines": 35000,
+            "reportsMs": {
+                "trial-balance": 7455,
+                "profit-loss": 4333,
+                "balance-sheet": 4154,
+                "day-book": 1693
+            },
+            "postThroughputVps": 35.7
+        },
+        {
+            "id": "da602cf9-2efe-4d9c-9a9d-75bd4c7debc7",
+            "vouchers": 10000,
+            "tb": [
+                854824,
+                854824
+            ],
+            "lines": 35000,
+            "reportsMs": {
+                "trial-balance": 9587,
+                "profit-loss": 6404,
+                "balance-sheet": 6005,
+                "day-book": 1414
+            },
+            "postThroughputVps": 35.1
+        },
+        {
+            "id": "0e268509-0fab-4180-919c-e629e4817f15",
+            "vouchers": 10000,
+            "tb": [
+                854824,
+                854824
+            ],
+            "lines": 35000,
+            "reportsMs": {
+                "trial-balance": 9325,
+                "profit-loss": 6160,
+                "balance-sheet": 6377,
+                "day-book": 1940
+            },
+            "postThroughputVps": 34.8
+        },
+        {
+            "id": "841bd696-0d45-4010-9d9b-42c16570d4e9",
+            "vouchers": 10000,
+            "tb": [
+                854824,
+                854824
+            ],
+            "lines": 35000,
+            "reportsMs": {
+                "trial-balance": 8603,
+                "profit-loss": 4925,
+                "balance-sheet": 4522,
+                "day-book": 2103
+            },
+            "postThroughputVps": 34.7
+        },
+        {
+            "id": "de9c600e-6751-4c91-803b-3bae1a67bb20",
+            "vouchers": 10000,
+            "tb": [
+                854824,
+                854824
+            ],
+            "lines": 35000,
+            "reportsMs": {
+                "trial-balance": 12683,
+                "profit-loss": 6525,
+                "balance-sheet": 6565,
+                "day-book": 2486
+            },
+            "postThroughputVps": 34.8
+        },
+        {
+            "id": "e78a49c7-4059-4894-9e03-97db730618e1",
+            "vouchers": 10000,
+            "tb": [
+                854824,
+                854824
+            ],
+            "lines": 35000,
+            "reportsMs": {
+                "trial-balance": 10026,
+                "profit-loss": 4906,
+                "balance-sheet": 4255,
+                "day-book": 2582
+            },
+            "postThroughputVps": 34.9
+        }
+    ]
+}
+NOTE: line count 350000 < 500000; topping up with multi-line journals...
+{
+    "topUp": true,
+    "lines": 500000,
+    "passLines": true,
+    "topUpCompanyId": "d2386eb4-9f62-4608-a4a8-a8d006bb5f6e"
+}
+PERF 100K MATRIX PASS
+PHP Warning:  Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0

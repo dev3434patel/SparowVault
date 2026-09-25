@@ -1,0 +1,39 @@
+
+> sparowvault@0.1.0 company:certify:final
+> node scripts/company/certify-final.mjs
+
+
+===== company-unit =====
+PASS company-unit
+
+===== company-php =====
+PASS company-php
+
+===== company-http =====
+PASS company-http
+
+===== company-idor =====
+PASS company-idor
+
+===== category-agg =====
+PASS category-agg
+
+===== security-matrix =====
+PASS security-matrix
+
+===== backup-restore =====
+PASS backup-restore
+
+===== browser-auth-a-n =====
+PASS browser-auth-a-n
+
+===== company-gate-all =====
+PASS company-gate-all
+
+===== personal-regression =====
+PASS personal-regression
+
+===== 100k-matrix =====
+PASS 100k-matrix
+
+=== ACCOUNTING CORE CERTIFIED ===

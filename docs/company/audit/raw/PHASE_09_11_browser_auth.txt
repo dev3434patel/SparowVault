@@ -1,0 +1,18 @@
+
+> sparowvault@0.1.0 company:test:browser:auth
+> node scripts/company/certify-browser-auth.mjs
+
+PASS A Create company → dashboard — url=http://localhost:5173/company/app api=true name=Cert Co mufnppil
+PASS B Create party Ramesh Patel — api=true
+PASS C Loan received preview+post — preview=true saveStatus=201 post=true
+PASS D Farmer advance form+preview
+PASS E Property purpose variants — variants=4 Property expense|Property advance|Property investment / asset
+PASS F Voucher list/search — rows=1 api=true
+PASS G Reversal UI — reversed
+PASS H Receivables page
+PASS I Reports hub opens core reports — opened=4
+PASS J Users & roles page
+PASS K Approvals/RBAC surface — SparowVault Company Books OVERVIEW Dashboard Activity / Day Book MONEY Money Rec
+PASS L Settings / period lock surface
+PASS M Export page formats — pdf=false xlsx=true
+PASS N Session lock blocks /company — lock UI or redirected

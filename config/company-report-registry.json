@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "reports": [
+    { "key": "trial-balance", "label": "Trial Balance", "permission": "view_trial_balance", "enabled": true, "handler": "trial_balance" },
+    { "key": "profit-loss", "label": "Profit & Loss", "permission": "view_pnl", "enabled": true, "handler": "profit_loss" },
+    { "key": "balance-sheet", "label": "Balance Sheet", "permission": "view_balance_sheet", "enabled": true, "handler": "balance_sheet" },
+    { "key": "day-book", "label": "Day Book", "permission": "view_day_book", "enabled": true, "handler": "day_book" },
+    { "key": "party-statement", "label": "Party Statement", "permission": "view_party_balance", "enabled": true, "handler": "party_statement", "requires": ["partyId"] },
+    { "key": "ageing", "label": "Ageing", "permission": "view_receivables", "enabled": true, "handler": "ageing" },
+    { "key": "cash-bank-book", "label": "Cash / Bank Book", "permission": "view_cash_bank_books", "enabled": true, "handler": "cash_bank_book", "requires": ["ledgerId"] },
+    { "key": "receivables", "label": "Receivables", "permission": "view_receivables", "enabled": true, "aliasOf": "ageing", "side": "receivable" },
+    { "key": "payables", "label": "Payables", "permission": "view_payables", "enabled": true, "aliasOf": "ageing", "side": "payable" },
+    { "key": "receipts-payments", "label": "Receipts & Payments", "permission": "view_cash_bank_books", "enabled": false },
+    { "key": "project-report", "label": "Project Report", "permission": "view_day_book", "enabled": false },
+    { "key": "business-report", "label": "Business Report", "permission": "view_day_book", "enabled": false },
+    { "key": "area-report", "label": "Area Report", "permission": "view_day_book", "enabled": false },
+    { "key": "category-report", "label": "Category Report", "permission": "view_day_book", "enabled": false },
+    { "key": "user-activity", "label": "User Activity", "permission": "view_audit", "enabled": false }
+  ]
+}

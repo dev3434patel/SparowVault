@@ -1,0 +1,18 @@
+AUDIT RUN SUMMARY 20260924-004757
+================================
+PASS company:test 31/31
+PASS company:test:php
+PASS company:gate:all 12/12
+PASS company:test:idor
+PASS company:test:http
+PASS company:test:hydrate 0/100 fail
+PASS company:test:backup TB balanced @ ~193k vouchers
+PASS company:test:latency all budgets
+PASS company:test:export:fidelity
+PASS finance:gate:all
+PASS security-matrix (cert_211549)
+FAIL security-matrix (review_demo 401)
+FAIL company:test:browser:auth abort B (Create vs Create party)
+FAIL company:test:product:browser NEW_MENU (button exists in live crawl — locator)
+NOT VERIFIED perf-100k-matrix this stamp
+NOT ISSUED ACCOUNTING CORE CERTIFIED / PRODUCT COMPLETE / PRODUCTION READY

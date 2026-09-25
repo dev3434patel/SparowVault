@@ -1,0 +1,82 @@
+GATE reports 2026-09-24T17:21:27.640Z
+
+ RUN  v4.1.11 D:/Claude/SparowVault
+
+ ✓ src/company/services/__tests__/reportEngine.test.ts (4 tests) 14ms
+
+ Test Files  1 passed (1)
+      Tests  4 passed (4)
+   Start at  22:51:31
+   Duration  589ms (transform 86ms, setup 0ms, import 110ms, tests 14ms, environment 0ms)
+
+
+Warning: Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+Using user devpatel (cu_a49260e5634911863371e053)
+
+== Create Company A (Demo Farm & Finance) ==
+  ✓ Company A created + COA seeded
+
+== Create Company B (isolation) ==
+  ✓ Company B created
+
+== Party with multiple roles ==
+  ✓ Parties with multi-roles created
+
+== Scenario A: Loan received ₹1,00,000 ==
+  ✓ A posted
+  ✓ A Debit==Credit (10000000)
+  ✓ A profit unchanged (loan)
+
+== Scenario B: Farmer advance ₹70,000 ==
+  ✓ B advance is not expense
+
+== Scenario C: Settle advance (expense 50k + refund 20k) ==
+  ✓ C farming expense 50k recognised
+
+== Scenario I: Contra Bank → Cash ₹5,00,000 ==
+  ✓ I contra no P&L change
+
+== Scenario G/H: Bills + partial settlement ==
+  ✓ G both bills settled
+  ✓ H remaining outstanding 60k (not original 1L)
+  ✓ H ageing uses remaining 60k
+
+== Scenario Reversal ==
+  ✓ Reversal voucher created
+  ✓ Original marked REVERSED
+
+== Trial Balance / Balance Sheet ==
+  ✓ TB balanced (79000000 == 79000000)
+  ✓ BS Assets = L+E
+
+== Tenant isolation ==
+  ✓ Company B cannot see Company A voucher by scoped query
+  ✓ Company B has no Company A bills
+
+== Over-allocation rejected ==
+  ✓ Over-allocation rejected: Allocation exceeds outstanding
+  ✓ Over-allocation must fail
+
+== Idempotency ==
+  ✓ Idempotent replay returns same voucher
+
+== More purposes: Capital / Sale / Purchase / Drawing ==
+  ✓ Capital introduced posted
+  ✓ Sale increases income
+  ✓ Purchase posted
+  ✓ Drawing does not hit P&L; purchase reduces net by 200k
+  ✓ Drawing + sale ids present
+
+== Unbalanced voucher rejected ==
+  ✓ Unbalanced rejected: Sum debit must equal sum credit (exact paise)
+  ✓ Unbalanced must fail
+
+== Final TB still balanced ==
+  ✓ Final TB balanced (79260000 == 79260000)
+
+========================================
+DEMO COMPANY ID: 35284fd2-a4e1-43a9-ba7b-3ad3ad5322c4
+Open /company/select and choose "Demo Farm & Finance"
+ALL COMBINATION CHECKS PASSED
+========================================
+PHP Warning:  Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0

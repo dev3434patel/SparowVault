@@ -1,0 +1,4 @@
+﻿EVIDENCE_COMPANY_PERSONAL_REGRESSION 2026-09-23T19:48:27.1964452+05:30
+finance:gate:all PASS (21 pass · 0 warn · 0 skip)
+typecheck: PASS after DashboardPage reduce<number> fix
+company isolation: App.tsx isCompanyPortal skips personal hydrate; company_* tables only

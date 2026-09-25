@@ -1,0 +1,6 @@
+PAGE CRAWL PHASE_01 2026-09-23T20:07:15.694Z
+BASE http://localhost:5173
+PASS CRAWL_CATEGORIES /masters/categories manages categories UI http://localhost:5173/company/app/masters/categories
+PASS CRAWL_VOUCHER_NEW /vouchers/new shows entry chooser (not list) http://localhost:5173/company/app/vouchers/new
+PASS CRAWL_VOUCHER_NEW_MOBILE Mobile chooser sheet reachable 
+3 pass · 0 fail

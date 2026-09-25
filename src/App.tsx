@@ -15,6 +15,11 @@ import { getDB } from "@/db/database";
 import { replayMutations } from "@/services/durableOutbox";
 import { useUIStore } from "@/store/uiStore";
 import { RequiredPinChange } from "@/components/auth/RequiredPinChange";
+import { lazy, Suspense } from "react";
+
+const CompanyApp = lazy(() =>
+  import("@/company/CompanyApp").then((m) => ({ default: m.CompanyApp })),
+);
 
 type AuthScreen = "cloud-signin" | "cloud-register";
 
@@ -29,10 +34,11 @@ export default function App() {
   const syncFromUrl = useNavStore((s) => s.syncFromUrl);
   const dataLoaded = useDataStore((s) => s.loaded);
   const dataLoadingFor = useDataStore((s) => s.loadingFor);
+  const isCompanyPortal = typeof window !== "undefined" && window.location.pathname.startsWith("/company");
   const isAdminPortal = typeof window !== "undefined" && window.location.pathname.startsWith("/admin");
 
   useEffect(() => {
-    if (!currentUser || currentUser.mustChangePin || locked || isAdminPortal) return;
+    if (!currentUser || currentUser.mustChangePin || locked || isAdminPortal || isCompanyPortal) return;
     let active = true;
     const userId = currentUser.id;
     const replay = () => {
@@ -45,19 +51,20 @@ export default function App() {
     window.addEventListener("online", replay);
     const interval = window.setInterval(replay, 30_000);
     return () => { active = false; window.removeEventListener("online", replay); window.clearInterval(interval); };
-  }, [currentUser?.id, currentUser?.mustChangePin, locked, isAdminPortal]);
+  }, [currentUser?.id, currentUser?.mustChangePin, locked, isAdminPortal, isCompanyPortal]);
 
   useEffect(() => {
     hydrateCloudApp().catch(() => undefined);
   }, [hydrateCloudApp, currentUser?.id]);
 
   useEffect(() => {
+    if (isCompanyPortal) return;
     syncFromUrl();
     if (typeof window === "undefined") return;
     const onPopState = () => syncFromUrl();
     window.addEventListener("popstate", onPopState);
     return () => window.removeEventListener("popstate", onPopState);
-  }, [syncFromUrl]);
+  }, [syncFromUrl, isCompanyPortal]);
 
   const defaultScreen: AuthScreen = "cloud-signin";
   const effectiveScreen = currentUser
@@ -71,6 +78,41 @@ export default function App() {
       <div className="flex min-h-screen items-center justify-center bg-background">
         <Loader2 className="h-6 w-6 animate-spin text-primary" />
       </div>
+    );
+  }
+
+  // Company books: same lock / mustChangePin gates as personal app; skip personal finance hydrate.
+  if (isCompanyPortal) {
+    const companyFallback = (
+      <div className="flex min-h-screen items-center justify-center bg-background">
+        <Loader2 className="h-6 w-6 animate-spin text-primary" />
+      </div>
+    );
+    if (!currentUser) {
+      return (
+        <Suspense fallback={companyFallback}>
+          <CompanyApp />
+        </Suspense>
+      );
+    }
+    if (locked) {
+      return (
+        <AuthShell>
+          <LockScreen />
+        </AuthShell>
+      );
+    }
+    if (currentUser.mustChangePin) {
+      return (
+        <AuthShell>
+          <RequiredPinChange />
+        </AuthShell>
+      );
+    }
+    return (
+      <Suspense fallback={companyFallback}>
+        <CompanyApp />
+      </Suspense>
     );
   }
 

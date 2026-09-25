@@ -1,0 +1,12 @@
+
+> sparowvault@0.1.0 company:test:product:browser
+> node scripts/company/certify-product-browser.mjs
+
+PASS DASH Dashboard control center widgets
+PASS DRILL_CASH Cash/Bank drill surface
+PASS BILLS Receivables KPI + bills table
+PASS PERIOD_LOCK_UI Period lock controls visible
+PASS RBAC_SURFACE Approvals page reachable
+PASS SWITCH Company switcher reachable
+PASS NEW_MENU Global + New menu
+PASS MOBILE Mobile dashboard renders

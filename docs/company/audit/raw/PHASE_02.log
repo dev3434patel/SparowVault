@@ -1,0 +1,41 @@
+PHASE_02 — Server authz = permission matrix
+Timestamp: 2026-09-24T01:45:00+05:30
+
+## Objective
+Eliminate membership-only soft reads; align preview/export/period-locks with matrix; reject deprecated purposes.
+
+## Commands run
+- npm run company:test:php
+- COMPANY_E2E_USER=cert_211549 php scripts/company/security-matrix.php
+
+## Results
+- company:test:php → ALL PASSED (incl. PURPOSE_DEPRECATED for OTHER / PROPERTY_PAYMENT / REFUND + report view map)
+- security-matrix.php (cert_211549) → SECURITY MATRIX PASS (0 failures; new authz lines PASS)
+
+## Soft reads
+- search.php: domain filter by view_party / view_day_book / view_receivables|view_payables / view_ledgers; zero domains → 403 FORBIDDEN
+- voucher-item GET: view_day_book
+- voucher-preview: company_can_preview_voucher → same create_* as post (+ deprecated reject)
+- period-locks GET: view_dashboard; create lock_period; reopen reopen_period + PIN
+
+## Exports
+- export_reports AND company_require_report_view_permission(report) from registry map in reports.php
+- report/format=backup → export_backup
+
+## Permission key audit (seed + matrix)
+- ENFORCE: export_backup (backup pack), manage_opening_balances (OPENING_BALANCE)
+- @future (kept seeded, commented): manage_ledgers, edit_own/any_voucher, delete_draft, manage_company, manage_approvals_settings
+- Documented in docs/company/COMPANY_PERMISSION_MATRIX.md + authz.php comments
+
+## Deprecated purposes
+- OTHER → OTHER_PAYMENT; PROPERTY_PAYMENT → PROPERTY_EXPENSE; REFUND → VENDOR_REFUND_RECEIVED
+- 422 PURPOSE_DEPRECATED via company_assert_purpose_not_deprecated (preview + post)
+
+## Files
+- api/company/search.php
+- php/helpers/company/authz.php, purpose.php, posting.php, reports.php, seed.php
+- php/controllers/company.php
+- scripts/company/php-tests/run-accounting.php
+- scripts/company/security-matrix.php
+- docs/company/COMPANY_PERMISSION_MATRIX.md
+- docs/company/audit/raw/PHASE_02.log

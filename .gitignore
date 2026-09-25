@@ -110,3 +110,16 @@ Desktop.ini
 /docs/finance-vnext/evidence-final/*.txt
 /docs/finance-vnext/evidence-final/*.json
 !/docs/finance-vnext/evidence-final/.gitkeep
+
+# ---------------------------------------------------------------------------
+# Company domain — never commit live E2E credentials / PINs
+# ---------------------------------------------------------------------------
+**/CERT_E2E_CREDENTIALS.txt
+**/CERT_E2E_CREDENTIALS.*
+docs/company/**/raw/*CREDENTIAL*
+docs/company/**/company_backup_*.sql
+
+# Company audit phase logs are intentionally tracked (override global *.log)
+!docs/company/audit/raw/
+!docs/company/audit/raw/*.log
+!docs/company/audit/raw/.gitkeep

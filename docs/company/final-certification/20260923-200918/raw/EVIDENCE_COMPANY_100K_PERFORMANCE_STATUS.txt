@@ -1,0 +1,13 @@
+100K PERFORMANCE EVIDENCE (sidecar — primary file locked by running Tee)
+at=2026-09-23T15:22Z
+
+PRIOR FAILURE (before AUD-006):
+Duplicate entry ...-10000 on uq_cv_company_number
+Cause: string ORDER BY voucher_number DESC
+
+FIX: MAX(CAST(seq)) + 8-digit pad; php-tests seq past 9999 PASS
+
+AFTER FIX:
+- 12k vouchers PASS
+- 100k single-company running (~35k+ mid-run, no collision observed)
+- Full 10-company / 50k parties / 500k lines matrix: NOT completed → PARTIAL

@@ -1,0 +1,43 @@
+GATE browser 2026-09-24T17:23:37.531Z
+✓ src/company/pages/CreateCompanyPage.tsx
+✓ src/company/pages/PartiesPage.tsx
+✓ src/company/pages/LedgersPage.tsx
+✓ src/company/pages/VouchersPage.tsx
+✓ src/company/pages/QuickReceivedPage.tsx
+✓ src/company/pages/ReceivablesPage.tsx
+✓ src/company/pages/ReportsHubPage.tsx
+✓ src/company/pages/UsersPage.tsx
+✓ src/company/pages/ApprovalsPage.tsx
+✓ src/company/pages/AuditPage.tsx
+✓ src/company/pages/InviteAcceptPage.tsx
+✓ src/App.tsx
+✓ App.tsx company lock+PIN gate
+✓ Journey A Create company + seeded COA
+✓ Journey B Select / gateway
+✓ Journey C Dashboard
+✓ Journey D Parties list + create
+✓ Journey E Ledgers live COA
+✓ Journey F Voucher browser
+✓ Journey G Quick received preview
+✓ Journey H Quick paid
+✓ Journey I Receivables AR
+✓ Journey J Payables AP
+✓ Journey K Reports hub
+✓ Journey L Approvals
+✓ Journey M Audit + Export + Search
+✓ Journey N Settings / period locks + lock gate
+✓ LIVE A 200
+✓ LIVE B 200
+✓ LIVE C 200
+✓ LIVE D 200
+✓ LIVE E 200
+✓ LIVE F 200
+✓ LIVE G 200
+✓ LIVE H 200
+✓ LIVE I 200
+✓ LIVE J 200
+✓ LIVE K 200
+✓ LIVE L 200
+✓ LIVE M 200
+✓ LIVE N 200
+Browser smoke PASS (structural A–N)

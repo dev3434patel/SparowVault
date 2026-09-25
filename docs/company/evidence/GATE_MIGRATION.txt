@@ -1,0 +1,88 @@
+GATE migration 2026-09-24T17:21:35.942Z
+
+Warning: Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+DB_NAME=sparowvault
+DB_HOST=127.0.0.1
+CONNECTED
+company_tables=34
+  - company_account_groups
+  - company_approvals
+  - company_areas
+  - company_audit_logs
+  - company_bill_allocations
+  - company_bill_refs
+  - company_branches
+  - company_business_units
+  - company_cost_centres
+  - company_cross_domain_links
+  - company_documents
+  - company_financial_write_receipts
+  - company_group_members
+  - company_groups
+  - company_ledgers
+  - company_membership_roles
+  - company_memberships
+  - company_org_subscriptions
+  - company_parties
+  - company_party_categories
+  - company_party_category_memberships
+  - company_party_relationship_accounts
+  - company_party_roles
+  - company_party_tag_memberships
+  - company_party_tags
+  - company_period_locks
+  - company_projects
+  - company_recurring_rules
+  - company_role_permissions
+  - company_roles
+  - company_voucher_cost_allocations
+  - company_voucher_lines
+  - company_vouchers
+  - company_workspaces
+PHP Warning:  Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+
+Warning: Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+RESTORE DRILL 2026-09-24T17:21:36+00:00
+DB_NAME=sparowvault
+company_tables=34
+  company_account_groups rows=40470 checksum=278512916
+  company_approvals rows=0 checksum=0
+  company_areas rows=0 checksum=0
+  company_audit_logs rows=587122 checksum=3288399360
+  company_bill_allocations rows=431 checksum=4148268948
+  company_bill_refs rows=68986 checksum=2968110803
+  company_branches rows=0 checksum=0
+  company_business_units rows=0 checksum=0
+  company_cost_centres rows=0 checksum=0
+  company_cross_domain_links rows=0 checksum=0
+  company_documents rows=0 checksum=0
+  company_financial_write_receipts rows=585835 checksum=942207756
+  company_group_members rows=0 checksum=0
+  company_groups rows=0 checksum=0
+  company_ledgers rows=26516 checksum=1265166283
+  company_membership_roles rows=1067 checksum=3852364422
+  company_memberships rows=1067 checksum=1765042170
+  company_org_subscriptions rows=0 checksum=0
+  company_parties rows=78935 checksum=1280843713
+  company_party_categories rows=0 checksum=0
+  company_party_category_memberships rows=0 checksum=0
+  company_party_relationship_accounts rows=992 checksum=387952495
+  company_party_roles rows=774 checksum=373433146
+  company_party_tag_memberships rows=0 checksum=0
+  company_party_tags rows=0 checksum=0
+  company_period_locks rows=0 checksum=0
+  company_projects rows=0 checksum=0
+  company_recurring_rules rows=0 checksum=0
+  company_role_permissions rows=168270 checksum=3355384631
+  company_roles rows=7455 checksum=2294413339
+  company_voucher_cost_allocations rows=0 checksum=0
+  company_voucher_lines rows=2223424 checksum=247356452
+  company_vouchers rows=585947 checksum=3019095994
+  company_workspaces rows=1065 checksum=1717751685
+SNAPSHOT_WRITTEN D:\Claude\SparowVault\scripts\company/../../docs/company/evidence/EVIDENCE_COMPANY_RESTORE_SNAPSHOT.json
+PASS snapshot_roundtrip
+FK_REVERSED=YES
+FK_CORRECTION=YES
+PASS row_counts_stable
+Restore drill PASS
+PHP Warning:  Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0

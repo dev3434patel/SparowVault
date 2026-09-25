@@ -1,0 +1,42 @@
+# SparowVault Company — Docs Index
+
+**Created:** 2026-09-23  
+**Implementation status:** **PARTIAL** (see certification docs)
+
+## Architecture
+
+| # | File |
+|---|------|
+| 1 | [COMPANY_PRODUCT_BLUEPRINT.md](./COMPANY_PRODUCT_BLUEPRINT.md) |
+| 2 | [COMPANY_ACCOUNTING_MODEL.md](./COMPANY_ACCOUNTING_MODEL.md) |
+| 3 | [COMPANY_DATABASE_SCHEMA.md](./COMPANY_DATABASE_SCHEMA.md) |
+| 4 | [COMPANY_ROUTE_PAGE_MAP.md](./COMPANY_ROUTE_PAGE_MAP.md) |
+| 5 | [COMPANY_PERMISSION_MATRIX.md](./COMPANY_PERMISSION_MATRIX.md) |
+| 6 | [COMPANY_VOUCHER_RULES.md](./COMPANY_VOUCHER_RULES.md) |
+| 7 | [COMPANY_REPORT_MATRIX.md](./COMPANY_REPORT_MATRIX.md) |
+| 8 | [COMPANY_TEST_MATRIX.md](./COMPANY_TEST_MATRIX.md) |
+| 9 | [PERSONAL_COMPANY_DOMAIN_BOUNDARY.md](./PERSONAL_COMPANY_DOMAIN_BOUNDARY.md) |
+| 10 | [COMPANY_SAAS_FUTURE_PLAN.md](./COMPANY_SAAS_FUTURE_PLAN.md) |
+
+## Delivery / certification
+
+| Doc | Status |
+|-----|--------|
+| [COMPANY_BASELINE_BEFORE_IMPLEMENTATION.md](./COMPANY_BASELINE_BEFORE_IMPLEMENTATION.md) | Baseline |
+| [COMPANY_IMPLEMENTATION_REPORT.md](./COMPANY_IMPLEMENTATION_REPORT.md) | PARTIAL |
+| [COMPANY_ACCOUNTING_CERTIFICATION.md](./COMPANY_ACCOUNTING_CERTIFICATION.md) | PARTIAL |
+| [COMPANY_DATABASE_CERTIFICATION.md](./COMPANY_DATABASE_CERTIFICATION.md) | PARTIAL |
+| [COMPANY_SECURITY_CERTIFICATION.md](./COMPANY_SECURITY_CERTIFICATION.md) | PARTIAL |
+| [COMPANY_TEST_REPORT.md](./COMPANY_TEST_REPORT.md) | PARTIAL |
+| [COMPANY_OPEN_GAPS.md](./COMPANY_OPEN_GAPS.md) | P0–P2 gaps |
+
+## Commands
+
+```bash
+npm run company:test
+npm run company:gate:all
+npm run finance:gate:all   # personal non-regression
+```
+
+Apply schema: `sql/migrations/20260923_company_core.sql`  
+Entry UI: `/company`

@@ -1,0 +1,65 @@
+# SparowVault SPA + API — nginx reference config (PHASE_10)
+# Place behind TLS terminator (Let's Encrypt / Cloudflare). Copy and adapt.
+
+# upstream php_fpm { server unix:/run/php/php8.2-fpm.sock; }
+
+server {
+    listen 443 ssl http2;
+    server_name staging.example.com;
+
+    # ssl_certificate     /etc/letsencrypt/live/staging.example.com/fullchain.pem;
+    # ssl_certificate_key /etc/letsencrypt/live/staging.example.com/privkey.pem;
+
+    root /var/www/sparowvault/dist;
+    index index.html;
+
+    # --- Security headers (must match .htaccess / PHP apply_security_headers) ---
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+    add_header X-Frame-Options "DENY" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(self \"https://checkout.razorpay.com\" \"https://api.razorpay.com\")" always;
+    add_header Content-Security-Policy "default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; img-src 'self' data: blob:; font-src 'self' data: https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'wasm-unsafe-eval' https://checkout.razorpay.com; worker-src 'self'; connect-src 'self' https://api.razorpay.com https://lumberjack.razorpay.com; frame-src https://api.razorpay.com https://checkout.razorpay.com; object-src 'none'; upgrade-insecure-requests" always;
+    add_header X-XSS-Protection "0" always;
+
+    # Deny secrets / dumps / VCS
+    location ~* /(\.env|\.git|sql/|backups/|data/|php/config/) {
+        deny all;
+        return 403;
+    }
+    location ~* \.(env|sql|sql\.gz|bak|backup|dump|pem|key|log)$ {
+        deny all;
+        return 403;
+    }
+
+    # PHP API
+    location ^~ /api/ {
+        root /var/www/sparowvault;
+        try_files $uri =404;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        # fastcgi_pass php_fpm;
+    }
+
+    # Immutable hashed assets
+    location /assets/ {
+        try_files $uri =404;
+        add_header Cache-Control "public, max-age=31536000, immutable";
+    }
+
+    # SPA fallback
+    location / {
+        try_files $uri $uri/ /index.html;
+        add_header Cache-Control "no-cache, no-store, must-revalidate";
+    }
+
+    access_log /var/log/nginx/sparowvault.access.log;
+    error_log  /var/log/nginx/sparowvault.error.log warn;
+}
+
+# HTTP → HTTPS
+server {
+    listen 80;
+    server_name staging.example.com;
+    return 301 https://$host$request_uri;
+}

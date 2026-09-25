@@ -1,0 +1,22 @@
+
+Warning: Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+role_fixed Scale Co 0
+membership_ok company=95eaa926-5908-49bd-be43-e8c5febf87a1 user=cert_211549 vouchers=10000
+role_ok OWNER
+permissions=34
+COMPANY_PERF_COMPANY_ID=95eaa926-5908-49bd-be43-e8c5febf87a1
+PHP Warning:  Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+
+> sparowvault@0.1.0 company:test:latency
+> node scripts/company/interactive-latency.mjs
+
+INTERACTIVE LATENCY 2026-09-24T14:58:13.518Z company=95eaa926-5908-49bd-be43-e8c5febf87a1 samples=7 warmup=2
+PASS workspaces p50=14ms p95=35ms budget=800ms HTTP=200
+PASS workspace p50=31ms p95=38ms budget=800ms HTTP=200
+PASS parties p50=23ms p95=46ms budget=1500ms HTTP=200
+PASS vouchers p50=37ms p95=59ms budget=2000ms HTTP=200
+PASS trial-balance p50=310ms p95=315ms budget=3000ms HTTP=200
+PASS profit-loss p50=172ms p95=194ms budget=3000ms HTTP=200
+PASS balance-sheet p50=513ms p95=549ms budget=3000ms HTTP=200
+PASS bills-ar p50=29ms p95=31ms budget=2000ms HTTP=200
+SUMMARY fail=0

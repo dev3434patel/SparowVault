@@ -1,0 +1,11 @@
+DEEP PRODUCT BROWSER 2026-09-23T20:31:00.756Z
+BASE=http://localhost:5173 USER=cert_211549
+PASS DASH Dashboard control center widgets 
+PASS DRILL_CASH Cash/Bank drill surface 
+PASS BILLS Receivables KPI + bills table 
+PASS PERIOD_LOCK_UI Period lock controls visible 
+PASS RBAC_SURFACE Approvals page reachable 
+PASS SWITCH Company switcher reachable 
+PASS NEW_MENU Global + New menu 
+PASS MOBILE Mobile dashboard renders 
+SUMMARY pass=8 fail=0

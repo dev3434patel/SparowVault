@@ -50,8 +50,11 @@ function apply_security_headers(): void {
     header("X-Content-Type-Options: nosniff");
     header("Referrer-Policy: strict-origin-when-cross-origin");
     header("Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(self \"https://checkout.razorpay.com\" \"https://api.razorpay.com\")");
-    header("Content-Security-Policy: default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; img-src 'self' data: blob:; font-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' https://checkout.razorpay.com; connect-src 'self' https://api.razorpay.com https://lumberjack.razorpay.com; frame-src https://api.razorpay.com https://checkout.razorpay.com; object-src 'none'; upgrade-insecure-requests");
-    if (strtolower((string)(env_value("APP_ENV", "development") ?? "development")) === "production") {
+    // Keep in sync with .htaccess + deploy/nginx-spa.conf.example (PHASE_10).
+    header("Content-Security-Policy: default-src 'self'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; img-src 'self' data: blob:; font-src 'self' data: https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; script-src 'self' 'wasm-unsafe-eval' https://checkout.razorpay.com; worker-src 'self'; connect-src 'self' https://api.razorpay.com https://lumberjack.razorpay.com; frame-src https://api.razorpay.com https://checkout.razorpay.com; object-src 'none'; upgrade-insecure-requests");
+    $env = strtolower((string)(env_value("APP_ENV", "development") ?? "development"));
+    // HSTS on production and staging (HTTPS terminators only — harmless over plain HTTP locally).
+    if ($env === "production" || $env === "staging") {
         header("Strict-Transport-Security: max-age=31536000; includeSubDomains");
     }
 }

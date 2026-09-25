@@ -1,0 +1,15 @@
+
+> sparowvault@0.1.0 company:test:idor
+> php scripts/company/idor-http.php
+
+
+Warning: Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+== Cross-company scoped queries ==
+  ✓ voucher load with wrong companyId returns null
+  ✓ party not visible under company B
+  ✓ bill not visible under company B
+  ✓ ledgers not shared across companies
+  ✓ company B TB independent
+
+ALL IDOR CHECKS PASSED
+PHP Warning:  Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0

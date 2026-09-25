@@ -1,0 +1,49 @@
+PHASE_01 — Navigation lies + E2E locators
+Timestamp: 2026-09-24T01:38:00+05:30
+
+## Objective
+Fix /masters/categories and /vouchers/new page-matrix FAILs; fix browser A–N step B and product NEW_MENU locators.
+
+## Commands run
+- npm run company:test
+- node scripts/company/page-crawl-phase01.mjs
+- npm run company:test:browser:auth  (node scripts/company/certify-browser-auth.mjs)
+- npm run company:test:product:browser  (node scripts/company/certify-product-browser.mjs)
+- npm run company:gate:all
+
+## Results
+- company:test → 35/35 PASS (includes routesMatrix for categories + voucher-new)
+- PAGE CRAWL → 3/3 PASS (categories UI, voucher chooser desktop+mobile)
+- AUTH A–N → A..N all PASS (B Create party via /create party/i; G reversal after Record Receipt post fix)
+- PRODUCT BROWSER → 8/8 PASS (NEW_MENU matches "+ New")
+- company:gate:all → 12/12 PASS
+- Page matrix: Masters categories PASS; Voucher new PASS (no FAIL remains)
+
+## Files touched
+CREATE:
+- api/company/categories.php
+- src/company/pages/VoucherCreatePage.tsx
+- src/company/store/__tests__/routesMatrix.test.ts
+- scripts/company/page-crawl-phase01.mjs
+- docs/company/audit/raw/PHASE_01.log
+- docs/company/audit/raw/PHASE_01_CRAWL.txt
+
+UPDATE:
+- php/controllers/company.php (party category CRUD + memberships dispatch)
+- src/company/api/client.ts (category client methods)
+- src/company/pages/MastersPage.tsx (Categories tab)
+- src/company/CompanyApp.tsx (voucher-new → VoucherCreatePage)
+- src/company/pages/VouchersPage.tsx (+ New entry → /vouchers/new)
+- src/company/pages/QuickReceivedPage.tsx (?partyId= hydrate)
+- src/company/components/NewActionMenu.tsx (label "+ New")
+- scripts/company/certify-browser-auth.mjs (/create party/i; Record Receipt; reverse UI)
+- scripts/company/certify-product-browser.mjs (NEW_MENU locator + ensureCompanyOpen)
+- docs/company/whole-project-audit/20260924-004757/07_PAGE_MATRIX.md
+
+## Acceptance map
+- /masters/categories → CategoriesPanel (list/create/rename/delete-with-reason/assign/unassign); manage_parties write / view_dashboard read
+- /vouchers/new → entry chooser tiles → existing quick/bill routes (mobile full-screen sheet)
+- E2E locators fixed; suites green
+
+## Secrets
+No credentials written to PHASE_01.log. E2E users registered ephemerally for verification.

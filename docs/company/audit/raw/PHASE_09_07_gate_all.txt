@@ -1,0 +1,100 @@
+
+> sparowvault@0.1.0 company:gate:all
+> node scripts/company/gate-all.mjs
+
+
+===== company:gate:accounting =====
+  • [accounting] TS accounting unit …
+✅ TS accounting unit
+  • [accounting] PHP purpose/property/on-account …
+✅ PHP purpose/property/on-account
+  • [accounting] demo-certify …
+✅ demo-certify
+
+✅ company:gate:accounting passed
+
+===== company:gate:parties =====
+  • [parties] demo …
+✅ demo
+  • [parties] PHP domain …
+✅ PHP domain
+
+✅ company:gate:parties passed
+
+===== company:gate:vouchers =====
+  • [vouchers] demo …
+✅ demo
+  • [vouchers] PHP domain …
+✅ PHP domain
+
+✅ company:gate:vouchers passed
+
+===== company:gate:bills =====
+  • [bills] demo …
+✅ demo
+  • [bills] PHP domain …
+✅ PHP domain
+
+✅ company:gate:bills passed
+
+===== company:gate:reports =====
+  • [reports] reportEngine …
+✅ reportEngine
+  • [reports] TB/BS …
+✅ TB/BS
+
+✅ company:gate:reports passed
+
+===== company:gate:rbac =====
+  • [rbac] authz …
+✅ authz
+  • [rbac] IDOR matrix …
+✅ IDOR matrix
+
+✅ company:gate:rbac passed
+
+===== company:gate:security =====
+  • [security] IDOR …
+✅ IDOR
+  • [security] sensitive pin helper present …
+✅ sensitive pin helper present
+
+✅ company:gate:security passed
+
+===== company:gate:exports =====
+  • [exports] exports helper …
+✅ exports helper
+  • [exports] branded PDF/DOCX smoke …
+✅ branded PDF/DOCX smoke
+
+✅ company:gate:exports passed
+
+===== company:gate:migration =====
+  • [migration] probe …
+✅ probe
+  • [migration] restore drill checksum …
+✅ restore drill checksum
+
+✅ company:gate:migration passed
+
+===== company:gate:api =====
+  • [api] HTTP/domain E2E …
+✅ HTTP/domain E2E
+
+✅ company:gate:api passed
+
+===== company:gate:browser =====
+  • [browser] browser smoke A-N …
+✅ browser smoke A-N
+
+✅ company:gate:browser passed
+
+===== company:gate:performance =====
+  • [performance] indexes SQL …
+✅ indexes SQL
+  • [performance] perf generator smoke …
+✅ perf generator smoke
+
+✅ company:gate:performance passed
+
+✅ company:gate:all (12 pass)

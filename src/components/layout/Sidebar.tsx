@@ -157,7 +157,20 @@ export function Sidebar() {
         ))}
       </nav>
 
-      <div className="border-t border-border p-2">
+      <div className="border-t border-border p-2 space-y-1">
+        {!isAdminPortal ? (
+          <a
+            href="/company"
+            className={cn(
+              "flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-surface-2 hover:text-foreground",
+              collapsed && "justify-center px-2",
+            )}
+            title="Company Books"
+          >
+            <LandmarkIcon className="h-4 w-4 shrink-0" />
+            {!collapsed ? <span className="truncate">Company Books</span> : null}
+          </a>
+        ) : null}
         <Button
           variant="ghost"
           size="sm"

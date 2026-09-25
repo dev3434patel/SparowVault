@@ -1,0 +1,10 @@
+INTERACTIVE LATENCY 2026-09-24T13:55:41.439Z company=95eaa926-5908-49bd-be43-e8c5febf87a1 samples=7 warmup=2
+PASS workspaces p50=16ms p95=37ms budget=800ms HTTP=200
+PASS workspace p50=17ms p95=35ms budget=800ms HTTP=200
+PASS parties p50=37ms p95=46ms budget=1500ms HTTP=200
+PASS vouchers p50=80ms p95=124ms budget=2000ms HTTP=200
+PASS trial-balance p50=460ms p95=573ms budget=3000ms HTTP=200
+PASS profit-loss p50=209ms p95=343ms budget=3000ms HTTP=200
+PASS balance-sheet p50=476ms p95=516ms budget=3000ms HTTP=200
+PASS bills-ar p50=30ms p95=36ms budget=2000ms HTTP=200
+SUMMARY fail=0

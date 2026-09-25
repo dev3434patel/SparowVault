@@ -1,0 +1,47 @@
+BROWSER SMOKE 2026-09-24T17:23:37.616Z
+PASS src/company/pages/CreateCompanyPage.tsx
+PASS src/company/pages/PartiesPage.tsx
+PASS src/company/pages/LedgersPage.tsx
+PASS src/company/pages/VouchersPage.tsx
+PASS src/company/pages/QuickReceivedPage.tsx
+PASS src/company/pages/ReceivablesPage.tsx
+PASS src/company/pages/ReportsHubPage.tsx
+PASS src/company/pages/UsersPage.tsx
+PASS src/company/pages/ApprovalsPage.tsx
+PASS src/company/pages/AuditPage.tsx
+PASS src/company/pages/InviteAcceptPage.tsx
+PASS src/App.tsx
+PASS App.tsx company lock+PIN gate
+
+--- Journeys A–N (structural) ---
+PASS Journey A: Create company + seeded COA → src/company/pages/CreateCompanyPage.tsx (/company/create)
+PASS Journey B: Select / gateway → src/company/pages/SelectCompanyPage.tsx (/company/select)
+PASS Journey C: Dashboard → src/company/pages/DashboardPage.tsx (/company/app)
+PASS Journey D: Parties list + create → src/company/pages/PartiesPage.tsx (/company/app/parties)
+PASS Journey E: Ledgers live COA → src/company/pages/LedgersPage.tsx (/company/app/ledgers)
+PASS Journey F: Voucher browser → src/company/pages/VouchersPage.tsx (/company/app/vouchers)
+PASS Journey G: Quick received preview → src/company/pages/QuickReceivedPage.tsx (/company/app/quick/received)
+PASS Journey H: Quick paid → src/company/pages/QuickPaidPage.tsx (/company/app/quick/paid)
+PASS Journey I: Receivables AR → src/company/pages/ReceivablesPage.tsx (/company/app/receivables)
+PASS Journey J: Payables AP → src/company/pages/PayablesPage.tsx (/company/app/payables)
+PASS Journey K: Reports hub → src/company/pages/ReportsHubPage.tsx (/company/app/reports)
+PASS Journey L: Approvals → src/company/pages/ApprovalsPage.tsx (/company/app/approvals)
+PASS Journey M: Audit + Export + Search → src/company/pages/AuditPage.tsx (/company/app/audit)
+PASS Journey N: Settings / period locks + lock gate → src/company/pages/UsersPage.tsx (/company/app/settings)
+
+LIVE_URL http://localhost:5173
+PASS LIVE A HTTP 200 /company/create
+PASS LIVE B HTTP 200 /company/select
+PASS LIVE C HTTP 200 /company/app
+PASS LIVE D HTTP 200 /company/app/parties
+PASS LIVE E HTTP 200 /company/app/ledgers
+PASS LIVE F HTTP 200 /company/app/vouchers
+PASS LIVE G HTTP 200 /company/app/quick/received
+PASS LIVE H HTTP 200 /company/app/quick/paid
+PASS LIVE I HTTP 200 /company/app/receivables
+PASS LIVE J HTTP 200 /company/app/payables
+PASS LIVE K HTTP 200 /company/app/reports
+PASS LIVE L HTTP 200 /company/app/approvals
+PASS LIVE M HTTP 200 /company/app/audit
+PASS LIVE N HTTP 200 /company/app/settings
+LIVE_A_N PASS

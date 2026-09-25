@@ -1,0 +1,67 @@
+PHASE_00 — Foundation hygiene + logout isolation
+Timestamp: 2026-09-24T01:15:00+05:30
+
+## Objective
+Clean foundation before product work. Zero feature behavior change.
+Dead-code removal + logout company-store isolation + audit-ready commit baseline.
+
+## Commands run
+- npm run company:test
+- npm run company:gate:all
+- rg PlaceholderPage / flattenCoaSeedLedgers / gate-accounting under src/
+- Secret pattern scan over company domain (exclude CERT_E2E_CREDENTIALS*)
+- git check-ignore on credentials, dist, .env, audit logs
+
+## Results
+- PlaceholderPage / flattenCoaSeedLedgers / gate-accounting: 0 hits under src/
+- gate-accounting.mjs DELETED (subset of company:gate:accounting via gate-specialized.mjs; npm already wired to specialized)
+- company:test → 33/33 passed (31 prior + 2 logout isolation)
+- company:gate:all → 12/12 pass
+- SECRET_SCAN: CLEAN for real credentials (one evidence-log false-positive mentioning fixture mysql://user:fixture-secret@… refusal test)
+- CERT_E2E_CREDENTIALS.txt ignored by .gitignore
+- docs/company/audit/raw/*.log force-tracked via negation of global *.log
+
+## Files touched
+DELETE:
+- src/company/pages/PlaceholderPage.tsx
+- scripts/company/gate-accounting.mjs
+- flattenCoaSeedLedgers export (coaSeed.ts)
+
+UPDATE:
+- src/company/store/companyStore.ts (clearCompanyScopedStorage + clear wipes sv:company:*)
+- src/components/providers/AppProviders.tsx (clear company on logout / no user)
+- src/company/CompanyProviders.tsx (clear when currentUser null)
+- package.json (company:test includes store/__tests__)
+- .gitignore (credentials ignore + audit log allow)
+
+CREATE:
+- src/company/store/__tests__/logoutIsolation.test.ts
+- docs/company/audit/raw/README.md
+- docs/company/audit/raw/.gitkeep
+- docs/company/audit/raw/PHASE_00.log
+
+## .gitignore sanity
+MUST IGNORE:
+- .env / .env.*
+- /dist/
+- **/CERT_E2E_CREDENTIALS.txt
+- docs/company/**/raw/*CREDENTIAL*
+
+MUST TRACK (company domain baseline):
+- src/company/**
+- api/company/**
+- php/helpers/company/**
+- php/controllers/company.php
+- scripts/company/** (minus deleted gate-accounting)
+- config/company-purpose-rules.json
+- config/company-report-registry.json
+- sql/migrations/20260923_company_*.sql
+- docs/company/** (except credential raw files)
+- package.json / src/App.tsx / Sidebar.tsx / tsconfig.json / AppProviders.tsx (company wiring)
+- .gitignore
+
+## Secrets scan
+No DB creds, PINs, or tokens staged. CERT_E2E_CREDENTIALS.txt remains untracked/ignored.
+
+## Logout isolation
+After clear()/logout path: no sv:company:* key readable; in-memory memberships/permissions/workspace/activeCompanyId wiped; i18n + session keys persist; second-user boot cannot see first-user company context.

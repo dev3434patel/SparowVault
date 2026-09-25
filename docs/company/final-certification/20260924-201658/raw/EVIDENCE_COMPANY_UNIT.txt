@@ -1,0 +1,32 @@
+
+> sparowvault@0.1.0 company:test
+> vitest run src/company/services/__tests__ src/company/store/__tests__ src/company/i18n/__tests__
+
+
+ RUN  v4.1.11 D:/Claude/SparowVault
+
+ ✓ src/company/store/__tests__/clientEndpointParity.test.ts (2 tests) 13ms
+ ✓ src/company/store/__tests__/routesMatrix.test.ts (2 tests) 8ms
+ ✓ src/company/services/__tests__/categoryAggregation.test.ts (2 tests) 7ms
+ ✓ src/company/services/__tests__/voucherBalance.test.ts (3 tests) 8ms
+ ✓ src/company/services/__tests__/purposeEngine.test.ts (3 tests) 7ms
+ ✓ src/company/i18n/__tests__/dashboardGuSmoke.test.ts (1 test) 16ms
+ ✓ src/company/services/__tests__/reportEngine.test.ts (4 tests) 22ms
+ ✓ src/company/services/__tests__/purposeParity.test.ts (28 tests) 22ms
+ ✓ src/company/services/__tests__/scenarios.test.ts (10 tests) 12ms
+ ✓ src/company/services/__tests__/invariants.test.ts (7 tests) 26ms
+ ✓ src/company/i18n/__tests__/i18n.test.ts (10 tests) 39ms
+ ✓ src/company/services/__tests__/propertyVouchers.test.ts (2 tests) 35ms
+ ✓ src/company/store/__tests__/logoutIsolation.test.ts (2 tests) 6ms
+
+ Test Files  13 passed (13)
+      Tests  76 passed (76)
+   Start at  22:36:55
+   Duration  925ms (transform 2.34s, setup 0ms, import 3.33s, tests 221ms, environment 2ms)
+
+stderr | src/company/i18n/__tests__/i18n.test.ts > company i18n t() fallback > falls back to English when gu key missing
+[i18n] missing key "only.en" for locale "gu", using en
+
+stderr | src/company/i18n/__tests__/i18n.test.ts > company i18n t() fallback > falls back to key itself when missing everywhere
+[i18n] missing key "totally.missing.key" in all locales
+

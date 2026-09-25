@@ -1,0 +1,33 @@
+PHASE_13 2026-09-24T18:56Z
+OBJECTIVE: six P2 evidence files, each with command output. No waivers.
+
+1. LOC — node scripts/company/phase13-loc.mjs
+   docs/company/audit/raw/PHASE_13_loc.txt
+   files_scanned=102 files_over_400=0
+   Split posting.php and reports.php into focused includes; moved PurposeCode and CompanyPermission to src/company/types/domainCodes.ts (re-exported).
+   php -l clean. npm run company:test:php → ALL PHP ACCOUNTING TESTS PASSED (docs/company/audit/raw/PHASE_13_php_split.txt)
+
+2. Dead code — node scripts/company/phase13-dead-code.mjs
+   docs/company/audit/raw/PHASE_13_dead_code.txt
+   page_files=31 DEAD_CODE unreachable=0
+   Removed unrouted re-export src/company/pages/VoucherDetailPage.tsx (live route imports VouchersPage).
+
+3. StatusBadge — npx vitest run src/company/components/__tests__/statusBadge.test.ts
+   docs/company/audit/raw/PHASE_13_status_badge.txt
+   Tests 2 passed. PASS every BadgeStatus member has an explicit STATUS_TONE.
+
+4. Banners — node scripts/company/phase13-banners-approvals.mjs
+   docs/company/audit/raw/PHASE_13_banners.txt
+   PASS dashboard loading region. PASS export 403 sentence: You don't have permission to export this report.
+
+5. Export UX — npm run company:test:browser:auth (full A–N; script has no single-step mode)
+   docs/company/audit/raw/PHASE_13_export_ux.txt
+   PASS M Export page formats — pdf=true xlsx=true
+   A–N all PASS. AN_EXIT=0
+
+6. Approvals impact — same browser script
+   docs/company/audit/raw/PHASE_13_approvals_impact.txt
+   PASS approvals:cash-impact — No cash/bank impact
+   Seeded pending journal HTTP 201 when the list had no impact row.
+
+PHASE_13 OVERALL PASS

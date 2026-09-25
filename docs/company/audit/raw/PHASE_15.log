@@ -1,0 +1,22 @@
+PHASE_15 2026-09-25T00:28+05:30
+ROLE: independent auditor. Labels taken only from raw artifacts. Prior scorecard 20260924-235300 not inherited.
+
+Scorecard: docs/company/audit/FINAL_CERTIFICATION_20260925-002819.md
+
+ACCOUNTING CORE CERTIFIED: YES
+  gates PHASE_09_07 12 pass
+  A-N PHASE_13_export_ux.txt pdf=true xlsx=true AN_EXIT=0
+  100k PHASE_09_16 PERF 100K MATRIX PASS
+  PHASE_11 PHASE_12 PHASE_13 OVERALL PASS
+
+COMPANY PRODUCT COMPLETE: YES
+  axe PHASE_11 serious_critical=0
+  i18n PHASE_12 parity 380/380 and crawl persistence PASS
+  six P2 files PHASE_13 PASS
+  personal PHASE_14 21 pass · 0 warn · 0 skip
+
+COMPANY PRODUCTION READY: NOT ISSUED in this phase (staging HTTPS absent)
+
+Code prompting stops after Phase 16 operator decision.
+
+PHASE_15 OVERALL PASS

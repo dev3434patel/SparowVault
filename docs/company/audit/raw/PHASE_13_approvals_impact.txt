@@ -1,0 +1,6 @@
+command=node scripts/company/phase13-banners-approvals.mjs
+BASE=http://localhost:5173 USER=cert_211549
+PASS approvals:seed — HTTP 201 pending journal companyId=631ae018-a2ba-469f-a819-94112631084d voucherId=a51a28bd-4b02-405c-af4f-66a01bc1e77c
+PASS approvals:cash-impact — No cash/bank impact
+PHASE13 BROWSER SUMMARY fail=0
+PHASE_13_APPROVALS_IMPACT PASS

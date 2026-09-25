@@ -1,0 +1,3 @@
+﻿EVIDENCE_COMPANY_PHP
+php scripts/company/php-tests/run-accounting.php PASS
+php scripts/company/demo-certify.php PASS

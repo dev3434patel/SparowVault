@@ -1,0 +1,25 @@
+PASS login:focus-username
+PASS login:tab-to-submit
+PASS login:enter-submit — http://localhost:5173/company/select
+PASS select:tab-to-company
+PASS select:on-dashboard — http://localhost:5173/company/app
+PASS no-trap:dashboard — BODY→BUTTON
+PASS dashboard:reachable
+PASS dashboard:focus-visible
+PASS new-menu:enter-opens
+PASS new-menu:escape-closes
+PASS new-menu:space-opens
+PASS receipt:tab-to-action — form-reachable
+PASS party:tab-to-save
+PASS party:focus-visible
+PASS party:form-keyboard
+PASS journal:reachable — http://localhost:5173/company/app/quick/journal
+PASS lock:focus-visible
+PASS lock:reachable — focus-ok
+PASS sheet:open-enter
+PASS sheet:tab-inside
+PASS sheet:escape-closes
+PASS logout:keyboard — http://localhost:5173/company/login
+
+KEYBOARD SUMMARY pass=22 fail=0 total=22
+

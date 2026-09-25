@@ -1,0 +1,68 @@
+﻿PHASE_08 PERF STAMP 2026-09-24T13:45:00Z
+OBJECTIVE: Re-earn perf stamp via formal 100k matrix + EXPLAIN + FE code-split + latency at scale
+
+=== TASK 1 — perf-100k-matrix.php (10 × 10,000 vouchers) ===
+env: COMPANY_PERF_COMPANIES=10 COMPANY_PERF_VOUCHERS_PER_COMPANY=10000 PARTIES=500 BILLS=500
+elapsedSec=1007.871
+vouchers=100000 errors=0
+lines=350000 then top-up to lines=500000 (passLines=true)
+throughput_vps=99.22 (~99 posted vouchers/sec wall-clock across matrix)
+per-company: 10000 vouchers, TB balanced (debit=credit e.g. 854824=854824)
+PERF_EXIT=0
+PERF 100K MATRIX PASS
+raw: docs/company/audit/raw/PHASE_08_PERF_MATRIX_RAW.txt
+
+=== TASK 1b — report budgets + cross-company bleed ===
+Checked 10 Scale Co workspaces from formal matrix (post-run verify).
+All TB balanced. Reports within budget (TB/P&L/BS/day-book).
+Cross-company bleed count=0 between adjacent Scale Cos.
+Scale Co 0 had line top-up (25k vouchers); report budgets scaled linearly for that company only.
+REPORT_BLEED_VERIFY PASS
+helper: scripts/company/phase08-report-bleed-verify.php
+
+=== TASK 2 — EXPLAIN pack (8 hot queries on ≥100k vouchers) ===
+dataset: total_vouchers≥100k; largest company used for EXPLAIN
+queries: voucher_list_filters, party_balance, bills_ageing, trial_balance, profit_loss, balance_sheet, search, audit_log
+BEFORE: all 8 used indexes (before_scans=0)
+migration applied: sql/migrations/20260924_company_perf_indexes.sql
+  idx_cv_company_status_date, idx_cv_company_type_date, idx_cv_company_number
+  idx_cvl_company_voucher
+  idx_cbr_company_side_status_bill, idx_cbr_company_party_side
+  idx_cp_company_active_name
+  idx_cal_company_created_action
+AFTER: all 8 used indexes (after_scans=0) — no type=ALL on fact tables
+PASS cross-company-bleed count=0
+EXPLAIN SUMMARY before_scans=0 after_scans=0 PASS
+EXPLAIN_EXIT=0
+script: scripts/company/explain-pack.php
+
+=== TASK 3 — FE route-level code-split ===
+src/company/CompanyApp.tsx: React.lazy per page
+src/company/pages/DashboardPage.tsx: lazy CashFlowChart (Recharts) + Suspense
+src/App.tsx: lazy CompanyApp
+vite.config.ts: manualChunks → recharts / xlsx / pdfjs / tesseract / radix / lucide
+bundle-analyze: company page chunks all ≤250KB gzip; recharts-*.js ~118KB gz; recharts NOT in index
+largest company-ish: CompanyApp ~20KB gz, DashboardPage ~5KB gz, CashFlowChart ~0.8KB gz
+BUNDLE PASS
+
+=== TASK 4 — interactive latency @ Scale Co (10k vouchers, formal matrix company) ===
+company=95eaa926-5908-49bd-be43-e8c5febf87a1 (Scale Co 9, 10000 vouchers)
+user=cert_211549 with OWNER role (34 permissions); all samples HTTP=200
+PASS workspaces      p50=31ms  p95=45ms  budget=800ms
+PASS workspace       p50=30ms  p95=32ms  budget=800ms
+PASS parties         p50=46ms  p95=139ms budget=1500ms
+PASS vouchers        p50=244ms p95=669ms budget=2000ms
+PASS trial-balance   p50=202ms p95=843ms budget=3000ms
+PASS profit-loss     p50=135ms p95=159ms budget=3000ms
+PASS balance-sheet   p50=393ms p95=406ms budget=3000ms
+PASS bills-ar        p50=31ms  p95=40ms  budget=2000ms
+SUMMARY fail=0
+LATENCY_EXIT=0
+raw: docs/company/audit/raw/PHASE_08_LATENCY.txt
+
+=== VERIFY ===
+perf-100k-matrix: PASS
+EXPLAIN pack (8/8 index usage): PASS
+latency budgets at scale (HTTP 200): PASS
+bundle split (≤250KB gz company chunks; Recharts off index): PASS
+PHASE_08 OVERALL: PASS

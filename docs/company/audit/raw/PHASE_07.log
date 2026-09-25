@@ -1,0 +1,82 @@
+﻿PHASE_07 I18N 2026-09-24T18:46:01.4104155+05:30
+VERIFY: company:test=0 (76 tests) i18n-audit=0 (380/380) crawl=0 (46/46)
+ACCEPTANCE:
+- Toggle switches instantly (no reload); spv.lang persists across logout/login and company switch
+- en/gu key parity 100%
+- 21 pages crawled in en + gu
+- Numbers/Rs/purpose codes unchanged (scope rules)
+- Future: preferred_locale on company_memberships (not in this phase)
+
+i18n-audit 2026-09-24T13:16:01.479Z
+en keys=380 gu keys=380
+PASS en/gu key parity 100%
+
+
+CRAWL SUMMARY pass=46 fail=0
+A11Y/I18N SCORE: PHASE_07 complete
+
+i18n-audit 2026-09-24T15:24:24.206Z
+en keys=380 gu keys=380
+PASS en/gu key parity 100%
+
+i18n-audit 2026-09-24T18:46:23.424Z
+en keys=380 gu keys=380
+PASS en/gu key parity 100%
+
+
+--- I18N CRAWL 2026-09-24T18:46:32.164Z ---
+PASS login:has-company — http://localhost:5173/company/app
+PASS default:english-chrome — Dashboard visible before toggle
+PASS persist:after-gu — spv.lang=gu gujarati=true session=true
+PASS persist:after-en — spv.lang=en english=true
+PASS persist:reload — spv.lang=en kept=true
+PASS lang-chip:en — EN
+PASS crawl:en:/company/app
+PASS crawl:en:/company/app/parties
+PASS crawl:en:/company/app/parties/new
+PASS crawl:en:/company/app/vouchers
+PASS crawl:en:/company/app/vouchers/new
+PASS crawl:en:/company/app/quick/received
+PASS crawl:en:/company/app/quick/paid
+PASS crawl:en:/company/app/quick/transfer
+PASS crawl:en:/company/app/quick/journal
+PASS crawl:en:/company/app/receivables
+PASS crawl:en:/company/app/payables
+PASS crawl:en:/company/app/reports
+PASS crawl:en:/company/app/reports/trial-balance
+PASS crawl:en:/company/app/masters/business-units
+PASS crawl:en:/company/app/users
+PASS crawl:en:/company/app/approvals
+PASS crawl:en:/company/app/settings
+PASS crawl:en:/company/app/audit
+PASS crawl:en:/company/app/export
+PASS crawl:en:/company/app/search
+PASS crawl:en:/company/select
+PASS lang-chip:gu — ગુ
+PASS crawl:gu:/company/app
+PASS crawl:gu:/company/app/parties
+PASS crawl:gu:/company/app/parties/new
+PASS crawl:gu:/company/app/vouchers
+PASS crawl:gu:/company/app/vouchers/new
+PASS crawl:gu:/company/app/quick/received
+PASS crawl:gu:/company/app/quick/paid
+PASS crawl:gu:/company/app/quick/transfer
+PASS crawl:gu:/company/app/quick/journal
+PASS crawl:gu:/company/app/receivables
+PASS crawl:gu:/company/app/payables
+PASS crawl:gu:/company/app/reports
+PASS crawl:gu:/company/app/reports/trial-balance
+PASS crawl:gu:/company/app/masters/business-units
+PASS crawl:gu:/company/app/users
+PASS crawl:gu:/company/app/approvals
+PASS crawl:gu:/company/app/settings
+PASS crawl:gu:/company/app/audit
+PASS crawl:gu:/company/app/export
+PASS crawl:gu:/company/app/search
+PASS crawl:gu:/company/select
+PASS persist:spv.lang — gu
+CRAWL SUMMARY pass=50 fail=0
+i18n-audit 2026-09-24T20:42:32.240Z
+en keys=388 gu keys=388
+PASS en/gu key parity 100%
+

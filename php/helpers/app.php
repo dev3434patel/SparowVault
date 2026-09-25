@@ -41,6 +41,8 @@ function known_bad_jwt_secret_hashes(): array {
         "37a8eec1ce19687d724f86df8a2e0c2e11b07f2ad05449f4d0c0385f441f2e21",
         "50d858e0985ecc7f60418aaf0cc5ab587f42c2570a884095a9e8ccacccca4ac2",
         "fe04359a499858bd7a82ebe62437c1e78dcb740efc92ef774954a2ef2d465e60",
+        // .env.test.example CLOUD_JWT_SECRET=test-only-please-rotate (PHASE_10 denylist)
+        "db8df61b1150b1038ede772dc50763d16a3ae2d61340c2710fe2a5ab611de718",
     ];
 }
 

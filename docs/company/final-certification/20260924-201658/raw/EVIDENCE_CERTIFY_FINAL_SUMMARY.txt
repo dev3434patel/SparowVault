@@ -1,0 +1,72 @@
+{
+  "stamp": "20260924-201658",
+  "label": "ACCOUNTING CORE CERTIFIED",
+  "log": [
+    {
+      "label": "company-unit",
+      "pass": true,
+      "status": 0,
+      "evidence": "docs\\company\\final-certification\\20260924-201658\\raw\\EVIDENCE_COMPANY_UNIT.txt"
+    },
+    {
+      "label": "company-php",
+      "pass": true,
+      "status": 0,
+      "evidence": "docs\\company\\final-certification\\20260924-201658\\raw\\EVIDENCE_COMPANY_PHP_DOMAIN.txt"
+    },
+    {
+      "label": "company-http",
+      "pass": true,
+      "status": 0,
+      "evidence": "docs\\company\\final-certification\\20260924-201658\\raw\\EVIDENCE_COMPANY_API_E2E.txt"
+    },
+    {
+      "label": "company-idor",
+      "pass": true,
+      "status": 0,
+      "evidence": "docs\\company\\final-certification\\20260924-201658\\raw\\EVIDENCE_COMPANY_IDOR.txt"
+    },
+    {
+      "label": "category-agg",
+      "pass": true,
+      "status": 0,
+      "evidence": "docs\\company\\final-certification\\20260924-201658\\raw\\EVIDENCE_CATEGORY_AGGREGATION.txt"
+    },
+    {
+      "label": "security-matrix",
+      "pass": true,
+      "status": 0,
+      "evidence": "docs\\company\\final-certification\\20260924-201658\\raw\\EVIDENCE_COMPANY_SECURITY_FULL.txt"
+    },
+    {
+      "label": "backup-restore",
+      "pass": true,
+      "status": 0,
+      "evidence": "docs\\company\\final-certification\\20260924-201658\\raw\\EVIDENCE_COMPANY_BACKUP_RESTORE.txt"
+    },
+    {
+      "label": "browser-auth-a-n",
+      "pass": true,
+      "status": 0,
+      "evidence": "docs\\company\\final-certification\\20260924-201658\\raw\\EVIDENCE_COMPANY_BROWSER_AUTH_A_N.txt"
+    },
+    {
+      "label": "company-gate-all",
+      "pass": true,
+      "status": 0,
+      "evidence": "docs\\company\\final-certification\\20260924-201658\\raw\\EVIDENCE_COMPANY_FINAL_GATES.txt"
+    },
+    {
+      "label": "personal-regression",
+      "pass": true,
+      "status": 0,
+      "evidence": "docs\\company\\final-certification\\20260924-201658\\raw\\EVIDENCE_PERSONAL_REGRESSION.txt"
+    },
+    {
+      "label": "100k-matrix",
+      "pass": true,
+      "status": 0,
+      "evidence": "docs\\company\\final-certification\\20260924-201658\\raw\\EVIDENCE_COMPANY_100K_PERFORMANCE.txt"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+
+Warning: Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+PASS csrf_require_for_mutations exists
+PASS csrf_issue_token exists
+PASS apply_cors_headers exists
+PASS rate_limit_guard exists
+PASS company controller uses prepared statements (no raw GET concat query)
+PASS export XML/HTML escaping present
+PASS API bootstrap enforces CSRF on mutations
+PASS login rate_limit_guard present
+PASS voucher-post uses company/api bootstrap chain
+PASS search.php filters domains by view_* / FORBIDDEN
+PASS search.php gates vouchers+ledgers
+PASS voucher-item GET requires view_day_book
+PASS voucher-preview uses company_can_preview_voucher
+PASS exports enforce report view_* permission
+PASS period-locks GET requires view_dashboard
+PASS deprecated purposes rejected in posting
+PASS shared create/preview permission helper
+PASS report view_* map lives in reports.php
+PASS XSS payload stored as data (UI must escape)
+PASS DOCX export does not embed raw executable HTML script tag
+PASS live login for CSRF matrix HTTP 200
+PASS session cookie issued
+PASS csrf token available (cookie or body)
+PASS no session → mutation denied (HTTP 401)
+PASS valid session + missing CSRF → denied (HTTP 403)
+PASS valid session + wrong CSRF → denied (HTTP 403)
+PASS valid session + valid CSRF → not CSRF-denied (HTTP 422 — domain errors OK)
+PASS CORS preflight allowed origin localhost:5173
+PASS CORS unknown origin not reflected
+PASS CORS Origin null not reflected
+PASS SQLi search probe does not cause SQL syntax error (HTTP 403)
+PASS rate-limit login exercised hits=5 blocked429=no-window-not-exhausted
+SECURITY MATRIX PASS
+PHP Warning:  Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0

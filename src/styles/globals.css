@@ -13,10 +13,10 @@
   --popover: 0 0% 100%;
   --popover-foreground: 222 22% 12%;
 
-  /* Text */
+  /* Text — muted is a soft surface; muted-foreground must hit ≥4.5:1 on bg/card/muted */
   --foreground: 222 22% 12%;
-  --muted: 215 16% 47%;
-  --muted-foreground: 215 16% 38%;
+  --muted: 210 18% 94%;
+  --muted-foreground: 215 16% 32%;
 
   /* Borders / rings */
   --border: 214 20% 88%;
@@ -74,31 +74,33 @@
   --popover-foreground: 210 30% 96%;
 
   --foreground: 210 30% 96%;
-  --muted: 215 15% 60%;
-  --muted-foreground: 215 18% 70%;
+  /* Soft surface (not mid-gray text) so badge/chip bg + muted-foreground pass WCAG AA */
+  --muted: 224 16% 16%;
+  --muted-foreground: 215 14% 78%;
 
-  --border: 224 16% 18%;
-  --border-strong: 224 14% 26%;
-  --input: 224 16% 18%;
-  --ring: 221 92% 62%;
+  --border: 224 16% 22%;
+  --border-strong: 224 14% 30%;
+  --input: 224 16% 22%;
+  --ring: 221 92% 68%;
 
-  --primary: 221 92% 62%;
+  --primary: 221 92% 66%;
   --primary-foreground: 224 24% 6%;
-  --accent: 258 85% 70%;
+  --accent: 258 85% 72%;
   --accent-foreground: 224 24% 6%;
 
-  --income: 152 60% 55%;
-  --income-soft: 152 40% 16%;
-  --expense: 358 80% 66%;
-  --expense-soft: 358 55% 18%;
-  --warning: 38 92% 60%;
-  --warning-soft: 38 50% 16%;
-  --info: 217 92% 65%;
-  --info-soft: 217 60% 18%;
-  --goal: 266 85% 72%;
-  --goal-soft: 266 50% 20%;
-  --success: 152 60% 55%;
-  --danger: 358 80% 66%;
+  /* Semantic text on *-soft backgrounds ≥4.5:1 */
+  --income: 152 55% 62%;
+  --income-soft: 152 35% 14%;
+  --expense: 358 78% 72%;
+  --expense-soft: 358 45% 14%;
+  --warning: 38 92% 68%;
+  --warning-soft: 38 40% 14%;
+  --info: 217 90% 72%;
+  --info-soft: 217 45% 14%;
+  --goal: 266 80% 76%;
+  --goal-soft: 266 40% 16%;
+  --success: 152 55% 62%;
+  --danger: 358 78% 72%;
 
   --chart-1: 221 92% 65%;
   --chart-2: 152 60% 55%;

@@ -1,0 +1,10 @@
+INTERACTIVE LATENCY 2026-09-24T13:44:33.792Z company=95eaa926-5908-49bd-be43-e8c5febf87a1 samples=7
+PASS workspaces p50=31ms p95=45ms budget=800ms HTTP=200
+PASS workspace p50=30ms p95=32ms budget=800ms HTTP=200
+PASS parties p50=46ms p95=139ms budget=1500ms HTTP=200
+PASS vouchers p50=244ms p95=669ms budget=2000ms HTTP=200
+PASS trial-balance p50=202ms p95=843ms budget=3000ms HTTP=200
+PASS profit-loss p50=135ms p95=159ms budget=3000ms HTTP=200
+PASS balance-sheet p50=393ms p95=406ms budget=3000ms HTTP=200
+PASS bills-ar p50=31ms p95=40ms budget=2000ms HTTP=200
+SUMMARY fail=0

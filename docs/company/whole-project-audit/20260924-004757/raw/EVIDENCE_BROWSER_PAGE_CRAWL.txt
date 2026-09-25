@@ -1,0 +1,15 @@
+BROWSER PAGE CRAWL 20260924-004757
+User: cert_211549
+Company: Product Co muehu79g
+Viewport: mobile shell (bottom nav visible)
+
+CONFIRMED:
+- /parties LIVE empty state
+- /quick/received LIVE purposes + Record Receipt
+- /receivables /payables LIVE ageing buckets
+- /reports LIVE hub (management reports disabled not listed as Ready)
+- /vouchers LIVE; /vouchers/new SAME LIST (PARTIAL)
+- /masters/categories FALLS TO business-units (FAIL product)
+- /users /approvals /settings /audit /export /search /ledgers LIVE
+- /quick/transfer /journal LIVE with profit hints
+- Header New button present on dashboard

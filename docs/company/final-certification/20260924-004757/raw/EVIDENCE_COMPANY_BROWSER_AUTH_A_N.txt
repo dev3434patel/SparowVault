@@ -1,0 +1,53 @@
+AUTHENTICATED BROWSER A–N 2026-09-23T19:25:47.095Z
+BASE=http://localhost:5173
+USER=cert_211549
+
+PASS A Create company → dashboard url=http://localhost:5173/company/app api=true name=Cert Co muehsvwu
+FAIL X Suite aborted TimeoutError: locator.click: Timeout 30000ms exceeded.
+Call log:
+  - waiting for getByRole('button', { name: /^create$/i })
+
+
+SUMMARY pass=1 fail=1
+
+API_HITS_SAMPLE
+GET 401 http://localhost:8080/api/auth/me.php
+GET 401 http://localhost:8080/api/auth/me.php
+GET 401 http://localhost:8080/api/auth/me.php
+GET 401 http://localhost:8080/api/auth/me.php
+POST 200 http://localhost:8080/api/auth/login.php
+POST 200 http://localhost:8080/api/auth/login.php
+GET 200 http://localhost:8080/api/auth/me.php
+GET 200 http://localhost:8080/api/auth/me.php
+GET 200 http://localhost:8080/api/company/workspaces.php
+GET 200 http://localhost:8080/api/company/workspaces.php
+GET 200 http://localhost:8080/api/company/workspace.php?companyId=631ae018-a2ba-469f-a819-94112631084d
+GET 200 http://localhost:8080/api/company/workspaces.php
+GET 200 http://localhost:8080/api/company/workspace.php?companyId=631ae018-a2ba-469f-a819-94112631084d
+GET 200 http://localhost:8080/api/auth/me.php
+GET 200 http://localhost:8080/api/auth/me.php
+GET 200 http://localhost:8080/api/auth/me.php
+GET 200 http://localhost:8080/api/company/workspaces.php
+GET 200 http://localhost:8080/api/auth/me.php
+GET 200 http://localhost:8080/api/company/workspaces.php
+GET 200 http://localhost:8080/api/company/workspace.php?companyId=631ae018-a2ba-469f-a819-94112631084d
+GET 200 http://localhost:8080/api/auth/me.php
+GET 200 http://localhost:8080/api/company/workspace.php?companyId=631ae018-a2ba-469f-a819-94112631084d
+POST 201 http://localhost:8080/api/company/workspace-create.php
+GET 200 http://localhost:8080/api/company/workspaces.php
+GET 200 http://localhost:8080/api/company/approvals.php?companyId=e83d58d4-ae86-4006-ac21-29c0be33208a
+GET 200 http://localhost:8080/api/company/reports.php?companyId=e83d58d4-ae86-4006-ac21-29c0be33208a&report=trial-balance&asOf=2026-09-23
+GET 200 http://localhost:8080/api/company/bills.php?companyId=e83d58d4-ae86-4006-ac21-29c0be33208a&side=RECEIVABLE
+GET 200 http://localhost:8080/api/auth/me.php
+GET 200 http://localhost:8080/api/auth/me.php
+GET 200 http://localhost:8080/api/auth/me.php
+GET 200 http://localhost:8080/api/company/workspaces.php
+GET 200 http://localhost:8080/api/auth/me.php
+GET 200 http://localhost:8080/api/company/workspaces.php
+GET 200 http://localhost:8080/api/company/workspace.php?companyId=e83d58d4-ae86-4006-ac21-29c0be33208a
+GET 200 http://localhost:8080/api/auth/me.php
+GET 200 http://localhost:8080/api/company/workspace.php?companyId=e83d58d4-ae86-4006-ac21-29c0be33208a
+GET 200 http://localhost:8080/api/company/approvals.php?companyId=e83d58d4-ae86-4006-ac21-29c0be33208a
+GET 200 http://localhost:8080/api/company/approvals.php?companyId=e83d58d4-ae86-4006-ac21-29c0be33208a
+GET 200 http://localhost:8080/api/company/parties.php?companyId=e83d58d4-ae86-4006-ac21-29c0be33208a
+GET 200 http://localhost:8080/api/company/parties.php?companyId=e83d58d4-ae86-4006-ac21-29c0be33208a

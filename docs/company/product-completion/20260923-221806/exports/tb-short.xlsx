@@ -1,0 +1,6 @@
+# SparowVault Company — trial-balance-short
+# Generated 2026-09-24T17:04:10+00:00
+# Note: XLSX-compatible CSV (open in Excel)
+ledger,debit,credit,narration
+Cash,100000,0,Opening
+Bank,0,100000,Transfer

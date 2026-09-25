@@ -1,0 +1,223 @@
+PHASE_09 CERTIFICATION RUN stamp=20260924-201658 2026-09-24T14:49:02.433Z
+USER=cert_211549 BASEURL=http://localhost:5173
+
+===== STEP 1: company:test =====
+START 2026-09-24T14:49:02.443Z
+CMD npm run company:test
+END 2026-09-24T14:49:04.922Z EXIT=0 elapsedMs=2477 raw=PHASE_09_01_vitest.txt
+STEP 1 PASS (2.5 sec)
+
+===== STEP 2: company:test:php =====
+START 2026-09-24T14:49:04.922Z
+CMD npm run company:test:php
+END 2026-09-24T14:49:06.605Z EXIT=0 elapsedMs=1681 raw=PHASE_09_02_php.txt
+STEP 2 PASS (1.7 sec)
+
+===== STEP 3: company:test:http =====
+START 2026-09-24T14:49:06.609Z
+CMD npm run company:test:http
+END 2026-09-24T14:49:07.703Z EXIT=0 elapsedMs=1093 raw=PHASE_09_03_http.txt
+STEP 3 PASS (1.1 sec)
+
+===== STEP 4: company:test:idor =====
+START 2026-09-24T14:49:07.704Z
+CMD npm run company:test:idor
+END 2026-09-24T14:49:08.528Z EXIT=0 elapsedMs=824 raw=PHASE_09_04_idor.txt
+STEP 4 PASS (0.8 sec)
+
+===== STEP 5: security-matrix =====
+START 2026-09-24T14:49:08.529Z
+CMD php scripts/company/security-matrix.php
+END 2026-09-24T14:49:09.521Z EXIT=0 elapsedMs=991 raw=PHASE_09_05_security.txt
+STEP 5 PASS (1.0 sec)
+
+===== STEP 6: company:test:hydrate =====
+START 2026-09-24T14:49:09.522Z
+CMD npm run company:test:hydrate
+END 2026-09-24T14:49:15.709Z EXIT=0 elapsedMs=6185 raw=PHASE_09_06_hydrate.txt
+STEP 6 PASS (6.2 sec)
+
+===== STEP 7: company:gate:all =====
+START 2026-09-24T14:49:15.710Z
+CMD npm run company:gate:all
+END 2026-09-24T14:50:25.897Z EXIT=1 elapsedMs=70185 raw=PHASE_09_07_gate_all.txt
+STEP 7 FAIL
+HALT at step 7 — fix red before continuing
+
+RESUME from step 7 2026-09-24T14:51:08.973Z
+
+===== STEP 7: company:gate:all =====
+START 2026-09-24T14:51:08.976Z
+CMD npm run company:gate:all
+END 2026-09-24T14:52:46.439Z EXIT=0 elapsedMs=97451 raw=PHASE_09_07_gate_all.txt
+STEP 7 PASS (97.5 sec)
+
+===== STEP 8: company:test:backup =====
+START 2026-09-24T14:52:46.447Z
+CMD npm run company:test:backup
+END 2026-09-24T14:56:39.973Z EXIT=0 elapsedMs=233524 raw=PHASE_09_08_backup.txt
+STEP 8 PASS (233.5 sec)
+
+===== STEP 9: company:test:export:fidelity =====
+START 2026-09-24T14:56:39.975Z
+CMD npm run company:test:export:fidelity
+END 2026-09-24T14:56:40.720Z EXIT=0 elapsedMs=744 raw=PHASE_09_09_export_fidelity.txt
+STEP 9 PASS (0.7 sec)
+
+===== STEP 10: company:test:latency =====
+START 2026-09-24T14:56:40.721Z
+CMD npm run company:test:latency
+END 2026-09-24T14:56:42.589Z EXIT=1 elapsedMs=1866 raw=PHASE_09_10_latency.txt
+STEP 10 FAIL
+HALT at step 10 — fix red before continuing
+
+RESUME from step 10 2026-09-24T14:58:08.953Z
+
+===== STEP 10: company:test:latency =====
+START 2026-09-24T14:58:08.957Z
+CMD node scripts/company/phase09-latency-wrap.mjs
+END 2026-09-24T14:58:21.561Z EXIT=0 elapsedMs=12602 raw=PHASE_09_10_latency.txt
+STEP 10 PASS (12.6 sec)
+
+===== STEP 11: company:test:browser:auth =====
+START 2026-09-24T14:58:21.562Z
+CMD npm run company:test:browser:auth
+END 2026-09-24T14:59:26.891Z EXIT=0 elapsedMs=65328 raw=PHASE_09_11_browser_auth.txt
+STEP 11 PASS (65.3 sec)
+
+===== STEP 12: company:test:product:browser =====
+START 2026-09-24T14:59:26.892Z
+CMD npm run company:test:product:browser
+END 2026-09-24T14:59:47.715Z EXIT=0 elapsedMs=20823 raw=PHASE_09_12_product_browser.txt
+STEP 12 PASS (20.8 sec)
+
+===== STEP 13: viewport-matrix =====
+START 2026-09-24T14:59:47.716Z
+CMD node scripts/company/viewport-matrix.mjs
+END 2026-09-24T15:02:44.393Z EXIT=1 elapsedMs=176675 raw=PHASE_09_13_viewport.txt
+STEP 13 FAIL
+HALT at step 13 — fix red before continuing
+
+RESUME from step 13 2026-09-24T15:04:07.803Z
+
+===== STEP 13: viewport-matrix =====
+START 2026-09-24T15:04:07.807Z
+CMD node scripts/company/viewport-matrix.mjs
+
+===== STEP 13: viewport-matrix (re-run) =====
+END 2026-09-24T20:54:10.2909578+05:30 EXIT=0
+STEP 13 PASS (168/168)
+
+
+RESUME from step 14 2026-09-24T15:24:10.580Z
+
+===== STEP 14: a11y-keyboard =====
+START 2026-09-24T15:24:10.583Z
+CMD node scripts/company/a11y-keyboard.mjs
+END 2026-09-24T15:24:24.127Z EXIT=0 elapsedMs=13542 raw=PHASE_09_14_a11y_keyboard.txt
+STEP 14 PASS (13.5 sec)
+
+===== STEP 15: i18n-audit =====
+START 2026-09-24T15:24:24.128Z
+CMD node scripts/company/i18n-audit.mjs
+END 2026-09-24T15:24:24.224Z EXIT=0 elapsedMs=94 raw=PHASE_09_15_i18n_audit.txt
+STEP 15 PASS (0.1 sec)
+
+===== STEP 16: perf-100k-matrix =====
+START 2026-09-24T15:24:24.224Z
+CMD php scripts/company/perf-100k-matrix.php
+END 2026-09-24T15:27:50.525Z EXIT=1 elapsedMs=206299 raw=PHASE_09_16_perf_100k.txt
+STEP 16 FAIL
+HALT at step 16 — fix red before continuing
+
+RESUME from step 16 2026-09-24T15:28:52.734Z
+
+===== STEP 16: perf-100k-matrix =====
+START 2026-09-24T15:28:52.738Z
+CMD php scripts/company/perf-100k-matrix.php
+END 2026-09-24T15:30:45.311Z EXIT=1 elapsedMs=112571 raw=PHASE_09_16_perf_100k.txt
+STEP 16 FAIL
+HALT at step 16 — fix red before continuing
+
+RESUME from step 16 2026-09-24T15:31:49.687Z
+
+===== STEP 16: perf-100k-matrix =====
+START 2026-09-24T15:31:49.691Z
+CMD php scripts/company/perf-100k-matrix.php
+END 2026-09-24T15:35:00.652Z EXIT=1 elapsedMs=190958 raw=PHASE_09_16_perf_100k.txt
+STEP 16 FAIL
+HALT at step 16 — fix red before continuing
+
+RESUME from step 16 2026-09-24T15:35:24.641Z
+
+===== STEP 16: perf-100k-matrix =====
+START 2026-09-24T15:35:24.644Z
+CMD php scripts/company/perf-100k-matrix.php
+END 2026-09-24T15:39:25.755Z EXIT=1 elapsedMs=241109 raw=PHASE_09_16_perf_100k.txt
+STEP 16 FAIL
+HALT at step 16 — fix red before continuing
+
+RESUME from step 16 2026-09-24T15:39:51.462Z
+
+===== STEP 16: perf-100k-matrix =====
+START 2026-09-24T15:39:51.465Z
+CMD php scripts/company/perf-100k-matrix.php
+END 2026-09-24T16:00:48.480Z EXIT=1 elapsedMs=1257014 raw=PHASE_09_16_perf_100k.txt
+STEP 16 FAIL
+HALT at step 16 — fix red before continuing
+
+RESUME from step 16 2026-09-24T16:02:02.806Z
+
+===== STEP 16: perf-100k-matrix =====
+START 2026-09-24T16:02:02.809Z
+CMD php scripts/company/perf-100k-matrix.php
+
+RESUME from step 16 2026-09-24T16:03:14.621Z
+
+===== STEP 16: perf-100k-matrix =====
+START 2026-09-24T16:03:14.624Z
+CMD php scripts/company/perf-100k-matrix.php
+END 2026-09-24T17:00:35.386Z EXIT=0 elapsedMs=3440753 raw=PHASE_09_16_perf_100k.txt
+STEP 16 PASS (3440.8 sec)
+
+===== STEP 17: finance:gate:all =====
+START 2026-09-24T17:00:35.393Z
+CMD npm run finance:gate:all
+END 2026-09-24T17:00:57.494Z EXIT=0 elapsedMs=22099 raw=PHASE_09_17_finance_gate.txt
+STEP 17 PASS (22.1 sec)
+
+===== STEP 18: company:certify:product =====
+START 2026-09-24T17:00:57.495Z
+CMD npm run company:certify:product
+END 2026-09-24T17:06:53.859Z EXIT=0 elapsedMs=356364 raw=PHASE_09_18_certify_product.txt
+STEP 18 PASS (356.4 sec)
+
+===== STEP 19: company:certify:final =====
+START 2026-09-24T17:06:53.861Z
+CMD npm run company:certify:final
+END 2026-09-24T17:59:29.397Z EXIT=0 elapsedMs=3155532 raw=PHASE_09_19_certify_final.txt
+STEP 19 PASS (3155.5 sec)
+
+PHASE_09 OVERALL: PASS 2026-09-24T17:59:29.403Z
+
+======== PHASE_09 FINAL BOARD stamp=20260924-201658 2026-09-24T23:30:05.9463397+05:30 ========
+1 company:test                 PASS  (76 tests / 13 files)
+2 company:test:php             PASS
+3 company:test:http            PASS
+4 company:test:idor            PASS
+5 security-matrix              PASS
+6 company:test:hydrate         PASS  (0/100 fail)
+7 company:gate:all             PASS  (12 gates)
+8 company:test:backup          PASS  (checksum + TB balanced)
+9 company:test:export:fidelity PASS
+10 company:test:latency        PASS  (Scale Co 10k, HTTP 200)
+11 company:test:browser:auth   PASS  (A-N)
+12 company:test:product:browser PASS (8/8)
+13 viewport-matrix             PASS  (168/168)
+14 a11y-keyboard               PASS
+15 i18n-audit                  PASS  (380/380 en=gu)
+16 perf-100k-matrix            PASS  (10x10k, 500k lines, TB+reports+bleed)
+17 finance:gate:all            PASS
+18 company:certify:product     PASS  (COMPANY PRODUCT COMPLETE)
+19 company:certify:final       PASS  (ACCOUNTING CORE CERTIFIED)
+PHASE_09 OVERALL: PASS � nothing inherited; raw under docs/company/audit/raw/PHASE_09_*

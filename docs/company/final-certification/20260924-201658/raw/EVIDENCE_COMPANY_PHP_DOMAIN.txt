@@ -1,0 +1,181 @@
+
+> sparowvault@0.1.0 company:test:php
+> php scripts/company/php-tests/run-accounting.php
+
+
+Warning: Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
+== Registry loads ==
+  ✓ purpose registry has purposes
+  ✓ OTHER_RECEIPT exists
+  ✓ PROPERTY_ADVANCE exists
+== OTHER_RECEIPT direction ==
+  ✓ OTHER_RECEIPT debits bank
+  ✓ OTHER_RECEIPT credits income (not expense)
+  ✓ OTHER_RECEIPT increases income
+== PROPERTY_ADVANCE vs EXPENSE ==
+  ✓ PROPERTY_ADVANCE no P&L
+  ✓ PROPERTY_EXPENSE hits P&L
+== ON_ACCOUNT persistence ==
+  ✓ ON_ACCOUNT row persisted with null bill_ref_id
+== LOAN_RECEIVED P&L zero ==
+  ✓ LOAN_RECEIVED does not change P&L
+== Preview/post parity + PREVIEW_STALE ==
+  ✓ previewHash present
+  ✓ posted line count matches preview
+  ✓ preview ledger matches post line 0
+  ✓ preview side matches post line 0
+  ✓ preview amount matches post line 0
+  ✓ preview ledger matches post line 1
+  ✓ preview side matches post line 1
+  ✓ preview amount matches post line 1
+  ✓ PREVIEW_STALE rejects mismatched hash
+== Unbalanced journal reject ==
+  ✓ unbalanced voucher rejected
+== Double reverse reject ==
+  ✓ first reversal created
+  ✓ second reverse replays same reversal voucher
+  ✓ original remains REVERSED after second reverse call
+  ✓ original points to single reversal voucher
+== Voucher number seq past 9999 ==
+  ✓ next seq after 10000 is 10001 got PAY-20260924-00010001
+== TB still balanced ==
+  ✓ trial balance debit=credit (29000000 == 29000000)
+== Deprecated purposes rejected ==
+  ✓ OTHER throws
+  ✓ OTHER code PURPOSE_DEPRECATED
+  ✓ OTHER HTTP 422
+  ✓ OTHER message mentions OTHER_PAYMENT
+  ✓ PROPERTY_PAYMENT throws
+  ✓ PROPERTY_PAYMENT code PURPOSE_DEPRECATED
+  ✓ PROPERTY_PAYMENT HTTP 422
+  ✓ PROPERTY_PAYMENT message mentions PROPERTY_EXPENSE
+  ✓ REFUND throws
+  ✓ REFUND code PURPOSE_DEPRECATED
+  ✓ REFUND HTTP 422
+  ✓ REFUND message mentions VENDOR_REFUND_RECEIVED
+  ✓ post OTHER rejected PURPOSE_DEPRECATED
+== Report view permission map ==
+  ✓ TB → view_trial_balance
+  ✓ day-book → view_day_book
+  ✓ P&L → view_pnl
+== Report registry SoT parity ==
+  ✓ report registry has entries
+  ✓ trial-balance permission from registry (view_trial_balance)
+  ✓ trial-balance has handler
+  ✓ trial-balance runs (enabled → data)
+  ✓ profit-loss permission from registry (view_pnl)
+  ✓ profit-loss has handler
+  ✓ profit-loss runs (enabled → data)
+  ✓ balance-sheet permission from registry (view_balance_sheet)
+  ✓ balance-sheet has handler
+  ✓ balance-sheet runs (enabled → data)
+  ✓ day-book permission from registry (view_day_book)
+  ✓ day-book has handler
+  ✓ day-book runs (enabled → data)
+  ✓ party-statement permission from registry (view_party_balance)
+  ✓ party-statement has handler
+  ✓ party-statement runs (enabled → data)
+  ✓ ageing permission from registry (view_receivables)
+  ✓ ageing has handler
+  ✓ ageing runs (enabled → data)
+  ✓ cash-bank-book permission from registry (view_cash_bank_books)
+  ✓ cash-bank-book has handler
+  ✓ cash-bank-book runs (enabled → data)
+  ✓ receivables permission from registry (view_receivables)
+  ✓ receivables has handler
+  ✓ receivables runs (enabled → data)
+  ✓ payables permission from registry (view_payables)
+  ✓ payables has handler
+  ✓ payables runs (enabled → data)
+  ✓ receipts-payments resolve throws when disabled
+  ✓ receipts-payments → REPORT_DISABLED
+  ✓ project-report resolve throws when disabled
+  ✓ project-report → REPORT_DISABLED
+  ✓ business-report resolve throws when disabled
+  ✓ business-report → REPORT_DISABLED
+  ✓ area-report resolve throws when disabled
+  ✓ area-report → REPORT_DISABLED
+  ✓ category-report resolve throws when disabled
+  ✓ category-report → REPORT_DISABLED
+  ✓ user-activity resolve throws when disabled
+  ✓ user-activity → REPORT_DISABLED
+  ✓ unknown → REPORT_UNKNOWN
+== Purpose preview parity (non-deprecated) ==
+  ✓ LOAN_RECEIVED yields 2 lines
+  ✓ LOAN_RECEIVED Dr bank
+  ✓ LOAN_RECEIVED Cr counter
+  ✓ CUSTOMER_PAYMENT yields 2 lines
+  ✓ CUSTOMER_PAYMENT Dr bank
+  ✓ CUSTOMER_PAYMENT Cr counter
+  ✓ CAPITAL_INTRODUCED yields 2 lines
+  ✓ CAPITAL_INTRODUCED Dr bank
+  ✓ CAPITAL_INTRODUCED Cr counter
+  ✓ ADVANCE_RETURNED yields 2 lines
+  ✓ ADVANCE_RETURNED Dr bank
+  ✓ ADVANCE_RETURNED Cr counter
+  ✓ INTEREST_INCOME yields 2 lines
+  ✓ INTEREST_INCOME Dr bank
+  ✓ INTEREST_INCOME Cr counter
+  ✓ PROPERTY_RECEIPT yields 2 lines
+  ✓ PROPERTY_RECEIPT Dr bank
+  ✓ PROPERTY_RECEIPT Cr counter
+  ✓ FARMING_RECEIPT yields 2 lines
+  ✓ FARMING_RECEIPT Dr bank
+  ✓ FARMING_RECEIPT Cr counter
+  ✓ SALE yields 2 lines
+  ✓ SALE Dr bank
+  ✓ SALE Cr counter
+  ✓ OTHER_RECEIPT yields 2 lines
+  ✓ OTHER_RECEIPT Dr bank
+  ✓ OTHER_RECEIPT Cr counter
+  ✓ VENDOR_REFUND_RECEIVED yields 2 lines
+  ✓ VENDOR_REFUND_RECEIVED Dr bank
+  ✓ VENDOR_REFUND_RECEIVED Cr counter
+  ✓ LOAN_REPAYMENT yields 2 lines
+  ✓ LOAN_REPAYMENT Dr counter
+  ✓ LOAN_REPAYMENT Cr bank
+  ✓ VENDOR_PAYMENT yields 2 lines
+  ✓ VENDOR_PAYMENT Dr counter
+  ✓ VENDOR_PAYMENT Cr bank
+  ✓ ADVANCE_GIVEN yields 2 lines
+  ✓ ADVANCE_GIVEN Dr counter
+  ✓ ADVANCE_GIVEN Cr bank
+  ✓ FARMER_ADVANCE yields 2 lines
+  ✓ FARMER_ADVANCE Dr counter
+  ✓ FARMER_ADVANCE Cr bank
+  ✓ MONEY_LENT yields 2 lines
+  ✓ MONEY_LENT Dr counter
+  ✓ MONEY_LENT Cr bank
+  ✓ OWNER_DRAWING yields 2 lines
+  ✓ OWNER_DRAWING Dr counter
+  ✓ OWNER_DRAWING Cr bank
+  ✓ PURCHASE yields 2 lines
+  ✓ PURCHASE Dr counter
+  ✓ PURCHASE Cr bank
+  ✓ EXPENSE yields 2 lines
+  ✓ EXPENSE Dr counter
+  ✓ EXPENSE Cr bank
+  ✓ SALARY yields 2 lines
+  ✓ SALARY Dr counter
+  ✓ SALARY Cr bank
+  ✓ FARMING_PAYMENT yields 2 lines
+  ✓ FARMING_PAYMENT Dr counter
+  ✓ FARMING_PAYMENT Cr bank
+  ✓ PROPERTY_EXPENSE yields 2 lines
+  ✓ PROPERTY_EXPENSE Dr counter
+  ✓ PROPERTY_EXPENSE Cr bank
+  ✓ PROPERTY_ADVANCE yields 2 lines
+  ✓ PROPERTY_ADVANCE Dr counter
+  ✓ PROPERTY_ADVANCE Cr bank
+  ✓ PROPERTY_INVESTMENT yields 2 lines
+  ✓ PROPERTY_INVESTMENT Dr counter
+  ✓ PROPERTY_INVESTMENT Cr bank
+  ✓ PROPERTY_DEPOSIT yields 2 lines
+  ✓ PROPERTY_DEPOSIT Dr counter
+  ✓ PROPERTY_DEPOSIT Cr bank
+  ✓ OTHER_PAYMENT yields 2 lines
+  ✓ OTHER_PAYMENT Dr counter
+  ✓ OTHER_PAYMENT Cr bank
+
+ALL PHP ACCOUNTING TESTS PASSED
+PHP Warning:  Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0

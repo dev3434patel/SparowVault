@@ -1,0 +1,1004 @@
+# SparowVault Company — day-book-1000
+# Generated 2026-09-24T17:04:10+00:00
+# Note: XLSX-compatible CSV (open in Excel)
+ledger,debit,credit,narration
+VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_End,100,50,"Credit presentation"
+"Ledger 1",200,100,Normal
+"Ledger 2",300,150,"Credit presentation"
+"Ledger 3",400,200,Normal
+"Ledger 4",500,250,"Credit presentation"
+"Ledger 5",600,300,Normal
+"Ledger 6",700,350,"Credit presentation"
+"Ledger 7",800,400,Normal
+"Ledger 8",900,450,"Credit presentation"
+"Ledger 9",1000,500,Normal
+"Ledger 10",1100,550,"Credit presentation"
+"Ledger 11",1200,600,Normal
+"Ledger 12",1300,650,"Credit presentation"
+"Ledger 13",1400,700,Normal
+"Ledger 14",1500,750,"Credit presentation"
+"Ledger 15",1600,800,Normal
+"Ledger 16",1700,850,"Credit presentation"
+"Ledger 17",1800,900,Normal
+"Ledger 18",1900,950,"Credit presentation"
+"Ledger 19",2000,1000,Normal
+"Ledger 20",2100,1050,"Credit presentation"
+"Ledger 21",2200,1100,Normal
+"Ledger 22",2300,1150,"Credit presentation"
+"Ledger 23",2400,1200,Normal
+"Ledger 24",2500,1250,"Credit presentation"
+"Ledger 25",2600,1300,Normal
+"Ledger 26",2700,1350,"Credit presentation"
+"Ledger 27",2800,1400,Normal
+"Ledger 28",2900,1450,"Credit presentation"
+"Ledger 29",3000,1500,Normal
+"Ledger 30",3100,1550,"Credit presentation"
+"Ledger 31",3200,1600,Normal
+"Ledger 32",3300,1650,"Credit presentation"
+"Ledger 33",3400,1700,Normal
+"Ledger 34",3500,1750,"Credit presentation"
+"Ledger 35",3600,1800,Normal
+"Ledger 36",3700,1850,"Credit presentation"
+"Ledger 37",3800,1900,Normal
+"Ledger 38",3900,1950,"Credit presentation"
+"Ledger 39",4000,2000,Normal
+"Ledger 40",4100,2050,"Credit presentation"
+"Ledger 41",4200,2100,Normal
+"Ledger 42",4300,2150,"Credit presentation"
+"Ledger 43",4400,2200,Normal
+"Ledger 44",4500,2250,"Credit presentation"
+"Ledger 45",4600,2300,Normal
+"Ledger 46",4700,2350,"Credit presentation"
+"Ledger 47",4800,2400,Normal
+"Ledger 48",4900,2450,"Credit presentation"
+"Ledger 49",5000,2500,Normal
+VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_End,5100,2550,"Credit presentation"
+"Ledger 51",5200,2600,Normal
+"Ledger 52",5300,2650,"Credit presentation"
+"Ledger 53",5400,2700,Normal
+"Ledger 54",5500,2750,"Credit presentation"
+"Ledger 55",5600,2800,Normal
+"Ledger 56",5700,2850,"Credit presentation"
+"Ledger 57",5800,2900,Normal
+"Ledger 58",5900,2950,"Credit presentation"
+"Ledger 59",6000,3000,Normal
+"Ledger 60",6100,3050,"Credit presentation"
+"Ledger 61",6200,3100,Normal
+"Ledger 62",6300,3150,"Credit presentation"
+"Ledger 63",6400,3200,Normal
+"Ledger 64",6500,3250,"Credit presentation"
+"Ledger 65",6600,3300,Normal
+"Ledger 66",6700,3350,"Credit presentation"
+"Ledger 67",6800,3400,Normal
+"Ledger 68",6900,3450,"Credit presentation"
+"Ledger 69",7000,3500,Normal
+"Ledger 70",7100,3550,"Credit presentation"
+"Ledger 71",7200,3600,Normal
+"Ledger 72",7300,3650,"Credit presentation"
+"Ledger 73",7400,3700,Normal
+"Ledger 74",7500,3750,"Credit presentation"
+"Ledger 75",7600,3800,Normal
+"Ledger 76",7700,3850,"Credit presentation"
+"Ledger 77",7800,3900,Normal
+"Ledger 78",7900,3950,"Credit presentation"
+"Ledger 79",8000,4000,Normal
+"Ledger 80",8100,4050,"Credit presentation"
+"Ledger 81",8200,4100,Normal
+"Ledger 82",8300,4150,"Credit presentation"
+"Ledger 83",8400,4200,Normal
+"Ledger 84",8500,4250,"Credit presentation"
+"Ledger 85",8600,4300,Normal
+"Ledger 86",8700,4350,"Credit presentation"
+"Ledger 87",8800,4400,Normal
+"Ledger 88",8900,4450,"Credit presentation"
+"Ledger 89",9000,4500,Normal
+"Ledger 90",9100,4550,"Credit presentation"
+"Ledger 91",9200,4600,Normal
+"Ledger 92",9300,4650,"Credit presentation"
+"Ledger 93",9400,4700,Normal
+"Ledger 94",9500,4750,"Credit presentation"
+"Ledger 95",9600,4800,Normal
+"Ledger 96",9700,4850,"Credit presentation"
+"Ledger 97",9800,4900,Normal
+"Ledger 98",9900,4950,"Credit presentation"
+"Ledger 99",10000,5000,Normal
+VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_End,10100,5050,"Credit presentation"
+"Ledger 101",10200,5100,Normal
+"Ledger 102",10300,5150,"Credit presentation"
+"Ledger 103",10400,5200,Normal
+"Ledger 104",10500,5250,"Credit presentation"
+"Ledger 105",10600,5300,Normal
+"Ledger 106",10700,5350,"Credit presentation"
+"Ledger 107",10800,5400,Normal
+"Ledger 108",10900,5450,"Credit presentation"
+"Ledger 109",11000,5500,Normal
+"Ledger 110",11100,5550,"Credit presentation"
+"Ledger 111",11200,5600,Normal
+"Ledger 112",11300,5650,"Credit presentation"
+"Ledger 113",11400,5700,Normal
+"Ledger 114",11500,5750,"Credit presentation"
+"Ledger 115",11600,5800,Normal
+"Ledger 116",11700,5850,"Credit presentation"
+"Ledger 117",11800,5900,Normal
+"Ledger 118",11900,5950,"Credit presentation"
+"Ledger 119",12000,6000,Normal
+"Ledger 120",12100,6050,"Credit presentation"
+"Ledger 121",12200,6100,Normal
+"Ledger 122",12300,6150,"Credit presentation"
+"Ledger 123",12400,6200,Normal
+"Ledger 124",12500,6250,"Credit presentation"
+"Ledger 125",12600,6300,Normal
+"Ledger 126",12700,6350,"Credit presentation"
+"Ledger 127",12800,6400,Normal
+"Ledger 128",12900,6450,"Credit presentation"
+"Ledger 129",13000,6500,Normal
+"Ledger 130",13100,6550,"Credit presentation"
+"Ledger 131",13200,6600,Normal
+"Ledger 132",13300,6650,"Credit presentation"
+"Ledger 133",13400,6700,Normal
+"Ledger 134",13500,6750,"Credit presentation"
+"Ledger 135",13600,6800,Normal
+"Ledger 136",13700,6850,"Credit presentation"
+"Ledger 137",13800,6900,Normal
+"Ledger 138",13900,6950,"Credit presentation"
+"Ledger 139",14000,7000,Normal
+"Ledger 140",14100,7050,"Credit presentation"
+"Ledger 141",14200,7100,Normal
+"Ledger 142",14300,7150,"Credit presentation"
+"Ledger 143",14400,7200,Normal
+"Ledger 144",14500,7250,"Credit presentation"
+"Ledger 145",14600,7300,Normal
+"Ledger 146",14700,7350,"Credit presentation"
+"Ledger 147",14800,7400,Normal
+"Ledger 148",14900,7450,"Credit presentation"
+"Ledger 149",15000,7500,Normal
+VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_End,15100,7550,"Credit presentation"
+"Ledger 151",15200,7600,Normal
+"Ledger 152",15300,7650,"Credit presentation"
+"Ledger 153",15400,7700,Normal
+"Ledger 154",15500,7750,"Credit presentation"
+"Ledger 155",15600,7800,Normal
+"Ledger 156",15700,7850,"Credit presentation"
+"Ledger 157",15800,7900,Normal
+"Ledger 158",15900,7950,"Credit presentation"
+"Ledger 159",16000,8000,Normal
+"Ledger 160",16100,8050,"Credit presentation"
+"Ledger 161",16200,8100,Normal
+"Ledger 162",16300,8150,"Credit presentation"
+"Ledger 163",16400,8200,Normal
+"Ledger 164",16500,8250,"Credit presentation"
+"Ledger 165",16600,8300,Normal
+"Ledger 166",16700,8350,"Credit presentation"
+"Ledger 167",16800,8400,Normal
+"Ledger 168",16900,8450,"Credit presentation"
+"Ledger 169",17000,8500,Normal
+"Ledger 170",17100,8550,"Credit presentation"
+"Ledger 171",17200,8600,Normal
+"Ledger 172",17300,8650,"Credit presentation"
+"Ledger 173",17400,8700,Normal
+"Ledger 174",17500,8750,"Credit presentation"
+"Ledger 175",17600,8800,Normal
+"Ledger 176",17700,8850,"Credit presentation"
+"Ledger 177",17800,8900,Normal
+"Ledger 178",17900,8950,"Credit presentation"
+"Ledger 179",18000,9000,Normal
+"Ledger 180",18100,9050,"Credit presentation"
+"Ledger 181",18200,9100,Normal
+"Ledger 182",18300,9150,"Credit presentation"
+"Ledger 183",18400,9200,Normal
+"Ledger 184",18500,9250,"Credit presentation"
+"Ledger 185",18600,9300,Normal
+"Ledger 186",18700,9350,"Credit presentation"
+"Ledger 187",18800,9400,Normal
+"Ledger 188",18900,9450,"Credit presentation"
+"Ledger 189",19000,9500,Normal
+"Ledger 190",19100,9550,"Credit presentation"
+"Ledger 191",19200,9600,Normal
+"Ledger 192",19300,9650,"Credit presentation"
+"Ledger 193",19400,9700,Normal
+"Ledger 194",19500,9750,"Credit presentation"
+"Ledger 195",19600,9800,Normal
+"Ledger 196",19700,9850,"Credit presentation"
+"Ledger 197",19800,9900,Normal
+"Ledger 198",19900,9950,"Credit presentation"
+"Ledger 199",20000,10000,Normal
+VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_End,20100,10050,"Credit presentation"
+"Ledger 201",20200,10100,Normal
+"Ledger 202",20300,10150,"Credit presentation"
+"Ledger 203",20400,10200,Normal
+"Ledger 204",20500,10250,"Credit presentation"
+"Ledger 205",20600,10300,Normal
+"Ledger 206",20700,10350,"Credit presentation"
+"Ledger 207",20800,10400,Normal
+"Ledger 208",20900,10450,"Credit presentation"
+"Ledger 209",21000,10500,Normal
+"Ledger 210",21100,10550,"Credit presentation"
+"Ledger 211",21200,10600,Normal
+"Ledger 212",21300,10650,"Credit presentation"
+"Ledger 213",21400,10700,Normal
+"Ledger 214",21500,10750,"Credit presentation"
+"Ledger 215",21600,10800,Normal
+"Ledger 216",21700,10850,"Credit presentation"
+"Ledger 217",21800,10900,Normal
+"Ledger 218",21900,10950,"Credit presentation"
+"Ledger 219",22000,11000,Normal
+"Ledger 220",22100,11050,"Credit presentation"
+"Ledger 221",22200,11100,Normal
+"Ledger 222",22300,11150,"Credit presentation"
+"Ledger 223",22400,11200,Normal
+"Ledger 224",22500,11250,"Credit presentation"
+"Ledger 225",22600,11300,Normal
+"Ledger 226",22700,11350,"Credit presentation"
+"Ledger 227",22800,11400,Normal
+"Ledger 228",22900,11450,"Credit presentation"
+"Ledger 229",23000,11500,Normal
+"Ledger 230",23100,11550,"Credit presentation"
+"Ledger 231",23200,11600,Normal
+"Ledger 232",23300,11650,"Credit presentation"
+"Ledger 233",23400,11700,Normal
+"Ledger 234",23500,11750,"Credit presentation"
+"Ledger 235",23600,11800,Normal
+"Ledger 236",23700,11850,"Credit presentation"
+"Ledger 237",23800,11900,Normal
+"Ledger 238",23900,11950,"Credit presentation"
+"Ledger 239",24000,12000,Normal
+"Ledger 240",24100,12050,"Credit presentation"
+"Ledger 241",24200,12100,Normal
+"Ledger 242",24300,12150,"Credit presentation"
+"Ledger 243",24400,12200,Normal
+"Ledger 244",24500,12250,"Credit presentation"
+"Ledger 245",24600,12300,Normal
+"Ledger 246",24700,12350,"Credit presentation"
+"Ledger 247",24800,12400,Normal
+"Ledger 248",24900,12450,"Credit presentation"
+"Ledger 249",25000,12500,Normal
+VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_End,25100,12550,"Credit presentation"
+"Ledger 251",25200,12600,Normal
+"Ledger 252",25300,12650,"Credit presentation"
+"Ledger 253",25400,12700,Normal
+"Ledger 254",25500,12750,"Credit presentation"
+"Ledger 255",25600,12800,Normal
+"Ledger 256",25700,12850,"Credit presentation"
+"Ledger 257",25800,12900,Normal
+"Ledger 258",25900,12950,"Credit presentation"
+"Ledger 259",26000,13000,Normal
+"Ledger 260",26100,13050,"Credit presentation"
+"Ledger 261",26200,13100,Normal
+"Ledger 262",26300,13150,"Credit presentation"
+"Ledger 263",26400,13200,Normal
+"Ledger 264",26500,13250,"Credit presentation"
+"Ledger 265",26600,13300,Normal
+"Ledger 266",26700,13350,"Credit presentation"
+"Ledger 267",26800,13400,Normal
+"Ledger 268",26900,13450,"Credit presentation"
+"Ledger 269",27000,13500,Normal
+"Ledger 270",27100,13550,"Credit presentation"
+"Ledger 271",27200,13600,Normal
+"Ledger 272",27300,13650,"Credit presentation"
+"Ledger 273",27400,13700,Normal
+"Ledger 274",27500,13750,"Credit presentation"
+"Ledger 275",27600,13800,Normal
+"Ledger 276",27700,13850,"Credit presentation"
+"Ledger 277",27800,13900,Normal
+"Ledger 278",27900,13950,"Credit presentation"
+"Ledger 279",28000,14000,Normal
+"Ledger 280",28100,14050,"Credit presentation"
+"Ledger 281",28200,14100,Normal
+"Ledger 282",28300,14150,"Credit presentation"
+"Ledger 283",28400,14200,Normal
+"Ledger 284",28500,14250,"Credit presentation"
+"Ledger 285",28600,14300,Normal
+"Ledger 286",28700,14350,"Credit presentation"
+"Ledger 287",28800,14400,Normal
+"Ledger 288",28900,14450,"Credit presentation"
+"Ledger 289",29000,14500,Normal
+"Ledger 290",29100,14550,"Credit presentation"
+"Ledger 291",29200,14600,Normal
+"Ledger 292",29300,14650,"Credit presentation"
+"Ledger 293",29400,14700,Normal
+"Ledger 294",29500,14750,"Credit presentation"
+"Ledger 295",29600,14800,Normal
+"Ledger 296",29700,14850,"Credit presentation"
+"Ledger 297",29800,14900,Normal
+"Ledger 298",29900,14950,"Credit presentation"
+"Ledger 299",30000,15000,Normal
+VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_End,30100,15050,"Credit presentation"
+"Ledger 301",30200,15100,Normal
+"Ledger 302",30300,15150,"Credit presentation"
+"Ledger 303",30400,15200,Normal
+"Ledger 304",30500,15250,"Credit presentation"
+"Ledger 305",30600,15300,Normal
+"Ledger 306",30700,15350,"Credit presentation"
+"Ledger 307",30800,15400,Normal
+"Ledger 308",30900,15450,"Credit presentation"
+"Ledger 309",31000,15500,Normal
+"Ledger 310",31100,15550,"Credit presentation"
+"Ledger 311",31200,15600,Normal
+"Ledger 312",31300,15650,"Credit presentation"
+"Ledger 313",31400,15700,Normal
+"Ledger 314",31500,15750,"Credit presentation"
+"Ledger 315",31600,15800,Normal
+"Ledger 316",31700,15850,"Credit presentation"
+"Ledger 317",31800,15900,Normal
+"Ledger 318",31900,15950,"Credit presentation"
+"Ledger 319",32000,16000,Normal
+"Ledger 320",32100,16050,"Credit presentation"
+"Ledger 321",32200,16100,Normal
+"Ledger 322",32300,16150,"Credit presentation"
+"Ledger 323",32400,16200,Normal
+"Ledger 324",32500,16250,"Credit presentation"
+"Ledger 325",32600,16300,Normal
+"Ledger 326",32700,16350,"Credit presentation"
+"Ledger 327",32800,16400,Normal
+"Ledger 328",32900,16450,"Credit presentation"
+"Ledger 329",33000,16500,Normal
+"Ledger 330",33100,16550,"Credit presentation"
+"Ledger 331",33200,16600,Normal
+"Ledger 332",33300,16650,"Credit presentation"
+"Ledger 333",33400,16700,Normal
+"Ledger 334",33500,16750,"Credit presentation"
+"Ledger 335",33600,16800,Normal
+"Ledger 336",33700,16850,"Credit presentation"
+"Ledger 337",33800,16900,Normal
+"Ledger 338",33900,16950,"Credit presentation"
+"Ledger 339",34000,17000,Normal
+"Ledger 340",34100,17050,"Credit presentation"
+"Ledger 341",34200,17100,Normal
+"Ledger 342",34300,17150,"Credit presentation"
+"Ledger 343",34400,17200,Normal
+"Ledger 344",34500,17250,"Credit presentation"
+"Ledger 345",34600,17300,Normal
+"Ledger 346",34700,17350,"Credit presentation"
+"Ledger 347",34800,17400,Normal
+"Ledger 348",34900,17450,"Credit presentation"
+"Ledger 349",35000,17500,Normal
+VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_End,35100,17550,"Credit presentation"
+"Ledger 351",35200,17600,Normal
+"Ledger 352",35300,17650,"Credit presentation"
+"Ledger 353",35400,17700,Normal
+"Ledger 354",35500,17750,"Credit presentation"
+"Ledger 355",35600,17800,Normal
+"Ledger 356",35700,17850,"Credit presentation"
+"Ledger 357",35800,17900,Normal
+"Ledger 358",35900,17950,"Credit presentation"
+"Ledger 359",36000,18000,Normal
+"Ledger 360",36100,18050,"Credit presentation"
+"Ledger 361",36200,18100,Normal
+"Ledger 362",36300,18150,"Credit presentation"
+"Ledger 363",36400,18200,Normal
+"Ledger 364",36500,18250,"Credit presentation"
+"Ledger 365",36600,18300,Normal
+"Ledger 366",36700,18350,"Credit presentation"
+"Ledger 367",36800,18400,Normal
+"Ledger 368",36900,18450,"Credit presentation"
+"Ledger 369",37000,18500,Normal
+"Ledger 370",37100,18550,"Credit presentation"
+"Ledger 371",37200,18600,Normal
+"Ledger 372",37300,18650,"Credit presentation"
+"Ledger 373",37400,18700,Normal
+"Ledger 374",37500,18750,"Credit presentation"
+"Ledger 375",37600,18800,Normal
+"Ledger 376",37700,18850,"Credit presentation"
+"Ledger 377",37800,18900,Normal
+"Ledger 378",37900,18950,"Credit presentation"
+"Ledger 379",38000,19000,Normal
+"Ledger 380",38100,19050,"Credit presentation"
+"Ledger 381",38200,19100,Normal
+"Ledger 382",38300,19150,"Credit presentation"
+"Ledger 383",38400,19200,Normal
+"Ledger 384",38500,19250,"Credit presentation"
+"Ledger 385",38600,19300,Normal
+"Ledger 386",38700,19350,"Credit presentation"
+"Ledger 387",38800,19400,Normal
+"Ledger 388",38900,19450,"Credit presentation"
+"Ledger 389",39000,19500,Normal
+"Ledger 390",39100,19550,"Credit presentation"
+"Ledger 391",39200,19600,Normal
+"Ledger 392",39300,19650,"Credit presentation"
+"Ledger 393",39400,19700,Normal
+"Ledger 394",39500,19750,"Credit presentation"
+"Ledger 395",39600,19800,Normal
+"Ledger 396",39700,19850,"Credit presentation"
+"Ledger 397",39800,19900,Normal
+"Ledger 398",39900,19950,"Credit presentation"
+"Ledger 399",40000,20000,Normal
+VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_End,40100,20050,"Credit presentation"
+"Ledger 401",40200,20100,Normal
+"Ledger 402",40300,20150,"Credit presentation"
+"Ledger 403",40400,20200,Normal
+"Ledger 404",40500,20250,"Credit presentation"
+"Ledger 405",40600,20300,Normal
+"Ledger 406",40700,20350,"Credit presentation"
+"Ledger 407",40800,20400,Normal
+"Ledger 408",40900,20450,"Credit presentation"
+"Ledger 409",41000,20500,Normal
+"Ledger 410",41100,20550,"Credit presentation"
+"Ledger 411",41200,20600,Normal
+"Ledger 412",41300,20650,"Credit presentation"
+"Ledger 413",41400,20700,Normal
+"Ledger 414",41500,20750,"Credit presentation"
+"Ledger 415",41600,20800,Normal
+"Ledger 416",41700,20850,"Credit presentation"
+"Ledger 417",41800,20900,Normal
+"Ledger 418",41900,20950,"Credit presentation"
+"Ledger 419",42000,21000,Normal
+"Ledger 420",42100,21050,"Credit presentation"
+"Ledger 421",42200,21100,Normal
+"Ledger 422",42300,21150,"Credit presentation"
+"Ledger 423",42400,21200,Normal
+"Ledger 424",42500,21250,"Credit presentation"
+"Ledger 425",42600,21300,Normal
+"Ledger 426",42700,21350,"Credit presentation"
+"Ledger 427",42800,21400,Normal
+"Ledger 428",42900,21450,"Credit presentation"
+"Ledger 429",43000,21500,Normal
+"Ledger 430",43100,21550,"Credit presentation"
+"Ledger 431",43200,21600,Normal
+"Ledger 432",43300,21650,"Credit presentation"
+"Ledger 433",43400,21700,Normal
+"Ledger 434",43500,21750,"Credit presentation"
+"Ledger 435",43600,21800,Normal
+"Ledger 436",43700,21850,"Credit presentation"
+"Ledger 437",43800,21900,Normal
+"Ledger 438",43900,21950,"Credit presentation"
+"Ledger 439",44000,22000,Normal
+"Ledger 440",44100,22050,"Credit presentation"
+"Ledger 441",44200,22100,Normal
+"Ledger 442",44300,22150,"Credit presentation"
+"Ledger 443",44400,22200,Normal
+"Ledger 444",44500,22250,"Credit presentation"
+"Ledger 445",44600,22300,Normal
+"Ledger 446",44700,22350,"Credit presentation"
+"Ledger 447",44800,22400,Normal
+"Ledger 448",44900,22450,"Credit presentation"
+"Ledger 449",45000,22500,Normal
+VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_End,45100,22550,"Credit presentation"
+"Ledger 451",45200,22600,Normal
+"Ledger 452",45300,22650,"Credit presentation"
+"Ledger 453",45400,22700,Normal
+"Ledger 454",45500,22750,"Credit presentation"
+"Ledger 455",45600,22800,Normal
+"Ledger 456",45700,22850,"Credit presentation"
+"Ledger 457",45800,22900,Normal
+"Ledger 458",45900,22950,"Credit presentation"
+"Ledger 459",46000,23000,Normal
+"Ledger 460",46100,23050,"Credit presentation"
+"Ledger 461",46200,23100,Normal
+"Ledger 462",46300,23150,"Credit presentation"
+"Ledger 463",46400,23200,Normal
+"Ledger 464",46500,23250,"Credit presentation"
+"Ledger 465",46600,23300,Normal
+"Ledger 466",46700,23350,"Credit presentation"
+"Ledger 467",46800,23400,Normal
+"Ledger 468",46900,23450,"Credit presentation"
+"Ledger 469",47000,23500,Normal
+"Ledger 470",47100,23550,"Credit presentation"
+"Ledger 471",47200,23600,Normal
+"Ledger 472",47300,23650,"Credit presentation"
+"Ledger 473",47400,23700,Normal
+"Ledger 474",47500,23750,"Credit presentation"
+"Ledger 475",47600,23800,Normal
+"Ledger 476",47700,23850,"Credit presentation"
+"Ledger 477",47800,23900,Normal
+"Ledger 478",47900,23950,"Credit presentation"
+"Ledger 479",48000,24000,Normal
+"Ledger 480",48100,24050,"Credit presentation"
+"Ledger 481",48200,24100,Normal
+"Ledger 482",48300,24150,"Credit presentation"
+"Ledger 483",48400,24200,Normal
+"Ledger 484",48500,24250,"Credit presentation"
+"Ledger 485",48600,24300,Normal
+"Ledger 486",48700,24350,"Credit presentation"
+"Ledger 487",48800,24400,Normal
+"Ledger 488",48900,24450,"Credit presentation"
+"Ledger 489",49000,24500,Normal
+"Ledger 490",49100,24550,"Credit presentation"
+"Ledger 491",49200,24600,Normal
+"Ledger 492",49300,24650,"Credit presentation"
+"Ledger 493",49400,24700,Normal
+"Ledger 494",49500,24750,"Credit presentation"
+"Ledger 495",49600,24800,Normal
+"Ledger 496",49700,24850,"Credit presentation"
+"Ledger 497",49800,24900,Normal
+"Ledger 498",49900,24950,"Credit presentation"
+"Ledger 499",50000,25000,Normal
+VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_End,50100,25050,"Credit presentation"
+"Ledger 501",50200,25100,Normal
+"Ledger 502",50300,25150,"Credit presentation"
+"Ledger 503",50400,25200,Normal
+"Ledger 504",50500,25250,"Credit presentation"
+"Ledger 505",50600,25300,Normal
+"Ledger 506",50700,25350,"Credit presentation"
+"Ledger 507",50800,25400,Normal
+"Ledger 508",50900,25450,"Credit presentation"
+"Ledger 509",51000,25500,Normal
+"Ledger 510",51100,25550,"Credit presentation"
+"Ledger 511",51200,25600,Normal
+"Ledger 512",51300,25650,"Credit presentation"
+"Ledger 513",51400,25700,Normal
+"Ledger 514",51500,25750,"Credit presentation"
+"Ledger 515",51600,25800,Normal
+"Ledger 516",51700,25850,"Credit presentation"
+"Ledger 517",51800,25900,Normal
+"Ledger 518",51900,25950,"Credit presentation"
+"Ledger 519",52000,26000,Normal
+"Ledger 520",52100,26050,"Credit presentation"
+"Ledger 521",52200,26100,Normal
+"Ledger 522",52300,26150,"Credit presentation"
+"Ledger 523",52400,26200,Normal
+"Ledger 524",52500,26250,"Credit presentation"
+"Ledger 525",52600,26300,Normal
+"Ledger 526",52700,26350,"Credit presentation"
+"Ledger 527",52800,26400,Normal
+"Ledger 528",52900,26450,"Credit presentation"
+"Ledger 529",53000,26500,Normal
+"Ledger 530",53100,26550,"Credit presentation"
+"Ledger 531",53200,26600,Normal
+"Ledger 532",53300,26650,"Credit presentation"
+"Ledger 533",53400,26700,Normal
+"Ledger 534",53500,26750,"Credit presentation"
+"Ledger 535",53600,26800,Normal
+"Ledger 536",53700,26850,"Credit presentation"
+"Ledger 537",53800,26900,Normal
+"Ledger 538",53900,26950,"Credit presentation"
+"Ledger 539",54000,27000,Normal
+"Ledger 540",54100,27050,"Credit presentation"
+"Ledger 541",54200,27100,Normal
+"Ledger 542",54300,27150,"Credit presentation"
+"Ledger 543",54400,27200,Normal
+"Ledger 544",54500,27250,"Credit presentation"
+"Ledger 545",54600,27300,Normal
+"Ledger 546",54700,27350,"Credit presentation"
+"Ledger 547",54800,27400,Normal
+"Ledger 548",54900,27450,"Credit presentation"
+"Ledger 549",55000,27500,Normal
+VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_End,55100,27550,"Credit presentation"
+"Ledger 551",55200,27600,Normal
+"Ledger 552",55300,27650,"Credit presentation"
+"Ledger 553",55400,27700,Normal
+"Ledger 554",55500,27750,"Credit presentation"
+"Ledger 555",55600,27800,Normal
+"Ledger 556",55700,27850,"Credit presentation"
+"Ledger 557",55800,27900,Normal
+"Ledger 558",55900,27950,"Credit presentation"
+"Ledger 559",56000,28000,Normal
+"Ledger 560",56100,28050,"Credit presentation"
+"Ledger 561",56200,28100,Normal
+"Ledger 562",56300,28150,"Credit presentation"
+"Ledger 563",56400,28200,Normal
+"Ledger 564",56500,28250,"Credit presentation"
+"Ledger 565",56600,28300,Normal
+"Ledger 566",56700,28350,"Credit presentation"
+"Ledger 567",56800,28400,Normal
+"Ledger 568",56900,28450,"Credit presentation"
+"Ledger 569",57000,28500,Normal
+"Ledger 570",57100,28550,"Credit presentation"
+"Ledger 571",57200,28600,Normal
+"Ledger 572",57300,28650,"Credit presentation"
+"Ledger 573",57400,28700,Normal
+"Ledger 574",57500,28750,"Credit presentation"
+"Ledger 575",57600,28800,Normal
+"Ledger 576",57700,28850,"Credit presentation"
+"Ledger 577",57800,28900,Normal
+"Ledger 578",57900,28950,"Credit presentation"
+"Ledger 579",58000,29000,Normal
+"Ledger 580",58100,29050,"Credit presentation"
+"Ledger 581",58200,29100,Normal
+"Ledger 582",58300,29150,"Credit presentation"
+"Ledger 583",58400,29200,Normal
+"Ledger 584",58500,29250,"Credit presentation"
+"Ledger 585",58600,29300,Normal
+"Ledger 586",58700,29350,"Credit presentation"
+"Ledger 587",58800,29400,Normal
+"Ledger 588",58900,29450,"Credit presentation"
+"Ledger 589",59000,29500,Normal
+"Ledger 590",59100,29550,"Credit presentation"
+"Ledger 591",59200,29600,Normal
+"Ledger 592",59300,29650,"Credit presentation"
+"Ledger 593",59400,29700,Normal
+"Ledger 594",59500,29750,"Credit presentation"
+"Ledger 595",59600,29800,Normal
+"Ledger 596",59700,29850,"Credit presentation"
+"Ledger 597",59800,29900,Normal
+"Ledger 598",59900,29950,"Credit presentation"
+"Ledger 599",60000,30000,Normal
+VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_End,60100,30050,"Credit presentation"
+"Ledger 601",60200,30100,Normal
+"Ledger 602",60300,30150,"Credit presentation"
+"Ledger 603",60400,30200,Normal
+"Ledger 604",60500,30250,"Credit presentation"
+"Ledger 605",60600,30300,Normal
+"Ledger 606",60700,30350,"Credit presentation"
+"Ledger 607",60800,30400,Normal
+"Ledger 608",60900,30450,"Credit presentation"
+"Ledger 609",61000,30500,Normal
+"Ledger 610",61100,30550,"Credit presentation"
+"Ledger 611",61200,30600,Normal
+"Ledger 612",61300,30650,"Credit presentation"
+"Ledger 613",61400,30700,Normal
+"Ledger 614",61500,30750,"Credit presentation"
+"Ledger 615",61600,30800,Normal
+"Ledger 616",61700,30850,"Credit presentation"
+"Ledger 617",61800,30900,Normal
+"Ledger 618",61900,30950,"Credit presentation"
+"Ledger 619",62000,31000,Normal
+"Ledger 620",62100,31050,"Credit presentation"
+"Ledger 621",62200,31100,Normal
+"Ledger 622",62300,31150,"Credit presentation"
+"Ledger 623",62400,31200,Normal
+"Ledger 624",62500,31250,"Credit presentation"
+"Ledger 625",62600,31300,Normal
+"Ledger 626",62700,31350,"Credit presentation"
+"Ledger 627",62800,31400,Normal
+"Ledger 628",62900,31450,"Credit presentation"
+"Ledger 629",63000,31500,Normal
+"Ledger 630",63100,31550,"Credit presentation"
+"Ledger 631",63200,31600,Normal
+"Ledger 632",63300,31650,"Credit presentation"
+"Ledger 633",63400,31700,Normal
+"Ledger 634",63500,31750,"Credit presentation"
+"Ledger 635",63600,31800,Normal
+"Ledger 636",63700,31850,"Credit presentation"
+"Ledger 637",63800,31900,Normal
+"Ledger 638",63900,31950,"Credit presentation"
+"Ledger 639",64000,32000,Normal
+"Ledger 640",64100,32050,"Credit presentation"
+"Ledger 641",64200,32100,Normal
+"Ledger 642",64300,32150,"Credit presentation"
+"Ledger 643",64400,32200,Normal
+"Ledger 644",64500,32250,"Credit presentation"
+"Ledger 645",64600,32300,Normal
+"Ledger 646",64700,32350,"Credit presentation"
+"Ledger 647",64800,32400,Normal
+"Ledger 648",64900,32450,"Credit presentation"
+"Ledger 649",65000,32500,Normal
+VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_End,65100,32550,"Credit presentation"
+"Ledger 651",65200,32600,Normal
+"Ledger 652",65300,32650,"Credit presentation"
+"Ledger 653",65400,32700,Normal
+"Ledger 654",65500,32750,"Credit presentation"
+"Ledger 655",65600,32800,Normal
+"Ledger 656",65700,32850,"Credit presentation"
+"Ledger 657",65800,32900,Normal
+"Ledger 658",65900,32950,"Credit presentation"
+"Ledger 659",66000,33000,Normal
+"Ledger 660",66100,33050,"Credit presentation"
+"Ledger 661",66200,33100,Normal
+"Ledger 662",66300,33150,"Credit presentation"
+"Ledger 663",66400,33200,Normal
+"Ledger 664",66500,33250,"Credit presentation"
+"Ledger 665",66600,33300,Normal
+"Ledger 666",66700,33350,"Credit presentation"
+"Ledger 667",66800,33400,Normal
+"Ledger 668",66900,33450,"Credit presentation"
+"Ledger 669",67000,33500,Normal
+"Ledger 670",67100,33550,"Credit presentation"
+"Ledger 671",67200,33600,Normal
+"Ledger 672",67300,33650,"Credit presentation"
+"Ledger 673",67400,33700,Normal
+"Ledger 674",67500,33750,"Credit presentation"
+"Ledger 675",67600,33800,Normal
+"Ledger 676",67700,33850,"Credit presentation"
+"Ledger 677",67800,33900,Normal
+"Ledger 678",67900,33950,"Credit presentation"
+"Ledger 679",68000,34000,Normal
+"Ledger 680",68100,34050,"Credit presentation"
+"Ledger 681",68200,34100,Normal
+"Ledger 682",68300,34150,"Credit presentation"
+"Ledger 683",68400,34200,Normal
+"Ledger 684",68500,34250,"Credit presentation"
+"Ledger 685",68600,34300,Normal
+"Ledger 686",68700,34350,"Credit presentation"
+"Ledger 687",68800,34400,Normal
+"Ledger 688",68900,34450,"Credit presentation"
+"Ledger 689",69000,34500,Normal
+"Ledger 690",69100,34550,"Credit presentation"
+"Ledger 691",69200,34600,Normal
+"Ledger 692",69300,34650,"Credit presentation"
+"Ledger 693",69400,34700,Normal
+"Ledger 694",69500,34750,"Credit presentation"
+"Ledger 695",69600,34800,Normal
+"Ledger 696",69700,34850,"Credit presentation"
+"Ledger 697",69800,34900,Normal
+"Ledger 698",69900,34950,"Credit presentation"
+"Ledger 699",70000,35000,Normal
+VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_End,70100,35050,"Credit presentation"
+"Ledger 701",70200,35100,Normal
+"Ledger 702",70300,35150,"Credit presentation"
+"Ledger 703",70400,35200,Normal
+"Ledger 704",70500,35250,"Credit presentation"
+"Ledger 705",70600,35300,Normal
+"Ledger 706",70700,35350,"Credit presentation"
+"Ledger 707",70800,35400,Normal
+"Ledger 708",70900,35450,"Credit presentation"
+"Ledger 709",71000,35500,Normal
+"Ledger 710",71100,35550,"Credit presentation"
+"Ledger 711",71200,35600,Normal
+"Ledger 712",71300,35650,"Credit presentation"
+"Ledger 713",71400,35700,Normal
+"Ledger 714",71500,35750,"Credit presentation"
+"Ledger 715",71600,35800,Normal
+"Ledger 716",71700,35850,"Credit presentation"
+"Ledger 717",71800,35900,Normal
+"Ledger 718",71900,35950,"Credit presentation"
+"Ledger 719",72000,36000,Normal
+"Ledger 720",72100,36050,"Credit presentation"
+"Ledger 721",72200,36100,Normal
+"Ledger 722",72300,36150,"Credit presentation"
+"Ledger 723",72400,36200,Normal
+"Ledger 724",72500,36250,"Credit presentation"
+"Ledger 725",72600,36300,Normal
+"Ledger 726",72700,36350,"Credit presentation"
+"Ledger 727",72800,36400,Normal
+"Ledger 728",72900,36450,"Credit presentation"
+"Ledger 729",73000,36500,Normal
+"Ledger 730",73100,36550,"Credit presentation"
+"Ledger 731",73200,36600,Normal
+"Ledger 732",73300,36650,"Credit presentation"
+"Ledger 733",73400,36700,Normal
+"Ledger 734",73500,36750,"Credit presentation"
+"Ledger 735",73600,36800,Normal
+"Ledger 736",73700,36850,"Credit presentation"
+"Ledger 737",73800,36900,Normal
+"Ledger 738",73900,36950,"Credit presentation"
+"Ledger 739",74000,37000,Normal
+"Ledger 740",74100,37050,"Credit presentation"
+"Ledger 741",74200,37100,Normal
+"Ledger 742",74300,37150,"Credit presentation"
+"Ledger 743",74400,37200,Normal
+"Ledger 744",74500,37250,"Credit presentation"
+"Ledger 745",74600,37300,Normal
+"Ledger 746",74700,37350,"Credit presentation"
+"Ledger 747",74800,37400,Normal
+"Ledger 748",74900,37450,"Credit presentation"
+"Ledger 749",75000,37500,Normal
+VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_End,75100,37550,"Credit presentation"
+"Ledger 751",75200,37600,Normal
+"Ledger 752",75300,37650,"Credit presentation"
+"Ledger 753",75400,37700,Normal
+"Ledger 754",75500,37750,"Credit presentation"
+"Ledger 755",75600,37800,Normal
+"Ledger 756",75700,37850,"Credit presentation"
+"Ledger 757",75800,37900,Normal
+"Ledger 758",75900,37950,"Credit presentation"
+"Ledger 759",76000,38000,Normal
+"Ledger 760",76100,38050,"Credit presentation"
+"Ledger 761",76200,38100,Normal
+"Ledger 762",76300,38150,"Credit presentation"
+"Ledger 763",76400,38200,Normal
+"Ledger 764",76500,38250,"Credit presentation"
+"Ledger 765",76600,38300,Normal
+"Ledger 766",76700,38350,"Credit presentation"
+"Ledger 767",76800,38400,Normal
+"Ledger 768",76900,38450,"Credit presentation"
+"Ledger 769",77000,38500,Normal
+"Ledger 770",77100,38550,"Credit presentation"
+"Ledger 771",77200,38600,Normal
+"Ledger 772",77300,38650,"Credit presentation"
+"Ledger 773",77400,38700,Normal
+"Ledger 774",77500,38750,"Credit presentation"
+"Ledger 775",77600,38800,Normal
+"Ledger 776",77700,38850,"Credit presentation"
+"Ledger 777",77800,38900,Normal
+"Ledger 778",77900,38950,"Credit presentation"
+"Ledger 779",78000,39000,Normal
+"Ledger 780",78100,39050,"Credit presentation"
+"Ledger 781",78200,39100,Normal
+"Ledger 782",78300,39150,"Credit presentation"
+"Ledger 783",78400,39200,Normal
+"Ledger 784",78500,39250,"Credit presentation"
+"Ledger 785",78600,39300,Normal
+"Ledger 786",78700,39350,"Credit presentation"
+"Ledger 787",78800,39400,Normal
+"Ledger 788",78900,39450,"Credit presentation"
+"Ledger 789",79000,39500,Normal
+"Ledger 790",79100,39550,"Credit presentation"
+"Ledger 791",79200,39600,Normal
+"Ledger 792",79300,39650,"Credit presentation"
+"Ledger 793",79400,39700,Normal
+"Ledger 794",79500,39750,"Credit presentation"
+"Ledger 795",79600,39800,Normal
+"Ledger 796",79700,39850,"Credit presentation"
+"Ledger 797",79800,39900,Normal
+"Ledger 798",79900,39950,"Credit presentation"
+"Ledger 799",80000,40000,Normal
+VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_End,80100,40050,"Credit presentation"
+"Ledger 801",80200,40100,Normal
+"Ledger 802",80300,40150,"Credit presentation"
+"Ledger 803",80400,40200,Normal
+"Ledger 804",80500,40250,"Credit presentation"
+"Ledger 805",80600,40300,Normal
+"Ledger 806",80700,40350,"Credit presentation"
+"Ledger 807",80800,40400,Normal
+"Ledger 808",80900,40450,"Credit presentation"
+"Ledger 809",81000,40500,Normal
+"Ledger 810",81100,40550,"Credit presentation"
+"Ledger 811",81200,40600,Normal
+"Ledger 812",81300,40650,"Credit presentation"
+"Ledger 813",81400,40700,Normal
+"Ledger 814",81500,40750,"Credit presentation"
+"Ledger 815",81600,40800,Normal
+"Ledger 816",81700,40850,"Credit presentation"
+"Ledger 817",81800,40900,Normal
+"Ledger 818",81900,40950,"Credit presentation"
+"Ledger 819",82000,41000,Normal
+"Ledger 820",82100,41050,"Credit presentation"
+"Ledger 821",82200,41100,Normal
+"Ledger 822",82300,41150,"Credit presentation"
+"Ledger 823",82400,41200,Normal
+"Ledger 824",82500,41250,"Credit presentation"
+"Ledger 825",82600,41300,Normal
+"Ledger 826",82700,41350,"Credit presentation"
+"Ledger 827",82800,41400,Normal
+"Ledger 828",82900,41450,"Credit presentation"
+"Ledger 829",83000,41500,Normal
+"Ledger 830",83100,41550,"Credit presentation"
+"Ledger 831",83200,41600,Normal
+"Ledger 832",83300,41650,"Credit presentation"
+"Ledger 833",83400,41700,Normal
+"Ledger 834",83500,41750,"Credit presentation"
+"Ledger 835",83600,41800,Normal
+"Ledger 836",83700,41850,"Credit presentation"
+"Ledger 837",83800,41900,Normal
+"Ledger 838",83900,41950,"Credit presentation"
+"Ledger 839",84000,42000,Normal
+"Ledger 840",84100,42050,"Credit presentation"
+"Ledger 841",84200,42100,Normal
+"Ledger 842",84300,42150,"Credit presentation"
+"Ledger 843",84400,42200,Normal
+"Ledger 844",84500,42250,"Credit presentation"
+"Ledger 845",84600,42300,Normal
+"Ledger 846",84700,42350,"Credit presentation"
+"Ledger 847",84800,42400,Normal
+"Ledger 848",84900,42450,"Credit presentation"
+"Ledger 849",85000,42500,Normal
+VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_End,85100,42550,"Credit presentation"
+"Ledger 851",85200,42600,Normal
+"Ledger 852",85300,42650,"Credit presentation"
+"Ledger 853",85400,42700,Normal
+"Ledger 854",85500,42750,"Credit presentation"
+"Ledger 855",85600,42800,Normal
+"Ledger 856",85700,42850,"Credit presentation"
+"Ledger 857",85800,42900,Normal
+"Ledger 858",85900,42950,"Credit presentation"
+"Ledger 859",86000,43000,Normal
+"Ledger 860",86100,43050,"Credit presentation"
+"Ledger 861",86200,43100,Normal
+"Ledger 862",86300,43150,"Credit presentation"
+"Ledger 863",86400,43200,Normal
+"Ledger 864",86500,43250,"Credit presentation"
+"Ledger 865",86600,43300,Normal
+"Ledger 866",86700,43350,"Credit presentation"
+"Ledger 867",86800,43400,Normal
+"Ledger 868",86900,43450,"Credit presentation"
+"Ledger 869",87000,43500,Normal
+"Ledger 870",87100,43550,"Credit presentation"
+"Ledger 871",87200,43600,Normal
+"Ledger 872",87300,43650,"Credit presentation"
+"Ledger 873",87400,43700,Normal
+"Ledger 874",87500,43750,"Credit presentation"
+"Ledger 875",87600,43800,Normal
+"Ledger 876",87700,43850,"Credit presentation"
+"Ledger 877",87800,43900,Normal
+"Ledger 878",87900,43950,"Credit presentation"
+"Ledger 879",88000,44000,Normal
+"Ledger 880",88100,44050,"Credit presentation"
+"Ledger 881",88200,44100,Normal
+"Ledger 882",88300,44150,"Credit presentation"
+"Ledger 883",88400,44200,Normal
+"Ledger 884",88500,44250,"Credit presentation"
+"Ledger 885",88600,44300,Normal
+"Ledger 886",88700,44350,"Credit presentation"
+"Ledger 887",88800,44400,Normal
+"Ledger 888",88900,44450,"Credit presentation"
+"Ledger 889",89000,44500,Normal
+"Ledger 890",89100,44550,"Credit presentation"
+"Ledger 891",89200,44600,Normal
+"Ledger 892",89300,44650,"Credit presentation"
+"Ledger 893",89400,44700,Normal
+"Ledger 894",89500,44750,"Credit presentation"
+"Ledger 895",89600,44800,Normal
+"Ledger 896",89700,44850,"Credit presentation"
+"Ledger 897",89800,44900,Normal
+"Ledger 898",89900,44950,"Credit presentation"
+"Ledger 899",90000,45000,Normal
+VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_End,90100,45050,"Credit presentation"
+"Ledger 901",90200,45100,Normal
+"Ledger 902",90300,45150,"Credit presentation"
+"Ledger 903",90400,45200,Normal
+"Ledger 904",90500,45250,"Credit presentation"
+"Ledger 905",90600,45300,Normal
+"Ledger 906",90700,45350,"Credit presentation"
+"Ledger 907",90800,45400,Normal
+"Ledger 908",90900,45450,"Credit presentation"
+"Ledger 909",91000,45500,Normal
+"Ledger 910",91100,45550,"Credit presentation"
+"Ledger 911",91200,45600,Normal
+"Ledger 912",91300,45650,"Credit presentation"
+"Ledger 913",91400,45700,Normal
+"Ledger 914",91500,45750,"Credit presentation"
+"Ledger 915",91600,45800,Normal
+"Ledger 916",91700,45850,"Credit presentation"
+"Ledger 917",91800,45900,Normal
+"Ledger 918",91900,45950,"Credit presentation"
+"Ledger 919",92000,46000,Normal
+"Ledger 920",92100,46050,"Credit presentation"
+"Ledger 921",92200,46100,Normal
+"Ledger 922",92300,46150,"Credit presentation"
+"Ledger 923",92400,46200,Normal
+"Ledger 924",92500,46250,"Credit presentation"
+"Ledger 925",92600,46300,Normal
+"Ledger 926",92700,46350,"Credit presentation"
+"Ledger 927",92800,46400,Normal
+"Ledger 928",92900,46450,"Credit presentation"
+"Ledger 929",93000,46500,Normal
+"Ledger 930",93100,46550,"Credit presentation"
+"Ledger 931",93200,46600,Normal
+"Ledger 932",93300,46650,"Credit presentation"
+"Ledger 933",93400,46700,Normal
+"Ledger 934",93500,46750,"Credit presentation"
+"Ledger 935",93600,46800,Normal
+"Ledger 936",93700,46850,"Credit presentation"
+"Ledger 937",93800,46900,Normal
+"Ledger 938",93900,46950,"Credit presentation"
+"Ledger 939",94000,47000,Normal
+"Ledger 940",94100,47050,"Credit presentation"
+"Ledger 941",94200,47100,Normal
+"Ledger 942",94300,47150,"Credit presentation"
+"Ledger 943",94400,47200,Normal
+"Ledger 944",94500,47250,"Credit presentation"
+"Ledger 945",94600,47300,Normal
+"Ledger 946",94700,47350,"Credit presentation"
+"Ledger 947",94800,47400,Normal
+"Ledger 948",94900,47450,"Credit presentation"
+"Ledger 949",95000,47500,Normal
+VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_VeryLongPartyName_End,95100,47550,"Credit presentation"
+"Ledger 951",95200,47600,Normal
+"Ledger 952",95300,47650,"Credit presentation"
+"Ledger 953",95400,47700,Normal
+"Ledger 954",95500,47750,"Credit presentation"
+"Ledger 955",95600,47800,Normal
+"Ledger 956",95700,47850,"Credit presentation"
+"Ledger 957",95800,47900,Normal
+"Ledger 958",95900,47950,"Credit presentation"
+"Ledger 959",96000,48000,Normal
+"Ledger 960",96100,48050,"Credit presentation"
+"Ledger 961",96200,48100,Normal
+"Ledger 962",96300,48150,"Credit presentation"
+"Ledger 963",96400,48200,Normal
+"Ledger 964",96500,48250,"Credit presentation"
+"Ledger 965",96600,48300,Normal
+"Ledger 966",96700,48350,"Credit presentation"
+"Ledger 967",96800,48400,Normal
+"Ledger 968",96900,48450,"Credit presentation"
+"Ledger 969",97000,48500,Normal
+"Ledger 970",97100,48550,"Credit presentation"
+"Ledger 971",97200,48600,Normal
+"Ledger 972",97300,48650,"Credit presentation"
+"Ledger 973",97400,48700,Normal
+"Ledger 974",97500,48750,"Credit presentation"
+"Ledger 975",97600,48800,Normal
+"Ledger 976",97700,48850,"Credit presentation"
+"Ledger 977",97800,48900,Normal
+"Ledger 978",97900,48950,"Credit presentation"
+"Ledger 979",98000,49000,Normal
+"Ledger 980",98100,49050,"Credit presentation"
+"Ledger 981",98200,49100,Normal
+"Ledger 982",98300,49150,"Credit presentation"
+"Ledger 983",98400,49200,Normal
+"Ledger 984",98500,49250,"Credit presentation"
+"Ledger 985",98600,49300,Normal
+"Ledger 986",98700,49350,"Credit presentation"
+"Ledger 987",98800,49400,Normal
+"Ledger 988",98900,49450,"Credit presentation"
+"Ledger 989",99000,49500,Normal
+"Ledger 990",99100,49550,"Credit presentation"
+"Ledger 991",99200,49600,Normal
+"Ledger 992",99300,49650,"Credit presentation"
+"Ledger 993",99400,49700,Normal
+"Ledger 994",99500,49750,"Credit presentation"
+"Ledger 995",99600,49800,Normal
+"Ledger 996",99700,49850,"Credit presentation"
+"Ledger 997",99800,49900,Normal
+"Ledger 998",99900,49950,"Credit presentation"
+"Ledger 999",100000,50000,Normal

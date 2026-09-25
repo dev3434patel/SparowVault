@@ -1,0 +1,72 @@
+﻿PHASE_10 PRODUCTION READY 2026-09-24T18:25:00Z
+OBJECTIVE: COMPANY PRODUCTION READY — evidence, not intentions.
+
+=== TASK 1 — Deployment ===
+docs: docs/company/PRODUCTION_DEPLOY.md
+PHP: 8.2+ | MySQL 8 / MariaDB 10.5+ | Node 20+ (build)
+Migration runner: php scripts/company/apply-migration.php
+Order:
+  1. 20260923_company_core.sql
+  2. 20260923_company_indexes.sql
+  3. 20260923_company_reversal_fk.sql
+  4. 20260923_company_bill_on_account.sql
+  5. 20260924_company_perf_indexes.sql
+ROLLBACK: restore from mysqldump backup — NO company down-migrations (documented honestly).
+raw: docs/company/audit/raw/PHASE_10_MIGRATE_LIST.txt
+
+=== TASK 2 — Security headers ===
+Apache: .htaccess (HSTS, X-Frame-Options DENY, nosniff, Referrer-Policy, CSP)
+nginx:  deploy/nginx-spa.conf.example
+PHP API: php/helpers/security.php apply_security_headers() (HSTS on production+staging)
+check: node scripts/company/check-security-headers.mjs
+RESULT: HEADERS CHECK PASS (config lint fail=0)
+Live API sample (localhost:8080/api/healthz.php):
+  X-Frame-Options=DENY
+  X-Content-Type-Options=nosniff
+  Referrer-Policy=strict-origin-when-cross-origin
+  Content-Security-Policy=present
+LIVE HTTPS staging: COMPANY_STAGING_URL unset in this environment — operator must set for live TLS probe.
+  Command: COMPANY_STAGING_URL=https://staging.example.com npm run company:headers:check
+raw: docs/company/audit/raw/PHASE_10_HEADERS.txt
+
+=== TASK 3 — Backups ===
+Daily: scripts/company/backup-daily.sh | backup-daily.ps1
+  -> npm run backup:db (scripts/backup_db.php) + optional BACKUP_OFFSITE_DIR copy
+SLA (docs/company/RUNBOOK.md): RPO 24h / RTO 4h
+Quarterly drill: npm run company:test:backup
+RESULT: PASS backup_restore_checksum ; PRE/POST tb_balanced=1 ; tables=34
+raw: docs/company/audit/raw/PHASE_10_BACKUP_DRILL.txt
+
+=== TASK 4 — Monitoring ===
+GET /api/healthz.php — DB ping + company_tables count (>=20) + app/schema version
+RESULT: HTTP 200 status=healthy companyTables=34 app=0.1.0
+docs: docs/company/MONITORING.md (PHP error_log, uptime on healthz, alert channels)
+raw: docs/company/audit/raw/PHASE_10_HEALTHZ.txt
+
+=== TASK 5 — Secrets ===
+Bootstrap: php/config/env.php loads .env -> APP_ENV_FILE private file
+Templates: .env.example (selector + key catalog), .env.host.example (placeholders)
+Tracked env files ONLY: .env.example .env.host.example .env.test.example
+PASS: no real .env / .env.host / .env.production tracked
+Denylist: added SHA-256 of test-only-please-rotate to known_bad_jwt_secret_hashes()
+Rotation: docs/company/SECRETS_ROTATION.md — rotate any credential ever in git history
+Production boot still refuses empty/default JWT + empty DB_PASS
+
+=== TASK 6 — Docs ===
+docs/company/RUNBOOK.md
+docs/company/ONBOARDING.md
+docs/company/PRODUCTION_DEPLOY.md
+docs/company/MONITORING.md
+docs/company/SECRETS_ROTATION.md
+
+=== ACCEPTANCE ===
+[x] Production build + migration runbook (rollback=restore)
+[x] Headers verified (config + API); live HTTPS when COMPANY_STAGING_URL set
+[x] Backup drill evidence PASS
+[x] healthz green
+[x] no real secrets in tracked repo files
+[ ] Staging URL over HTTPS serving SPA — OPERATOR ACTION: provision staging host,
+    set COMPANY_STAGING_URL, re-run company:headers:check (documented; not fakeable locally without TLS)
+
+PHASE_10 OVERALL: PASS (ops staging HTTPS URL remains operator-owned verification step)
+npm scripts: company:migrate | company:headers:check | company:healthz

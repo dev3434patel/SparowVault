@@ -1,0 +1,19 @@
+PHASE_12 2026-09-24T18:46Z
+OBJECTIVE: English default, EN/GU key parity 100%, language toggle persists without session wipe.
+
+1. node scripts/company/i18n-audit.mjs
+stdout: docs/company/audit/raw/PHASE_12_i18n_audit.txt
+en keys=380 gu keys=380
+PASS en/gu key parity 100%
+AUDIT_EXIT=0
+
+2. node scripts/company/i18n-crawl.mjs
+stdout: docs/company/audit/raw/PHASE_12_i18n_crawl.txt
+BEFORE TOGGLE chrome English=true
+AFTER GU spv.lang=gu gujarati=true session_kept=true
+AFTER EN spv.lang=en english=true
+RELOAD KEEPS spv.lang=en english=true
+CRAWL SUMMARY pass=50 fail=0
+CRAWL_EXIT=0
+
+PHASE_12 OVERALL PASS

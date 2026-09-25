@@ -1,0 +1,14 @@
+PHASE_11 2026-09-24T18:45Z
+OBJECTIVE: axe 0 critical/serious on 10 company pages + keyboard 22/22. Nothing inherited from PHASE_06.
+
+AXE: npm run company:test:a11y:axe
+stdout: docs/company/audit/raw/PHASE_11_axe.txt
+AXE SUMMARY pages=10 serious_critical=0 pass=10
+AXE_EXIT=0
+
+KEYBOARD: node scripts/company/a11y-keyboard.mjs
+stdout: docs/company/audit/raw/PHASE_11_keyboard.txt
+KEYBOARD SUMMARY pass=22 fail=0 total=22
+KB_EXIT=0
+
+PHASE_11 OVERALL PASS

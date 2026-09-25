@@ -1,0 +1,2 @@
+EVIDENCE_COMPANY_IDOR
+php scripts/company/idor-http.php PASS
