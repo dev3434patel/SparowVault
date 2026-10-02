@@ -1,0 +1,16 @@
+{
+  "runId": "SV-VERIFY-20260930-202153-be89afba",
+  "updatedAt": "2026-09-30T15:15:00Z",
+  "groups": {
+    "A00": "complete",
+    "trace": "complete",
+    "oracles": "complete",
+    "journeys": "complete",
+    "package": "complete",
+    "close": "complete"
+  },
+  "verdict": "LOCAL_REMEDIATION_REQUIRED",
+  "productSourceModifiedDuringAudit": false,
+  "resumeFrom": null,
+  "openFindings": ["F-001", "F-002", "F-003", "F-004", "F-005", "F-006"]
+}

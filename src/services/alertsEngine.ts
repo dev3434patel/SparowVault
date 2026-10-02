@@ -12,6 +12,9 @@ import { buildCashflowSurvivalReport } from "./cashflowSurvivalEngine";
 import { buildEmergencyFundIntel } from "./emergencyFundEngine";
 import { buildGoalIntel } from "./goalEngine";
 import { buildCreditCardIntel } from "./cardEngine";
+import { readCardMoneyFact, type CardMoneyFact } from "@/services/statements/cardMoneyFact";
+import { getDB } from "@/db/database";
+import type { CardStatement } from "@/types";
 import { smartBudgetStatuses } from "./smartBudgetEngine";
 import { udhariPersonKey } from "./udhariEngine";
 import type { RecurringRule, User } from "@/types";
@@ -24,10 +27,28 @@ import {
   udhariAmountPaise,
   udhariSettledPaise,
 } from "@/utils/money";
+import { alertPreferenceEnabled } from "@/services/alertPreferences";
 
 function recurringRuleAmountPaise(r: RecurringRule): number {
   if (r.amountPaise != null && Number.isFinite(r.amountPaise)) return Math.round(r.amountPaise);
   return rupeesToPaise(r.amount);
+}
+
+function minimumDueAlertMessage(fact: CardMoneyFact, fullDuePaise: number): string {
+  const full = `Full due (PIF) about ${formatMoney(fullDuePaise)}.`;
+  if (fact.evidence === "not_observed" || fact.valuePaise == null) {
+    return `${full} Minimum due was not on the statement, so this is not a minimum-payment instruction.`;
+  }
+  if (fact.evidence === "source_observed" && fact.valuePaise === 0) {
+    return `${full} Printed minimum due is ${formatMoney(0)}.`;
+  }
+  if (fact.evidence === "estimated") {
+    return `${full} Estimated minimum about ${formatMoney(fact.valuePaise)} (not an issuer figure).`;
+  }
+  if (fact.evidence === "user_confirmed") {
+    return `${full} Minimum due ${formatMoney(fact.valuePaise)} was confirmed by you, not printed by the issuer.`;
+  }
+  return `${full} Minimum due ${formatMoney(fact.valuePaise)}.`;
 }
 
 // Given current dataStore state, regenerate alerts (idempotent: dismissed alerts stay dismissed).
@@ -219,10 +240,22 @@ export async function runAlertEngine(user: User) {
 
   // Credit card alerts (Phase 7 — ledger-aware utilization + dues)
   const ledgerFx = state.ledgerEffects ?? [];
+  let cardStatements: CardStatement[] = [];
+  try {
+    cardStatements = (await getDB().cardStatements.where("userId").equals(user.id).toArray()).filter((row) => row.isDeleted !== 1);
+  } catch {
+    cardStatements = [];
+  }
   for (const card of state.cards) {
     if (card.type !== "credit") continue;
     const intel = buildCreditCardIntel(card, state.transactions, ledgerFx, today);
     if (!intel) continue;
+    const saved = cardStatements
+      .filter((row) => row.cardId === card.id)
+      .sort((a, b) => b.statementDate.localeCompare(a.statementDate))[0];
+    const minimumFact: CardMoneyFact = saved
+      ? readCardMoneyFact(saved, "minimumDue")
+      : { valuePaise: intel.minimumDuePaise, evidence: "estimated", needsReview: false };
 
     if (intel.nextDueDateIso) {
       const due = parseISO(intel.nextDueDateIso);
@@ -239,7 +272,7 @@ export async function runAlertEngine(user: User) {
           kind: "cc_due_soon",
           severity: "warning",
           title: `${card.nickname} due in ${days} day(s)`,
-          message: `Full due (PIF) about ${formatMoney(intel.fullDuePaise)}; minimum due about ${formatMoney(intel.minimumDuePaise)}.`,
+          message: minimumDueAlertMessage(minimumFact, intel.fullDuePaise),
         });
       } else if (days > 3 && days <= 7) {
         generated.push({
@@ -284,7 +317,10 @@ export async function runAlertEngine(user: User) {
     if (
       intel.nextDueDateIso &&
       intel.statementBalancePaise > 0 &&
-      intel.minimumDuePaise > 0
+      minimumFact.evidence !== "not_observed" &&
+      minimumFact.evidence !== "estimated" &&
+      minimumFact.valuePaise != null &&
+      minimumFact.valuePaise > 0
     ) {
       const due = parseISO(intel.nextDueDateIso);
       const days = Math.round((due.getTime() - nowMs) / (1000 * 60 * 60 * 24));
@@ -293,7 +329,7 @@ export async function runAlertEngine(user: User) {
           kind: "cc_min_due",
           severity: "warning",
           title: `${card.nickname}: minimum due soon`,
-          message: `Pay at least ${formatMoney(intel.minimumDuePaise)} before due date to avoid late fees (full due ${formatMoney(intel.fullDuePaise)}).`,
+          message: `Pay at least ${formatMoney(minimumFact.valuePaise)} before due date to avoid late fees (full due ${formatMoney(intel.fullDuePaise)}).`,
         });
       }
     }
@@ -470,8 +506,47 @@ export async function runAlertEngine(user: User) {
     });
   }
 
+  const prefs = state.settings?.warningPreferences;
+  const expenseTx = state.transactions.filter((tx) => tx.isDeleted !== 1 && tx.type === "expense");
+  const monthKey = (iso: string) => iso.slice(0, 7);
+  const thisMonth = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}`;
+  const prev = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+  const prevMonth = `${prev.getFullYear()}-${String(prev.getMonth() + 1).padStart(2, "0")}`;
+  const sumMonth = (key: string) =>
+    expenseTx.reduce((sum, tx) => (monthKey(tx.date) === key ? sum + transactionAmountPaise(tx) : sum), 0);
+  const thisSpend = sumMonth(thisMonth);
+  const prevSpend = sumMonth(prevMonth);
+  if (prevSpend > 0 && expenseTx.filter((tx) => monthKey(tx.date) === thisMonth).length >= 3 && thisSpend > prevSpend * 1.5) {
+    generated.push({
+      kind: "unusual_spend",
+      severity: "warning",
+      title: "Spending is higher than last month",
+      message: `This month's expenses are ${formatMoney(thisSpend)} versus ${formatMoney(prevSpend)} last month. Review before treating this as a problem.`,
+      linkHref: "/expenses",
+    });
+  }
+  const seenDup = new Set<string>();
+  for (const tx of expenseTx) {
+    const key = `${tx.date}|${transactionAmountPaise(tx)}|${tx.accountId ?? ""}`;
+    if (seenDup.has(key)) continue;
+    const matches = expenseTx.filter(
+      (other) => other.date === tx.date && transactionAmountPaise(other) === transactionAmountPaise(tx) && (other.accountId ?? "") === (tx.accountId ?? ""),
+    );
+    if (matches.length < 2) continue;
+    seenDup.add(key);
+    generated.push({
+      kind: "duplicate_candidate",
+      severity: "info",
+      title: "Possible duplicate expense",
+      message: `${matches.length} expenses on ${tx.date} share ${formatMoney(transactionAmountPaise(tx))}. This is a candidate only — nothing was deleted.`,
+      linkHref: "/transactions",
+    });
+  }
+
+  const visible = generated.filter((g) => alertPreferenceEnabled(prefs, g.kind));
+
   // Upsert — merge with existing to preserve dismissed ones
-  for (const g of generated) {
+  for (const g of visible) {
     const prior = existing.find(
       (a) => a.kind === g.kind && a.title === g.title,
     );

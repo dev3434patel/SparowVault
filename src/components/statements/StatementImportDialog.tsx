@@ -15,7 +15,7 @@ import { BANKS, type BankId, type StatementAnalysis, type StatementDecision, typ
 import { analyzeStatement, reconcileStatement, statementPaise } from "@/services/statements/parser";
 import { validateStatementCompleteness, toVerifierRows, type PrintedEvidence } from "@/services/statements/verifier";
 import { detectOcrFieldUncertainty } from "@/services/statements/ocrUncertainty";
-import { decisionProblems, monthlyStatementTotals, statementDuplicate, suggestStatementDecision, canBulkConfirmDecision } from "@/services/statements/classification";
+import { decisionProblems, monthlyStatementTotals, statementDuplicate, suggestStatementDecision, applyBulkAcceptDecision, BULK_ACCEPT_REASON, type BulkAcceptScope } from "@/services/statements/classification";
 import { openStatementPdf, sha256, type LoadedStatement } from "@/services/statements/pdf";
 import { supportLabelForBank } from "@/services/statements/layoutRegistry";
 import { clearStatementDraft, draftMatchesFile, loadStatementDraft, saveStatementDraft } from "@/services/statements/draft";
@@ -28,10 +28,16 @@ import { pageTopDownToViewportCss, viewerRenderScale } from "@/services/statemen
 import { accountMonthUnionToCsv, buildStatementExportBundle } from "@/services/statements/exportBundle";
 import { accountMonthUnionFromDocuments, sourceDocumentStats } from "@/services/statements/reports";
 import { routeStatementDocumentClass, parseSyntheticCardFixture } from "@/services/statements/cardDocument";
+import { reviewedCardCycleDates, type ReviewedCardImport } from "@/services/statements/localBooks";
+import { applyStatementLocalCopy, listPendingStatementApplies, rememberServerCommittedStatement, rememberStatementCommand, resumePendingStatementLocalApplies, type StatementLocalApplyRecord } from "@/services/statements/localApply";
+import { statementReceiptHref } from "@/services/statements/receiptLink";
+import { useMessages } from "@/i18n/useMessages";
 
 const money = (paise: number) => new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 2 }).format(paise / 100);
 const selectClass = "h-9 w-full min-w-0 rounded-md border border-border bg-background px-2 text-sm text-foreground";
-const purposeLabels: Record<StatementKind, string> = { income: "Income", expense: "Expense", transfer: "Own-account transfer", refund: "Expense refund", contribution: "Contribution return", cc_payment: "Credit-card payment" };
+function fill(template: string, values: Record<string, string | number>) {
+  return Object.entries(values).reduce((text, [key, value]) => text.replaceAll(`{${key}}`, String(value)), template);
+}
 const bankAccountTypes = ["bank", "savings", "current", "debit_linked"];
 
 function SourcePage({ loaded, page, highlight }: { loaded: LoadedStatement; page: number; highlight?: { page: number; x: number; y: number; width: number; height: number } | null }) {
@@ -91,6 +97,23 @@ function SourcePage({ loaded, page, highlight }: { loaded: LoadedStatement; page
 }
 
 export default function StatementImportDialog({ onClose }: { onClose: () => void }) {
+  const copy = useMessages().copy.statement;
+  const purposeLabels: Record<StatementKind, string> = {
+    income: copy.purposeIncome,
+    expense: copy.purposeExpense,
+    transfer: copy.purposeTransfer,
+    refund: copy.purposeRefund,
+    contribution: copy.purposeContribution,
+    cc_payment: copy.purposeCard,
+  };
+  const reasonText: Record<string, string> = {
+    [BULK_ACCEPT_REASON.accepted]: copy.acceptedReason,
+    [BULK_ACCEPT_REASON.category]: copy.needCategoryReason,
+    [BULK_ACCEPT_REASON.transfer]: copy.needTransferReason,
+    [BULK_ACCEPT_REASON.cc_payment]: copy.needCardReason,
+    [BULK_ACCEPT_REASON.refund]: copy.needRefundReason,
+    [BULK_ACCEPT_REASON.contribution]: copy.needContributionReason,
+  };
   const user = useAuthStore(s => s.currentUser);
   const accounts = useDataStore(s => s.accounts);
   const categories = useDataStore(s => s.categories);
@@ -116,6 +139,9 @@ export default function StatementImportDialog({ onClose }: { onClose: () => void
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [result, setResult] = useState<StatementImportResult | null>(null);
+  const [cardStatementSaved, setCardStatementSaved] = useState<boolean | null>(null);
+  const [localBooksStored, setLocalBooksStored] = useState(false);
+  const [localApply, setLocalApply] = useState<StatementLocalApplyRecord | null>(null);
   const [currencyConfirmed, setCurrencyConfirmed] = useState(false);
   const [ocrMode, setOcrMode] = useState<"auto" | "force" | "off">("auto");
   const [ocrSourceConfirmed, setOcrSourceConfirmed] = useState(false);
@@ -125,6 +151,7 @@ export default function StatementImportDialog({ onClose }: { onClose: () => void
   const [query, setQuery] = useState("");
   const [month, setMonth] = useState("");
   const [filter, setFilter] = useState("all");
+  const [selectedScope, setSelectedScope] = useState<BulkAcceptScope>("");
   const [reviewRevision, setReviewRevision] = useState(0);
   const [sourceEvidence, setSourceEvidence] = useState<PrintedEvidence>({});
   const [fieldEdits, setFieldEdits] = useState<Record<string, { amountPaise?: number; date?: string; reason?: string }>>({});
@@ -138,6 +165,11 @@ export default function StatementImportDialog({ onClose }: { onClose: () => void
     if (!user) return;
     let active = true;
     void useDataStore.getState().ensureCollections(["accounts", "categories", "transactions", "cards"], user).then(() => { if (active) setDataReady(true); }).catch(() => { if (active) setError("Account data could not be loaded. Reopen the statement importer after reconnecting."); });
+    void resumePendingStatementLocalApplies(user.id, () => useAuthStore.getState().currentUser?.id).then(() => {
+      if (!active) return;
+      const pending = listPendingStatementApplies(user.id);
+      if (pending[0]) setLocalApply(pending[0]);
+    });
     return () => { active = false; };
   }, [user?.id]);
   useEffect(() => () => { controller.current?.abort(); passwordResolve.current?.(null); void currentPdf.current?.destroy(); }, []);
@@ -175,6 +207,11 @@ export default function StatementImportDialog({ onClose }: { onClose: () => void
   const rows = analysis?.rows ?? [];
   const included = rows.filter(row => decisions[row.id]?.include);
   const remaining = included.filter(row => decisionProblems(row, decisions[row.id], accountId || cardId).length > 0);
+  const categoryBlocked = included.filter(row => {
+    const decision = decisions[row.id];
+    return !!decision && ["income", "expense", "refund", "contribution"].includes(decision.kind) && !decision.categoryId;
+  }).length;
+  const reviewAllDisabled = saving || !!result || !included.some(row => !decisions[row.id]?.reviewed || decisionProblems(row, decisions[row.id], accountId || cardId).length > 0);
   const extractionProblems = [...(analysis?.issues ?? []), ...rows.flatMap(row => row.issues.map(issue => `Row ${row.id}: ${issue}`))];
   const completenessBlocked = completeness?.status === "incomplete";
   const ocrUncertaintyBlocked = !!analysis?.ocrPages?.length && !ocrSourceConfirmed;
@@ -196,14 +233,14 @@ export default function StatementImportDialog({ onClose }: { onClose: () => void
 
   async function close() {
     if (saving) return;
-    if (analysis && !result && !await requestConfirm({ title: "Close statement review?", description: "Unimported review changes will be discarded. The original PDF is not stored by the app.", confirmLabel: "Close review" })) return;
+    if (analysis && !result && !await requestConfirm({ title: copy.closeReview, description: "Unimported review changes will be discarded. The original PDF is not stored by the app.", confirmLabel: copy.closeReviewConfirm })) return;
     onClose();
   }
   async function reset() {
-    if (analysis && !result && !await requestConfirm({ title: "Replace statement?", description: "Unimported review changes will be discarded.", confirmLabel: "Replace" })) return;
+    if (analysis && !result && !await requestConfirm({ title: copy.replaceTitle, description: "Unimported review changes will be discarded.", confirmLabel: copy.replace })) return;
     controller.current?.abort(); passwordResolve.current?.(null); passwordResolve.current = null;
     await currentPdf.current?.destroy(); currentPdf.current = null;
-    setLoaded(null); setAnalysis(null); setDecisions({}); setResult(null); setError(""); setFile(null); setPassword(""); setPasswordState(null); setCurrencyConfirmed(false); setPage(1); setQuery(""); setMonth(""); setFilter("all"); setShowSource(false); setReviewRevision(0); setSourceEvidence({}); setFieldEdits({}); setHighlightBox(null); setDocumentClass("unknown"); setCardId("");
+    setLoaded(null); setAnalysis(null); setDecisions({}); setResult(null); setCardStatementSaved(null); setLocalBooksStored(false); setError(""); setFile(null); setPassword(""); setPasswordState(null); setCurrencyConfirmed(false); setPage(1); setQuery(""); setMonth(""); setFilter("all"); setSelectedScope(""); setShowSource(false); setReviewRevision(0); setSourceEvidence({}); setFieldEdits({}); setHighlightBox(null); setDocumentClass("unknown"); setCardId("");
   }
   function changeDecision(id: string, patch: Partial<StatementDecision>) {
     setReviewRevision((n) => n + 1);
@@ -215,6 +252,21 @@ export default function StatementImportDialog({ onClose }: { onClose: () => void
       id,
       d.include ? { ...d, reviewed } : d,
     ])));
+  }
+  function acceptIncludedSuggestions() {
+    setReviewRevision((n) => n + 1);
+    const destination = accountId || cardId;
+    const userId = user?.id;
+    const scope = selectedScope;
+    setDecisions((current) => {
+      const next = { ...current };
+      for (const row of rows) {
+        const decision = current[row.id];
+        if (!decision) continue;
+        next[row.id] = applyBulkAcceptDecision(row, decision, categories, destination, scope, userId);
+      }
+      return next;
+    });
   }
   function changeBalances(kind: "opening" | "closing", value: string) {
     setReviewRevision((n) => n + 1);
@@ -346,6 +398,73 @@ export default function StatementImportDialog({ onClose }: { onClose: () => void
     setReviewRevision((n) => n + 1);
     changeDecision(occurrenceId, { include: false, reviewed: true, matchTransactionId: transactionId });
   }
+  function openReceipt(key: "transactions" | "reconciliation" | "cards") {
+    if (!result) return;
+    const href = statementReceiptHref(key, {
+      transactionIds: result.transactionIds ?? [],
+      matchIds: result.matchIds ?? [],
+      cardId: localApply?.card?.cardId || cardId,
+      importSourceId: result.importSourceId,
+    });
+    if (key === "transactions" && !href.includes("statementSource=")) {
+      useUIStore.getState().setPendingTransactionFilters({ ids: result.transactionIds ?? [] });
+    }
+    useNavStore.getState().setActive(key);
+    window.history.replaceState({}, "", href);
+    onClose();
+  }
+  async function repairLocalCopy(mutationId: string) {
+    if (!user) return;
+    setSaving(true);
+    try {
+      const applied = await applyStatementLocalCopy({
+        mutationId,
+        activeUserId: () => useAuthStore.getState().currentUser?.id,
+      });
+      setLocalApply(applied);
+      setLocalBooksStored(applied.state === "LOCAL_APPLIED");
+      setCardStatementSaved(applied.card ? applied.state === "LOCAL_APPLIED" : null);
+      if (applied.state === "LOCAL_APPLIED") {
+        try { await useDataStore.getState().refreshOne("transactions", user); } catch { /* receipt stays usable */ }
+      }
+    } catch (error) {
+      toast({ title: copy.importSaved, description: error instanceof Error ? error.message : "Repair the local copy when this device can write.", kind: "warning" });
+    } finally {
+      setSaving(false);
+    }
+  }
+  async function finishLocalBooks(saved: StatementImportResult, card: ReviewedCardImport | null, mutationId: string) {
+    if (!user) return;
+    const record = rememberServerCommittedStatement({ mutationId, userId: user.id, result: saved, card });
+    const sameUser = () => useAuthStore.getState().currentUser?.id === user.id;
+    if (!sameUser()) {
+      setLocalApply(record);
+      setLocalBooksStored(false);
+      setCardStatementSaved(card ? false : null);
+      setResult(saved);
+      return;
+    }
+    setLocalApply(record);
+    setResult(saved);
+    try {
+      const applied = await applyStatementLocalCopy({
+        mutationId,
+        activeUserId: () => useAuthStore.getState().currentUser?.id,
+      });
+      setLocalApply(applied);
+      const stored = applied.state === "LOCAL_APPLIED";
+      setLocalBooksStored(stored);
+      setCardStatementSaved(card ? stored : null);
+      if (stored) {
+        try { await useDataStore.getState().refreshOne("transactions", user); }
+        catch { toast({ title: copy.importSaved, description: "Refresh the transaction list after reconnecting.", kind: "warning" }); }
+      }
+    } catch (error) {
+      setLocalBooksStored(false);
+      setCardStatementSaved(card ? false : null);
+      toast({ title: copy.importSaved, description: error instanceof Error ? error.message : "The server import is saved. Repair the local copy without importing again.", kind: "warning" });
+    }
+  }
   async function save() {
     if (!ready || !user || !analysis?.bank || !loaded || opening === null || closing === null) return;
     if (!await requestConfirm({ title: `Import ${included.length} reviewed transactions?`, description: `${rows.length - included.length} rows are excluded. Categories and personal/business choices are your confirmed decisions, not bank-verified facts.`, confirmLabel: "Import reviewed" })) return;
@@ -426,11 +545,30 @@ export default function StatementImportDialog({ onClose }: { onClose: () => void
         };
         const body = JSON.stringify(cardRequest);
         if (new TextEncoder().encode(body).byteLength > 1048576) throw new Error("Statement exceeds the 1 MB reviewed-data limit.");
+        const cycle = reviewedCardCycleDates({
+          periodFrom: analysis.periodFrom,
+          periodTo: analysis.periodTo,
+          rowDates: cardRows.map((row) => row.date),
+        });
+        const reviewedCard = {
+          cardId,
+          openingBalancePaise: opening,
+          closingBalancePaise: closing,
+          statementDate: cycle.statementDate,
+          cycleStartDate: cycle.cycleStartDate,
+          cycleEndDate: cycle.cycleEndDate,
+          rows: cardRows.map((row) => ({ amountPaise: row.amountPaise, direction: row.direction, kindHint: row.kindHint })),
+        };
+        rememberStatementCommand({
+          mutationId: cardRequest.mutationId,
+          userId: user.id,
+          endpoint: "/api/import/statement-card.php",
+          body,
+          card: reviewedCard,
+        });
         const saved = await apiRequest<StatementImportResult>("/api/import/statement-card.php", { method: "POST", auth: true, body });
         clearStatementDraft(user.id);
-        setResult(saved);
-        try { if (useAuthStore.getState().currentUser?.id === user.id) await useDataStore.getState().refreshOne("transactions", user); }
-        catch { toast({ title: "Import saved", description: "Refresh the transaction list after reconnecting.", kind: "warning" }); }
+        await finishLocalBooks(saved, reviewedCard, cardRequest.mutationId);
         return;
       }
 
@@ -480,49 +618,54 @@ export default function StatementImportDialog({ onClose }: { onClose: () => void
       if (useAuthStore.getState().currentUser?.id !== user.id || useAuthStore.getState().locked) throw new Error("Account changed or locked before import");
       const body = JSON.stringify(request);
       if (new TextEncoder().encode(body).byteLength > 1048576) throw new Error("Statement exceeds the 1 MB reviewed-data limit. Export a shorter statement period.");
+      rememberStatementCommand({
+        mutationId: request.mutationId,
+        userId: user.id,
+        endpoint: "/api/import/statement.php",
+        body,
+        card: null,
+      });
       const saved = await apiRequest<StatementImportResult>("/api/import/statement.php", { method: "POST", auth: true, body });
       clearStatementDraft(user.id);
-      setResult(saved);
-      try { if (useAuthStore.getState().currentUser?.id === user.id) await useDataStore.getState().refreshOne("transactions", user); }
-      catch { toast({ title: "Import saved", description: "Refresh the transaction list after reconnecting.", kind: "warning" }); }
+      await finishLocalBooks(saved, null, request.mutationId);
     } catch (error) { setError(`${error instanceof Error ? error.message : "Import response unavailable"}${isRetryableApiError(error) ? ". Keep this review and retry unchanged to verify the result." : ""}`); }
     finally { setSaving(false); }
   }
 
   return <Dialog open onOpenChange={value => { if (!value) void close(); }}>
     <DialogContent size="xl" showClose={!saving} className="w-[calc(100vw-1rem)] max-w-[1280px] max-h-[calc(100dvh-1rem)] rounded-lg p-4 sm:p-6">
-      <DialogHeader className="pr-8"><DialogTitle className="flex items-center gap-2 tracking-normal"><FileText className="h-5 w-5 shrink-0" />Bank Statement</DialogTitle></DialogHeader>
+      <DialogHeader className="pr-8"><DialogTitle className="flex items-center gap-2 tracking-normal"><FileText className="h-5 w-5 shrink-0" />{copy.title}</DialogTitle></DialogHeader>
       {error && <p role="alert" className="mb-4 break-words border-l-2 border-danger pl-3 text-sm text-danger">{error}</p>}
       {!analysis ? <>
         <div className="grid min-w-0 gap-4 sm:grid-cols-2">
-          <label className="grid gap-2 text-sm font-medium">Bank<select aria-label="Statement bank" className={selectClass} disabled={busy} value={bank} onChange={e => setBank(e.target.value as BankId | "auto")}><option value="auto">Detect from statement</option>{BANKS.map(b => <option key={b.id} value={b.id}>{b.name}</option>)}</select></label>
-          <label className="grid gap-2 text-sm font-medium">Bank account<select aria-label="Statement account" className={selectClass} disabled={busy || !dataReady} value={accountId} onChange={e => { setAccountId(e.target.value); if (e.target.value) setCardId(""); }}><option value="">Select a bank account</option>{availableAccounts.map(account => <option key={account.id} value={account.id}>{account.name}</option>)}</select></label>
-          <label className="grid gap-2 text-sm font-medium sm:col-span-2">Or credit card (card PDF path)<select aria-label="Statement credit card" className={selectClass} disabled={busy || !dataReady} value={cardId} onChange={e => { setCardId(e.target.value); if (e.target.value) setAccountId(""); }}><option value="">Select a credit card</option>{availableCards.map(card => <option key={card.id} value={card.id}>{card.nickname || card.last4 || card.id}</option>)}</select></label>
+          <label className="grid gap-2 text-sm font-medium">Bank<select aria-label={copy.bankAria} className={selectClass} disabled={busy} value={bank} onChange={e => setBank(e.target.value as BankId | "auto")}><option value="auto">{copy.detect}</option>{BANKS.map(b => <option key={b.id} value={b.id}>{b.name}</option>)}</select></label>
+          <label className="grid gap-2 text-sm font-medium">Bank account<select aria-label={copy.accountAria} className={selectClass} disabled={busy || !dataReady} value={accountId} onChange={e => { setAccountId(e.target.value); if (e.target.value) setCardId(""); }}><option value="">{copy.selectAccount}</option>{availableAccounts.map(account => <option key={account.id} value={account.id}>{account.name}</option>)}</select></label>
+          <label className="grid gap-2 text-sm font-medium sm:col-span-2">Or credit card (card PDF path)<select aria-label={copy.cardAria} className={selectClass} disabled={busy || !dataReady} value={cardId} onChange={e => { setCardId(e.target.value); if (e.target.value) setAccountId(""); }}><option value="">{copy.selectCard}</option>{availableCards.map(card => <option key={card.id} value={card.id}>{card.nickname || card.last4 || card.id}</option>)}</select></label>
         </div>
         {documentClass === "credit_card" && <p className="mt-2 text-xs text-muted-foreground" role="status">Credit-card document class detected — liability arithmetic will be used (not deposit running balance).</p>}
-        {dataReady && !availableAccounts.length && !availableCards.length && <div className="mt-4 flex items-center justify-between gap-3 border-y border-border py-3"><span className="text-sm">No bank accounts or cards</span><Button variant="outline" onClick={() => { onClose(); useNavStore.getState().setActive("accounts"); }}>Add account</Button></div>}
+        {dataReady && !availableAccounts.length && !availableCards.length && <div className="mt-4 flex items-center justify-between gap-3 border-y border-border py-3"><span className="text-sm">No bank accounts or cards</span><Button variant="outline" onClick={() => { onClose(); useNavStore.getState().setActive("accounts"); }}>{copy.addAccount}</Button></div>}
         <div className="mt-5 flex min-h-36 flex-col items-center justify-center gap-3 rounded-lg border border-dashed border-border bg-surface/30 p-4" onDragOver={event => event.preventDefault()} onDrop={event => { event.preventDefault(); if (!busy && event.dataTransfer.files.length === 1) { setFile(event.dataTransfer.files[0]); setError(""); } }}>
           <Upload className="h-7 w-7 text-muted-foreground" />
-          <input ref={fileInput} type="file" accept="application/pdf,.pdf" aria-label="Statement PDF" className="sr-only" disabled={busy} onChange={event => { setFile(event.target.files?.[0] ?? null); setError(""); }} />
-          <Button variant="outline" disabled={busy} onClick={() => fileInput.current?.click()}><Upload className="mr-2 h-4 w-4" />Select PDF</Button>
+          <input ref={fileInput} type="file" accept="application/pdf,.pdf" aria-label={copy.pdfAria} className="sr-only" disabled={busy} onChange={event => { setFile(event.target.files?.[0] ?? null); setError(""); }} />
+          <Button variant="outline" disabled={busy} onClick={() => fileInput.current?.click()}><Upload className="mr-2 h-4 w-4" />{copy.selectPdf}</Button>
           <p className="max-w-full break-all text-sm text-muted-foreground">{file ? `${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)` : "PDF / 20 MB / 60 pages"}</p>
         </div>
-        <label className="mt-4 grid max-w-sm gap-2 text-sm">Extraction<select aria-label="PDF extraction mode" className={selectClass} value={ocrMode} disabled={busy} onChange={e => setOcrMode(e.target.value as typeof ocrMode)}><option value="auto">Text + scanned-page OCR</option><option value="force">OCR every page (12-page limit)</option><option value="off">Text only</option></select></label>
+        <label className="mt-4 grid max-w-sm gap-2 text-sm">Extraction<select aria-label={copy.extractionAria} className={selectClass} value={ocrMode} disabled={busy} onChange={e => setOcrMode(e.target.value as typeof ocrMode)}><option value="auto">{copy.textOcr}</option><option value="force">{copy.ocrEvery}</option><option value="off">{copy.textOnly}</option></select></label>
         {passwordState && <form className="mt-4 flex flex-wrap items-end gap-3" onSubmit={event => { event.preventDefault(); if (!password) return; const resolve = passwordResolve.current; passwordResolve.current = null; setPasswordState(null); const value = password; setPassword(""); resolve?.(value); }}>
-          <label className="grid min-w-0 flex-1 basis-48 gap-2 text-sm"><span className="flex items-center gap-2"><LockKeyhole className="h-4 w-4" />PDF password</span><Input type="password" aria-label="PDF password" autoComplete="off" value={password} onChange={e => setPassword(e.target.value)} autoFocus /></label>
-          <Button type="submit" disabled={!password}>Unlock PDF</Button>
-          {passwordState === "incorrect" && <p role="alert" className="w-full text-sm text-danger">Incorrect PDF password. Use the password supplied with the bank statement.</p>}
+          <label className="grid min-w-0 flex-1 basis-48 gap-2 text-sm"><span className="flex items-center gap-2"><LockKeyhole className="h-4 w-4" />PDF password</span><Input type="password" aria-label={copy.passwordAria} autoComplete="off" value={password} onChange={e => setPassword(e.target.value)} autoFocus /></label>
+          <Button type="submit" disabled={!password}>{copy.unlock}</Button>
+          {passwordState === "incorrect" && <p role="alert" className="w-full text-sm text-danger">{copy.badPassword}</p>}
         </form>}
-        <div className="mt-5 flex flex-wrap items-center justify-between gap-3"><span role="status" className="text-sm text-muted-foreground">{busy ? progress : "PDF and password: this device only"}</span><div className="flex gap-2">{busy && <Button variant="outline" onClick={() => { controller.current?.abort(); passwordResolve.current?.(null); }}>Cancel</Button>}<Button disabled={busy || !file || !(accountId || cardId) || !dataReady} onClick={() => void analyze()}>{busy ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <FileText className="mr-2 h-4 w-4" />}Analyze statement</Button></div></div>
+        <div className="mt-5 flex flex-wrap items-center justify-between gap-3"><span role="status" className="text-sm text-muted-foreground">{busy ? progress : copy.deviceOnly}</span><div className="flex gap-2">{busy && <Button variant="outline" onClick={() => { controller.current?.abort(); passwordResolve.current?.(null); }}>{copy.cancel}</Button>}<Button disabled={busy || !file || !(accountId || cardId) || !dataReady} onClick={() => void analyze()}>{busy ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <FileText className="mr-2 h-4 w-4" />}{copy.analyze}</Button></div></div>
       </> : <>
-        <nav aria-label="Statement import stages" className="mb-3 flex flex-wrap gap-2 text-xs">
+        <nav aria-label={copy.stages} className="mb-3 flex flex-wrap gap-2 text-xs">
           {(["Analyze", "Validate", "Review", "Preview", "Commit", "Receipt"] as const).map(stage => (
             <span key={stage} className={`rounded border px-2 py-1 ${workflowStage === stage || (stage === "Commit" && saving) ? "border-foreground font-semibold" : "border-border text-muted-foreground"}`}>{stage}</span>
           ))}
         </nav>
         <div className="mb-4 flex flex-wrap items-start justify-between gap-3 border-b border-border pb-4">
           <div className="min-w-0"><h2 className="text-base font-semibold">{BANKS.find(b => b.id === analysis.bank)?.name ?? "Unidentified bank"}</h2><p className="mt-1 break-words text-sm text-muted-foreground">{analysis.periodFrom ?? "Unknown date"} to {analysis.periodTo ?? "Unknown date"} / {rows.length} transactions / {analysis.pageCount} pages</p><p className="mt-1 text-sm text-amber-800 dark:text-amber-200">{analysis.bank ? supportLabelForBank(analysis.bank) : "Unsupported or unknown layout"}</p><p className="mt-1 break-all text-xs text-muted-foreground">{file?.name}</p></div>
-          <div className="flex shrink-0 flex-wrap gap-2"><Button size="sm" variant="outline" disabled={saving || !!result || !user || !loaded} onClick={() => { if (!user || !loaded || !analysis) return; saveStatementDraft({ userId: user.id, documentHash: loaded.hash, fileName: file?.name ?? "statement.pdf", bank: analysis.bank, accountId: accountId || cardId, parserVersion: analysis.parserVersion, openingText, closingText, decisions, currencyConfirmed, ocrSourceConfirmed }); toast({ title: "Draft saved", description: "PDF password is never stored. Reselect the same file to resume.", kind: "info" }); }}>Save draft</Button><Button size="icon" variant="outline" aria-label="View source PDF" title="View source PDF" onClick={() => setShowSource(value => !value)}><Eye className="h-4 w-4" /></Button><Button size="icon" variant="outline" aria-label="Download statement review" title="Download statement review" onClick={downloadReview}><Download className="h-4 w-4" /></Button><Button size="icon" variant="outline" aria-label="Replace statement" title="Replace statement" disabled={saving} onClick={() => void reset()}><RotateCcw className="h-4 w-4" /></Button></div>
+          <div className="flex shrink-0 flex-wrap gap-2"><Button size="sm" variant="outline" disabled={saving || !!result || !user || !loaded} onClick={() => { if (!user || !loaded || !analysis) return; saveStatementDraft({ userId: user.id, documentHash: loaded.hash, fileName: file?.name ?? "statement.pdf", bank: analysis.bank, accountId: accountId || cardId, parserVersion: analysis.parserVersion, openingText, closingText, decisions, currencyConfirmed, ocrSourceConfirmed }); toast({ title: copy.draftSaved, description: copy.draftBody, kind: "info" }); }}>{copy.saveDraft}</Button><Button size="icon" variant="outline" aria-label={copy.viewPdf} title={copy.viewPdf} onClick={() => setShowSource(value => !value)}><Eye className="h-4 w-4" /></Button><Button size="icon" variant="outline" aria-label={copy.downloadReview} title={copy.downloadReview} onClick={downloadReview}><Download className="h-4 w-4" /></Button><Button size="icon" variant="outline" aria-label="Replace statement" title="Replace statement" disabled={saving} onClick={() => void reset()}><RotateCcw className="h-4 w-4" /></Button></div>
         </div>
         <div className="grid grid-cols-2 gap-x-4 gap-y-3 border-b border-border pb-4 sm:grid-cols-3 lg:grid-cols-5">
           <div><div className="text-xs text-muted-foreground">Total debits</div><div className="mt-1 break-all text-base font-semibold tabular-nums text-danger">{rows.length ? money(reconciliation?.debitPaise ?? 0) : "Unavailable"}</div></div>
@@ -542,66 +685,67 @@ export default function StatementImportDialog({ onClose }: { onClose: () => void
         })}</tbody></table><p className="mt-2 text-xs text-muted-foreground">Bank credits are not automatically income. Missing months are unknown coverage, not zero activity.</p></div></details>
         {!!analysis.ocrPages?.length && <label className="my-3 flex items-start gap-2 border-l-2 border-amber-500 pl-3 text-sm"><input type="checkbox" checked={ocrSourceConfirmed} disabled={saving || !!result} onChange={e => setOcrSourceConfirmed(e.target.checked)} />OCR dates, amounts and row completeness verified against the original PDF</label>}
         <div className="my-4 grid gap-3 sm:grid-cols-3">
-          <label className="grid gap-1 text-xs">Opening balance (INR)<Input aria-label="Statement opening balance" inputMode="decimal" value={openingText} disabled={saving || !!result} onChange={e => changeBalances("opening", e.target.value)} /></label>
-          <label className="grid gap-1 text-xs">Closing balance (INR)<Input aria-label="Statement closing balance" inputMode="decimal" value={closingText} disabled={saving || !!result} onChange={e => changeBalances("closing", e.target.value)} /></label>
-          <label className="flex items-center gap-2 self-end py-2 text-xs"><input type="checkbox" checked={currencyConfirmed} disabled={saving || !!result} onChange={e => setCurrencyConfirmed(e.target.checked)} />INR account and source balances confirmed</label>
+          <label className="grid gap-1 text-xs">{copy.opening}<Input aria-label={copy.opening} inputMode="decimal" value={openingText} disabled={saving || !!result} onChange={e => changeBalances("opening", e.target.value)} /></label>
+          <label className="grid gap-1 text-xs">{copy.closing}<Input aria-label={copy.closing} inputMode="decimal" value={closingText} disabled={saving || !!result} onChange={e => changeBalances("closing", e.target.value)} /></label>
+          <label className="flex items-center gap-2 self-end py-2 text-xs"><input type="checkbox" checked={currencyConfirmed} disabled={saving || !!result} onChange={e => setCurrencyConfirmed(e.target.checked)} />{copy.inrConfirmed}</label>
         </div>
         <div className={showSource ? "grid min-w-0 gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(280px,0.65fr)]" : "min-w-0"}>
           <div className="min-w-0">
-            <div className="mb-3 grid grid-cols-2 gap-2 sm:grid-cols-4"><Input aria-label="Search statement narration" placeholder="Search narration" value={query} onChange={e => { setQuery(e.target.value); setPage(1); }} /><select aria-label="Statement month" className={selectClass} value={month} onChange={e => { setMonth(e.target.value); setPage(1); }}><option value="">All months</option>{months.map(month => <option key={month}>{month}</option>)}</select><select aria-label="Statement row filter" className={selectClass} value={filter} onChange={e => { setFilter(e.target.value); setPage(1); }}><option value="all">All rows</option><option value="review">Needs review</option><option value="duplicates">Possible duplicates</option></select><select aria-label="Scope for selected rows" className={selectClass} value="" disabled={saving || !!result} onChange={e => { const scope = e.target.value as "personal" | "business"; setDecisions(current => Object.fromEntries(Object.entries(current).map(([id, d]) => [id, d.include ? { ...d, scope, reviewed: false } : d]))); }}><option value="">Selected scope</option><option value="personal">Personal</option><option value="business">Business</option></select></div>
+            <div className="mb-3 grid grid-cols-2 gap-2 sm:grid-cols-4"><Input aria-label={copy.searchNarration} placeholder={copy.searchNarration} value={query} onChange={e => { setQuery(e.target.value); setPage(1); }} /><select aria-label={copy.month} className={selectClass} value={month} onChange={e => { setMonth(e.target.value); setPage(1); }}><option value="">{copy.allMonths}</option>{months.map(month => <option key={month}>{month}</option>)}</select><select aria-label={copy.rowFilter} className={selectClass} value={filter} onChange={e => { setFilter(e.target.value); setPage(1); }}><option value="all">{copy.allRows}</option><option value="review">{copy.needsReview}</option><option value="duplicates">{copy.duplicates}</option></select><select aria-label={copy.scopeAria} className={selectClass} value={selectedScope} disabled={saving || !!result} onChange={e => { const scope = e.target.value as BulkAcceptScope; setSelectedScope(scope); if (!scope) return; setReviewRevision(n => n + 1); setDecisions(current => Object.fromEntries(Object.entries(current).map(([id, d]) => [id, d.include ? { ...d, scope, reviewed: false } : d]))); }}><option value="">{copy.selectedScope}</option><option value="personal">{copy.personal}</option><option value="business">{copy.business}</option></select></div>
             <div className="mb-3 flex flex-wrap items-center gap-2">
               <Button
                 size="sm"
                 variant="outline"
-                disabled={saving || !!result || !included.some((row) => !decisions[row.id]?.reviewed)}
-                aria-label="Review all included rows"
-                onClick={() => setAllIncludedReviewed(true)}
+                disabled={reviewAllDisabled}
+                aria-label={copy.reviewAll}
+                onClick={acceptIncludedSuggestions}
               >
-                <Check className="mr-2 h-4 w-4" />Review all
+                <Check className="mr-2 h-4 w-4" />{copy.reviewAllButton}
               </Button>
               <Button
                 size="sm"
                 variant="ghost"
                 disabled={saving || !!result || !included.some((row) => decisions[row.id]?.reviewed)}
-                aria-label="Clear all reviewed checkboxes"
+                aria-label={copy.clearReviewed}
                 onClick={() => setAllIncludedReviewed(false)}
               >
-                Clear reviews
+                {copy.clearReviews}
               </Button>
-              <span className="text-xs text-muted-foreground">Checks Reviewed on every included row. Purpose, category, and scope are still required before import.</span>
+              <span className="text-xs text-muted-foreground">{copy.checksHint}</span>
+              {categoryBlocked > 0 && <p className="text-xs font-medium text-amber-700 dark:text-amber-300">{fill(copy.categoryBlocked, { n: categoryBlocked })}</p>}
               {remaining.length > 0 && (
                 <button
                   type="button"
                   className="text-xs font-medium text-amber-700 underline dark:text-amber-300"
-                  aria-label="Go to next row needing classification"
+                  aria-label={copy.nextUnclassified}
                   onClick={() => {
                     setFilter("review");
                     const idx = rows.findIndex((row) => decisions[row.id]?.include && decisionProblems(row, decisions[row.id], accountId || cardId).length > 0);
                     if (idx >= 0) setPage(Math.floor(idx / 25) + 1);
                   }}
                 >
-                  {remaining.length} transaction{remaining.length === 1 ? "" : "s"} still need classification before import — go to next
+                  {fill(copy.stillNeedClassification, { n: remaining.length })}
                 </button>
               )}
             </div>
             <div className="max-h-[48dvh] overflow-auto rounded-md border border-border">
               <table className="w-full min-w-[680px] border-collapse text-left text-xs"><thead className="sticky top-0 z-10 bg-surface"><tr>
-                <th scope="col" className="border-b border-border px-3 py-2 font-semibold">Include</th>
-                <th scope="col" className="border-b border-border px-3 py-2 font-semibold">Date / narration</th>
-                <th scope="col" className="border-b border-border px-3 py-2 font-semibold">Debit</th>
-                <th scope="col" className="border-b border-border px-3 py-2 font-semibold">Credit</th>
-                <th scope="col" className="border-b border-border px-3 py-2 font-semibold">Purpose / category</th>
+                <th scope="col" className="border-b border-border px-3 py-2 font-semibold">{copy.include}</th>
+                <th scope="col" className="border-b border-border px-3 py-2 font-semibold">{copy.dateNarration}</th>
+                <th scope="col" className="border-b border-border px-3 py-2 font-semibold">{copy.debit}</th>
+                <th scope="col" className="border-b border-border px-3 py-2 font-semibold">{copy.credit}</th>
+                <th scope="col" className="border-b border-border px-3 py-2 font-semibold">{copy.purposeCategory}</th>
                 <th scope="col" className="border-b border-border px-3 py-2 font-semibold">
                   <span className="inline-flex items-center gap-2">
-                    Review
+                    {copy.review}
                     <button
                       type="button"
                       className="text-xs font-medium text-primary underline disabled:pointer-events-none disabled:opacity-40"
-                      disabled={saving || !!result || !included.some((row) => !decisions[row.id]?.reviewed)}
-                      aria-label="Review all included rows"
-                      onClick={() => setAllIncludedReviewed(true)}
+                      disabled={reviewAllDisabled}
+                      aria-label={copy.reviewAll}
+                      onClick={acceptIncludedSuggestions}
                     >
-                      all
+                      {copy.reviewAllShort}
                     </button>
                   </span>
                 </th>
@@ -612,28 +756,44 @@ export default function StatementImportDialog({ onClose }: { onClose: () => void
                   const rowCategories = categories.filter(category => !category.isDeleted && !category.archived && (category.appliesTo === categoryType || category.appliesTo === "mixed"));
                   const counterparts = decision.kind === "cc_payment" ? cards.filter(c => !c.isDeleted && c.type === "credit").map(c => ({ id: c.id, label: c.nickname })) : ["refund", "contribution"].includes(decision.kind) ? transactions.filter(t => !t.isDeleted && t.type === "expense" && t.categoryId === decision.categoryId).map(t => ({ id: t.id, label: `${t.date.slice(0, 10)} ${t.description || t.merchantOrPerson} ${money(t.amountPaise ?? Math.round(t.amount * 100))}` })) : accounts.filter(a => !a.isDeleted && !a.isInactive && a.id !== accountId).map(a => ({ id: a.id, label: a.name }));
                   return <tr key={row.id} data-statement-row={row.id} className="border-b border-border align-top last:border-b-0"><td className="px-3 py-3"><input type="checkbox" aria-label={`Include row ${row.id}`} checked={decision.include} disabled={saving || !!result || row.issues.length > 0} onChange={e => changeDecision(row.id, { include: e.target.checked })} /></td>
-                    <td className="max-w-64 px-3 py-3"><div className="font-medium">{row.date}</div><div className="mt-1 whitespace-normal break-words">{row.description}</div>{row.valueDate && <div className="mt-1 text-muted-foreground">Value date: {row.valueDate}</div>}<button type="button" className="mt-1 underline text-muted-foreground" onClick={() => { const obs = observations?.segments[0]?.rows.find(r => r.occurrenceId === row.id); const box = obs?.fields.amount?.box ?? obs?.fields.narration?.box; setSourcePage(row.page); setShowSource(true); setHighlightBox(box ? { page: row.page, ...box } : null); }}>Page {row.page} / balance {row.balancePaise === null ? "unknown" : money(row.balancePaise)}</button>{!result && !saving && <span className="mt-1 flex flex-wrap gap-2 text-muted-foreground"><button type="button" className="underline" onClick={() => { const next = window.prompt("Correct amount in paise (invalidates approval)", String(row.debitPaise || row.creditPaise)); if (next == null || next === "") return; const paise = Number(next); if (!Number.isInteger(paise) || paise < 0) { setError("Amount correction must be a non-negative integer paise value"); return; } const reason = window.prompt("Reason for financial correction", "User correction against source") || "User correction"; correctRowField(row.id, { amountPaise: paise }, reason); }}>Correct amount</button><button type="button" className="underline" onClick={() => { const next = window.prompt("Correct booking date YYYY-MM-DD (invalidates approval)", row.date); if (next == null || next === "") return; try { const reason = window.prompt("Reason for date correction", "User correction against source") || "User correction"; correctRowField(row.id, { date: next }, reason); } catch (err) { setError(err instanceof Error ? err.message : "Invalid date"); } }}>Correct date</button><button type="button" className="underline" onClick={() => { const direction = row.debitPaise > 0 ? "credit" : "debit"; const reason = window.prompt(`Flip direction to ${direction}? Enter reason`, "User correction against source"); if (reason == null) return; correctRowField(row.id, { direction }, reason || "User correction"); }}>Flip DR/CR</button></span>}{fieldEdits[row.id] && <p className="mt-1 text-amber-700">Corrected: {fieldEdits[row.id].reason}</p>}{decision.duplicate && <p className="mt-2 break-words text-amber-700">{decision.duplicate}</p>}{row.issues.map(issue => <p key={issue} className="mt-1 text-danger">{issue}</p>)}</td>
+                    <td className="max-w-64 px-3 py-3"><div className="font-medium">{row.date}</div><div className="mt-1 whitespace-normal break-words">{row.description}</div>{row.valueDate && <div className="mt-1 text-muted-foreground">{fill(copy.valueDate, { date: row.valueDate })}</div>}<button type="button" className="mt-1 underline text-muted-foreground" onClick={() => { const obs = observations?.segments[0]?.rows.find(r => r.occurrenceId === row.id); const box = obs?.fields.amount?.box ?? obs?.fields.narration?.box; setSourcePage(row.page); setShowSource(true); setHighlightBox(box ? { page: row.page, ...box } : null); }}>{fill(copy.pageBalance, { page: row.page, balance: row.balancePaise === null ? copy.unknownBalance : money(row.balancePaise) })}</button>{!result && !saving && <span className="mt-1 flex flex-wrap gap-2 text-muted-foreground"><button type="button" className="underline" onClick={() => { const next = window.prompt("Correct amount in paise (invalidates approval)", String(row.debitPaise || row.creditPaise)); if (next == null || next === "") return; const paise = Number(next); if (!Number.isInteger(paise) || paise < 0) { setError("Amount correction must be a non-negative integer paise value"); return; } const reason = window.prompt("Reason for financial correction", "User correction against source") || "User correction"; correctRowField(row.id, { amountPaise: paise }, reason); }}>Correct amount</button><button type="button" className="underline" onClick={() => { const next = window.prompt("Correct booking date YYYY-MM-DD (invalidates approval)", row.date); if (next == null || next === "") return; try { const reason = window.prompt("Reason for date correction", "User correction against source") || "User correction"; correctRowField(row.id, { date: next }, reason); } catch (err) { setError(err instanceof Error ? err.message : "Invalid date"); } }}>Correct date</button><button type="button" className="underline" onClick={() => { const direction = row.debitPaise > 0 ? "credit" : "debit"; const reason = window.prompt(`Flip direction to ${direction}? Enter reason`, "User correction against source"); if (reason == null) return; correctRowField(row.id, { direction }, reason || "User correction"); }}>Flip DR/CR</button></span>}{fieldEdits[row.id] && <p className="mt-1 text-amber-700">Corrected: {fieldEdits[row.id].reason}</p>}{decision.duplicate && <p className="mt-2 break-words text-amber-700">{decision.duplicate}</p>}{row.issues.map(issue => <p key={issue} className="mt-1 text-danger">{issue}</p>)}</td>
                     <td className="whitespace-nowrap px-3 py-3 tabular-nums">{row.debitPaise ? money(row.debitPaise) : "-"}</td><td className="whitespace-nowrap px-3 py-3 tabular-nums">{row.creditPaise ? money(row.creditPaise) : "-"}</td>
-                    <td className="min-w-48 max-w-56 px-3 py-3"><div className="grid gap-2"><select aria-label={`Purpose row ${row.id}`} className={selectClass} value={decision.kind} disabled={saving || !!result || !decision.include} onChange={e => changeDecision(row.id, { kind: e.target.value as StatementKind | "", categoryId: "", counterpartId: "", proposalStrength: e.target.value ? "strong" : decision.proposalStrength })}><option value="">{decision.suggestedKind ? `Choose purpose (suggested: ${purposeLabels[decision.suggestedKind as StatementKind] ?? decision.suggestedKind})` : "Choose purpose"}</option>{Object.entries(purposeLabels).filter(([kind]) => kind === "transfer" || row.creditPaise ? ["income", "refund", "contribution", "transfer"].includes(kind) : ["expense", "transfer", "cc_payment"].includes(kind)).map(([kind, label]) => <option key={kind} value={kind}>{label}</option>)}</select>
-                      {["income", "expense", "refund", "contribution"].includes(decision.kind) && <select aria-label={`Category row ${row.id}`} className={selectClass} value={decision.categoryId} disabled={saving || !!result || !decision.include} onChange={e => changeDecision(row.id, { categoryId: e.target.value, ...(["refund", "contribution"].includes(decision.kind) ? { counterpartId: "" } : {}) })}><option value="">{rowCategories.length ? "Choose category" : "No matching categories"}</option>{rowCategories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}</select>}
-                      {["transfer", "cc_payment", "refund", "contribution"].includes(decision.kind) && <select aria-label={`Linked record row ${row.id}`} className={selectClass} value={decision.counterpartId} disabled={saving || !!result || !decision.include} onChange={e => changeDecision(row.id, { counterpartId: e.target.value })}><option value="">{["refund", "contribution"].includes(decision.kind) ? "Original expense" : decision.kind === "transfer" ? "Other account" : "Credit card"}</option>{counterparts.map(item => <option key={item.id} value={item.id}>{item.label}</option>)}</select>}
-                      <select aria-label={`Scope row ${row.id}`} className={selectClass} value={decision.scope} disabled={saving || !!result || !decision.include} onChange={e => changeDecision(row.id, { scope: e.target.value as "personal" | "business" | "" })}><option value="">Choose scope</option><option value="personal">Personal</option><option value="business">Business</option></select><p className="max-w-52 whitespace-normal break-words text-muted-foreground">{decision.reason}</p></div></td>
-                    <td className="px-3 py-3"><label className="flex items-center gap-2"><input type="checkbox" aria-label={`Reviewed row ${row.id}`} checked={decision.reviewed} disabled={saving || !!result || !decision.include} onChange={e => changeDecision(row.id, { reviewed: e.target.checked })} />Reviewed</label></td></tr>;
+                    <td className="min-w-48 max-w-56 px-3 py-3"><div className="grid gap-2"><select aria-label={`${copy.purposeCategory} ${row.id}`} className={selectClass} value={decision.kind} disabled={saving || !!result || !decision.include} onChange={e => changeDecision(row.id, { kind: e.target.value as StatementKind | "", categoryId: "", counterpartId: "", proposalStrength: e.target.value ? "strong" : decision.proposalStrength })}><option value="">{decision.suggestedKind ? fill(copy.choosePurposeSuggested, { suggestion: purposeLabels[decision.suggestedKind as StatementKind] ?? decision.suggestedKind }) : copy.choosePurpose}</option>{Object.entries(purposeLabels).filter(([kind]) => kind === "transfer" || row.creditPaise ? ["income", "refund", "contribution", "transfer"].includes(kind) : ["expense", "transfer", "cc_payment"].includes(kind)).map(([kind, label]) => <option key={kind} value={kind}>{label}</option>)}</select>
+                      {["income", "expense", "refund", "contribution"].includes(decision.kind) && <select aria-label={`${copy.chooseCategory} ${row.id}`} className={selectClass} value={decision.categoryId} disabled={saving || !!result || !decision.include} onChange={e => changeDecision(row.id, { categoryId: e.target.value, ...(["refund", "contribution"].includes(decision.kind) ? { counterpartId: "" } : {}) })}><option value="">{rowCategories.length ? copy.chooseCategory : copy.noCategories}</option>{rowCategories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}</select>}
+                      {["transfer", "cc_payment", "refund", "contribution"].includes(decision.kind) && <select aria-label={`${copy.otherAccount} ${row.id}`} className={selectClass} value={decision.counterpartId} disabled={saving || !!result || !decision.include} onChange={e => changeDecision(row.id, { counterpartId: e.target.value })}><option value="">{["refund", "contribution"].includes(decision.kind) ? copy.originalExpense : decision.kind === "transfer" ? copy.otherAccount : copy.creditCard}</option>{counterparts.map(item => <option key={item.id} value={item.id}>{item.label}</option>)}</select>}
+                      <select aria-label={`${copy.chooseScope} ${row.id}`} className={selectClass} value={decision.scope} disabled={saving || !!result || !decision.include} onChange={e => changeDecision(row.id, { scope: e.target.value as "personal" | "business" | "" })}><option value="">{copy.chooseScope}</option><option value="personal">{copy.personal}</option><option value="business">{copy.business}</option></select><p className="max-w-52 whitespace-normal break-words text-muted-foreground">{reasonText[decision.reason] ?? decision.reason}</p></div></td>
+                    <td className="px-3 py-3"><label className="flex items-center gap-2"><input type="checkbox" aria-label={`${copy.reviewed} ${row.id}`} checked={decision.reviewed} disabled={saving || !!result || !decision.include} onChange={e => changeDecision(row.id, { reviewed: e.target.checked })} />{copy.reviewed}</label></td></tr>;
                 })}
-                {!pageRows.length && <tr><td colSpan={6} className="p-8 text-center text-muted-foreground">No matching transactions</td></tr>}
+                {!pageRows.length && <tr><td colSpan={6} className="p-8 text-center text-muted-foreground">{copy.noMatching}</td></tr>}
               </tbody></table>
             </div>
-            <div className="mt-3 flex flex-wrap items-center justify-between gap-3"><span className="text-xs text-muted-foreground">{visible.length} matching rows / page {Math.min(page, pageCount)} of {pageCount}</span><div className="flex items-center gap-2"><Button size="icon-sm" variant="outline" aria-label="Previous transaction page" title="Previous page" disabled={page <= 1} onClick={() => setPage(p => p - 1)}><ChevronLeft className="h-4 w-4" /></Button><Button size="icon-sm" variant="outline" aria-label="Next transaction page" title="Next page" disabled={page >= pageCount} onClick={() => setPage(p => p + 1)}><ChevronRight className="h-4 w-4" /></Button></div></div>
+            <div className="mt-3 flex flex-wrap items-center justify-between gap-3"><span className="text-xs text-muted-foreground">{fill(copy.matchingRows, { visible: visible.length, page: Math.min(page, pageCount), pages: pageCount })}</span><div className="flex items-center gap-2"><Button size="icon-sm" variant="outline" aria-label="Previous transaction page" title="Previous page" disabled={page <= 1} onClick={() => setPage(p => p - 1)}><ChevronLeft className="h-4 w-4" /></Button><Button size="icon-sm" variant="outline" aria-label="Next transaction page" title="Next page" disabled={page >= pageCount} onClick={() => setPage(p => p + 1)}><ChevronRight className="h-4 w-4" /></Button></div></div>
           </div>
           {showSource && loaded && <aside className="min-w-0 border-l-0 border-border lg:border-l lg:pl-4"><div className="mb-3 flex items-center justify-between gap-2"><h3 className="text-sm font-medium">Original PDF / page {sourcePage}</h3><div className="flex gap-2"><Button size="icon-sm" variant="outline" aria-label="Previous PDF page" title="Previous PDF page" disabled={sourcePage <= 1} onClick={() => setSourcePage(p => p - 1)}><ChevronLeft className="h-4 w-4" /></Button><Button size="icon-sm" variant="outline" aria-label="Next PDF page" title="Next PDF page" disabled={sourcePage >= analysis.pageCount} onClick={() => setSourcePage(p => p + 1)}><ChevronRight className="h-4 w-4" /></Button></div></div><div className="max-h-[55dvh] overflow-auto"><SourcePage loaded={loaded} page={sourcePage} highlight={highlightBox} /></div></aside>}
         </div>
+        {result && <section aria-label="Statement import receipt" className="mt-5 border-t border-border pt-4">
+          <h3 className="text-sm font-semibold">Receipt</h3>
+          <dl className="mt-3 grid grid-cols-2 gap-3 text-sm sm:grid-cols-3">
+            <div><dt className="text-xs text-muted-foreground">Imported</dt><dd className="mt-1 font-semibold tabular-nums">{result.imported}</dd></div>
+            <div><dt className="text-xs text-muted-foreground">Duplicates</dt><dd className="mt-1 font-semibold tabular-nums">{result.duplicates}</dd></div>
+            <div><dt className="text-xs text-muted-foreground">Skipped</dt><dd className="mt-1 font-semibold tabular-nums">{result.skipped}</dd></div>
+            <div className="col-span-2 sm:col-span-3"><dt className="text-xs text-muted-foreground">Source id</dt><dd className="mt-1 break-all font-mono text-xs">{result.importSourceId || "Not returned"}</dd></div>
+            <div><dt className="text-xs text-muted-foreground">Matches</dt><dd className="mt-1 font-semibold tabular-nums">{result.matchIds?.length ?? 0}</dd></div>
+            <div><dt className="text-xs text-muted-foreground">Card statement</dt><dd className="mt-1 font-semibold">{cardStatementSaved === null ? "Not applicable" : cardStatementSaved ? "Saved" : "Not saved"}</dd></div>
+            <div><dt className="text-xs text-muted-foreground">Local books</dt><dd className="mt-1 font-semibold">{localApply?.state === "LOCAL_APPLIED" ? "Source and matches stored" : localApply?.state === "LOCAL_APPLY_PENDING" ? "Repair needed" : localBooksStored ? "Source and matches stored" : "Not stored on this device"}</dd></div>
+          </dl>
+          {localApply?.state === "LOCAL_APPLY_PENDING" && <p role="status" className="mt-3 text-xs text-amber-800 dark:text-amber-200">The server import finished. This device still needs to store the local copy. Repair does not import the purchases again.</p>}
+          {localApply?.state !== "LOCAL_APPLY_PENDING" && !localBooksStored && <p role="status" className="mt-3 text-xs text-amber-800 dark:text-amber-200">The server import finished. This device did not store the import source or matches.</p>}
+          <div className="mt-4 flex flex-wrap gap-2">
+            {localApply?.state === "LOCAL_APPLY_PENDING" && <Button variant="outline" disabled={saving} onClick={() => void repairLocalCopy(localApply.mutationId)}>Repair local copy</Button>}
+            <Button variant="outline" onClick={() => openReceipt("transactions")}>View imported transactions</Button>
+            <Button variant="outline" onClick={() => openReceipt("reconciliation")}>View imported matches</Button>
+            <Button variant="outline" onClick={() => openReceipt("cards")}>View card</Button>
+          </div>
+        </section>}
         <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4">
-          {result ? <p role="status" className="text-sm font-medium text-emerald-600">{result.imported} imported / {result.duplicates} already imported / {result.skipped} excluded{result.importSourceId ? <span className="block text-xs font-normal text-muted-foreground">Source {result.importSourceId.slice(0, 18)}…</span> : null}</p> : <p className="text-xs text-muted-foreground">{!rows.length ? "No transactions extracted" : remaining.length ? `${remaining.length} selected rows still need review` : included.length ? "Selected rows reviewed" : "No rows selected"}{!reconciliation?.matched || extractionProblems.length || completenessBlocked ? " / balance, completeness or extraction checks unresolved" : ""}</p>}
-          <div className="flex flex-wrap gap-2">{!result && <Button variant="outline" disabled={saving || !included.length || !included.some((row) => !decisions[row.id]?.reviewed)} aria-label="Review all included rows" onClick={() => setAllIncludedReviewed(true)}><Check className="mr-2 h-4 w-4" />Review all</Button>}{!result && <Button variant="outline" disabled={saving || !included.length} onClick={() => setDecisions(current => Object.fromEntries(Object.entries(current).map(([id, d]) => {
-            const row = rows.find(r => r.id === id)!;
-            if (!d.include || !canBulkConfirmDecision(d) || decisionProblems(row, { ...d, reviewed: true }, accountId || cardId).length) return [id, d];
-            return [id, { ...d, reviewed: true }];
-          })))}><Check className="mr-2 h-4 w-4" />Confirm complete</Button>}{result ? <Button onClick={onClose}>Done</Button> : <Button disabled={!ready} onClick={() => void save()}>{saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Upload className="mr-2 h-4 w-4" />}Import reviewed</Button>}</div>
+          {result ? <p role="status" className="text-sm font-medium text-emerald-600">{copy.importFinished}</p> : <p className="text-xs text-muted-foreground">{!rows.length ? copy.noExtracted : remaining.length ? fill(copy.stillNeedReview, { n: remaining.length }) : included.length ? copy.rowsReviewed : copy.noRowsSelected}{!reconciliation?.matched || extractionProblems.length || completenessBlocked ? copy.checksUnresolved : ""}</p>}
+          <div className="flex flex-wrap gap-2">{!result && <Button variant="outline" disabled={reviewAllDisabled || !included.length} aria-label={copy.reviewAll} onClick={acceptIncludedSuggestions}><Check className="mr-2 h-4 w-4" />{copy.reviewAllButton}</Button>}{!result && <Button variant="outline" disabled={saving || !included.length} onClick={acceptIncludedSuggestions}><Check className="mr-2 h-4 w-4" />{copy.confirmComplete}</Button>}{result ? <Button onClick={onClose}>{copy.done}</Button> : <Button disabled={!ready} onClick={() => void save()}>{saving ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Upload className="mr-2 h-4 w-4" />}{copy.importReviewed}</Button>}</div>
         </div>
       </>}
       {!analysis && !busy && <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground"><AlertTriangle className="h-3.5 w-3.5 shrink-0" />Categories are suggestions. A recognized bank name is not a certified layout. PDF and password stay on this device.</div>}

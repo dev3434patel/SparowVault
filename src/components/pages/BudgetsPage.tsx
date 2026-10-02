@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { PageHeader } from "@/components/layout/PageHeader";
+import { PersonalPageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -35,8 +35,12 @@ import { Pencil, Plus, Target as TargetIcon, Trash2 } from "lucide-react";
 import { EmptyState } from "@/components/ui/Table";
 import { budgetSchema } from "@/services/validators";
 import { refsForCategory } from "@/services/refIntegrity";
+import { useMessages } from "@/i18n/useMessages";
 
 export function BudgetsPage() {
+  const messages = useMessages();
+  const copy = messages.ui.budgets;
+  const common = messages.ui.common;
   const user = useAuthStore((s) => s.currentUser);
   const budgets = useDataStore((s) => s.budgets);
   const categories = useDataStore((s) => s.categories);
@@ -83,32 +87,31 @@ export function BudgetsPage() {
       if (refs.blocking && refs.count > 0) {
         // Informative only; budget delete itself is allowed.
         toast({
-          title: "Budget has linked category activity",
+          title: copy.linked,
           description: refs.message,
           kind: "info",
         });
       }
     }
     const ok = await confirm({
-      title: "Delete this budget?",
-      description: "This budget will be removed permanently.",
+      title: copy.deleteTitle,
+      description: copy.deleteBody,
       destructive: true,
       confirmLabel: "Delete budget",
     });
     if (!ok) return;
     await budgetRepo.softDelete(id);
     removeLocal("budgets", id);
-    toast({ title: "Budget removed", kind: "info" });
+    toast({ title: copy.removed, kind: "info" });
   }
 
   return (
     <div>
-      <PageHeader
-        title="Budget Planner"
-        description="Monthly budgets with planned vs actual, projected month-end, carry-forward & rollover."
+      <PersonalPageHeader
+        screen="budgets"
         actions={
           <Button onClick={() => setAdding(true)}>
-            <Plus className="h-4 w-4" /> New Budget
+            <Plus className="h-4 w-4" /> {copy.new}
           </Button>
         }
       />
@@ -145,19 +148,19 @@ export function BudgetsPage() {
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-4">
         <Card>
           <CardHeader>
-            <CardDescription>Total planned</CardDescription>
+            <CardDescription>{copy.planned}</CardDescription>
             <CardTitle className="tabular-nums">{formatINR(paiseToRupees(totalBudget))}</CardTitle>
           </CardHeader>
         </Card>
         <Card>
           <CardHeader>
-            <CardDescription>Total spent</CardDescription>
+            <CardDescription>{copy.spent}</CardDescription>
             <CardTitle className="tabular-nums">{formatINR(paiseToRupees(totalSpent))}</CardTitle>
           </CardHeader>
         </Card>
         <Card>
           <CardHeader>
-            <CardDescription>Remaining</CardDescription>
+            <CardDescription>{copy.remaining}</CardDescription>
             <CardTitle className="tabular-nums">
               {formatINR(paiseToRupees(Math.max(0, totalBudget - totalSpent)))}
             </CardTitle>
@@ -165,7 +168,7 @@ export function BudgetsPage() {
         </Card>
         <Card>
           <CardHeader>
-            <CardDescription>Projected month-end</CardDescription>
+            <CardDescription>{copy.projectedEnd}</CardDescription>
             <CardTitle className="tabular-nums">{formatINR(paiseToRupees(overallProjected))}</CardTitle>
           </CardHeader>
         </Card>
@@ -177,11 +180,11 @@ export function BudgetsPage() {
             <CardContent>
               <EmptyState
                 icon={<TargetIcon className="h-6 w-6" />}
-                title="No budgets set for this month"
-                description="Plan budgets by category to stay on track."
+                title={copy.emptyTitle}
+                description={copy.emptyBody}
                 action={
                   <Button onClick={() => setAdding(true)}>
-                    <Plus className="h-4 w-4" /> Create Budget
+                    <Plus className="h-4 w-4" /> {copy.create}
                   </Button>
                 }
               />
@@ -211,7 +214,7 @@ export function BudgetsPage() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between gap-2">
                       <div className="truncate text-sm font-semibold">
-                        {cat?.name ?? "Category"}
+                        {cat?.name ?? common.category}
                       </div>
                       <div className="flex shrink-0 items-center gap-1">
                         {s.burnRisk !== "ok" ? (
@@ -223,10 +226,10 @@ export function BudgetsPage() {
                       </div>
                     </div>
                     <div className="mt-1 text-xs text-muted-foreground tabular-nums">
-                      {formatINR(paiseToRupees(s.spentPaise), { decimals: 0 })} of{" "}
+                      {formatINR(paiseToRupees(s.spentPaise), { decimals: 0 })} {common.of}{" "}
                       {formatINR(paiseToRupees(budgetLimitPaise(s.budget)), { decimals: 0 })}
                       {" · "}
-                      {s.dayProgressPct.toFixed(0)}% month elapsed · proj{" "}
+                      {s.dayProgressPct.toFixed(0)}% {common.monthElapsed} · {common.projected}{" "}
                       {formatINR(paiseToRupees(s.adjustedMonthEndProjectedPaise), { decimals: 0 })}
                     </div>
                     <Progress
@@ -236,13 +239,13 @@ export function BudgetsPage() {
                     />
                     <div className="mt-1.5 flex items-center justify-between text-[11px] text-muted-foreground">
                       <span>
-                        Projected:{" "}
+                        {common.projected}:{" "}
                         <span className="tabular-nums">
                           {formatINR(paiseToRupees(s.projectedMonthEndPaise), { decimals: 0 })}
                         </span>
                         {s.projectedOverrun ? (
                           <span className="ml-1 text-warning">
-                            • likely to overshoot
+                            • {common.likelyOvershoot}
                           </span>
                         ) : null}
                       </span>
@@ -284,7 +287,7 @@ export function BudgetsPage() {
         onSaved={(b) => {
           upsertLocal("budgets", b);
           toast({
-            title: editing ? "Budget updated" : "Budget created",
+            title: editing ? copy.updated : copy.created,
             kind: "success",
           });
           setAdding(false);
@@ -312,6 +315,8 @@ function BudgetForm({
   userId?: string;
   onSaved: (b: Budget) => void;
 }) {
+  const copy = useMessages().ui.budgets;
+  const common = useMessages().ui.common;
   const allCategories = useDataStore((s) => s.categories);
   const categories = useMemo(
     () => allCategories.filter((c) => c.appliesTo === "expense" || c.appliesTo === "mixed"),
@@ -350,7 +355,7 @@ function BudgetForm({
     if (!userId) return;
     const parse = budgetSchema.safeParse(state);
     if (!parse.success) {
-      setErr(parse.error.issues[0]?.message ?? "Invalid");
+      setErr(parse.error.issues[0]?.message ?? common.invalid);
       return;
     }
     setErr(null);
@@ -370,10 +375,10 @@ function BudgetForm({
     <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{budget ? "Edit Budget" : "New Budget"}</DialogTitle>
+          <DialogTitle>{budget ? copy.edit : copy.new}</DialogTitle>
         </DialogHeader>
         <form onSubmit={submit} className="grid grid-cols-2 gap-3">
-          <Field label="Period">
+          <Field label={copy.period}>
             <Select
               value={state.period}
               onValueChange={(v) =>
@@ -384,12 +389,12 @@ function BudgetForm({
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="monthly">Monthly</SelectItem>
-                <SelectItem value="annual">Annual</SelectItem>
+                <SelectItem value="monthly">{copy.monthly}</SelectItem>
+                <SelectItem value="annual">{copy.annual}</SelectItem>
               </SelectContent>
             </Select>
           </Field>
-          <Field label="Category" required>
+          <Field label={common.category} required>
             <Select
               value={state.categoryId || undefined}
               onValueChange={(v) => setState({ ...state, categoryId: v })}
@@ -406,7 +411,7 @@ function BudgetForm({
               </SelectContent>
             </Select>
           </Field>
-          <Field label="Year">
+          <Field label={copy.year}>
             <Input
               type="number"
               value={state.year}
@@ -414,7 +419,7 @@ function BudgetForm({
             />
           </Field>
           {state.period === "monthly" ? (
-            <Field label="Month">
+            <Field label={copy.month}>
               <Input
                 type="number"
                 min={1}
@@ -426,7 +431,7 @@ function BudgetForm({
           ) : (
             <div />
           )}
-          <Field label="Amount (₹)" required className="col-span-2">
+          <Field label={copy.amount} required className="col-span-2">
             <Input
               type="number"
               step="0.01"
@@ -434,7 +439,7 @@ function BudgetForm({
               onChange={(e) => setState({ ...state, amount: +e.target.value })}
             />
           </Field>
-          <Field label="Mode" className="col-span-2">
+          <Field label={copy.mode} className="col-span-2">
             <Select
               value={state.mode}
               onValueChange={(v) => setState({ ...state, mode: v as typeof state.mode })}
@@ -443,8 +448,8 @@ function BudgetForm({
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="flexible">Flexible</SelectItem>
-                <SelectItem value="fixed">Fixed</SelectItem>
+                <SelectItem value="flexible">{copy.flexible}</SelectItem>
+                <SelectItem value="fixed">{copy.fixed}</SelectItem>
               </SelectContent>
             </Select>
           </Field>
@@ -455,7 +460,7 @@ function BudgetForm({
                 setState({ ...state, carryForward: v ? 1 : 0 })
               }
             />
-            Carry-forward unused
+            {copy.carry}
           </label>
           <label className="flex items-center gap-2 text-sm">
             <Checkbox
@@ -464,7 +469,7 @@ function BudgetForm({
                 setState({ ...state, rolloverSavings: v ? 1 : 0 })
               }
             />
-            Rollover savings
+            {copy.rollover}
           </label>
           {err ? (
             <div className="col-span-2 rounded-md bg-expense-soft p-2 text-xs text-danger">
@@ -473,9 +478,9 @@ function BudgetForm({
           ) : null}
           <DialogFooter className="col-span-2">
             <Button type="button" variant="ghost" onClick={onClose}>
-              Cancel
+              {common.cancel}
             </Button>
-            <Button type="submit">Save</Button>
+            <Button type="submit">{common.save}</Button>
           </DialogFooter>
         </form>
       </DialogContent>

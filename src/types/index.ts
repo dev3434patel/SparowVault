@@ -64,6 +64,8 @@ export interface ProfileSettings extends BaseEntity {
     duplicateAlerts: boolean;
   };
   currency: "INR";
+  /** Personal UI language. Company books keep a separate locale. */
+  language?: "en" | "gu";
 }
 
 // --------------------------- Core finance ------------------------------------
@@ -216,6 +218,9 @@ export interface CreditLimitGroup extends BaseEntity {
   issuerName?: string;
 }
 
+/** How a card-statement money figure was obtained. Notes are not a substitute for this field. */
+export type CardMoneyEvidence = "source_observed" | "user_confirmed" | "estimated" | "not_observed";
+
 export interface CardStatement extends BaseEntity {
   cardId: ID;
   cycleStartDate: ISODate;
@@ -223,10 +228,16 @@ export interface CardStatement extends BaseEntity {
   statementDate: ISODate;
   openingBalancePaise: number;
   closingBalancePaise: number;
-  minimumDuePaise: number;
+  /** Null when minimumDueEvidence is not_observed. Printed zero stays 0 with source_observed. */
+  minimumDuePaise: number | null;
+  minimumDueEvidence?: CardMoneyEvidence;
   retailSpendPaise: number;
-  feesPaise: number;
-  interestPaise: number;
+  /** Null when feesEvidence is not_observed. */
+  feesPaise: number | null;
+  feesEvidence?: CardMoneyEvidence;
+  /** Null when interestEvidence is not_observed. */
+  interestPaise: number | null;
+  interestEvidence?: CardMoneyEvidence;
   paymentsPaise: number;
   creditsPaise: number;
   status: "open" | "closed" | "paid";
@@ -409,6 +420,7 @@ export interface Transaction extends BaseEntity {
     valueDate: string | null;
     parserVersion: string;
     reviewedAt: string;
+    importSourceId?: string;
   };
   date: ISODate;
   type: TransactionType;

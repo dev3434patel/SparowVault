@@ -6,31 +6,38 @@ import { Switch } from "@/components/ui/Switch";
 import { getAdminFeatureFlags, saveAdminFeatureFlags } from "@/lib/cloud/saasClient";
 import { useUIStore } from "@/store/uiStore";
 import { AlertCircle, CheckCircle2, Flag, Loader2, RefreshCw, Save } from "lucide-react";
+import { fillMessage, useMessages } from "@/i18n/useMessages";
 
-// Human-readable labels for known flag keys
-const FLAG_LABELS: Record<string, { label: string; description: string }> = {
-  cloud_sync_enabled:       { label: "Server sync",            description: "Allow users to sync data to the SQL server" },
-  subscriptions_enabled:    { label: "Subscriptions",          description: "Enable the subscription / billing system" },
-  razorpay_enabled:         { label: "Razorpay payments",      description: "Accept payments via Razorpay gateway" },
-  registration_enabled:     { label: "New registrations",      description: "Allow new users to create accounts" },
-  maintenance_mode:         { label: "Maintenance mode",       description: "Block all non-admin access with maintenance page" },
-  demo_mode:                { label: "Demo mode",              description: "Show demo data and disable destructive actions" },
-  export_enabled:           { label: "Data export",            description: "Allow users to export their data as CSV/JSON" },
-  import_enabled:           { label: "Data import",            description: "Allow users to import data from files" },
-  goals_enabled:            { label: "Goals module",           description: "Show the goals / savings targets section" },
-  investments_enabled:      { label: "Investments module",     description: "Show the investments tracking section" },
-  udhari_enabled:           { label: "Udhari (ledger)",        description: "Show the Udhari / personal ledger section" },
-  recurring_enabled:        { label: "Recurring transactions", description: "Enable recurring transaction scheduling" },
-};
+const KNOWN_FLAGS = [
+  "cloud_sync_enabled",
+  "subscriptions_enabled",
+  "razorpay_enabled",
+  "registration_enabled",
+  "maintenance_mode",
+  "demo_mode",
+  "export_enabled",
+  "import_enabled",
+  "goals_enabled",
+  "investments_enabled",
+  "udhari_enabled",
+  "recurring_enabled",
+] as const;
 
-function flagMeta(key: string): { label: string; description: string } {
-  return FLAG_LABELS[key] ?? {
+type FlagCopy = Record<string, string>;
+
+function flagMeta(key: string, copy: FlagCopy): { label: string; description: string } {
+  if ((KNOWN_FLAGS as readonly string[]).includes(key)) {
+    return { label: copy[key] ?? key, description: copy[`${key}Help`] ?? "" };
+  }
+  return {
     label: key.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
     description: "",
   };
 }
 
 export function FeatureFlagsPage() {
+  const chrome = useMessages().ui;
+  const copy = chrome.admin.body.flags;
   const [flags, setFlags] = useState<Record<string, boolean>>({});
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -45,7 +52,7 @@ export function FeatureFlagsPage() {
       const raw = await getAdminFeatureFlags();
       setFlags(raw as Record<string, boolean>);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Failed to load feature flags");
+      setError(e instanceof Error ? e.message : copy.loadFailed);
     } finally {
       setLoading(false);
     }
@@ -59,9 +66,9 @@ export function FeatureFlagsPage() {
       await saveAdminFeatureFlags(flags);
       setSaved(true);
       setTimeout(() => setSaved(false), 2500);
-      toast({ title: "Feature flags saved", kind: "success" });
+      toast({ title: copy.savedToast, kind: "success" });
     } catch (e) {
-      toast({ title: e instanceof Error ? e.message : "Failed to save flags", kind: "error" });
+      toast({ title: e instanceof Error ? e.message : copy.saveFailed, kind: "error" });
     } finally {
       setSaving(false);
     }
@@ -73,25 +80,25 @@ export function FeatureFlagsPage() {
   return (
     <div>
       <PageHeader
-        title="Feature Flags"
+        title={copy.title}
         description={
           loading
-            ? "Global feature visibility and rollout switches."
-            : `${enabledCount} of ${totalCount} flags enabled`
+            ? copy.intro
+            : fillMessage(copy.enabledOf, { enabled: enabledCount, total: totalCount })
         }
         actions={
           <div className="flex items-center gap-2">
             <Button variant="outline" size="sm" onClick={load} loading={loading}>
-              <RefreshCw className="h-4 w-4" /> Refresh
+              <RefreshCw className="h-4 w-4" /> {chrome.common.refresh}
             </Button>
             <Button onClick={handleSave} loading={saving} disabled={loading}>
               {saved ? (
                 <>
-                  <CheckCircle2 className="h-4 w-4 text-income" /> Saved
+                  <CheckCircle2 className="h-4 w-4 text-income" /> {chrome.common.saved}
                 </>
               ) : (
                 <>
-                  <Save className="h-4 w-4" /> Save changes
+                  <Save className="h-4 w-4" /> {chrome.common.saveChanges}
                 </>
               )}
             </Button>
@@ -104,14 +111,14 @@ export function FeatureFlagsPage() {
           <AlertCircle className="h-4 w-4 shrink-0" />
           {error}
           <Button variant="outline" size="sm" onClick={load} className="ml-auto">
-            Retry
+            {chrome.admin.retry}
           </Button>
         </div>
       )}
 
       {loading && (
         <div className="flex items-center gap-2 py-8 text-sm text-muted-foreground">
-          <Loader2 className="h-4 w-4 animate-spin" /> Loading feature flags…
+          <Loader2 className="h-4 w-4 animate-spin" /> {copy.loading}
         </div>
       )}
 
@@ -119,7 +126,7 @@ export function FeatureFlagsPage() {
         <Card>
           <CardContent className="py-12 text-center text-sm text-muted-foreground">
             <Flag className="mx-auto mb-3 h-8 w-8 opacity-30" />
-            No feature flags configured in the database yet.
+            {copy.empty}
           </CardContent>
         </Card>
       )}
@@ -127,14 +134,14 @@ export function FeatureFlagsPage() {
       {!loading && totalCount > 0 && (
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">Flags</CardTitle>
+            <CardTitle className="text-base">{copy.cardTitle}</CardTitle>
             <CardDescription>
-              Changes take effect immediately after saving. Use with care in production.
+              {copy.cardHelp}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-1 p-0 pb-2">
             {Object.entries(flags).map(([key, value]) => {
-              const meta = flagMeta(key);
+              const meta = flagMeta(key, copy);
               const isDanger = key === "maintenance_mode";
               return (
                 <div

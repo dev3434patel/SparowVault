@@ -136,7 +136,12 @@ function company_memberships_list(): void {
     $db = db_conn();
     company_require_permission($db, $auth["userId"], $companyId, "manage_users");
     $st = $db->prepare(
-        "SELECT m.*, u.username, u.display_name
+        "SELECT m.*, u.username, u.display_name,
+                (SELECT r.code FROM company_membership_roles mr
+                 INNER JOIN company_roles r ON r.id = mr.role_id AND r.company_id = mr.company_id
+                 WHERE mr.membership_id = m.id AND mr.company_id = m.company_id
+                 ORDER BY CASE r.code WHEN 'OWNER' THEN 0 WHEN 'SUPER_ADMIN' THEN 1 ELSE 2 END, r.code
+                 LIMIT 1) AS role_code
          FROM company_memberships m
          LEFT JOIN users u ON u.id = m.user_id
          WHERE m.company_id = ?
@@ -166,6 +171,7 @@ function company_memberships_invite(): void {
         return;
     }
     $membershipId = company_new_id();
+    // Membership insert is a user id plus a role. It does not store a bearer token.
     $db->prepare(
         "INSERT INTO company_memberships (id, company_id, user_id, status, joined_at, created_at, updated_at)
          VALUES (?, ?, ?, 'ACTIVE', UTC_TIMESTAMP(), UTC_TIMESTAMP(), UTC_TIMESTAMP())
@@ -230,9 +236,27 @@ function company_parties_list(): void {
         }
     }
 
+    $tagsByParty = [];
+    $tagIdsByParty = [];
+    $tst = $db->prepare(
+        "SELECT m.party_id, m.tag_id, t.name
+         FROM company_party_tag_memberships m
+         INNER JOIN company_party_tags t ON t.id = m.tag_id AND t.company_id = m.company_id
+         WHERE m.company_id = ?
+         ORDER BY t.name ASC"
+    );
+    $tst->execute([$companyId]);
+    while ($row = $tst->fetch(PDO::FETCH_ASSOC)) {
+        $pid = (string)$row["party_id"];
+        $tagsByParty[$pid][] = (string)$row["name"];
+        $tagIdsByParty[$pid][] = (string)$row["tag_id"];
+    }
+
     foreach ($parties as &$p) {
         $pid = (string)$p["id"];
         $p["roles"] = $rolesByParty[$pid] ?? [];
+        $p["tags"] = $tagsByParty[$pid] ?? [];
+        $p["tag_ids"] = $tagIdsByParty[$pid] ?? [];
         $recv = (int)($recvByParty[$pid] ?? 0);
         $pay = (int)($payByParty[$pid] ?? 0);
         // Opening only fills gaps when no open bills yet
@@ -315,7 +339,7 @@ function company_parties_create(): void {
             active, notes, created_at, updated_at
         ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,UTC_TIMESTAMP(),UTC_TIMESTAMP())"
     )->execute([
-        $id, $companyId, $name, $body["legalName"] ?? null, $body["partyType"] ?? "PERSON",
+        $id, $companyId, $name, $body["legalName"] ?? null, company_normalize_party_type((string)($body["partyType"] ?? "PERSON")),
         $body["mobile"] ?? null, $body["email"] ?? null, $body["village"] ?? null,
         $body["city"] ?? null, $body["district"] ?? null, $body["state"] ?? null,
         $body["areaId"] ?? null, $body["gstin"] ?? null, $body["pan"] ?? null,
@@ -333,6 +357,7 @@ function company_parties_create(): void {
             $rins->execute([company_new_id(), $companyId, $id, strtoupper((string)$rc)]);
         }
     }
+    $savedTags = company_party_save_tags($db, $companyId, $id, $body["tags"] ?? []);
     company_audit_write($db, $companyId, $auth["userId"], "party.create", "party", $id, null, ["displayName" => $name]);
     $st = $db->prepare("SELECT * FROM company_parties WHERE id = ? AND company_id = ?");
     $st->execute([$id, $companyId]);
@@ -340,6 +365,7 @@ function company_parties_create(): void {
     $rolesOut = $db->prepare("SELECT role_code FROM company_party_roles WHERE company_id = ? AND party_id = ?");
     $rolesOut->execute([$companyId, $id]);
     $party["roles"] = array_column($rolesOut->fetchAll(PDO::FETCH_ASSOC), "role_code");
+    $party["tags"] = $savedTags;
     $party["receivable_outstanding_paise"] = 0;
     $party["payable_outstanding_paise"] = 0;
     $party["net_balance_paise"] = 0;
@@ -384,6 +410,7 @@ function company_parties_update(): void {
         "UPDATE company_parties SET
             display_name = COALESCE(?, display_name),
             legal_name = COALESCE(?, legal_name),
+            party_type = COALESCE(?, party_type),
             mobile = COALESCE(?, mobile),
             email = COALESCE(?, email),
             notes = COALESCE(?, notes),
@@ -393,6 +420,7 @@ function company_parties_update(): void {
     )->execute([
         $body["displayName"] ?? null,
         $body["legalName"] ?? null,
+        array_key_exists("partyType", $body) ? company_normalize_party_type((string)$body["partyType"]) : null,
         $body["mobile"] ?? null,
         $body["email"] ?? null,
         $body["notes"] ?? null,
@@ -736,6 +764,18 @@ function company_dimensions_dispatch(): void {
                 "INSERT INTO company_projects (id, company_id, name, code, business_unit_id, area_id, active, created_at, updated_at)
                  VALUES (?, ?, ?, ?, ?, ?, 1, UTC_TIMESTAMP(), UTC_TIMESTAMP())"
             )->execute([$id, $companyId, $name, $body["code"] ?? null, $body["businessUnitId"] ?? null, $body["areaId"] ?? null]);
+        } elseif ($kind === "branches") {
+            company_ensure_branch_url_column($db);
+            try {
+                $url = company_normalize_branch_url($body["url"] ?? null);
+            } catch (InvalidArgumentException $e) {
+                json_error($e->getMessage(), 422);
+                return;
+            }
+            $db->prepare(
+                "INSERT INTO company_branches (id, company_id, name, code, url, active, created_at, updated_at)
+                 VALUES (?, ?, ?, ?, ?, 1, UTC_TIMESTAMP(), UTC_TIMESTAMP())"
+            )->execute([$id, $companyId, $name, $body["code"] ?? null, $url]);
         } else {
             $db->prepare(
                 "INSERT INTO {$table} (id, company_id, name, code, active, created_at, updated_at)
@@ -750,6 +790,41 @@ function company_dimensions_dispatch(): void {
         $db->prepare("UPDATE {$table} SET deleted_at = UTC_TIMESTAMP(), active = 0 WHERE id = ? AND company_id = ?")
             ->execute([$id, $companyId]);
         json_ok(["deleted" => true]);
+        return;
+    }
+    if ($method === "PATCH") {
+        $id = trim((string)($body["id"] ?? ""));
+        $name = trim((string)($body["name"] ?? ""));
+        if ($id === "" || $name === "") {
+            json_error("id and name are required", 422);
+            return;
+        }
+        if ($kind === "branches") {
+            company_ensure_branch_url_column($db);
+            try {
+                $url = array_key_exists("url", $body) ? company_normalize_branch_url($body["url"]) : null;
+            } catch (InvalidArgumentException $e) {
+                json_error($e->getMessage(), 422);
+                return;
+            }
+            if (array_key_exists("url", $body)) {
+                $db->prepare(
+                    "UPDATE company_branches SET name = ?, url = ?, updated_at = UTC_TIMESTAMP()
+                     WHERE id = ? AND company_id = ? AND deleted_at IS NULL"
+                )->execute([$name, $url, $id, $companyId]);
+            } else {
+                $db->prepare(
+                    "UPDATE company_branches SET name = ?, updated_at = UTC_TIMESTAMP()
+                     WHERE id = ? AND company_id = ? AND deleted_at IS NULL"
+                )->execute([$name, $id, $companyId]);
+            }
+        } else {
+            $db->prepare(
+                "UPDATE {$table} SET name = ?, updated_at = UTC_TIMESTAMP()
+                 WHERE id = ? AND company_id = ? AND deleted_at IS NULL"
+            )->execute([$name, $id, $companyId]);
+        }
+        json_ok(["id" => $id, "kind" => $kind, "name" => $name]);
         return;
     }
     json_error("Method not allowed", 405);
@@ -908,24 +983,32 @@ function company_reports_dispatch(): void {
     $from = (string)($_GET["from"] ?? date("Y-m-01"));
     $to = (string)($_GET["to"] ?? date("Y-m-d"));
 
+    // A lock held by another session must become an error response. This is the
+    // wait for a lock, not a cap on a query that is already running.
+    $previousLockWait = (int)$db->query("SELECT @@SESSION.innodb_lock_wait_timeout")->fetchColumn();
+    $db->exec("SET SESSION innodb_lock_wait_timeout = 8");
     try {
-        [$permission] = company_report_resolve($report);
-        company_require_permission($db, $auth["userId"], $companyId, $permission);
+        try {
+            [$permission] = company_report_resolve($report);
+            company_require_permission($db, $auth["userId"], $companyId, $permission);
 
-        $opts = [
-            "asOf" => $asOf,
-            "from" => $from,
-            "to" => $to,
-            "partyId" => $_GET["partyId"] ?? null,
-            "ledgerId" => $_GET["ledgerId"] ?? null,
-            "voucherType" => $_GET["voucherType"] ?? null,
-            "search" => $_GET["search"] ?? null,
-            "side" => $_GET["side"] ?? null,
-        ];
-        $data = company_report_run($db, $companyId, $report, $opts);
-        json_ok(["report" => $report, "data" => $data]);
-    } catch (Throwable $e) {
-        company_handle_exception($e);
+            $opts = [
+                "asOf" => $asOf,
+                "from" => $from,
+                "to" => $to,
+                "partyId" => $_GET["partyId"] ?? null,
+                "ledgerId" => $_GET["ledgerId"] ?? null,
+                "voucherType" => $_GET["voucherType"] ?? null,
+                "search" => $_GET["search"] ?? null,
+                "side" => $_GET["side"] ?? null,
+            ];
+            $data = company_report_run($db, $companyId, $report, $opts);
+            json_ok(["report" => $report, "data" => $data]);
+        } catch (Throwable $e) {
+            company_handle_exception($e);
+        }
+    } finally {
+        $db->exec("SET SESSION innodb_lock_wait_timeout = " . $previousLockWait);
     }
 }
 
@@ -1130,7 +1213,7 @@ function company_exports_dispatch(): void {
     $download = ((string)$downloadFlag) !== "0" && $downloadFlag !== false;
 
     // Backup pack uses export_backup; report exports also need the report's view_* key from registry.
-    if (strtolower($report) === "backup" || strtolower($format) === "backup") {
+    if (in_array(strtolower($report), ["backup", "restore-preview"], true) || strtolower($format) === "backup") {
         company_require_permission($db, $auth["userId"], $companyId, "export_backup");
     } else {
         // Validates enabled + known via registry; then view_* from registry permission field.
@@ -1138,12 +1221,31 @@ function company_exports_dispatch(): void {
         company_require_report_view_permission($db, $auth["userId"], $companyId, $report);
     }
 
+    if (strtolower($report) === "restore-preview") {
+        if (!is_array($body["pack"] ?? null)) {
+            throw new CompanyPostingException("pack is required", 422, "VALIDATION_ERROR");
+        }
+        try {
+            $preview = company_restore_preview($body["pack"], (string)($body["newCompanyId"] ?? ""));
+        } catch (InvalidArgumentException $e) {
+            throw new CompanyPostingException($e->getMessage(), 422, "RESTORE_PREVIEW");
+        }
+        json_ok(["restorePreview" => $preview]);
+        return;
+    }
+
     $filters = ["companyId" => $companyId, "from" => $from, "to" => $to, "asOf" => $asOf, "report" => $report];
     $headers = [];
     $rows = [];
 
     try {
-        if (strtolower($report) !== "backup" && strtolower($format) !== "backup") {
+        if (strtolower($report) === "backup" || strtolower($format) === "backup") {
+            $pack = company_backup_pack($db, $companyId);
+            $headers = ["payload"];
+            $rows = [["payload" => json_encode($pack, JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR)]];
+            $format = "json";
+            $report = "company-backup";
+        } elseif (strtolower($report) !== "backup" && strtolower($format) !== "backup") {
             $data = company_report_run($db, $companyId, $report, [
                 "asOf" => $asOf,
                 "from" => $from,

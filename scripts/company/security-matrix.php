@@ -68,9 +68,22 @@ sec(
     "period-locks GET requires view_dashboard"
 );
 
-$posting = file_get_contents(__DIR__ . "/../../php/helpers/company/posting.php") ?: "";
-sec(str_contains($posting, "PURPOSE_DEPRECATED") && str_contains($posting, "company_assert_purpose_not_deprecated"), "deprecated purposes rejected in posting");
-sec(str_contains($posting, "function company_assert_can_create_voucher") && str_contains($posting, "function company_can_preview_voucher"), "shared create/preview permission helper");
+$guards = file_get_contents(__DIR__ . "/../../php/helpers/company/posting_guards.php") ?: "";
+$preview = file_get_contents(__DIR__ . "/../../php/helpers/company/posting_preview.php") ?: "";
+$commit = file_get_contents(__DIR__ . "/../../php/helpers/company/posting_commit.php") ?: "";
+sec(
+    str_contains($guards, "PURPOSE_DEPRECATED")
+        && str_contains($guards, "company_assert_purpose_not_deprecated")
+        && str_contains($preview, "company_assert_purpose_not_deprecated")
+        && str_contains($commit, "company_assert_purpose_not_deprecated"),
+    "deprecated purposes rejected in posting"
+);
+sec(
+    str_contains($guards, "function company_assert_can_create_voucher")
+        && str_contains($guards, "function company_can_preview_voucher")
+        && str_contains($commit, "company_assert_can_create_voucher"),
+    "shared create/preview permission helper"
+);
 
 $reportsHelper = file_get_contents(__DIR__ . "/../../php/helpers/company/reports.php") ?: "";
 sec(str_contains($reportsHelper, "company_report_view_permission_map"), "report view_* map lives in reports.php");

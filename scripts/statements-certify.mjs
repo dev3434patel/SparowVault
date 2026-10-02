@@ -6,6 +6,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
+import { loadStatementEvidence } from "./statement-evidence-inventory.mjs";
 
 const root = process.cwd();
 const reportDir = path.join(root, "docs", "statements-v2", "phase-reports");
@@ -13,11 +14,12 @@ fs.mkdirSync(reportDir, { recursive: true });
 
 const vitest = spawnSync(
   process.platform === "win32" ? "npx.cmd" : "npx",
-  ["vitest", "run", "tests/unit/statementIntelligence.v2.test.ts", "tests/unit/statementParser.test.ts"],
+  ["vitest", "run", "tests/unit/statementIntelligence.v2.test.ts", "tests/unit/statementParser.test.ts", "tests/unit/statementLayoutMoney.test.ts"],
   { cwd: root, encoding: "utf8", shell: true },
 );
 
 const layouts = JSON.parse(fs.readFileSync(path.join(root, "php", "config", "statement_layouts.json"), "utf8"));
+const evidence = loadStatementEvidence(root);
 const byStatus = {};
 for (const layout of layouts.layouts) {
   byStatus[layout.status] = (byStatus[layout.status] ?? 0) + 1;
@@ -26,17 +28,23 @@ for (const layout of layouts.layouts) {
 const scorecard = {
   generatedAt: new Date().toISOString(),
   vitestExitCode: vitest.status,
+  recognized: evidence.recognized,
+  fixtureTested: evidence.fixtureTested,
+  registeredOnly: evidence.registeredOnly,
+  noLayoutSpec: evidence.noLayoutSpec,
   targetBanks: layouts.targetBankIds.length,
   layoutCount: layouts.layouts.length,
   byStatus,
   verifiedForScope: layouts.layouts.filter((l) => l.status === "verified-for-scope").map((l) => l.layoutId),
+  banks: evidence.banks,
+  evidenceGaps: evidence.gaps,
   blockedRealCorpus: layouts.layouts.filter((l) => l.status === "registered" || l.status === "synthetic-tested").map((l) => ({
     layoutId: l.layoutId,
     status: l.status,
     limitations: l.limitations,
   })),
   labels: {
-    LOCAL_PIPELINE_VERIFIED: vitest.status === 0,
+    LOCAL_PIPELINE_VERIFIED: vitest.status === 0 && evidence.gaps.length === 0,
     LAYOUT_VERIFIED: [],
     BLOCKED_FOR_20_BANK_CLAIM: true,
     HOSTED_RELEASE: "NOT_TESTED",
@@ -52,6 +60,10 @@ fs.writeFileSync(
 |-------|--------|
 | Date | ${scorecard.generatedAt} |
 | Vitest exit | ${vitest.status} |
+| Recognized banks | ${scorecard.recognized} |
+| Fixture-tested layouts | ${scorecard.fixtureTested} |
+| Registered-only layouts | ${scorecard.registeredOnly} |
+| Banks with no layout spec | ${scorecard.noLayoutSpec} |
 | Target banks | ${scorecard.targetBanks} |
 | verified-for-scope layouts | ${scorecard.verifiedForScope.length} |
 | BLOCKED_FOR_20_BANK_CLAIM | true |
@@ -72,5 +84,15 @@ Real-bank layout claims remain BLOCKED without authorized PDFs and independent g
 
 console.log(vitest.stdout || "");
 console.error(vitest.stderr || "");
-console.log(JSON.stringify({ exit: vitest.status, byStatus, blocked: scorecard.labels.BLOCKED_FOR_20_BANK_CLAIM }, null, 2));
-process.exit(vitest.status === 0 ? 0 : 1);
+console.log(JSON.stringify({
+  exit: vitest.status,
+  byStatus,
+  recognized: evidence.recognized,
+  fixtureTested: evidence.fixtureTested,
+  verifiedForScope: scorecard.verifiedForScope.length,
+  registeredOnly: evidence.registeredOnly,
+  noLayoutSpec: evidence.noLayoutSpec,
+  evidenceGaps: evidence.gaps,
+  blocked: scorecard.labels.BLOCKED_FOR_20_BANK_CLAIM,
+}, null, 2));
+process.exit(vitest.status === 0 && evidence.gaps.length === 0 ? 0 : 1);

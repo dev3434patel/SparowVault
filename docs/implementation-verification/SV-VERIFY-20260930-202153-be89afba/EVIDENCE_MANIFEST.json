@@ -1,0 +1,232 @@
+{
+  "runId": "SV-VERIFY-20260930-202153-be89afba",
+  "productSourceModifiedDuringAudit": false,
+  "fileCount": 45,
+  "files": [
+    {
+      "name": "API_MATRIX.md",
+      "sha256": "a743358704faa91a06c253def67fb3d52a73ddad6e7f0150e5099804589d905b",
+      "bytes": 1316
+    },
+    {
+      "name": "apply-company-schema.mjs",
+      "sha256": "9d92fe01bd695e7d77dd2f93450ecce3347fa1e508a5b4c239db2e5a54291934",
+      "bytes": 1028
+    },
+    {
+      "name": "AUDIT_CHANGE_LOG.md",
+      "sha256": "16a5de7c197feb95b467d36853ee0f52d9a089204e4ef8109927f7ef6a7b00b5",
+      "bytes": 856
+    },
+    {
+      "name": "auth-manager.json",
+      "sha256": "f69ea94f33cef66884a9a95234c020cab40076cf93f6a7260c3ac362b5f4d4ee",
+      "bytes": 132
+    },
+    {
+      "name": "auth-manager.php",
+      "sha256": "75d5659915ae4c0bdd8b06e7efda9b5002f6ac5fbbae8adbd1b65b2ac357585c",
+      "bytes": 2645
+    },
+    {
+      "name": "AUTHORITY_HASHES.txt",
+      "sha256": "423d5ebf4898a6be1985fdd188fc4802a5bd8dab521dcb326dc4ab57cacfe56b",
+      "bytes": 4264
+    },
+    {
+      "name": "BANK_SCORECARD.md",
+      "sha256": "f1e8c1ea7bfdd604f4a45f20e869109c8a5bc3d7ebff7085b18eb09e203a210c",
+      "bytes": 722
+    },
+    {
+      "name": "CANDIDATE_FREEZE.md",
+      "sha256": "48e610909fe0c9adcd3448b9d8a6b8fbac1a8d8b7b0b57530864a377c6432339",
+      "bytes": 1754
+    },
+    {
+      "name": "child-traceability.json",
+      "sha256": "bd128c56b33f1917e527ffe05afe7ec5cccb94e5f4dccb711f689a681d39f3d9",
+      "bytes": 162382
+    },
+    {
+      "name": "COMMAND_LOG.md",
+      "sha256": "6a1b812652c743a8f3faa162d0be1bfbb6de5cd76e5de98f545feb12d2b293f4",
+      "bytes": 1785
+    },
+    {
+      "name": "create-verify-db.mjs",
+      "sha256": "7ed2aee36bae122e065a19ca23ce6a74a31d7e3a37c46f607a513d02abf0cfa9",
+      "bytes": 431
+    },
+    {
+      "name": "EXECUTION_STATE.json",
+      "sha256": "5c9b83cc4dbae6359a8f44cefa2212eda5c31df063152884fdbeb017cf781a2f",
+      "bytes": 464
+    },
+    {
+      "name": "EXPORT_RECONCILIATION.md",
+      "sha256": "9a3c8f2a8504a0b5f64fcae7400f21c2857769da65ac7351eca292fe5ac5712f",
+      "bytes": 715
+    },
+    {
+      "name": "FINAL_REPORT.md",
+      "sha256": "0cabaee308169832035aa8a1efe0ce3eb33c4cdba217622f851c7aed6fef80ee",
+      "bytes": 2912
+    },
+    {
+      "name": "finance-gate-exits.txt",
+      "sha256": "cf0556437da2179f29ff3be36a99a3e2c4f7f105f2456fceec017abb4429f289",
+      "bytes": 105
+    },
+    {
+      "name": "FINDINGS.md",
+      "sha256": "e2b96b537098b75b01f6723254247f0412a0e03008f869be6ce32da20348de3f",
+      "bytes": 7735
+    },
+    {
+      "name": "gate-poison.mjs",
+      "sha256": "de6a3d27972ddb4063c46d08ecdce346c1d05f8a54a64f1515855dfd62243288",
+      "bytes": 2711
+    },
+    {
+      "name": "GATE_POISONING.md",
+      "sha256": "92f070f748629143d026ba45b04794fdf56f471fcba29ade68503b3226ff74fc",
+      "bytes": 765
+    },
+    {
+      "name": "generate-matrices.mjs",
+      "sha256": "f412e06e972917f420788058f4ab91e7b85200c1035889588f405b6531f27eaf",
+      "bytes": 11363
+    },
+    {
+      "name": "GIT_BRANCH.txt",
+      "sha256": "20c33ec3becb9fdfd2ebb8086c3b6623fe2e81a9a65f8c5a5b8ab187b35002d5",
+      "bytes": 8
+    },
+    {
+      "name": "GIT_HEAD.txt",
+      "sha256": "67b3b4de81f4b9138733dec9396eb60da3947382616ca79d48b364cc6b907464",
+      "bytes": 181
+    },
+    {
+      "name": "GIT_STATUS_PORCELAIN.txt",
+      "sha256": "5b877d732a98984a412cb06bcde14a3bbdb3eeb826b6b3cbc9f4acec69f4b93d",
+      "bytes": 5451
+    },
+    {
+      "name": "JOURNEYS.md",
+      "sha256": "758bc8580f5c5331b4f861022d6b7afc0e158255f50c9376b84d139b99abc657",
+      "bytes": 1666
+    },
+    {
+      "name": "list-verify-tables.mjs",
+      "sha256": "c0625322644272b3395b74a064422fcafd6d9785f570d1b2e40a79c3e9318de2",
+      "bytes": 517
+    },
+    {
+      "name": "oracle-company.json",
+      "sha256": "61033356601ec907719cba270cb51678bdee0b5da3b459ad40897de75c0f8038",
+      "bytes": 3770
+    },
+    {
+      "name": "oracle-company.php",
+      "sha256": "5053dae72cbb5f217a8567c9122575764d535eb3c9fe8162b498d2eaa90af001",
+      "bytes": 20454
+    },
+    {
+      "name": "oracle-personal.json",
+      "sha256": "df722a0e4a2046f69af6b0f478eb843edcd6b7fd1f44575bc94081fae9a644aa",
+      "bytes": 1927
+    },
+    {
+      "name": "oracle-personal.ts",
+      "sha256": "8a965846cd23c91eb9e840970697e8b9642201df2a890f7a122dd321270177d0",
+      "bytes": 11455
+    },
+    {
+      "name": "ORACLE_RESULTS.md",
+      "sha256": "d1c94d82995b8fff65d05add2d0966c12a9556234a72136010baa80c9c91ceeb",
+      "bytes": 1506
+    },
+    {
+      "name": "package-router.php",
+      "sha256": "761c1439de6a47b50f619127dbdf3fcd4698743219849d20599031084bf1c50c",
+      "bytes": 1983
+    },
+    {
+      "name": "package-scan.mjs",
+      "sha256": "d47fcd773529b9107b1b6b0ce52eb529ef986d009befbf58592bd6014f9eadc4",
+      "bytes": 1316
+    },
+    {
+      "name": "PACKAGE_RESTORE.md",
+      "sha256": "20e7aa04dc739c890d67baca659d0fb721500557732b5c1ddfa685d58691a736",
+      "bytes": 1137
+    },
+    {
+      "name": "parent-matrix.json",
+      "sha256": "1139ac9a79fe9647fc45c24a7636993de2f6977c64ae4b13cbb1b6a644c88731",
+      "bytes": 15625
+    },
+    {
+      "name": "PARENT_MATRIX.md",
+      "sha256": "1554ab0207513ebc9d15db47ca5918c0a30d43e893a3092564bbf9a949ce4009",
+      "bytes": 4986
+    },
+    {
+      "name": "PHASE_MATRIX.md",
+      "sha256": "92234a2a6b8fe37cad5286a650c72e1807a89102d770d5026f1271afa1055dc2",
+      "bytes": 1520
+    },
+    {
+      "name": "probe-db.mjs",
+      "sha256": "3faa90238f86a9c20f88edbf0afe00e436f6833fb52300720025fe095a157668",
+      "bytes": 1816
+    },
+    {
+      "name": "probe-env-keys.mjs",
+      "sha256": "9ea5754c77d501feb134a8326ca51cb2680c743beb8edf6c156cf573e0d2c5f1",
+      "bytes": 1784
+    },
+    {
+      "name": "REPAIR_SPEC.md",
+      "sha256": "e5e28a7379a7fac2f43b02f3f9bb31d438466f7020bc22e856d2372c3aa6e095",
+      "bytes": 1152
+    },
+    {
+      "name": "RULE_PROVIDER_SCOPE.md",
+      "sha256": "ef07c61e4a2613744a7bf19f19ef80089d73cd6d14f9b15722c39581db4836ff",
+      "bytes": 1072
+    },
+    {
+      "name": "RUN_ID.txt",
+      "sha256": "1aa3353509cfcbe938d21c38e1dd0ad3dc2d972b183645436f69ffed4379e7dc",
+      "bytes": 34
+    },
+    {
+      "name": "seed-synthetic-users.php",
+      "sha256": "b7540d84f824e1b155f548f766e8c93fcd1a2e131901ea0d5c4c535c598e0889",
+      "bytes": 1022
+    },
+    {
+      "name": "STATUS_SUMMARY.md",
+      "sha256": "a3d022812f004e7b06b475606c760782ae65ece34704354de79c02041cde9eb2",
+      "bytes": 886
+    },
+    {
+      "name": "SUITE_FIRST_OUTCOMES.md",
+      "sha256": "a78ce00ab50f77012dbd60d49d6c6457b249d2c95f183398646f0e77f0720df9",
+      "bytes": 2099
+    },
+    {
+      "name": "SYNC_CONCURRENCY.md",
+      "sha256": "ee5946963cae50ed1b763fb1270e0d77a71affb79597db7bada05a4ef8c911eb",
+      "bytes": 782
+    },
+    {
+      "name": "UI_MATRIX.md",
+      "sha256": "c09a902dbf6b194c14e604589fcc4595573a4d1fb4ff9f02f97708e3a5e5f6dd",
+      "bytes": 1130
+    }
+  ]
+}

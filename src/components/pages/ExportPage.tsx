@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PageHeader } from "@/components/layout/PageHeader";
+import { PersonalPageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Field } from "@/components/ui/Label";
@@ -46,8 +46,12 @@ import { formatDate } from "@/lib/format";
 import { useCloudAppStore } from "@/store/cloudAppStore";
 import { cloudLogin } from "@/lib/cloud/client";
 import { buildUserOwnedFullExportPayload } from "@/services/exportSafety";
+import { collectPersonalBackupExtras } from "@/services/personalBookWorkflows";
+import { planFeatureOff } from "@/services/modulePolicy";
+import { useMessages } from "@/i18n/useMessages";
 
 export function ExportPage() {
+  const copy = useMessages().ui.exportPage;
   const user = useAuthStore((s) => s.currentUser);
   const data = useDataStore();
   const toast = useUIStore((s) => s.toast);
@@ -60,10 +64,13 @@ export function ExportPage() {
   const [format, setFormat] = useState<"xlsx" | "csv" | "json">("xlsx");
   const effectiveFeatures = useCloudAppStore((s) => s.effectiveFeatures);
 
-  if (effectiveFeatures.exports === false) {
+  const exportsOff = effectiveFeatures.exports === false || planFeatureOff(effectiveFeatures, "max_exports_per_month");
+  const caReportsOff = planFeatureOff(effectiveFeatures, "ca_reports");
+
+  if (exportsOff) {
     return (
       <div>
-        <PageHeader title="Export Center" description="This feature is not available on your current plan." />
+        <PersonalPageHeader screen="exportLocked" />
       </div>
     );
   }
@@ -84,7 +91,7 @@ export function ExportPage() {
   }
 
   async function caExport() {
-    if (!user) return;
+    if (!user || caReportsOff) return;
     setExporting("ca");
     const { buffer, filename } = buildCAWorkbook({
       transactions: filterTx(),
@@ -107,7 +114,7 @@ export function ExportPage() {
     });
     downloadBuffer(buffer, filename);
     await logExport("ca_workbook", filename, data.transactions.length);
-    toast({ title: "CA workbook downloaded", kind: "success" });
+    toast({ title: copy.caDownloaded, kind: "success" });
     setExporting(null);
   }
 
@@ -172,6 +179,7 @@ export function ExportPage() {
     try {
       await cloudLogin({ username: user.username, pin: backupPin });
       setBackupPinOpen(false);
+      const extras = await collectPersonalBackupExtras(user.id);
       const payload = buildUserOwnedFullExportPayload(user, {
         settings: data.settings,
         accounts: data.accounts,
@@ -189,6 +197,7 @@ export function ExportPage() {
         savingsContribs: data.savingsContribs,
         reminders: data.reminders,
         recurringRules: data.recurringRules,
+        ...extras,
       });
       const blob = new Blob([JSON.stringify(payload, null, 2)], {
         type: "application/json",
@@ -200,7 +209,7 @@ export function ExportPage() {
       a.click();
       setTimeout(() => URL.revokeObjectURL(url), 1000);
       await logExport("full_backup", a.download, data.transactions.length);
-      toast({ title: "Backup ready", description: "Keep the JSON file safe.", kind: "success" });
+      toast({ title: copy.backupReady, description: "{copy.backupSafe}", kind: "success" });
     } catch (e) {
       toast({
         title: e instanceof Error ? e.message : "PIN verification failed",
@@ -213,25 +222,22 @@ export function ExportPage() {
 
   return (
     <div>
-      <PageHeader
-        title="Export Center"
-        description="CA-friendly workbooks, module-level exports, and full profile backup."
-      />
+      <PersonalPageHeader screen="export" />
 
       <Card className="mb-4">
         <CardHeader>
-          <CardTitle>Export options</CardTitle>
-          <CardDescription>Set a date range and format; applies to filtered exports.</CardDescription>
+          <CardTitle>{copy.options}</CardTitle>
+          <CardDescription>{copy.optionsHint}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-            <Field label="From">
+            <Field label={copy.from}>
               <Input type="date" value={from} onChange={(e) => setFrom(e.target.value)} />
             </Field>
-            <Field label="To">
+            <Field label={copy.to}>
               <Input type="date" value={to} onChange={(e) => setTo(e.target.value)} />
             </Field>
-            <Field label="Format">
+            <Field label={copy.format}>
               <Select
                 value={format}
                 onValueChange={(v) => setFormat(v as "xlsx" | "csv" | "json")}
@@ -240,9 +246,9 @@ export function ExportPage() {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="xlsx">XLSX (Excel)</SelectItem>
-                  <SelectItem value="csv">CSV</SelectItem>
-                  <SelectItem value="json">JSON</SelectItem>
+                  <SelectItem value="xlsx">{copy.xlsx}</SelectItem>
+                  <SelectItem value="csv">{copy.csv}</SelectItem>
+                  <SelectItem value="json">{copy.json}</SelectItem>
                 </SelectContent>
               </Select>
             </Field>
@@ -259,8 +265,8 @@ export function ExportPage() {
                   <FileSpreadsheet className="h-6 w-6" />
                 </div>
                 <div>
-                  <CardTitle>CA Workbook</CardTitle>
-                  <CardDescription>Multi-sheet accountant-ready XLSX</CardDescription>
+                  <CardTitle>{copy.caTitle}</CardTitle>
+                  <CardDescription>{copy.caHint}</CardDescription>
                 </div>
               </div>
             </div>
@@ -271,13 +277,17 @@ export function ExportPage() {
               payment splits, loans, cards, udhari, savings, goals, annual summary, tax
               & GST sheets, account ledger, and notes.
             </div>
-            <Button
-              className="w-full"
-              onClick={caExport}
-              loading={exporting === "ca"}
-            >
-              <Download className="h-4 w-4" /> Download CA Workbook
-            </Button>
+            {caReportsOff ? (
+              <p className="text-sm text-muted-foreground">{copy.caLocked}</p>
+            ) : (
+              <Button
+                className="w-full"
+                onClick={caExport}
+                loading={exporting === "ca"}
+              >
+                <Download className="h-4 w-4" /> Download CA Workbook
+              </Button>
+            )}
           </CardContent>
         </Card>
 
@@ -426,8 +436,8 @@ export function ExportPage() {
                 <Database className="h-6 w-6" />
               </div>
               <div>
-                <CardTitle>Full Backup</CardTitle>
-                <CardDescription>Complete profile JSON snapshot</CardDescription>
+                <CardTitle>{copy.backupTitle}</CardTitle>
+                <CardDescription>{copy.backupHint}</CardDescription>
               </div>
             </div>
           </CardHeader>
@@ -451,7 +461,7 @@ export function ExportPage() {
       {data.exportHistory.length > 0 ? (
         <Card className="mt-4">
           <CardHeader>
-            <CardTitle>Recent exports</CardTitle>
+            <CardTitle>{copy.recent}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="divide-y divide-border">
@@ -478,7 +488,7 @@ export function ExportPage() {
       <Dialog open={backupPinOpen} onOpenChange={setBackupPinOpen}>
         <DialogContent size="sm">
           <DialogHeader>
-            <DialogTitle>Confirm full export</DialogTitle>
+            <DialogTitle>{copy.confirmTitle}</DialogTitle>
             <DialogDescription>
               Enter your PIN before exporting the full profile JSON. The file contains
               sensitive financial data for the current user only.
@@ -489,7 +499,7 @@ export function ExportPage() {
               type="password"
               value={backupPin}
               onChange={(e) => setBackupPin(e.target.value)}
-              placeholder="Enter PIN"
+              placeholder={copy.enterPin}
             />
           </Field>
           <DialogFooter>

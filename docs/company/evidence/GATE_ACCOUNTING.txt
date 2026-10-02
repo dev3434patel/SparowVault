@@ -1,4 +1,4 @@
-GATE accounting 2026-09-24T17:21:14.229Z
+GATE accounting 2026-09-30T20:18:52.469Z
 
 > sparowvault@0.1.0 company:test
 > vitest run src/company/services/__tests__ src/company/store/__tests__ src/company/i18n/__tests__
@@ -6,24 +6,26 @@ GATE accounting 2026-09-24T17:21:14.229Z
 
  RUN  v4.1.11 D:/Claude/SparowVault
 
- ✓ src/company/store/__tests__/clientEndpointParity.test.ts (2 tests) 13ms
- ✓ src/company/store/__tests__/routesMatrix.test.ts (2 tests) 22ms
- ✓ src/company/services/__tests__/voucherBalance.test.ts (3 tests) 12ms
- ✓ src/company/services/__tests__/categoryAggregation.test.ts (2 tests) 7ms
- ✓ src/company/services/__tests__/reportEngine.test.ts (4 tests) 26ms
+ ✓ src/company/store/__tests__/clientEndpointParity.test.ts (2 tests) 9ms
+ ✓ src/company/services/__tests__/categoryAggregation.test.ts (2 tests) 8ms
+ ✓ src/company/services/__tests__/voucherBalance.test.ts (3 tests) 9ms
+ ✓ src/company/services/__tests__/reportEngine.test.ts (4 tests) 20ms
+ ✓ src/company/store/__tests__/routesMatrix.test.ts (4 tests) 10ms
+ ✓ src/company/services/__tests__/costSplit.test.ts (2 tests) 6ms
  ✓ src/company/services/__tests__/purposeEngine.test.ts (3 tests) 8ms
- ✓ src/company/services/__tests__/purposeParity.test.ts (28 tests) 43ms
- ✓ src/company/services/__tests__/scenarios.test.ts (10 tests) 10ms
- ✓ src/company/services/__tests__/invariants.test.ts (7 tests) 35ms
- ✓ src/company/services/__tests__/propertyVouchers.test.ts (2 tests) 42ms
- ✓ src/company/i18n/__tests__/dashboardGuSmoke.test.ts (1 test) 18ms
- ✓ src/company/i18n/__tests__/i18n.test.ts (10 tests) 98ms
- ✓ src/company/store/__tests__/logoutIsolation.test.ts (2 tests) 6ms
+ ✓ src/company/services/__tests__/purposeParity.test.ts (28 tests) 23ms
+ ✓ src/company/services/__tests__/booksPhases.test.ts (16 tests) 20ms
+ ✓ src/company/services/__tests__/invariants.test.ts (7 tests) 27ms
+ ✓ src/company/services/__tests__/scenarios.test.ts (10 tests) 11ms
+ ✓ src/company/i18n/__tests__/dashboardGuSmoke.test.ts (1 test) 16ms
+ ✓ src/company/services/__tests__/propertyVouchers.test.ts (2 tests) 38ms
+ ✓ src/company/i18n/__tests__/i18n.test.ts (10 tests) 42ms
+ ✓ src/company/store/__tests__/logoutIsolation.test.ts (2 tests) 5ms
 
- Test Files  13 passed (13)
-      Tests  76 passed (76)
-   Start at  22:51:16
-   Duration  1.29s (transform 2.78s, setup 0ms, import 4.35s, tests 341ms, environment 3ms)
+ Test Files  15 passed (15)
+      Tests  96 passed (96)
+   Start at  01:48:53
+   Duration  928ms (transform 1.96s, setup 0ms, import 2.98s, tests 252ms, environment 3ms)
 
 stderr | src/company/i18n/__tests__/i18n.test.ts > company i18n t() fallback > falls back to English when gu key missing
 [i18n] missing key "only.en" for locale "gu", using en
@@ -66,7 +68,7 @@ Warning: Version warning: Imagick was compiled against ImageMagick version 1808 
   ✓ original remains REVERSED after second reverse call
   ✓ original points to single reversal voucher
 == Voucher number seq past 9999 ==
-  ✓ next seq after 10000 is 10001 got PAY-20260924-00010001
+  ✓ next seq after 10000 is 10001 got PAY-20260930-00010001
 == TB still balanced ==
   ✓ trial balance debit=credit (29000000 == 29000000)
 == Deprecated purposes rejected ==
@@ -116,18 +118,24 @@ Warning: Version warning: Imagick was compiled against ImageMagick version 1808 
   ✓ payables permission from registry (view_payables)
   ✓ payables has handler
   ✓ payables runs (enabled → data)
-  ✓ receipts-payments resolve throws when disabled
-  ✓ receipts-payments → REPORT_DISABLED
-  ✓ project-report resolve throws when disabled
-  ✓ project-report → REPORT_DISABLED
-  ✓ business-report resolve throws when disabled
-  ✓ business-report → REPORT_DISABLED
-  ✓ area-report resolve throws when disabled
-  ✓ area-report → REPORT_DISABLED
-  ✓ category-report resolve throws when disabled
-  ✓ category-report → REPORT_DISABLED
-  ✓ user-activity resolve throws when disabled
-  ✓ user-activity → REPORT_DISABLED
+  ✓ receipts-payments permission from registry (view_cash_bank_books)
+  ✓ receipts-payments has handler
+  ✓ receipts-payments runs (enabled → data)
+  ✓ project-report permission from registry (view_day_book)
+  ✓ project-report has handler
+  ✓ project-report runs (enabled → data)
+  ✓ business-report permission from registry (view_day_book)
+  ✓ business-report has handler
+  ✓ business-report runs (enabled → data)
+  ✓ area-report permission from registry (view_day_book)
+  ✓ area-report has handler
+  ✓ area-report runs (enabled → data)
+  ✓ category-report permission from registry (view_day_book)
+  ✓ category-report has handler
+  ✓ category-report runs (enabled → data)
+  ✓ user-activity permission from registry (view_audit)
+  ✓ user-activity has handler
+  ✓ user-activity runs (enabled → data)
   ✓ unknown → REPORT_UNKNOWN
 == Purpose preview parity (non-deprecated) ==
   ✓ LOAN_RECEIVED yields 2 lines
@@ -274,7 +282,7 @@ Using user devpatel (cu_a49260e5634911863371e053)
   ✓ Final TB balanced (79260000 == 79260000)
 
 ========================================
-DEMO COMPANY ID: 3aab6aca-046d-4238-a8ba-a84e8c60ad6f
+DEMO COMPANY ID: 9d24747b-0c70-4fab-9ac1-3bd268600a58
 Open /company/select and choose "Demo Farm & Finance"
 ALL COMBINATION CHECKS PASSED
 ========================================

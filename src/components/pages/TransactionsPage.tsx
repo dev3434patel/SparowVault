@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
-import { PageHeader } from "@/components/layout/PageHeader";
+import { statementReceiptQuery } from "@/services/statements/receiptLink";
+import { useNavStore } from "@/store/navStore";
+import { PersonalPageHeader } from "@/components/layout/PageHeader";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Card, CardContent } from "@/components/ui/Card";
@@ -27,7 +29,7 @@ import { useUIStore } from "@/store/uiStore";
 import { confirm } from "@/store/uiStore";
 import { transactionRepo } from "@/repositories";
 import type { Transaction, TransactionType, PaymentMode } from "@/types";
-import { formatINR, formatDate, formatPaymentMode, formatTxType } from "@/lib/format";
+import { formatINR, formatDate, formatPaymentMode } from "@/lib/format";
 import { parseISO } from "date-fns";
 import {
   Copy,
@@ -46,8 +48,10 @@ import { useAuthStore } from "@/store/authStore";
 import { isCashInflow, sumExpense, sumIncome } from "@/services/calculations";
 import { paiseToRupees, transactionAmountPaise } from "@/utils/money";
 import { expenseRecovery, isExpenseContribution } from "@/services/expenseContributions";
+import { useMessages } from "@/i18n/useMessages";
 
 export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expense" } = {}) {
+  const copy = useMessages().copy.transactions;
   const user = useAuthStore((s) => s.currentUser);
   const transactions = useDataStore((s) => s.transactions);
   const categories = useDataStore((s) => s.categories);
@@ -56,6 +60,9 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
   const removeLocal = useDataStore((s) => s.removeLocal);
   const toast = useUIStore((s) => s.toast);
   const consumePendingTransactionFilters = useUIStore((s) => s.consumePendingTransactionFilters);
+  const navActionId = useNavStore((s) => s.navActionId);
+  const [statementTxIds, setStatementTxIds] = useState<string[] | null>(null);
+  const [statementSourceId, setStatementSourceId] = useState<string | null>(null);
 
   const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState<TransactionType | "all">("all");
@@ -74,18 +81,28 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
   const [selected, setSelected] = useState<Set<string>>(new Set());
 
   useEffect(() => {
-    if (fixedType) return;
+    const receipt = statementReceiptQuery(window.location.search);
+    const fromUrl = receipt.transactionIds;
+    setStatementSourceId(receipt.importSourceId);
+    if (fixedType) {
+      setStatementTxIds(fromUrl);
+      return;
+    }
     const pending = consumePendingTransactionFilters();
+    if (pending?.ids) setStatementTxIds(pending.ids);
+    else setStatementTxIds(fromUrl);
     if (!pending) return;
     if (pending.categoryIds?.length === 1) setCategoryFilter(pending.categoryIds[0]!);
     if (pending.dateFrom) setDateFrom(pending.dateFrom);
     if (pending.dateTo) setDateTo(pending.dateTo);
     if (pending.types?.length === 1) setTypeFilter(pending.types[0]!);
-    setFiltersOpen(true);
-  }, [fixedType, consumePendingTransactionFilters]);
+    if (pending.categoryIds || pending.dateFrom || pending.dateTo || pending.types) setFiltersOpen(true);
+  }, [fixedType, consumePendingTransactionFilters, navActionId]);
 
   const filtered = useMemo(() => {
     let list = transactions;
+    if (statementSourceId) list = list.filter((t) => t.statementSource?.importSourceId === statementSourceId);
+    else if (statementTxIds) list = list.filter((t) => statementTxIds.includes(t.id));
     if (fixedType === "income") {
       list = list.filter((t) => t.type === "income" && t.transactionIntent !== "reimbursement");
     } else if (fixedType === "expense") {
@@ -145,6 +162,8 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
     sort,
     fixedType,
     categories,
+    statementTxIds,
+    statementSourceId,
   ]);
 
   const totalIncome = sumIncome(filtered);
@@ -153,15 +172,15 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
   async function handleDelete(id: string) {
     if (!user) return;
     const ok = await confirm({
-      title: "Delete this transaction?",
-      description: "This transaction will be removed permanently.",
+      title: copy.deleteTitle,
+      description: copy.deleteBody,
       destructive: true,
-      confirmLabel: "Delete transaction",
+      confirmLabel: copy.deleteConfirm,
     });
     if (!ok) return;
     await transactionRepo.softDelete(id);
     removeLocal("transactions", id);
-    toast({ title: "Transaction deleted", kind: "info" });
+    toast({ title: copy.deleted, kind: "info" });
   }
 
   async function handleDuplicate(t: Transaction) {
@@ -179,19 +198,19 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
     void _v;
     const created = await transactionRepo.create({
       userId: user.id,
-      data: { ...rest, description: `${t.description} (copy)` } as Transaction,
+      data: { ...rest, description: `${t.description} ${copy.copySuffix}` } as Transaction,
     });
     upsertLocal("transactions", created);
-    toast({ title: "Duplicated", kind: "success" });
+    toast({ title: copy.duplicated, kind: "success" });
   }
 
   async function bulkDelete() {
     if (selected.size === 0) return;
     const ok = await confirm({
-      title: `Delete ${selected.size} transactions?`,
-      description: "Selected transactions will be removed permanently.",
+      title: copy.bulkTitle.replace("{n}", String(selected.size)),
+      description: copy.bulkBody,
       destructive: true,
-      confirmLabel: "Delete selected",
+      confirmLabel: copy.bulkConfirm,
     });
     if (!ok) return;
     const ids = Array.from(selected);
@@ -199,7 +218,7 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
     for (const id of ids) {
       removeLocal("transactions", id);
     }
-    toast({ title: `Deleted ${selected.size} transactions`, kind: "info" });
+    toast({ title: copy.deletedMany.replace("{n}", String(ids.length)), kind: "info" });
     setSelected(new Set());
   }
 
@@ -223,24 +242,20 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
 
   return (
     <div>
-      <PageHeader
-        title={
-          fixedType === "income"
-            ? "Income"
-            : fixedType === "expense"
-              ? "Expenses"
-              : "All Transactions"
-        }
-        description={
-          fixedType === "income"
-            ? "Income"
-            : fixedType === "expense"
-              ? "Every expense tracked across accounts, cards, and categories."
-              : "Unified ledger across every transaction type."
-        }
+      {statementSourceId ? (
+        <p className="mb-3 text-sm text-muted-foreground" role="status">
+          Showing the imported statement batch.
+        </p>
+      ) : statementTxIds ? (
+        <p className="mb-3 text-sm text-muted-foreground" role="status">
+          Showing {statementTxIds.length} imported statement transaction{statementTxIds.length === 1 ? "" : "s"}.
+        </p>
+      ) : null}
+      <PersonalPageHeader
+        screen={fixedType === "income" ? "income" : fixedType === "expense" ? "expenses" : "transactions"}
         actions={
           <Button onClick={() => setAdding(true)}>
-            <Plus className="h-4 w-4" /> Add
+            <Plus className="h-4 w-4" /> {copy.add}
           </Button>
         }
       />
@@ -249,7 +264,7 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
         <div className="relative flex-1 min-w-[240px]">
           <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
-            placeholder="Search merchant, description, notes, tags, category…"
+            placeholder={copy.search}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="pl-8"
@@ -260,7 +275,7 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
           size="sm"
           onClick={() => setFiltersOpen((v) => !v)}
         >
-          <SlidersHorizontal className="h-4 w-4" /> Filters
+          <SlidersHorizontal className="h-4 w-4" /> {copy.filters}
           {activeFilters > 0 ? (
             <Badge variant="info" className="ml-1">
               {activeFilters}
@@ -272,10 +287,10 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="date-desc">Newest first</SelectItem>
-            <SelectItem value="date-asc">Oldest first</SelectItem>
-            <SelectItem value="amount-desc">Amount: high → low</SelectItem>
-            <SelectItem value="amount-asc">Amount: low → high</SelectItem>
+            <SelectItem value="date-desc">{copy.newest}</SelectItem>
+            <SelectItem value="date-asc">{copy.oldest}</SelectItem>
+            <SelectItem value="amount-desc">{copy.amountHigh}</SelectItem>
+            <SelectItem value="amount-asc">{copy.amountLow}</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -290,13 +305,13 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
                   onValueChange={(v) => setTypeFilter(v as typeof typeFilter)}
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder="Type" />
+                    <SelectValue placeholder={copy.type} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">All types</SelectItem>
+                    <SelectItem value="all">{copy.allTypes}</SelectItem>
                     {TRANSACTION_TYPES.map((t) => (
                       <SelectItem key={t.value} value={t.value}>
-                        {t.label}
+                        {copy.types[t.value]}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -307,13 +322,13 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
                 onValueChange={(v) => setPaymentFilter(v as typeof paymentFilter)}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Payment mode" />
+                  <SelectValue placeholder={copy.paymentMode} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All payment modes</SelectItem>
+                  <SelectItem value="all">{copy.allPayments}</SelectItem>
                   {PAYMENT_MODES.map((p) => (
                     <SelectItem key={p.value} value={p.value}>
-                      {p.label}
+                      {copy.payments[p.value]}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -323,10 +338,10 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
                 onValueChange={(v) => setCategoryFilter(v)}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Category" />
+                  <SelectValue placeholder={copy.category} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All categories</SelectItem>
+                  <SelectItem value="all">{copy.allCategories}</SelectItem>
                   {categories.map((c) => (
                     <SelectItem key={c.id} value={c.id}>
                       {c.icon} {c.name}
@@ -339,10 +354,10 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
                 onValueChange={(v) => setAccountFilter(v)}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Account" />
+                  <SelectValue placeholder={copy.account} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All accounts</SelectItem>
+                  <SelectItem value="all">{copy.allAccounts}</SelectItem>
                   {accounts.map((a) => (
                     <SelectItem key={a.id} value={a.id}>
                       {a.name}
@@ -354,21 +369,21 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
                 type="date"
                 value={dateFrom}
                 onChange={(e) => setDateFrom(e.target.value)}
-                placeholder="From"
+                placeholder={copy.from}
               />
               <Input
                 type="date"
                 value={dateTo}
                 onChange={(e) => setDateTo(e.target.value)}
-                placeholder="To"
+                placeholder={copy.to}
               />
             </div>
             <div className="mt-3 flex items-center justify-between">
               <div className="text-xs text-muted-foreground">
-                {filtered.length} transactions match
+                {filtered.length} {copy.match}
               </div>
               <Button variant="ghost" size="sm" onClick={resetFilters}>
-                <X className="h-3 w-3" /> Reset
+                <X className="h-3 w-3" /> {copy.reset}
               </Button>
             </div>
           </CardContent>
@@ -377,24 +392,24 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
 
       <div className="mb-3 flex flex-wrap items-center gap-3 text-sm">
         <Badge variant="income">
-          Income: {formatINR(paiseToRupees(totalIncome), { decimals: 0 })}
+          {copy.income}: {formatINR(paiseToRupees(totalIncome), { decimals: 0 })}
         </Badge>
         <Badge variant="expense">
-          Expense: {formatINR(paiseToRupees(totalExpense), { decimals: 0 })}
+          {copy.expense}: {formatINR(paiseToRupees(totalExpense), { decimals: 0 })}
         </Badge>
         <Badge variant="info">
-          Net: {formatINR(paiseToRupees(totalIncome - totalExpense), { decimals: 0 })}
+          {copy.net}: {formatINR(paiseToRupees(totalIncome - totalExpense), { decimals: 0 })}
         </Badge>
         {selected.size > 0 ? (
           <div className="ml-auto flex items-center gap-2">
             <span className="text-muted-foreground">
-              {selected.size} selected
+              {selected.size} {copy.selected}
             </span>
             <Button variant="destructive" size="sm" onClick={bulkDelete}>
-              <Trash2 className="h-4 w-4" /> Delete
+              <Trash2 className="h-4 w-4" /> {copy.delete}
             </Button>
             <Button variant="ghost" size="sm" onClick={() => setSelected(new Set())}>
-              Clear
+              {copy.clear}
             </Button>
           </div>
         ) : null}
@@ -405,11 +420,11 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
           {filtered.length === 0 ? (
             <EmptyState
               icon={<Receipt className="h-6 w-6" />}
-              title="No transactions"
-              description="Add one to get started, or remove filters to see more."
+              title={copy.emptyTitle}
+              description={copy.emptyBody}
               action={
                 <Button onClick={() => setAdding(true)}>
-                  <Plus className="h-4 w-4" /> Add transaction
+                  <Plus className="h-4 w-4" /> {copy.addTitle}
                 </Button>
               }
             />
@@ -418,13 +433,13 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
               <TableHeader>
                 <TableRow>
                   <TableHead className="w-10"></TableHead>
-                  <TableHead>Date</TableHead>
-                  <TableHead>Merchant</TableHead>
-                  <TableHead>Category</TableHead>
-                  <TableHead>Type</TableHead>
-                  <TableHead>Payment</TableHead>
-                  <TableHead>Tags</TableHead>
-                  <TableHead className="text-right">Amount</TableHead>
+                  <TableHead>{copy.date}</TableHead>
+                  <TableHead>{copy.merchant}</TableHead>
+                  <TableHead>{copy.category}</TableHead>
+                  <TableHead>{copy.type}</TableHead>
+                  <TableHead>{copy.payment}</TableHead>
+                  <TableHead>{copy.tags}</TableHead>
+                  <TableHead className="text-right">{copy.amount}</TableHead>
                   <TableHead className="w-24"></TableHead>
                 </TableRow>
               </TableHeader>
@@ -467,7 +482,7 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
                                 {t.description}
                               </div>
                             ) : null}
-                            {t.type === "expense" && expenseRecovery(t, transactions).recoveredPaise > 0 && <div className="mt-1 whitespace-normal text-[11px] text-muted-foreground">Recovered {formatINR(expenseRecovery(t, transactions).recoveredPaise / 100)} / Net {formatINR(expenseRecovery(t, transactions).remainingPaise / 100)}</div>}
+                            {t.type === "expense" && expenseRecovery(t, transactions).recoveredPaise > 0 && <div className="mt-1 whitespace-normal text-[11px] text-muted-foreground">{copy.recovered} {formatINR(expenseRecovery(t, transactions).recoveredPaise / 100)} / {copy.net} {formatINR(expenseRecovery(t, transactions).remainingPaise / 100)}</div>}
                           </div>
                         </div>
                       </TableCell>
@@ -485,11 +500,11 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
                                 : "info"
                           }
                         >
-                          {isExpenseContribution(t) ? "Contribution return" : formatTxType(t.type)}
+                          {isExpenseContribution(t) ? copy.contributionReturn : copy.types[t.type]}
                         </Badge>
                       </TableCell>
                       <TableCell className="text-xs">
-                        {formatPaymentMode(t.paymentMode)}
+                        {copy.payments[t.paymentMode] ?? formatPaymentMode(t.paymentMode)}
                       </TableCell>
                       <TableCell>
                         <div className="flex flex-wrap gap-1">
@@ -517,12 +532,12 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
                       </TableCell>
                       <TableCell>
                         <div className="flex items-center justify-end gap-1">
-                          {t.type === "expense" && !t.isReimbursable && t.businessOrPersonal !== "mixed" && <Button variant="ghost" size="icon-sm" title="Record contribution return" aria-label="Record contribution return" disabled={expenseRecovery(t, transactions).remainingPaise === 0} onClick={() => setContributing(t)}><UsersRound className="h-3.5 w-3.5" /></Button>}
+                          {t.type === "expense" && !t.isReimbursable && t.businessOrPersonal !== "mixed" && <Button variant="ghost" size="icon-sm" title={copy.recordReturn} aria-label={copy.recordReturn} disabled={expenseRecovery(t, transactions).remainingPaise === 0} onClick={() => setContributing(t)}><UsersRound className="h-3.5 w-3.5" /></Button>}
                           <Button
                             variant="ghost"
                             size="icon-sm"
                             onClick={() => setEditing(t)}
-                            aria-label="Edit"
+                            aria-label={copy.edit}
                           >
                             <Pencil className="h-3.5 w-3.5" />
                           </Button>
@@ -530,7 +545,7 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
                             variant="ghost"
                             size="icon-sm"
                             onClick={() => handleDuplicate(t)}
-                            aria-label="Duplicate"
+                            aria-label={copy.duplicate}
                           >
                             <Copy className="h-3.5 w-3.5" />
                           </Button>
@@ -538,7 +553,7 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
                             variant="ghost"
                             size="icon-sm"
                             onClick={() => handleDelete(t.id)}
-                            aria-label="Delete"
+                            aria-label={copy.delete}
                           >
                             <Trash2 className="h-3.5 w-3.5" />
                           </Button>
@@ -556,7 +571,7 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
       <Dialog open={adding} onOpenChange={(o) => !o && setAdding(false)}>
         <DialogContent size="lg">
           <DialogHeader>
-            <DialogTitle>Add transaction</DialogTitle>
+            <DialogTitle>{copy.addTitle}</DialogTitle>
           </DialogHeader>
           <TransactionForm
             forcedType={
@@ -574,14 +589,14 @@ export function TransactionsPage({ fixedType }: { fixedType?: "income" | "expens
 
       <Dialog open={!!contributing} onOpenChange={(o) => !o && setContributing(null)}>
         <DialogContent size="lg">
-          <DialogHeader><DialogTitle>Contribution return</DialogTitle></DialogHeader>
+          <DialogHeader><DialogTitle>{copy.returnTitle}</DialogTitle></DialogHeader>
           {contributing && <TransactionForm initial={{ type: "refund", transactionIntent: "expense_contribution", linkedOriginalTransactionId: contributing.id, categoryId: contributing.categoryId, businessOrPersonal: contributing.businessOrPersonal, paymentMode: "bank_transfer", description: `Contribution: ${contributing.description || contributing.merchantOrPerson}`.slice(0, 200) }} onCancel={() => setContributing(null)} onSaved={() => setContributing(null)} />}
         </DialogContent>
       </Dialog>
       <Dialog open={!!editing} onOpenChange={(o) => !o && setEditing(null)}>
         <DialogContent size="lg">
           <DialogHeader>
-            <DialogTitle>Edit transaction</DialogTitle>
+            <DialogTitle>{copy.editTitle}</DialogTitle>
           </DialogHeader>
           {editing ? (
             <TransactionForm

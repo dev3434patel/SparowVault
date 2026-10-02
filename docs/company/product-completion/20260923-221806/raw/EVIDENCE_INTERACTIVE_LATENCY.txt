@@ -1,10 +1,10 @@
-INTERACTIVE LATENCY 2026-09-24T17:04:50.816Z company=95eaa926-5908-49bd-be43-e8c5febf87a1 samples=7 warmup=2
-PASS workspaces p50=30ms p95=40ms budget=800ms HTTP=200
-PASS workspace p50=40ms p95=46ms budget=800ms HTTP=200
-PASS parties p50=36ms p95=166ms budget=1500ms HTTP=200
-PASS vouchers p50=46ms p95=73ms budget=2000ms HTTP=200
-PASS trial-balance p50=121ms p95=306ms budget=3000ms HTTP=200
-PASS profit-loss p50=229ms p95=836ms budget=3000ms HTTP=200
-PASS balance-sheet p50=1166ms p95=1571ms budget=3000ms HTTP=200
-PASS bills-ar p50=21ms p95=34ms budget=2000ms HTTP=200
+INTERACTIVE LATENCY 2026-09-30T20:29:28.288Z company=d4f5ea56-e4fa-4070-8033-05c07939826d samples=3 warmup=0
+PASS workspaces p50=20ms p95=39ms budget=800ms HTTP=200
+PASS workspace p50=29ms p95=32ms budget=800ms HTTP=200
+PASS parties p50=28ms p95=47ms budget=1500ms HTTP=200
+PASS vouchers p50=19ms p95=43ms budget=2000ms HTTP=200
+PASS trial-balance p50=31ms p95=44ms budget=3000ms HTTP=200
+PASS profit-loss p50=31ms p95=44ms budget=3000ms HTTP=200
+PASS balance-sheet p50=21ms p95=22ms budget=3000ms HTTP=200
+PASS bills-ar p50=20ms p95=20ms budget=2000ms HTTP=200
 SUMMARY fail=0

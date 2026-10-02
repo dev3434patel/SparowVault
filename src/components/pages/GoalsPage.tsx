@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { PageHeader } from "@/components/layout/PageHeader";
+import { PersonalPageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -27,6 +27,9 @@ import type { Account, Goal } from "@/types";
 import { useUIStore } from "@/store/uiStore";
 import { confirm } from "@/store/uiStore";
 import { goalSchema } from "@/services/validators";
+import { planCapMessage, snapshotFromEffectiveFeatures } from "@/services/modulePolicy";
+import { useMessages } from "@/i18n/useMessages";
+import { useCloudAppStore } from "@/store/cloudAppStore";
 import { buildGoalIntel, goalPriorityTier } from "@/services/goalEngine";
 import { fundedGoalTransferEffect, goalEarmarkEffect } from "@/services/statements/goalFunding";
 import { format } from "date-fns";
@@ -44,11 +47,13 @@ import { formatMoney, goalSavedPaise, goalTargetPaise } from "@/utils/money";
 import { GOAL_TYPE_LABELS } from "@/constants";
 import { EmptyState } from "@/components/ui/Table";
 import { refsForGoal } from "@/services/refIntegrity";
+import { EnvelopeReservations } from "@/components/planning/EnvelopeReservations";
 
 const GOAL_ICON_PRESETS = ["🎯", "📱", "💻", "🏍️", "🚗", "✈️", "🏠", "💍", "🎓", "🧰", "🛟", "💰"];
 const GOAL_COLOR_PRESETS = ["#8b5cf6", "#0ea5e9", "#22c55e", "#f59e0b", "#ef4444", "#ec4899", "#14b8a6", "#6366f1"];
 
 export function GoalsPage() {
+  const copy = useMessages().copy.goals;
   const user = useAuthStore((s) => s.currentUser);
   const goals = useDataStore((s) => s.goals);
   const accounts = useDataStore((s) => s.accounts);
@@ -65,22 +70,22 @@ export function GoalsPage() {
     const refs = refsForGoal(id);
     if (refs.blocking) {
       toast({
-        title: "Cannot delete goal",
+        title: copy.cannotDelete,
         description: refs.message,
         kind: "warning",
       });
       return;
     }
     const ok = await confirm({
-      title: "Delete this goal?",
-      description: "This goal will be removed permanently.",
+      title: copy.deleteTitle,
+      description: copy.deleteBody,
       destructive: true,
-      confirmLabel: "Delete goal",
+      confirmLabel: copy.deleteConfirm,
     });
     if (!ok) return;
     await goalRepo.softDelete(id);
     removeLocal("goals", id);
-    toast({ title: "Goal removed", kind: "info" });
+    toast({ title: copy.removed, kind: "info" });
   }
 
   async function contribute(g: Goal, amount: number, mode: "earmark" | "funded_transfer", sourceAccountId?: string) {
@@ -89,7 +94,7 @@ export function GoalsPage() {
     if (mode === "earmark") {
       const effect = goalEarmarkEffect(amountPaise);
       if (effect.sourceAccountBalanceDeltaPaise !== 0 || effect.netWorthDeltaPaise !== 0) {
-        throw new Error("Earmark must not move bank cash or change net worth");
+        throw new Error(copy.earmarkSame);
       }
       const updated = await goalRepo.update(g.id, {
         currentSaved: g.currentSaved + amount,
@@ -112,7 +117,7 @@ export function GoalsPage() {
       });
       upsertLocal("goalContribs", contrib);
       toast({
-        title: "Funds earmarked",
+        title: copy.earmarked,
         description: `${formatINR(amount)} reserved for ${g.title} (bank balance unchanged)`,
         kind: "success",
       });
@@ -121,14 +126,14 @@ export function GoalsPage() {
     }
 
     if (!sourceAccountId || sourceAccountId === g.linkedAccountId) {
-      toast({ title: "Choose a distinct source account for a funded transfer", kind: "error" });
+      toast({ title: copy.distinctSource, kind: "error" });
       return;
     }
     const effect = fundedGoalTransferEffect(amountPaise);
     const source = accounts.find((a) => a.id === sourceAccountId);
     const destId = g.linkedAccountId;
     if (!source || !destId) {
-      toast({ title: "Goal needs a linked destination account for funded transfers", kind: "error" });
+      toast({ title: copy.needDestination, kind: "error" });
       return;
     }
     const transfer = await transactionRepo.create({
@@ -176,7 +181,7 @@ export function GoalsPage() {
     });
     upsertLocal("goalContribs", contrib);
     toast({
-      title: "Funded transfer recorded",
+      title: copy.funded,
       description: `${formatINR(amount)} moved toward ${g.title} (net worth unchanged)`,
       kind: "success",
     });
@@ -185,9 +190,8 @@ export function GoalsPage() {
 
   return (
     <div>
-      <PageHeader
-        title="Goals & Planned Purchases"
-        description="Save deliberately for the things that matter — phone, marriage, emergency, travel."
+      <PersonalPageHeader
+        screen="goals"
         actions={
           <Button onClick={() => setAdding(true)}>
             <Plus className="h-4 w-4" /> New Goal
@@ -195,13 +199,15 @@ export function GoalsPage() {
         }
       />
 
+      <EnvelopeReservations />
+
       {sorted.length === 0 ? (
         <Card>
           <CardContent>
             <EmptyState
               icon={<Target className="h-6 w-6" />}
-              title="No goals yet"
-              description="Create goals to plan major purchases or build reserves."
+              title={copy.emptyTitle}
+              description={copy.emptyBody}
               action={
                 <Button onClick={() => setAdding(true)}>
                   <Plus className="h-4 w-4" /> New Goal
@@ -337,7 +343,7 @@ export function GoalsPage() {
         userId={user?.id}
         onSaved={(g) => {
           upsertLocal("goals", g);
-          toast({ title: editing ? "Goal updated" : "Goal created", kind: "success" });
+          toast({ title: editing ? copy.updated : copy.created, kind: "success" });
           setAdding(false);
           setEditing(null);
         }}
@@ -364,6 +370,9 @@ function ContributeDialog({
   onSubmit: (amount: number, mode: "earmark" | "funded_transfer", sourceAccountId?: string) => void;
   accounts: Account[];
 }) {
+  const messages = useMessages();
+  const fields = messages.fields;
+  const copy = messages.copy.goals;
   const [amount, setAmount] = useState<number>(0);
   const [mode, setMode] = useState<"earmark" | "funded_transfer">("earmark");
   const [sourceAccountId, setSourceAccountId] = useState<string>(goal?.linkedAccountId ?? "");
@@ -379,7 +388,7 @@ function ContributeDialog({
         <DialogHeader>
           <DialogTitle>Contribute to {goal?.title}</DialogTitle>
         </DialogHeader>
-        <Field label="Funding mode" required>
+        <Field label={fields.fundingMode} required>
           <Select value={mode} onValueChange={(v) => setMode(v as "earmark" | "funded_transfer")}>
             <SelectTrigger><SelectValue /></SelectTrigger>
             <SelectContent>
@@ -388,9 +397,9 @@ function ContributeDialog({
             </SelectContent>
           </Select>
         </Field>
-        <Field label="Source account" required={mode === "funded_transfer"}>
+        <Field label={fields.sourceAccount} required={mode === "funded_transfer"}>
           <Select value={sourceAccountId} onValueChange={setSourceAccountId}>
-            <SelectTrigger><SelectValue placeholder="Select account" /></SelectTrigger>
+            <SelectTrigger><SelectValue placeholder={copy.selectAccount} /></SelectTrigger>
             <SelectContent>
               {activeAccounts.map((a) => (
                 <SelectItem key={a.id} value={a.id}>{a.name}</SelectItem>
@@ -398,7 +407,7 @@ function ContributeDialog({
             </SelectContent>
           </Select>
         </Field>
-        <Field label="Amount (₹)" required>
+        <Field label={fields.amount} required>
           <div className="relative">
             <IndianRupee className="absolute left-2 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
@@ -411,8 +420,8 @@ function ContributeDialog({
         </Field>
         <p className="text-xs text-muted-foreground">
           {mode === "earmark"
-            ? "Earmarking reserves money already in an account. Bank balance and net worth stay the same."
-            : "A funded transfer posts one transfer between distinct owned accounts. Net worth stays the same."}
+            ? copy.earmarkHelp
+            : copy.fundedHelp}
         </p>
         <DialogFooter>
           <Button type="button" variant="ghost" onClick={onClose}>
@@ -422,7 +431,7 @@ function ContributeDialog({
             onClick={() => amount > 0 && onSubmit(amount, mode, sourceAccountId || undefined)}
             disabled={amount <= 0 || (mode === "funded_transfer" && !sourceAccountId)}
           >
-            {mode === "earmark" ? "Earmark funds" : "Record funded transfer"}
+            {mode === "earmark" ? copy.earmarkFunds : copy.recordFunded}
           </Button>
         </DialogFooter>
       </DialogContent>
@@ -443,6 +452,9 @@ function GoalForm({
   userId?: string;
   onSaved: (g: Goal) => void;
 }) {
+  const messages = useMessages();
+  const fields = messages.fields;
+  const copy = messages.copy.goals;
   const [state, setState] = useState({
     title: goal?.title ?? "",
     goalType: goal?.goalType ?? "custom",
@@ -489,7 +501,7 @@ function GoalForm({
     if (!userId) return;
     const parse = goalSchema.safeParse(state);
     if (!parse.success) {
-      setErr(parse.error.issues[0]?.message ?? "Invalid");
+      setErr(parse.error.issues[0]?.message ?? copy.invalid);
       return;
     }
     setSaving(true);
@@ -506,6 +518,17 @@ function GoalForm({
             }
           : undefined,
       };
+      if (!goal) {
+        const cap = planCapMessage(
+          snapshotFromEffectiveFeatures(useCloudAppStore.getState().effectiveFeatures),
+          "goals",
+          useDataStore.getState().goals.filter((row) => row.isDeleted !== 1).length,
+        );
+        if (cap) {
+          setErr(cap);
+          return;
+        }
+      }
       if (goal) {
         const updated = await goalRepo.update(goal.id, payload as unknown as Partial<Goal>);
         if (updated) onSaved(updated);
@@ -517,7 +540,7 @@ function GoalForm({
         onSaved(created);
       }
     } catch (e) {
-      setErr(e instanceof Error ? e.message : "Failed to save goal");
+      setErr(e instanceof Error ? e.message : copy.saveFailed);
     } finally {
       setSaving(false);
     }
@@ -527,17 +550,17 @@ function GoalForm({
     <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
       <DialogContent size="lg">
         <DialogHeader>
-          <DialogTitle>{goal ? "Edit Goal" : "New Goal"}</DialogTitle>
+          <DialogTitle>{goal ? copy.edit : copy.new}</DialogTitle>
         </DialogHeader>
         <form onSubmit={submit} className="grid grid-cols-2 gap-3">
-          <Field label="Title" required className="col-span-2">
+          <Field label={fields.title} required className="col-span-2">
             <Input
               value={state.title}
               onChange={(e) => setState({ ...state, title: e.target.value })}
               placeholder="iPhone 17 Pro"
             />
           </Field>
-          <Field label="Goal type">
+          <Field label={fields.goalType}>
             <Select
               value={state.goalType}
               onValueChange={(v) =>
@@ -556,7 +579,7 @@ function GoalForm({
               </SelectContent>
             </Select>
           </Field>
-          <Field label="Priority (1 high — 5 low)">
+          <Field label={fields.priority}>
             <Input
               type="number"
               min={1}
@@ -567,35 +590,35 @@ function GoalForm({
               }
             />
           </Field>
-          <Field label="Target amount (₹)" required>
+          <Field label={fields.targetAmount} required>
             <Input
               type="number"
               value={state.targetAmount}
               onChange={(e) => setState({ ...state, targetAmount: +e.target.value })}
             />
           </Field>
-          <Field label="Target date" required>
+          <Field label={fields.targetDate} required>
             <Input
               type="date"
               value={state.targetDate}
               onChange={(e) => setState({ ...state, targetDate: e.target.value })}
             />
           </Field>
-          <Field label="Current saved">
+          <Field label={fields.currentSaved}>
             <Input
               type="number"
               value={state.currentSaved}
               onChange={(e) => setState({ ...state, currentSaved: +e.target.value })}
             />
           </Field>
-          <Field label="Icon">
+          <Field label={fields.icon}>
             <Input
               value={state.icon}
               onChange={(e) => setState({ ...state, icon: e.target.value })}
               placeholder="🎯"
             />
           </Field>
-          <Field label="Goal style" className="col-span-2">
+          <Field label={fields.goalStyle} className="col-span-2">
             <div className="space-y-3">
               <div className="flex flex-wrap gap-2">
                 {GOAL_ICON_PRESETS.map((icon) => (

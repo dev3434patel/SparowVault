@@ -62,7 +62,9 @@ export function UsersList() {
           </div>
         </section>
 
-        {selected ? <MemberDetail member={selected} onClose={() => setSelectedId(null)} /> : null}
+        {selected ? (
+          <MemberDetail member={selected} onClose={() => setSelectedId(null)} onChanged={() => void load()} />
+        ) : null}
 
         <RoleManager />
 

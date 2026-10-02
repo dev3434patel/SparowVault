@@ -1,7 +1,8 @@
 <?php
 /**
- * /api/healthz.php — production liveness/readiness for company + personal stack.
- * GET only. Returns 200 when DB is up and company schema is present; else 503.
+ * /api/healthz.php — company liveness.
+ * GET only. Returns 200 when the database is up and the company table count meets
+ * the company minimum. Personal readiness is /api/health.php and does not use this count.
  */
 require_once __DIR__ . "/../php/bootstrap_api.php";
 require_once __DIR__ . "/../php/config/db.php";
@@ -9,6 +10,10 @@ require_once __DIR__ . "/../php/helpers/http.php";
 
 if (($_SERVER["REQUEST_METHOD"] ?? "GET") !== "GET") {
     json_error("Method not allowed", 405);
+    exit;
+}
+
+if (health_block_unready()) {
     exit;
 }
 
@@ -46,8 +51,8 @@ try {
     } catch (Throwable) {
         $checks["version"]["schema"] = null;
     }
-} catch (Throwable $e) {
-    $checks["db"]["error"] = substr($e->getMessage(), 0, 120);
+} catch (Throwable) {
+    $checks["db"]["error"] = "unavailable";
 }
 
 $healthy = $checks["db"]["ok"] && $checks["companyTables"]["ok"];

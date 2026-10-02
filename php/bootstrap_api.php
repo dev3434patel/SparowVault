@@ -20,9 +20,12 @@ $path = parse_url($_SERVER["REQUEST_URI"] ?? "", PHP_URL_PATH);
 $publicMutations = ["/api/auth/login.php", "/api/auth/admin-login.php", "/api/auth/register.php", "/api/cloud/login.php", "/api/cloud/register.php", "/api/payments/razorpay/webhook.php"];
 if (!empty($_COOKIE["sv_auth"]) && !in_array($path, $publicMutations, true)) csrf_require_for_mutations();
 
-try {
-    validate_runtime_config();
-} catch (Throwable $e) {
-    json_error($e->getMessage(), 500, "ENV_VALIDATION_FAILED");
-    exit;
+$healthPaths = ["/api/health.php", "/api/healthz.php"];
+if (!in_array($path, $healthPaths, true)) {
+    try {
+        validate_runtime_config();
+    } catch (Throwable $e) {
+        json_error($e->getMessage(), 500, "ENV_VALIDATION_FAILED");
+        exit;
+    }
 }

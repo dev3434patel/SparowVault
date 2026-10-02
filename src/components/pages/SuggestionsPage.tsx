@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { addDays, parseISO } from "date-fns";
-import { PageHeader } from "@/components/layout/PageHeader";
+import { PersonalPageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -15,6 +15,8 @@ import { useDataStore } from "@/store/dataStore";
 import { useAuthStore } from "@/store/authStore";
 import { aiSuggestionRepo } from "@/repositories";
 import { useUIStore } from "@/store/uiStore";
+import { useCloudAppStore } from "@/store/cloudAppStore";
+import { planFeatureOff } from "@/services/modulePolicy";
 import {
   appendSuggestionHistory,
   buildSuggestionEngineInput,
@@ -41,6 +43,7 @@ import {
   ThumbsUp,
   Wrench,
 } from "lucide-react";
+import { useMessages } from "@/i18n/useMessages";
 
 type SectionKey =
   | "urgent"
@@ -120,6 +123,7 @@ function typeBadge(t: AiSuggestionType): string {
 }
 
 export function SuggestionsPage() {
+  const copy = useMessages().copy.suggestions;
   const user = useAuthStore((s) => s.currentUser);
   const toast = useUIStore((s) => s.toast);
   const upsertLocal = useDataStore((s) => s.upsertLocal);
@@ -137,6 +141,7 @@ export function SuggestionsPage() {
   const ledgerEvents = useDataStore((s) => s.ledgerEvents);
   const ledgerEffects = useDataStore((s) => s.ledgerEffects);
   const aiSuggestions = useDataStore((s) => s.aiSuggestions);
+  const aiRewriteOff = planFeatureOff(useCloudAppStore((s) => s.effectiveFeatures), "ai_suggestions");
 
   const [syncing, setSyncing] = useState(false);
   const [aiBusyId, setAiBusyId] = useState<string | null>(null);
@@ -211,13 +216,13 @@ export function SuggestionsPage() {
       const r = await syncSuggestionsForUser(user.id, input);
       await refreshOne("aiSuggestions", user);
       toast({
-        title: "Suggestions refreshed",
+        title: copy.refreshed,
         description: `Created ${r.created}, updated ${r.updated}, expired ${r.expired}.`,
         kind: "success",
       });
     } catch (e) {
       console.error(e);
-      toast({ title: "Could not refresh suggestions", kind: "error" });
+      toast({ title: copy.refreshFailed, kind: "error" });
     } finally {
       setSyncing(false);
     }
@@ -264,6 +269,7 @@ export function SuggestionsPage() {
   }
 
   async function runAi(s: AiSuggestion) {
+    if (aiRewriteOff) return;
     setAiBusyId(s.id);
     try {
       const text = await explainSuggestionInSimpleLanguage({
@@ -276,7 +282,7 @@ export function SuggestionsPage() {
       });
       if (!text) {
         toast({
-          title: "Plain-language AI not configured",
+          title: copy.aiOff,
           description: "Set VITE_SUGGESTION_EXPLAIN_URL to a trusted rewrite endpoint.",
           kind: "info",
         });
@@ -301,9 +307,8 @@ export function SuggestionsPage() {
 
   return (
     <div className="space-y-6">
-      <PageHeader
-        title="Suggestion center"
-        description="Rules and ledger math produce each tip; optional AI only rewrites wording. Numbers always come from the calculation block."
+      <PersonalPageHeader
+        screen="suggestions"
         actions={
           <Button variant="outline" onClick={() => void runSync()} disabled={syncing || !user}>
             {syncing ? <Loader2 className="h-4 w-4 animate-spin" /> : <RefreshCw className="h-4 w-4" />}
@@ -350,7 +355,7 @@ export function SuggestionsPage() {
                   }
                   onAction={() => void patchStatus(s, "action_taken")}
                   onViewCalculation={() => void markViewed(s)}
-                  onAi={() => void runAi(s)}
+                  onAi={aiRewriteOff ? undefined : () => void runAi(s)}
                 />
               ))}
             </div>
@@ -584,10 +589,12 @@ function SuggestionCard({
             <Button size="sm" variant="outline" onClick={onAction}>
               <CheckCircle2 className="mr-1 h-3.5 w-3.5" /> Action taken
             </Button>
-            <Button size="sm" variant="ghost" onClick={onAi} disabled={aiBusy}>
-              {aiBusy ? <Loader2 className="mr-1 h-3.5 w-3.5 animate-spin" /> : <Wrench className="mr-1 h-3.5 w-3.5" />}
-              Simplify wording
-            </Button>
+            {onAi ? (
+              <Button size="sm" variant="ghost" onClick={onAi} disabled={aiBusy}>
+                {aiBusy ? <Loader2 className="mr-1 h-3.5 w-3.5 animate-spin" /> : <Wrench className="mr-1 h-3.5 w-3.5" />}
+                Simplify wording
+              </Button>
+            ) : null}
           </div>
         )}
       </CardContent>

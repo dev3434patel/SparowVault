@@ -13,6 +13,7 @@ import {
   SelectValue,
 } from "@/components/ui/Select";
 import { AlertCircle, Loader2, RefreshCw, Search } from "lucide-react";
+import { fillMessage, useMessages } from "@/i18n/useMessages";
 
 type SubRow = {
   id: number;
@@ -43,12 +44,25 @@ const STATUS_STYLE: Record<string, { bg: string; text: string; dot: string }> = 
   expired:   { bg: "bg-surface-2",   text: "text-muted-foreground", dot: "bg-muted-foreground" },
 };
 
-function StatusBadge({ status }: { status: string }) {
+function statusText(
+  status: string,
+  copy: { pending: string; trial: string; active: string; pastDue: string; cancelled: string; expired: string },
+): string {
+  if (status === "pending") return copy.pending;
+  if (status === "trial") return copy.trial;
+  if (status === "active") return copy.active;
+  if (status === "past_due") return copy.pastDue;
+  if (status === "cancelled") return copy.cancelled;
+  if (status === "expired") return copy.expired;
+  return status;
+}
+
+function StatusBadge({ status, label }: { status: string; label: string }) {
   const s = STATUS_STYLE[status] ?? STATUS_STYLE.expired;
   return (
     <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium ${s.bg} ${s.text}`}>
       <span className={`h-1.5 w-1.5 rounded-full ${s.dot}`} />
-      {status.replace("_", " ")}
+      {label}
     </span>
   );
 }
@@ -59,6 +73,8 @@ function fmt(dateStr: string | null): string {
 }
 
 export function SubscriptionManagementPage() {
+  const chrome = useMessages().ui;
+  const copy = chrome.admin.body.subscriptions;
   const [subscriptions, setSubscriptions] = useState<SubRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -73,7 +89,7 @@ export function SubscriptionManagementPage() {
       const rows = await getAdminSubscriptions();
       setSubscriptions(rows as SubRow[]);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Failed to load subscriptions");
+      setError(e instanceof Error ? e.message : copy.loadFailed);
     } finally {
       setLoading(false);
     }
@@ -93,7 +109,7 @@ export function SubscriptionManagementPage() {
       });
       await load();
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Subscription update failed");
+      setError(e instanceof Error ? e.message : copy.updateFailed);
     } finally {
       setMutatingId(null);
     }
@@ -126,15 +142,20 @@ export function SubscriptionManagementPage() {
   return (
     <div>
       <PageHeader
-        title="Subscription Management"
+        title={copy.title}
         description={
           loading
-            ? "Loading…"
-            : `${subscriptions.length} total · ${counts.active} active · ${counts.trial} trial · ${counts.past_due} past due`
+            ? copy.loading
+            : fillMessage(copy.summary, {
+                total: subscriptions.length,
+                active: counts.active,
+                trial: counts.trial,
+                pastDue: counts.past_due,
+              })
         }
         actions={
           <Button variant="outline" size="sm" onClick={load} loading={loading}>
-            <RefreshCw className="h-4 w-4" /> Refresh
+            <RefreshCw className="h-4 w-4" /> {chrome.common.refresh}
           </Button>
         }
       />
@@ -144,7 +165,7 @@ export function SubscriptionManagementPage() {
           <AlertCircle className="h-4 w-4 shrink-0" />
           {error}
           <Button variant="outline" size="sm" onClick={load} className="ml-auto">
-            Retry
+            {chrome.admin.retry}
           </Button>
         </div>
       )}
@@ -155,30 +176,30 @@ export function SubscriptionManagementPage() {
           <Search className="absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             className="pl-8"
-            placeholder="Search by user or plan…"
+            placeholder={copy.search}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
         <Select value={statusFilter} onValueChange={(v) => setStatusFilter(v as StatusFilter)}>
           <SelectTrigger className="w-40">
-            <SelectValue placeholder="Status" />
+            <SelectValue placeholder={copy.status} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All statuses</SelectItem>
-            <SelectItem value="active">Active</SelectItem>
-            <SelectItem value="trial">Trial</SelectItem>
-            <SelectItem value="pending">Pending</SelectItem>
-            <SelectItem value="past_due">Past due</SelectItem>
-            <SelectItem value="cancelled">Cancelled</SelectItem>
-            <SelectItem value="expired">Expired</SelectItem>
+            <SelectItem value="all">{copy.allStatuses}</SelectItem>
+            <SelectItem value="active">{copy.active}</SelectItem>
+            <SelectItem value="trial">{copy.trial}</SelectItem>
+            <SelectItem value="pending">{copy.pending}</SelectItem>
+            <SelectItem value="past_due">{copy.pastDue}</SelectItem>
+            <SelectItem value="cancelled">{copy.cancelled}</SelectItem>
+            <SelectItem value="expired">{copy.expired}</SelectItem>
           </SelectContent>
         </Select>
       </div>
 
       {loading && (
         <div className="flex items-center gap-2 py-8 text-sm text-muted-foreground">
-          <Loader2 className="h-4 w-4 animate-spin" /> Loading subscriptions…
+          <Loader2 className="h-4 w-4 animate-spin" /> {copy.loadingRows}
         </div>
       )}
 
@@ -186,8 +207,8 @@ export function SubscriptionManagementPage() {
         <Card>
           <CardContent className="py-12 text-center text-sm text-muted-foreground">
             {search || statusFilter !== "all"
-              ? "No subscriptions match your filters."
-              : "No subscriptions found."}
+              ? copy.noMatch
+              : copy.empty}
           </CardContent>
         </Card>
       )}
@@ -198,14 +219,14 @@ export function SubscriptionManagementPage() {
             <Table className="min-w-[860px]">
               <TableHeader>
                 <TableRow>
-                  <TableHead>User</TableHead>
-                  <TableHead>Plan</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Started</TableHead>
-                  <TableHead>Expires</TableHead>
-                  <TableHead>Amount</TableHead>
-                  <TableHead>Billing health</TableHead>
-                  <TableHead>Admin actions</TableHead>
+                  <TableHead>{copy.user}</TableHead>
+                  <TableHead>{copy.plan}</TableHead>
+                  <TableHead>{copy.status}</TableHead>
+                  <TableHead>{copy.started}</TableHead>
+                  <TableHead>{copy.expires}</TableHead>
+                  <TableHead>{copy.amount}</TableHead>
+                  <TableHead>{copy.health}</TableHead>
+                  <TableHead>{copy.actions}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -220,14 +241,14 @@ export function SubscriptionManagementPage() {
                       <div className="font-mono text-xs text-muted-foreground">{s.plan_code}</div>
                     </TableCell>
                     <TableCell>
-                      <StatusBadge status={s.status} />
+                      <StatusBadge status={s.status} label={statusText(s.status, copy)} />
                     </TableCell>
                     <TableCell className="text-xs text-muted-foreground">
                       {fmt(s.started_at)}
                     </TableCell>
                     <TableCell className="text-xs text-muted-foreground">
                       {s.status === "trial"
-                        ? `Trial ends ${fmt(s.trial_ends_at)}`
+                        ? fillMessage(copy.trialEnds, { date: fmt(s.trial_ends_at) })
                         : fmt(s.expires_at)}
                     </TableCell>
                     <TableCell className="text-sm font-medium">
@@ -236,10 +257,10 @@ export function SubscriptionManagementPage() {
                         : "—"}
                     </TableCell>
                     <TableCell className="text-xs text-muted-foreground">
-                      <div>Payment: {s.latest_payment_status ?? "none"}</div>
-                      <div>Failed webhooks: {Number(s.failed_webhook_count ?? 0)}</div>
+                      <div>{fillMessage(copy.payment, { status: s.latest_payment_status ?? copy.paymentNone })}</div>
+                      <div>{fillMessage(copy.webhooks, { count: Number(s.failed_webhook_count ?? 0) })}</div>
                       {s.scheduled_plan_id ? (
-                        <div>Scheduled plan #{s.scheduled_plan_id} on {fmt(s.scheduled_change_at ?? null)}</div>
+                        <div>{fillMessage(copy.scheduled, { id: s.scheduled_plan_id, date: fmt(s.scheduled_change_at ?? null) })}</div>
                       ) : null}
                     </TableCell>
                     <TableCell>
@@ -250,7 +271,7 @@ export function SubscriptionManagementPage() {
                           loading={mutatingId === s.id}
                           onClick={() => mutateSubscription(s.id, "manual_extend")}
                         >
-                          Extend 30d
+                          {copy.extend}
                         </Button>
                         <Button
                           size="sm"
@@ -258,7 +279,7 @@ export function SubscriptionManagementPage() {
                           loading={mutatingId === s.id}
                           onClick={() => mutateSubscription(s.id, "cancel")}
                         >
-                          Cancel
+                          {chrome.common.cancel}
                         </Button>
                       </div>
                     </TableCell>

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -12,6 +12,8 @@ import { SkeletonTable } from "@/company/components/CompanySkeleton";
 import { ResponsiveList, ScrollTable } from "@/company/components/responsive";
 import { useI18n } from "@/company/i18n/react";
 import { PinConfirmDialog } from "@/company/components/PinConfirmDialog";
+import { voucherListAmountPaise } from "@/company/finance/voucherListAmount";
+import { localIsoDate, localMonthStart } from "@/company/lib/localDate";
 
 export function VouchersPage() {
   const { t } = useI18n();
@@ -19,14 +21,27 @@ export function VouchersPage() {
   const [vouchers, setVouchers] = useState<CompanyVoucher[]>([]);
   const [q, setQ] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
+  const [partyId, setPartyId] = useState(() =>
+    typeof window === "undefined" ? "" : new URLSearchParams(window.location.search).get("partyId") ?? "",
+  );
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState<string | null>(null);
 
-  const monthStart = useMemo(() => {
-    const d = new Date();
-    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-01`;
+  const [monthStart] = useState(() => {
+    const from = typeof window === "undefined" ? "" : new URLSearchParams(window.location.search).get("from") ?? "";
+    if (from) return from;
+    return localMonthStart();
+  });
+  const [today] = useState(() => {
+    const to = typeof window === "undefined" ? "" : new URLSearchParams(window.location.search).get("to") ?? "";
+    return to || localIsoDate();
+  });
+
+  useEffect(() => {
+    const read = () => setPartyId(new URLSearchParams(window.location.search).get("partyId") ?? "");
+    window.addEventListener("popstate", read);
+    return () => window.removeEventListener("popstate", read);
   }, []);
-  const today = useMemo(() => new Date().toISOString().slice(0, 10), []);
 
   useEffect(() => {
     if (!companyId) return;
@@ -38,6 +53,7 @@ export function VouchersPage() {
         const rows = await companyApi.listVouchers(companyId, {
           from: monthStart,
           to: today,
+          partyId: partyId || undefined,
           voucherType: typeFilter || undefined,
           search: q.trim() || undefined,
         });
@@ -54,13 +70,17 @@ export function VouchersPage() {
     return () => {
       cancelled = true;
     };
-  }, [companyId, monthStart, today, typeFilter, q]);
+  }, [companyId, monthStart, today, typeFilter, q, partyId, t]);
 
   return (
     <div className="space-y-4">
       <PageHeader
         title={t("vouchers.title")}
-        subtitle={t("vouchers.subtitle", { from: monthStart, to: today })}
+        subtitle={
+          partyId
+            ? `${t("vouchers.subtitle", { from: monthStart, to: today })} · party filter on`
+            : t("vouchers.subtitle", { from: monthStart, to: today })
+        }
         actions={
           <Button size="sm" onClick={() => companyNavigate(companyPath("voucher-new"))}>
             {t("vouchers.newEntry")}
@@ -91,7 +111,7 @@ export function VouchersPage() {
       </div>
       {err ? <p className="text-sm text-destructive">{err}</p> : null}
       {loading ? <SkeletonTable rows={6} cols={5} /> : null}
-      {!loading && vouchers.length === 0 ? (
+      {!loading && !err && vouchers.length === 0 ? (
         <Card>
           <CardContent className="p-4 text-sm text-muted-foreground">
             {t("vouchers.empty")}
@@ -109,9 +129,7 @@ export function VouchersPage() {
               mobile={
                 <ul className="space-y-2 p-3">
                   {vouchers.map((v) => {
-                    const amt =
-                      v.lines?.reduce((s, l) => (l.side === "DEBIT" ? s + l.amountPaise : s), 0) ??
-                      Number((v as unknown as { debitTotalPaise?: number }).debitTotalPaise ?? 0);
+                    const amt = voucherListAmountPaise(v);
                     return (
                       <li key={v.id}>
                         <button
@@ -154,9 +172,7 @@ export function VouchersPage() {
                     </thead>
                     <tbody>
                       {vouchers.map((v) => {
-                        const amt =
-                          v.lines?.reduce((s, l) => (l.side === "DEBIT" ? s + l.amountPaise : s), 0) ??
-                          Number((v as unknown as { debitTotalPaise?: number }).debitTotalPaise ?? 0);
+                        const amt = voucherListAmountPaise(v);
                         return (
                           <tr
                             key={v.id}
@@ -201,7 +217,7 @@ export function VoucherDetailPage({ voucherId }: { voucherId: string }) {
     try {
       setVoucher(await companyApi.getVoucher(companyId, voucherId));
     } catch (e) {
-      setErr(e instanceof Error ? e.message : "Failed to load voucher");
+      setErr(e instanceof Error ? e.message : t("vouchers.detailLoadFailed"));
       setVoucher(null);
     } finally {
       setLoading(false);
@@ -238,7 +254,7 @@ export function VoucherDetailPage({ voucherId }: { voucherId: string }) {
       }
       await load();
     } catch (e) {
-      setErr(e instanceof Error ? e.message : mode === "correct" ? "Correct failed" : "Reverse failed");
+      setErr(e instanceof Error ? e.message : mode === "correct" ? t("vouchers.correctFailed") : t("vouchers.reverseFailed"));
     } finally {
       setReversing(false);
     }

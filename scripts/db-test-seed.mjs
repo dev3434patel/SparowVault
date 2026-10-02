@@ -26,9 +26,38 @@ const cfg = {
 };
 const url = process.env.TEST_DATABASE_URL;
 
-if (cfg.database && !/test/i.test(cfg.database)) {
-  console.error(`✗ Refusing: TEST_DB_NAME='${cfg.database}' must contain 'test'.`);
+const FORBIDDEN_DATABASES = new Set([
+  "sparowvault",
+  "sparowvault_current_schema",
+  "sparowvault_final_merge",
+  "sparowvault_final_sql_validate",
+]);
+
+function refuseDestructiveTarget(name, label) {
+  const normalized = String(name || "").trim().toLowerCase();
+  if (!normalized || FORBIDDEN_DATABASES.has(normalized) || !/test/i.test(normalized)) {
+    console.error(`✗ Refusing destructive runner before connect: ${label} '${name || ""}' is not allowlisted.`);
+    process.exit(2);
+  }
+}
+
+if (!String(process.env.AUDIT_RUN_SENTINEL || "").trim()) {
+  console.error("✗ Refusing destructive runner before connect: per-run sentinel is missing.");
   process.exit(2);
+}
+if (!cfg.database && !url) {
+  console.error("✗ Refusing destructive runner before connect: database is not configured.");
+  process.exit(2);
+}
+if (cfg.database) refuseDestructiveTarget(cfg.database, "TEST_DB_NAME");
+if (url) {
+  let urlName = "";
+  try {
+    urlName = decodeURIComponent(new URL(url).pathname.replace(/^\/+/, "").split("/")[0] ?? "");
+  } catch {
+    urlName = "";
+  }
+  refuseDestructiveTarget(urlName, "TEST_DATABASE_URL");
 }
 
 const mysql = (await import("mysql2/promise"));

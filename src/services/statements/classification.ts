@@ -151,6 +151,84 @@ export function canBulkConfirmDecision(decision: StatementDecision): boolean {
   return true;
 }
 
+export type BulkAcceptScope = "" | "personal" | "business";
+
+/** Stable reasons written only when the user invokes bulk accept. */
+export const BULK_ACCEPT_REASON = {
+  accepted: "bulk:accepted",
+  category: "bulk:category",
+  transfer: "bulk:transfer",
+  cc_payment: "bulk:cc_payment",
+  refund: "bulk:refund",
+  contribution: "bulk:contribution",
+} as const;
+
+const categoryKinds = new Set<StatementKind>(["income", "expense", "refund", "contribution"]);
+const counterpartKinds = new Set<StatementKind>(["transfer", "cc_payment", "refund", "contribution"]);
+
+function categoryAppliesTo(kind: StatementKind): "income" | "expense" {
+  return kind === "income" ? "income" : "expense";
+}
+
+/** First usable category already on the user. Does not create one. */
+export function firstMatchingCategory(categories: Category[], kind: StatementKind, userId?: string): Category | undefined {
+  const applies = categoryAppliesTo(kind);
+  return categories.find((category) =>
+    category.isDeleted !== 1
+    && category.archived !== 1
+    && (userId == null || category.userId === userId)
+    && (category.appliesTo === applies || category.appliesTo === "mixed"),
+  );
+}
+
+/**
+ * User-triggered accept of an included row's suggestion.
+ * Does not guess a transfer, card, refund, or contribution counterpart.
+ * Leaves reviewed false unless the row then has no decision problems.
+ */
+export function applyBulkAcceptDecision(
+  row: StatementRow,
+  decision: StatementDecision,
+  categories: Category[],
+  accountId: string,
+  selectedScope: BulkAcceptScope = "",
+  userId?: string,
+): StatementDecision {
+  if (!decision.include) return decision;
+  const kind = (decision.kind || decision.suggestedKind || "") as StatementKind | "";
+  const scope = selectedScope || decision.scope || "personal";
+  let categoryId = decision.categoryId;
+  if (kind && categoryKinds.has(kind) && !categoryId) {
+    categoryId = firstMatchingCategory(categories, kind, userId)?.id ?? "";
+  }
+  const next: StatementDecision = {
+    ...decision,
+    kind,
+    scope,
+    categoryId,
+    proposalStrength: !decision.kind && kind ? "strong" : decision.proposalStrength,
+    reviewed: false,
+  };
+  const problems = decisionProblems(row, { ...next, reviewed: true }, accountId);
+  if (problems.length === 0) {
+    return { ...next, reviewed: true, reason: BULK_ACCEPT_REASON.accepted };
+  }
+  if (kind && counterpartKinds.has(kind) && !next.counterpartId) {
+    const reason = kind === "transfer"
+      ? BULK_ACCEPT_REASON.transfer
+      : kind === "cc_payment"
+        ? BULK_ACCEPT_REASON.cc_payment
+        : kind === "refund"
+          ? BULK_ACCEPT_REASON.refund
+          : BULK_ACCEPT_REASON.contribution;
+    return { ...next, reviewed: false, reason };
+  }
+  if (kind && categoryKinds.has(kind) && !categoryId) {
+    return { ...next, reviewed: false, reason: BULK_ACCEPT_REASON.category };
+  }
+  return { ...next, reviewed: false, reason: problems[0] ?? decision.reason };
+}
+
 export function statementDuplicate(row: StatementRow, accountId: string, existing: Transaction[]): string | null {
   const normalized = (text: string) => text.replace(/\s+/g, " ").trim().toUpperCase();
   for (const tx of existing) {

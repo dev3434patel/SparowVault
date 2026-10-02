@@ -13,6 +13,7 @@ import { KpiCard } from "@/company/components/KpiCard";
 import { SkeletonKpiRow, SkeletonTable } from "@/company/components/CompanySkeleton";
 import { ResponsiveList, ScrollTable } from "@/company/components/responsive";
 import { useI18n } from "@/company/i18n/react";
+import { useHasPermission } from "@/company/components/PermissionGate";
 
 type BillRow = {
   id: string;
@@ -25,14 +26,7 @@ type BillRow = {
   status: string;
 };
 
-const BUCKET_LABELS: Array<{ key: string; label: string }> = [
-  { key: "notDue", label: "Not due" },
-  { key: "d0_15", label: "0–15" },
-  { key: "d16_30", label: "16–30" },
-  { key: "d31_60", label: "31–60" },
-  { key: "d61_90", label: "61–90" },
-  { key: "d90plus", label: "90+" },
-];
+const BUCKET_KEYS = ["notDue", "d0_15", "d16_30", "d31_60", "d61_90", "d90plus"] as const;
 
 function OutstandingPage({
   title,
@@ -55,6 +49,7 @@ function OutstandingPage({
   const [busyId, setBusyId] = useState<string | null>(null);
   const [allocBill, setAllocBill] = useState<BillRow | null>(null);
   const [allocAmount, setAllocAmount] = useState("");
+  const canAllocate = useHasPermission("post_voucher");
 
   async function load() {
     if (!companyId) return;
@@ -95,11 +90,12 @@ function OutstandingPage({
 
   const bucketCards = useMemo(
     () =>
-      BUCKET_LABELS.map((b) => ({
-        ...b,
-        amountPaise: Number(buckets[b.key] ?? 0),
+      BUCKET_KEYS.map((key) => ({
+        key,
+        label: key === "notDue" ? t("bills.notDue") : key === "d0_15" ? "0–15" : key === "d16_30" ? "16–30" : key === "d31_60" ? "31–60" : key === "d61_90" ? "61–90" : "90+",
+        amountPaise: Number(buckets[key] ?? 0),
       })),
-    [buckets],
+    [buckets, t],
   );
 
   function openAllocate(bill: BillRow) {
@@ -110,7 +106,7 @@ function OutstandingPage({
   }
 
   async function confirmAllocate() {
-    if (!companyId || !allocBill) return;
+    if (!companyId || !allocBill || !canAllocate) return;
     const bill = allocBill;
     let paise = 0;
     const n = Number(allocAmount.replace(/,/g, "").trim());
@@ -133,11 +129,11 @@ function OutstandingPage({
         amountPaise: paise,
         mutationId: `ui-alloc-${crypto.randomUUID()}`,
       });
-      setOk(`Applied ${formatMoney(paise)} on-account to ${bill.refNumber || bill.id}`);
+      setOk(t("bills.applied", { amount: formatMoney(paise), ref: bill.refNumber || bill.id }));
       setAllocBill(null);
       await load();
     } catch (e) {
-      setErr(e instanceof Error ? e.message : "Allocate failed");
+      setErr(e instanceof Error ? e.message : t("bills.allocateFailed"));
     } finally {
       setBusyId(null);
     }
@@ -173,11 +169,11 @@ function OutstandingPage({
           <SkeletonKpiRow count={3} />
           <SkeletonTable rows={6} cols={5} />
         </div>
-      ) : (
+      ) : err ? null : (
         <>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
-            <KpiCard label="Total outstanding" paise={totalOut} semantic="neutral" />
-            <KpiCard label="Overdue" paise={overdue} semantic={overdue > 0 ? "overdue" : "neutral"} />
+            <KpiCard label={t("bills.totalOutstanding")} paise={totalOut} semantic="neutral" />
+            <KpiCard label={t("bills.overdue")} paise={overdue} semantic={overdue > 0 ? "overdue" : "neutral"} />
             <Card className="relative overflow-hidden shadow-[var(--shadow-card)] before:absolute before:inset-y-0 before:left-0 before:w-1 before:bg-[hsl(var(--primary))]">
               <CardContent className="space-y-1.5 p-4 pl-5">
                 <div className="text-[11px] font-semibold uppercase tracking-[0.06em] text-muted-foreground">
@@ -217,21 +213,22 @@ function OutstandingPage({
                         <li
                           key={b.id}
                           className="rounded-xl border border-border bg-card p-3.5 shadow-[var(--shadow-card)]"
-                          aria-label={`Party ${b.partyName || b.partyId.slice(0, 8)}, Ref ${b.refNumber || "none"}, Due ${b.dueDate || b.billDate}, Outstanding ${formatMoney(b.outstandingPaise)}`}
+                          aria-label={`${t("bills.party")} ${b.partyName || b.partyId.slice(0, 8)}, ${t("bills.ref")} ${b.refNumber || t("bills.none")}, ${t("bills.due")} ${b.dueDate || b.billDate}, ${t("bills.outstanding")} ${formatMoney(b.outstandingPaise)}`}
                         >
                           <div className="flex items-start justify-between gap-2">
                             <div className="min-w-0">
-                              <div className="truncate font-semibold" aria-label={`Party ${b.partyName || b.partyId.slice(0, 8)}`}>
+                              <div className="truncate font-semibold" aria-label={`${t("bills.party")} ${b.partyName || b.partyId.slice(0, 8)}`}>
                                 {b.partyName || b.partyId.slice(0, 8)}
                               </div>
-                              <div className="mt-0.5 text-xs text-muted-foreground" aria-label={`Ref ${b.refNumber || "none"}, Due ${b.dueDate || b.billDate}`}>
-                                {b.refNumber || "—"} · Due {b.dueDate || b.billDate}
+                              <div className="mt-0.5 text-xs text-muted-foreground" aria-label={`${t("bills.ref")} ${b.refNumber || t("bills.none")}, ${t("bills.due")} ${b.dueDate || b.billDate}`}>
+                                {b.refNumber || "—"} · {t("bills.due")} {b.dueDate || b.billDate}
                               </div>
                             </div>
-                            <span aria-label={`Outstanding ${formatMoney(b.outstandingPaise)}`}>
+                            <span aria-label={`${t("bills.outstanding")} ${formatMoney(b.outstandingPaise)}`}>
                               <CompanyMoney paise={b.outstandingPaise} className="text-sm" />
                             </span>
                           </div>
+                          {canAllocate ? (
                           <Button
                             size="sm"
                             variant="outline"
@@ -241,6 +238,7 @@ function OutstandingPage({
                           >
                             {busyId === b.id ? "…" : t("bills.applyOnAccount")}
                           </Button>
+                          ) : null}
                         </li>
                       ))}
                     </ul>
@@ -267,6 +265,7 @@ function OutstandingPage({
                                 {formatMoney(b.outstandingPaise)}
                               </td>
                               <td className="px-4 py-2 text-right">
+                                {canAllocate ? (
                                 <Button
                                   size="sm"
                                   variant="outline"
@@ -275,6 +274,7 @@ function OutstandingPage({
                                 >
                                   {busyId === b.id ? "…" : t("bills.applyOnAccount")}
                                 </Button>
+                                ) : null}
                               </td>
                             </tr>
                           ))}

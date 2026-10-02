@@ -1,4 +1,5 @@
 import js from "@eslint/js";
+import reactHooks from "eslint-plugin-react-hooks";
 import tseslint from "typescript-eslint";
 
 export default [
@@ -10,6 +11,8 @@ export default [
       "node_modules/**",
       "public/ocr/**",
       "dist/**",
+      "**/dist/**",
+      "**/package-extract/**",
       "build/**",
       "dist-server/**",
       "release/**",
@@ -64,7 +67,11 @@ export default [
         __filename: "readonly",
       },
     },
+    plugins: {
+      "react-hooks": reactHooks,
+    },
     rules: {
+      "react-hooks/exhaustive-deps": "warn",
       "no-empty": ["error", { allowEmptyCatch: true }],
       "no-irregular-whitespace": ["error", { skipRegExps: true }],
       "no-case-declarations": "off",

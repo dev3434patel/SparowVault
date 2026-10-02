@@ -14,6 +14,7 @@ import { plainLanguageBalance } from "@/company/services/plainLanguageBalance";
 import { Search, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useI18n } from "@/company/i18n/react";
+import { useHasPermission } from "@/company/components/PermissionGate";
 
 const ROLE_OPTIONS: PartyRoleCode[] = [
   "CUSTOMER",
@@ -53,7 +54,11 @@ export function PartiesPage({ startCreating = false }: { startCreating?: boolean
   const [newName, setNewName] = useState("");
   const [newMobile, setNewMobile] = useState("");
   const [newRoles, setNewRoles] = useState<PartyRoleCode[]>(["CUSTOMER"]);
+  const [partyKind, setPartyKind] = useState<"PERSON" | "ORGANIZATION">("PERSON");
+  const [newTags, setNewTags] = useState("");
+  const [tagFilter, setTagFilter] = useState("");
   const [saving, setSaving] = useState(false);
+  const canManage = useHasPermission("manage_parties");
 
   async function load() {
     if (!companyId) return;
@@ -73,34 +78,46 @@ export function PartiesPage({ startCreating = false }: { startCreating?: boolean
     void load();
   }, [companyId]);
 
+  useEffect(() => {
+    if (startCreating) setCreating(true);
+  }, [startCreating]);
+
   const rows = useMemo(() => {
     const needle = q.trim().toLowerCase();
-    if (!needle) return parties;
-    return parties.filter(
-      (p) =>
+    const tag = tagFilter.trim().toLowerCase();
+    return parties.filter((p) => {
+      const tags = (p.tags ?? []).map((name) => name.toLowerCase());
+      if (tag && !tags.includes(tag)) return false;
+      if (!needle) return true;
+      return (
         p.displayName.toLowerCase().includes(needle) ||
         (p.mobile ?? "").includes(needle) ||
+        tags.some((name) => name.includes(needle)) ||
         p.roles.some((r) => String(r).toLowerCase().includes(needle)) ||
-        roleLabel(String(p.roles[0] ?? "")).toLowerCase().includes(needle),
-    );
-  }, [parties, q]);
+        roleLabel(String(p.roles[0] ?? "")).toLowerCase().includes(needle)
+      );
+    });
+  }, [parties, q, tagFilter]);
 
   async function onCreate(e: React.FormEvent) {
     e.preventDefault();
-    if (!companyId || !newName.trim()) return;
+    if (!companyId || !newName.trim() || !canManage) return;
     setSaving(true);
     setErr(null);
     try {
       const party = await companyApi.createParty(companyId, {
         displayName: newName.trim(),
-        partyType: "PERSON",
+        partyType: partyKind,
         mobile: newMobile.trim() || undefined,
         roles: newRoles,
+        tags: newTags.split(",").map((tag) => tag.trim()).filter(Boolean),
       });
       const id = (party as CompanyParty).id;
       setNewName("");
       setNewMobile("");
+      setNewTags("");
       setNewRoles(["CUSTOMER"]);
+      setPartyKind("PERSON");
       setCreating(false);
       if (id) companyNavigate(companyPath("party-detail", { id }));
       else await load();
@@ -121,13 +138,15 @@ export function PartiesPage({ startCreating = false }: { startCreating?: boolean
         title={t("parties.title")}
         subtitle={t("parties.subtitle")}
         actions={
-          <Button size="sm" className="gap-1.5" onClick={() => setCreating((v) => !v)}>
-            {creating ? t("parties.cancelAdd") : t("parties.add")}
-          </Button>
+          canManage ? (
+            <Button size="sm" className="gap-1.5" onClick={() => setCreating((v) => !v)}>
+              {creating ? t("parties.cancelAdd") : t("parties.add")}
+            </Button>
+          ) : null
         }
       />
 
-      {creating ? (
+      {creating && canManage ? (
         <Card className="shadow-[var(--shadow-card)]">
           <CardContent className="space-y-3 p-4">
             <form className="space-y-3" onSubmit={(e) => void onCreate(e)}>
@@ -135,8 +154,21 @@ export function PartiesPage({ startCreating = false }: { startCreating?: boolean
                 <Field label={t("parties.displayName")} className="flex-1">
                   <Input value={newName} onChange={(e) => setNewName(e.target.value)} required autoFocus className="h-10" />
                 </Field>
+                <Field label="Kind" className="sm:w-40">
+                  <select
+                    className="flex h-10 w-full rounded-md border border-[hsl(var(--input))] bg-card px-3 text-sm"
+                    value={partyKind}
+                    onChange={(e) => setPartyKind(e.target.value as "PERSON" | "ORGANIZATION")}
+                  >
+                    <option value="PERSON">Person</option>
+                    <option value="ORGANIZATION">Organization</option>
+                  </select>
+                </Field>
                 <Field label={t("parties.mobile")} className="sm:w-44">
                   <Input value={newMobile} onChange={(e) => setNewMobile(e.target.value)} className="h-10" inputMode="tel" />
+                </Field>
+                <Field label="Tags" className="sm:w-44">
+                  <Input value={newTags} onChange={(e) => setNewTags(e.target.value)} placeholder="farm, city" className="h-10" />
                 </Field>
               </div>
               <div>
@@ -179,11 +211,14 @@ export function PartiesPage({ startCreating = false }: { startCreating?: boolean
           className="h-11 pl-9"
         />
       </div>
+      <Field label={t("parties.tagFilter")}>
+        <Input value={tagFilter} onChange={(e) => setTagFilter(e.target.value)} placeholder={t("parties.tagFilterPlaceholder")} className="h-10" />
+      </Field>
 
       {err ? <p className="text-sm text-destructive">{err}</p> : null}
       {loading ? <SkeletonList rows={5} /> : null}
 
-      {!loading && rows.length === 0 ? (
+      {!loading && !err && rows.length === 0 ? (
         <EmptyState
           title={t("parties.emptyTitle")}
           body={t("parties.emptyBody")}
@@ -220,6 +255,9 @@ export function PartiesPage({ startCreating = false }: { startCreating?: boolean
                     />
                   </span>
                   <span className="mt-0.5 block text-xs text-muted-foreground">{plain.shortLabel}</span>
+                  {(p.tags ?? []).length > 0 ? (
+                    <span className="mt-0.5 block text-xs text-muted-foreground">{(p.tags ?? []).join(", ")}</span>
+                  ) : null}
                   <span className="mt-1.5 flex flex-wrap gap-1">
                     {p.roles.length ? (
                       p.roles.slice(0, 3).map((r) => (

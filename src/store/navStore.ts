@@ -8,6 +8,7 @@ export type NavKey =
   | "expenses"
   | "budgets"
   | "goals"
+  | "envelopes"
   | "accounts"
   | "cards"
   | "loans"

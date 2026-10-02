@@ -313,7 +313,7 @@ export const SYNC_CONTRACTS = [
     dexieStoreName: "settings",
     serverAllowlistName: "settings",
     requiredFields: [...baseFields, "theme", "financialYearStartMonth", "dateFormat", "currency"],
-    optionalFields: [...baseOptionalFields, "customPaymentModes", "budgetThresholds", "quickAddDefaults", "warningPreferences"],
+    optionalFields: [...baseOptionalFields, "customPaymentModes", "budgetThresholds", "quickAddDefaults", "warningPreferences", "language"],
     hotFields: [...baseHotFields],
     validationRules: [...baseRules, "settings are one row per user/profile"],
   }),
@@ -355,9 +355,19 @@ export const SYNC_CONTRACTS = [
       "creditsPaise",
       "status",
     ],
-    optionalFields: [...baseOptionalFields],
+    optionalFields: [
+      ...baseOptionalFields,
+      "minimumDueEvidence",
+      "feesEvidence",
+      "interestEvidence",
+    ],
     hotFields: [...baseHotFields, "card_id", "amount_paise", "txn_local_date", "txn_month"],
-    validationRules: [...baseRules, "statement money fields must be paise integers"],
+    validationRules: [
+      ...baseRules,
+      "opening, closing, retail, payments, and credits are paise integers",
+      "minimumDuePaise, feesPaise, and interestPaise are non-negative paise integers when observed and null when not_observed",
+      "estimated and user_confirmed must not replace source_observed",
+    ],
   }),
   contract({
     collectionName: "cardPaymentAllocations",
@@ -505,5 +515,29 @@ export const SYNC_CONTRACTS = [
 export const SYNC_CONTRACT_COLLECTIONS = SYNC_CONTRACTS.map((c) => c.collectionName);
 export const SYNC_CONTRACT_SERVER_ALLOWLIST = SYNC_CONTRACTS.map((c) => c.serverAllowlistName);
 export const SYNC_CONTRACT_DEXIE_STORES = SYNC_CONTRACTS.map((c) => c.dexieStoreName);
+
+/** Cloud collection keys. Same list the PHP allowlist reads from the generated contract. */
+const SYNC_BADGE_LABELS: Partial<Record<SyncContractCollection, string>> = {
+  households: "Households",
+  householdMembers: "Household members",
+  fixedIncomeAssets: "Fixed deposits",
+  cardEmiPlans: "Card EMI plans",
+  cardEmiInstallments: "Card EMI installments",
+  obligations: "Obligations",
+  sinkingFunds: "Sinking funds",
+  importSources: "Import sources",
+  reconciliationMatches: "Reconciliation matches",
+  accounts: "Accounts",
+  cards: "Cards",
+  loans: "Loans",
+  goals: "Goals",
+};
+
+/** Badge text from the sync registry. A missing label stays the collection key and does not fail the sync. */
+export function syncBadgeLabel(collection: string): string {
+  return SYNC_BADGE_LABELS[collection as SyncContractCollection] ?? collection;
+}
+
+export const CLOUD_COLLECTIONS = SYNC_CONTRACT_SERVER_ALLOWLIST;
 
 export type ServerSyncCollectionKey = (typeof SYNC_CONTRACT_SERVER_ALLOWLIST)[number];

@@ -6,8 +6,10 @@ import { Card, CardContent } from "@/components/ui/Card";
 import { useAuthStore } from "@/store/authStore";
 import { useUIStore } from "@/store/uiStore";
 import { Lock, LogOut } from "lucide-react";
+import { useMessages } from "@/i18n/useMessages";
 
 export function LockScreen() {
+  const auth = useMessages().ui.auth;
   const currentUser = useAuthStore((s) => s.currentUser);
   const unlock = useAuthStore((s) => s.unlock);
   const logout = useAuthStore((s) => s.logout);
@@ -22,9 +24,9 @@ export function LockScreen() {
     setErr(null);
     try {
       await unlock(pin);
-      toast({ title: "Welcome back", kind: "success" });
+      toast({ title: auth.welcomeBack, kind: "success" });
     } catch (e) {
-      const msg = e instanceof Error ? e.message : "Unlock failed";
+      const msg = e instanceof Error ? e.message : auth.unlockFailed;
       setErr(msg);
       setPin("");
     } finally {
@@ -46,22 +48,22 @@ export function LockScreen() {
           </div>
           <h1 className="text-xl font-semibold">{currentUser.displayName}</h1>
           <div className="mt-1 flex items-center gap-1 text-xs text-muted-foreground">
-            <Lock className="h-3 w-3" /> Session locked for privacy
+            <Lock className="h-3 w-3" /> {auth.sessionLocked}
           </div>
         </div>
         <form onSubmit={submit} className="space-y-3">
-          <Field label="Enter PIN" error={err ?? undefined}>
+          <Field label={auth.enterPin} error={err ?? undefined}>
             <Input
               type="password"
               inputMode="numeric"
               autoFocus
               value={pin}
               onChange={(e) => setPin(e.target.value)}
-              placeholder="Enter your PIN"
+              placeholder={auth.enterYourPin}
             />
           </Field>
           <Button type="submit" loading={loading} className="w-full">
-            Unlock
+            {auth.unlock}
           </Button>
           <Button
             type="button"
@@ -70,7 +72,7 @@ export function LockScreen() {
             onClick={() => logout()}
             className="w-full text-xs"
           >
-            <LogOut className="h-3.5 w-3.5" /> Sign out instead
+            <LogOut className="h-3.5 w-3.5" /> {auth.signOutInstead}
           </Button>
         </form>
       </CardContent>

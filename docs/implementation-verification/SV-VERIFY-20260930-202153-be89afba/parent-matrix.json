@@ -1,0 +1,683 @@
+{
+  "note": "Implementation is not verification. No parent is locally complete from one child. locallyCompleteParentIds stays empty unless every mandatory child is FULL and its checks passed.",
+  "locallyCompleteParentIds": [],
+  "parentsPassingTheirExecutedCheck": [
+    "P23",
+    "P26",
+    "P27",
+    "P41",
+    "C01",
+    "C08",
+    "C09",
+    "C15",
+    "C21",
+    "C22",
+    "C25"
+  ],
+  "parents": [
+    {
+      "id": "P01",
+      "side": "Personal",
+      "area": "Shell",
+      "name": "App shell and history routing",
+      "implementation": "FULL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "P02",
+      "side": "Personal",
+      "area": "Shell",
+      "name": "Desktop sidebar",
+      "implementation": "FULL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "P03",
+      "side": "Personal",
+      "area": "Shell",
+      "name": "Mobile bar",
+      "implementation": "PARTIAL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "P04",
+      "side": "Personal",
+      "area": "Shell",
+      "name": "Command palette and quick add",
+      "implementation": "PARTIAL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "P05",
+      "side": "Personal",
+      "area": "Shell",
+      "name": "Personal language pack",
+      "implementation": "SCHEMA_ONLY",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "P06",
+      "side": "Personal",
+      "area": "Dashboard",
+      "name": "Month snapshot, charts, recent activity",
+      "implementation": "FULL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "P07",
+      "side": "Personal",
+      "area": "Dashboard",
+      "name": "Modes basic, normal, premium",
+      "implementation": "FULL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "P08",
+      "side": "Personal",
+      "area": "Dashboard",
+      "name": "Modes essential, family, wealth",
+      "implementation": "PARTIAL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "P09",
+      "side": "Personal",
+      "area": "Dashboard",
+      "name": "Payday cashflow panel",
+      "implementation": "FULL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "P10",
+      "side": "Personal",
+      "area": "Ledger",
+      "name": "Transactions",
+      "implementation": "FULL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "P11",
+      "side": "Personal",
+      "area": "Ledger",
+      "name": "Income and expense pages",
+      "implementation": "FULL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "P12",
+      "side": "Personal",
+      "area": "Ledger",
+      "name": "Tags on a transaction",
+      "implementation": "FULL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "P13",
+      "side": "Personal",
+      "area": "Ledger",
+      "name": "Categories",
+      "implementation": "PARTIAL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "P14",
+      "side": "Personal",
+      "area": "Ledger",
+      "name": "Transfers",
+      "implementation": "PARTIAL",
+      "verification": "PASS"
+    },
+    {
+      "id": "P15",
+      "side": "Personal",
+      "area": "Planning",
+      "name": "Budgets",
+      "implementation": "FULL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "P16",
+      "side": "Personal",
+      "area": "Planning",
+      "name": "Goals",
+      "implementation": "FULL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "P17",
+      "side": "Personal",
+      "area": "Planning",
+      "name": "Envelope budgeting",
+      "implementation": "PARTIAL",
+      "verification": "PASS"
+    },
+    {
+      "id": "P18",
+      "side": "Personal",
+      "area": "Planning",
+      "name": "Sinking funds",
+      "implementation": "PARTIAL",
+      "verification": "PASS"
+    },
+    {
+      "id": "P19",
+      "side": "Personal",
+      "area": "Planning",
+      "name": "Recurring rules",
+      "implementation": "PARTIAL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "P20",
+      "side": "Personal",
+      "area": "Planning",
+      "name": "Bill calendar",
+      "implementation": "PARTIAL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "P21",
+      "side": "Personal",
+      "area": "Planning",
+      "name": "Reminders",
+      "implementation": "SCHEMA_ONLY",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "P22",
+      "side": "Personal",
+      "area": "Accounts",
+      "name": "Accounts",
+      "implementation": "FULL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "P23",
+      "side": "Personal",
+      "area": "Accounts",
+      "name": "Credit and debit cards",
+      "implementation": "FULL",
+      "verification": "PASS"
+    },
+    {
+      "id": "P24",
+      "side": "Personal",
+      "area": "Accounts",
+      "name": "Card EMI",
+      "implementation": "PARTIAL",
+      "verification": "PASS"
+    },
+    {
+      "id": "P25",
+      "side": "Personal",
+      "area": "Accounts",
+      "name": "Card statements and payment allocations",
+      "implementation": "PARTIAL",
+      "verification": "PASS"
+    },
+    {
+      "id": "P26",
+      "side": "Personal",
+      "area": "Accounts",
+      "name": "Loans and EMI",
+      "implementation": "FULL",
+      "verification": "PASS"
+    },
+    {
+      "id": "P27",
+      "side": "Personal",
+      "area": "Accounts",
+      "name": "Udhari and advances",
+      "implementation": "FULL",
+      "verification": "PASS"
+    },
+    {
+      "id": "P28",
+      "side": "Personal",
+      "area": "Wealth",
+      "name": "Investments",
+      "implementation": "FULL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "P29",
+      "side": "Personal",
+      "area": "Wealth",
+      "name": "FD, RD, insurance, valuations",
+      "implementation": "FULL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "P30",
+      "side": "Personal",
+      "area": "Household",
+      "name": "Household page",
+      "implementation": "PARTIAL",
+      "verification": "PASS"
+    },
+    {
+      "id": "P31",
+      "side": "Personal",
+      "area": "Household",
+      "name": "Household permissions",
+      "implementation": "PARTIAL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "P32",
+      "side": "Personal",
+      "area": "Insights",
+      "name": "Reports",
+      "implementation": "FULL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "P33",
+      "side": "Personal",
+      "area": "Insights",
+      "name": "Suggestions and persona",
+      "implementation": "FULL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "P34",
+      "side": "Personal",
+      "area": "Insights",
+      "name": "Alerts",
+      "implementation": "PARTIAL",
+      "verification": "PASS"
+    },
+    {
+      "id": "P35",
+      "side": "Personal",
+      "area": "Insights",
+      "name": "Reconciliation",
+      "implementation": "PARTIAL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "P36",
+      "side": "Personal",
+      "area": "Data",
+      "name": "CSV and spreadsheet import",
+      "implementation": "FULL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "P37",
+      "side": "Personal",
+      "area": "Data",
+      "name": "PDF bank and card statements",
+      "implementation": "PARTIAL",
+      "verification": "BLOCKED_EXTERNAL"
+    },
+    {
+      "id": "P38",
+      "side": "Personal",
+      "area": "Data",
+      "name": "JSON backup and repair",
+      "implementation": "FULL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "P39",
+      "side": "Personal",
+      "area": "Data",
+      "name": "Account Aggregator",
+      "implementation": "SCHEMA_ONLY",
+      "verification": "BLOCKED_EXTERNAL"
+    },
+    {
+      "id": "P40",
+      "side": "Personal",
+      "area": "Data",
+      "name": "Attachments and snapshots",
+      "implementation": "SCHEMA_ONLY",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "P41",
+      "side": "Personal",
+      "area": "System",
+      "name": "Settings",
+      "implementation": "FULL",
+      "verification": "PASS"
+    },
+    {
+      "id": "P42",
+      "side": "Personal",
+      "area": "System",
+      "name": "Profile, PIN, lock",
+      "implementation": "FULL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "P43",
+      "side": "Personal",
+      "area": "System",
+      "name": "Cloud sync",
+      "implementation": "PARTIAL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "P44",
+      "side": "Personal",
+      "area": "System",
+      "name": "Audit log",
+      "implementation": "FULL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "P45",
+      "side": "Personal",
+      "area": "System",
+      "name": "Subscription",
+      "implementation": "PARTIAL",
+      "verification": "BLOCKED_EXTERNAL"
+    },
+    {
+      "id": "P46",
+      "side": "Personal",
+      "area": "System",
+      "name": "Plan feature gates",
+      "implementation": "PARTIAL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "P47",
+      "side": "Personal",
+      "area": "System",
+      "name": "Admin portal",
+      "implementation": "FULL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "C01",
+      "side": "Company",
+      "area": "Access",
+      "name": "Login, select, create company",
+      "implementation": "FULL",
+      "verification": "PASS"
+    },
+    {
+      "id": "C02",
+      "side": "Company",
+      "area": "Access",
+      "name": "Invite by user id",
+      "implementation": "FULL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "C03",
+      "side": "Company",
+      "area": "Access",
+      "name": "Invite-token accept",
+      "implementation": "PARTIAL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "C04",
+      "side": "Company",
+      "area": "Access",
+      "name": "Roles",
+      "implementation": "PARTIAL",
+      "verification": "PASS"
+    },
+    {
+      "id": "C05",
+      "side": "Company",
+      "area": "Access",
+      "name": "English and Gujarati",
+      "implementation": "FULL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "C06",
+      "side": "Company",
+      "area": "Dashboard",
+      "name": "Company dashboard",
+      "implementation": "FULL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "C07",
+      "side": "Company",
+      "area": "Money",
+      "name": "Money received and money paid",
+      "implementation": "FULL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "C08",
+      "side": "Company",
+      "area": "Money",
+      "name": "Transfer and journal",
+      "implementation": "FULL",
+      "verification": "PASS"
+    },
+    {
+      "id": "C09",
+      "side": "Company",
+      "area": "Money",
+      "name": "Purpose catalogue",
+      "implementation": "FULL",
+      "verification": "PASS"
+    },
+    {
+      "id": "C10",
+      "side": "Company",
+      "area": "Money",
+      "name": "Voucher list and detail",
+      "implementation": "FULL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "C11",
+      "side": "Company",
+      "area": "Money",
+      "name": "Purchase and sale screens",
+      "implementation": "PARTIAL",
+      "verification": "PASS"
+    },
+    {
+      "id": "C12",
+      "side": "Company",
+      "area": "Money",
+      "name": "Dimensions on vouchers",
+      "implementation": "PARTIAL",
+      "verification": "PASS"
+    },
+    {
+      "id": "C13",
+      "side": "Company",
+      "area": "Parties",
+      "name": "Parties",
+      "implementation": "FULL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "C14",
+      "side": "Company",
+      "area": "Parties",
+      "name": "Party detail",
+      "implementation": "PARTIAL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "C15",
+      "side": "Company",
+      "area": "Parties",
+      "name": "Receivables and payables",
+      "implementation": "FULL",
+      "verification": "PASS"
+    },
+    {
+      "id": "C16",
+      "side": "Company",
+      "area": "Parties",
+      "name": "Party categories",
+      "implementation": "FULL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "C17",
+      "side": "Company",
+      "area": "Books",
+      "name": "Ledgers and opening balance",
+      "implementation": "PARTIAL",
+      "verification": "PASS"
+    },
+    {
+      "id": "C18",
+      "side": "Company",
+      "area": "Books",
+      "name": "Cash and bank",
+      "implementation": "FULL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "C19",
+      "side": "Company",
+      "area": "Books",
+      "name": "Bank reconciliation and statements",
+      "implementation": "MISSING",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "C20",
+      "side": "Company",
+      "area": "Masters",
+      "name": "Business units, areas, projects, cost centres",
+      "implementation": "PARTIAL",
+      "verification": "PASS"
+    },
+    {
+      "id": "C21",
+      "side": "Company",
+      "area": "Reports",
+      "name": "Live reports",
+      "implementation": "FULL",
+      "verification": "PASS"
+    },
+    {
+      "id": "C22",
+      "side": "Company",
+      "area": "Reports",
+      "name": "Formerly disabled report keys",
+      "implementation": "FULL",
+      "verification": "PASS"
+    },
+    {
+      "id": "C23",
+      "side": "Company",
+      "area": "Reports",
+      "name": "Export files",
+      "implementation": "PARTIAL",
+      "verification": "PASS"
+    },
+    {
+      "id": "C24",
+      "side": "Company",
+      "area": "Reports",
+      "name": "Search",
+      "implementation": "PARTIAL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "C25",
+      "side": "Company",
+      "area": "Control",
+      "name": "Approvals",
+      "implementation": "FULL",
+      "verification": "PASS"
+    },
+    {
+      "id": "C26",
+      "side": "Company",
+      "area": "Control",
+      "name": "Audit",
+      "implementation": "FULL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "C27",
+      "side": "Company",
+      "area": "Control",
+      "name": "Settings and period lock",
+      "implementation": "PARTIAL",
+      "verification": "PASS"
+    },
+    {
+      "id": "C28",
+      "side": "Company",
+      "area": "Control",
+      "name": "Permission gates on pages",
+      "implementation": "PARTIAL",
+      "verification": "PASS"
+    },
+    {
+      "id": "C29",
+      "side": "Company",
+      "area": "Deferred",
+      "name": "GST returns",
+      "implementation": "PARTIAL",
+      "verification": "BLOCKED_EXTERNAL"
+    },
+    {
+      "id": "C30",
+      "side": "Company",
+      "area": "Deferred",
+      "name": "Inventory",
+      "implementation": "PARTIAL",
+      "verification": "FAIL"
+    },
+    {
+      "id": "C31",
+      "side": "Company",
+      "area": "Deferred",
+      "name": "Payroll",
+      "implementation": "PARTIAL",
+      "verification": "PASS"
+    },
+    {
+      "id": "C32",
+      "side": "Company",
+      "area": "Deferred",
+      "name": "Documents",
+      "implementation": "PARTIAL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "C33",
+      "side": "Company",
+      "area": "Deferred",
+      "name": "Recurring company rules",
+      "implementation": "PARTIAL",
+      "verification": "NOT_RUN"
+    },
+    {
+      "id": "C34",
+      "side": "Company",
+      "area": "Deferred",
+      "name": "Personal to company bridge",
+      "implementation": "PARTIAL",
+      "verification": "FAIL"
+    },
+    {
+      "id": "C35",
+      "side": "Company",
+      "area": "Deferred",
+      "name": "Company billing",
+      "implementation": "PARTIAL",
+      "verification": "BLOCKED_EXTERNAL"
+    },
+    {
+      "id": "C36",
+      "side": "Company",
+      "area": "Deferred",
+      "name": "Company groups",
+      "implementation": "PARTIAL",
+      "verification": "PASS"
+    }
+  ]
+}

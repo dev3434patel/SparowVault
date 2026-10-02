@@ -1,0 +1,6 @@
+{
+    "hasOpening": false,
+    "hasJournal": true,
+    "posted": false,
+    "error": "Missing permission: manage_opening_balances"
+}

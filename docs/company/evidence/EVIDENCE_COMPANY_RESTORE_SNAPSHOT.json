@@ -1,30 +1,30 @@
 {
-    "at": "2026-09-24T17:22:42+00:00",
+    "at": "2026-09-30T20:20:18+00:00",
     "db": "sparowvault",
     "tables": {
         "company_account_groups": {
-            "rows": 40470,
-            "checksum": 278512916
+            "rows": 41876,
+            "checksum": 2789838065
         },
         "company_approvals": {
-            "rows": 0,
-            "checksum": 0
+            "rows": 1,
+            "checksum": 1224733420
         },
         "company_areas": {
             "rows": 0,
             "checksum": 0
         },
         "company_audit_logs": {
-            "rows": 587122,
-            "checksum": 3288399360
+            "rows": 702378,
+            "checksum": 2881375517
         },
         "company_bill_allocations": {
-            "rows": 431,
-            "checksum": 4148268948
+            "rows": 453,
+            "checksum": 3057227748
         },
         "company_bill_refs": {
-            "rows": 68986,
-            "checksum": 2968110803
+            "rows": 119008,
+            "checksum": 2460897324
         },
         "company_branches": {
             "rows": 0,
@@ -39,16 +39,16 @@
             "checksum": 0
         },
         "company_cross_domain_links": {
-            "rows": 0,
-            "checksum": 0
+            "rows": 2,
+            "checksum": 3097962176
         },
         "company_documents": {
-            "rows": 0,
-            "checksum": 0
+            "rows": 5,
+            "checksum": 2431292181
         },
         "company_financial_write_receipts": {
-            "rows": 585835,
-            "checksum": 942207756
+            "rows": 701036,
+            "checksum": 1129844314
         },
         "company_group_members": {
             "rows": 0,
@@ -58,25 +58,29 @@
             "rows": 0,
             "checksum": 0
         },
+        "company_items": {
+            "rows": 1,
+            "checksum": 1954959292
+        },
         "company_ledgers": {
-            "rows": 26516,
-            "checksum": 1265166283
+            "rows": 27495,
+            "checksum": 1598425577
         },
         "company_membership_roles": {
-            "rows": 1067,
-            "checksum": 3852364422
+            "rows": 1104,
+            "checksum": 2474783972
         },
         "company_memberships": {
-            "rows": 1067,
-            "checksum": 1765042170
+            "rows": 1104,
+            "checksum": 3835505426
         },
         "company_org_subscriptions": {
-            "rows": 0,
-            "checksum": 0
+            "rows": 1,
+            "checksum": 3511297009
         },
         "company_parties": {
-            "rows": 78935,
-            "checksum": 1280843713
+            "rows": 129028,
+            "checksum": 3658250727
         },
         "company_party_categories": {
             "rows": 0,
@@ -87,12 +91,12 @@
             "checksum": 0
         },
         "company_party_relationship_accounts": {
-            "rows": 992,
-            "checksum": 387952495
+            "rows": 1080,
+            "checksum": 2186204643
         },
         "company_party_roles": {
-            "rows": 774,
-            "checksum": 373433146
+            "rows": 815,
+            "checksum": 3178506863
         },
         "company_party_tag_memberships": {
             "rows": 0,
@@ -111,32 +115,32 @@
             "checksum": 0
         },
         "company_recurring_rules": {
-            "rows": 0,
-            "checksum": 0
+            "rows": 1,
+            "checksum": 550895072
         },
         "company_role_permissions": {
-            "rows": 168270,
-            "checksum": 3355384631
+            "rows": 174116,
+            "checksum": 176193203
         },
         "company_roles": {
-            "rows": 7455,
-            "checksum": 2294413339
+            "rows": 7714,
+            "checksum": 1635049862
         },
         "company_voucher_cost_allocations": {
             "rows": 0,
             "checksum": 0
         },
         "company_voucher_lines": {
-            "rows": 2223424,
-            "checksum": 247356452
+            "rows": 2723834,
+            "checksum": 3113418732
         },
         "company_vouchers": {
-            "rows": 585947,
-            "checksum": 3019095994
+            "rows": 701162,
+            "checksum": 186192339
         },
         "company_workspaces": {
-            "rows": 1065,
-            "checksum": 1717751685
+            "rows": 1102,
+            "checksum": 454322837
         }
     }
 }

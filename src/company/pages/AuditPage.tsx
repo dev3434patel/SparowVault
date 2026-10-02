@@ -25,8 +25,11 @@ export function AuditPage() {
         if (!cancelled) setEvents(rows);
       } catch (e) {
         if (!cancelled) {
+          setEvents([]);
           if (e instanceof ApiError && e.status === 404) {
-            setEvents([]);
+            setErr("The audit service is unavailable. This is not an empty audit log.");
+          } else if (e instanceof ApiError && (e.status === 401 || e.status === 403)) {
+            setErr(e.message || "You do not have permission to read the audit log.");
           } else {
             setErr(e instanceof Error ? e.message : t("audit.loadFailed"));
           }
@@ -49,7 +52,7 @@ export function AuditPage() {
         </div>
         {err ? <p className="text-sm text-destructive">{err}</p> : null}
         {loading ? <SkeletonList rows={6} /> : null}
-        {!loading && events.length === 0 ? (
+        {!loading && !err && events.length === 0 ? (
           <EmptyState title={t("audit.empty")} body={t("audit.subtitle")} />
         ) : null}
         {!loading && events.length > 0 ? (

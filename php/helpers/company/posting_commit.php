@@ -117,6 +117,25 @@ function company_post_voucher(
             }
         }
 
+        $payloadAlloc = $payload["costAllocations"] ?? null;
+        if (is_array($payloadAlloc) && $payloadAlloc !== []) {
+            $cashId = (string)($payload["cashBankLedgerId"] ?? "");
+            foreach ($lines as $index => $line) {
+                if (!is_array($line)) {
+                    continue;
+                }
+                $ledgerId = (string)($line["ledgerId"] ?? $line["ledger_id"] ?? "");
+                if ($cashId !== "" && $ledgerId === $cashId) {
+                    continue;
+                }
+                if (!empty($line["costAllocations"]) || !empty($line["cost_allocations"])) {
+                    break;
+                }
+                $lines[$index]["costAllocations"] = $payloadAlloc;
+                break;
+            }
+        }
+
         $debit = 0;
         $credit = 0;
         $normalized = [];
@@ -147,6 +166,11 @@ function company_post_voucher(
             }
             $lineNo++;
             $dims = is_array($payload["dimensions"] ?? null) ? $payload["dimensions"] : [];
+            $allocRaw = $line["costAllocations"] ?? $line["cost_allocations"] ?? [];
+            if (!is_array($allocRaw)) {
+                throw new CompanyPostingException("costAllocations must be an array");
+            }
+            $split = company_cost_allocation_split($amount, $allocRaw);
             $normalized[] = [
                 "line_no" => $lineNo,
                 "ledger_id" => $ledgerId,
@@ -158,6 +182,7 @@ function company_post_voucher(
                 "area_id" => $line["areaId"] ?? $dims["areaId"] ?? null,
                 "narration" => $line["narration"] ?? null,
                 "is_cash_bank" => (int)$ledger["is_cash_bank"] === 1,
+                "cost_allocations" => $split["parts"],
             ];
         }
         if ($debit !== $credit) {
@@ -273,9 +298,17 @@ function company_post_voucher(
                 party_relationship_id, cost_centre_id, project_id, area_id, narration, created_at
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, UTC_TIMESTAMP())"
         );
+        $allocIns = $db->prepare(
+            "INSERT INTO company_voucher_cost_allocations (id, company_id, voucher_id, voucher_line_id, cost_centre_id, amount_paise, created_at)
+             VALUES (?, ?, ?, ?, ?, ?, UTC_TIMESTAMP())"
+        );
+        $ccCheck = $db->prepare(
+            "SELECT id FROM company_cost_centres WHERE id = ? AND company_id = ? AND deleted_at IS NULL"
+        );
         foreach ($normalized as $n) {
+            $lineId = company_new_id();
             $lineIns->execute([
-                company_new_id(),
+                $lineId,
                 $companyId,
                 $voucherId,
                 $n["line_no"],
@@ -288,6 +321,20 @@ function company_post_voucher(
                 $n["area_id"],
                 $n["narration"],
             ]);
+            foreach ($n["cost_allocations"] as $part) {
+                $ccCheck->execute([$part["costCentreId"], $companyId]);
+                if (!$ccCheck->fetch()) {
+                    throw new CompanyPostingException("Cost centre not found", 404, "NOT_FOUND");
+                }
+                $allocIns->execute([
+                    company_new_id(),
+                    $companyId,
+                    $voucherId,
+                    $lineId,
+                    $part["costCentreId"],
+                    $part["amountPaise"],
+                ]);
+            }
         }
 
         if ($status === "POSTED") {

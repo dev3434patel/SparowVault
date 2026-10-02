@@ -10,11 +10,11 @@
     { "key": "cash-bank-book", "label": "Cash / Bank Book", "permission": "view_cash_bank_books", "enabled": true, "handler": "cash_bank_book", "requires": ["ledgerId"] },
     { "key": "receivables", "label": "Receivables", "permission": "view_receivables", "enabled": true, "aliasOf": "ageing", "side": "receivable" },
     { "key": "payables", "label": "Payables", "permission": "view_payables", "enabled": true, "aliasOf": "ageing", "side": "payable" },
-    { "key": "receipts-payments", "label": "Receipts & Payments", "permission": "view_cash_bank_books", "enabled": false },
-    { "key": "project-report", "label": "Project Report", "permission": "view_day_book", "enabled": false },
-    { "key": "business-report", "label": "Business Report", "permission": "view_day_book", "enabled": false },
-    { "key": "area-report", "label": "Area Report", "permission": "view_day_book", "enabled": false },
-    { "key": "category-report", "label": "Category Report", "permission": "view_day_book", "enabled": false },
-    { "key": "user-activity", "label": "User Activity", "permission": "view_audit", "enabled": false }
+    { "key": "receipts-payments", "label": "Receipts & Payments", "permission": "view_cash_bank_books", "enabled": true, "handler": "receipts_payments" },
+    { "key": "project-report", "label": "Project Report", "permission": "view_day_book", "enabled": true, "handler": "project_report" },
+    { "key": "business-report", "label": "Business Report", "permission": "view_day_book", "enabled": true, "handler": "business_report" },
+    { "key": "area-report", "label": "Area Report", "permission": "view_day_book", "enabled": true, "handler": "area_report" },
+    { "key": "category-report", "label": "Category Report", "permission": "view_day_book", "enabled": true, "handler": "category_report" },
+    { "key": "user-activity", "label": "User Activity", "permission": "view_audit", "enabled": true, "handler": "user_activity" }
   ]
 }

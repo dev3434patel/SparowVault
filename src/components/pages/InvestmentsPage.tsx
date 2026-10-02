@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { PageHeader } from "@/components/layout/PageHeader";
+import { PersonalPageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -39,8 +39,10 @@ import { differenceInCalendarMonths, format } from "date-fns";
 import { PiggyBank, Pencil, Plus, Trash2, Shield, TrendingUp } from "lucide-react";
 import { EmptyState } from "@/components/ui/Table";
 import { refsForInvestment } from "@/services/refIntegrity";
+import { useMessages } from "@/i18n/useMessages";
 
 export function InvestmentsPage({ embedded = false }: { embedded?: boolean }) {
+  const copy = useMessages().copy.investments;
   const user = useAuthStore((s) => s.currentUser);
   const investments = useDataStore((s) => s.investments);
   const transactions = useDataStore((s) => s.transactions);
@@ -77,22 +79,22 @@ export function InvestmentsPage({ embedded = false }: { embedded?: boolean }) {
     const refs = refsForInvestment(id);
     if (refs.blocking) {
       toast({
-        title: "Cannot delete investment",
+        title: copy.cannotDelete,
         description: refs.message,
         kind: "warning",
       });
       return;
     }
     const ok = await confirm({
-      title: "Delete this investment?",
-      description: "This investment will be removed permanently.",
+      title: copy.deleteTitle,
+      description: copy.deleteBody,
       destructive: true,
-      confirmLabel: "Delete investment",
+      confirmLabel: copy.deleteConfirm,
     });
     if (!ok) return;
     await investmentRepo.softDelete(id);
     removeLocal("investments", id);
-    toast({ title: "Investment removed", kind: "info" });
+    toast({ title: copy.removed, kind: "info" });
   }
 
   async function contribute(inv: Investment, amount: number) {
@@ -116,7 +118,7 @@ export function InvestmentsPage({ embedded = false }: { embedded?: boolean }) {
     });
     upsertLocal("savingsContribs", c);
     toast({
-      title: "Contribution added",
+      title: copy.contribAdded,
       description: `${formatINR(amount)} to ${inv.name}`,
       kind: "success",
     });
@@ -126,9 +128,8 @@ export function InvestmentsPage({ embedded = false }: { embedded?: boolean }) {
   return (
     <div>
       {!embedded ? (
-        <PageHeader
-          title="Savings & Investments"
-          description="Track SIP, PPF, FD, RD, emergency fund, and custom savings buckets."
+        <PersonalPageHeader
+          screen="investments"
           actions={
             <Button onClick={() => setAdding(true)}>
               <Plus className="h-4 w-4" /> New Bucket
@@ -185,8 +186,8 @@ export function InvestmentsPage({ embedded = false }: { embedded?: boolean }) {
           <CardContent>
             <EmptyState
               icon={<PiggyBank className="h-6 w-6" />}
-              title="No investments yet"
-              description="Start with an emergency fund, a SIP, or a recurring deposit."
+              title={copy.emptyTitle}
+              description={copy.emptyBody}
               action={
                 <Button onClick={() => setAdding(true)}>
                   <Plus className="h-4 w-4" /> Add Investment
@@ -306,7 +307,7 @@ export function InvestmentsPage({ embedded = false }: { embedded?: boolean }) {
         onSaved={(i) => {
           upsertLocal("investments", i);
           toast({
-            title: editing ? "Updated" : "Added",
+            title: editing ? copy.updated : copy.added,
             kind: "success",
           });
           setAdding(false);
@@ -372,6 +373,7 @@ function InvestmentForm({
   userId?: string;
   onSaved: (i: Investment) => void;
 }) {
+  const copy = useMessages().copy.investments;
   const [state, setState] = useState({
     name: investment?.name ?? "",
     type: (investment?.type ?? "sip") as Investment["type"],
@@ -408,7 +410,7 @@ function InvestmentForm({
     if (!userId) return;
     const parse = investmentSchema.safeParse(state);
     if (!parse.success) {
-      setErr(parse.error.issues[0]?.message ?? "Invalid");
+      setErr(parse.error.issues[0]?.message ?? copy.invalid);
       return;
     }
     setSaving(true);
@@ -438,7 +440,7 @@ function InvestmentForm({
         onSaved(created);
       }
     } catch (e) {
-      setErr(e instanceof Error ? e.message : "Failed to save investment");
+      setErr(e instanceof Error ? e.message : copy.saveFailed);
     } finally {
       setSaving(false);
     }
@@ -448,7 +450,7 @@ function InvestmentForm({
     <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
       <DialogContent size="lg">
         <DialogHeader>
-          <DialogTitle>{investment ? "Edit Investment" : "New Investment"}</DialogTitle>
+          <DialogTitle>{investment ? copy.edit : copy.new}</DialogTitle>
         </DialogHeader>
         <form onSubmit={submit} className="grid grid-cols-2 gap-3">
           <Field label="Name" required className="col-span-2">

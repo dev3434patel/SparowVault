@@ -1,7 +1,18 @@
 <?php
 if (PHP_SAPI !== "cli") { http_response_code(403); exit; }
-require_once __DIR__ . "/../config/db.php";
+require_once __DIR__ . "/../helpers/app.php";
 $options = getopt("", ["database:", "apply"]);
+$destructive = destructive_database_target_decision();
+$requestedDatabase = (string)($options["database"] ?? "");
+if ($destructive["outcome"] !== "allowed") {
+    fwrite(STDERR, $destructive["detail"] . PHP_EOL);
+    exit(2);
+}
+if (!destructive_database_name_allowed($requestedDatabase)) {
+    fwrite(STDERR, "Refusing destructive runner: database is not allowlisted." . PHP_EOL);
+    exit(2);
+}
+require_once __DIR__ . "/../config/db.php";
 $db = db_conn();
 $database = (string)$db->query("SELECT DATABASE()")->fetchColumn();
 if (($options["database"] ?? "") !== $database || !array_key_exists("apply", $options)) {

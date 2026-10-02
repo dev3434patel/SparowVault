@@ -1,0 +1,78 @@
+{
+  "database": "sparowvault_verify_idb",
+  "results": [
+    {
+      "id": "O01",
+      "status": "PASS",
+      "bankCashPaise": 1000000,
+      "reservedPaise": 300000,
+      "availableToSpendPaise": 700000,
+      "persistedFunds": 2,
+      "expectedReservedPaise": 300000,
+      "differencePaise": 0
+    },
+    {
+      "id": "O02",
+      "status": "PASS",
+      "bankPaise": 950000,
+      "cashPaise": 50000,
+      "expectedBankPaise": 950000,
+      "expectedCashPaise": 50000,
+      "differencePaise": 0
+    },
+    {
+      "id": "O03",
+      "status": "PASS",
+      "cashPaise": -50000,
+      "expectedCashPaise": -50000,
+      "outstandingPaise": 200000,
+      "expectedOutstandingPaise": 200000,
+      "statementClosingPaise": 250000,
+      "allocationPaise": 100000,
+      "differencePaise": 0
+    },
+    {
+      "id": "O04",
+      "status": "PASS",
+      "plans": 1,
+      "installments": 3,
+      "principalPaise": 300000,
+      "transactionsBeforeConversion": 2,
+      "note": "Conversion persists a plan. It does not insert another purchase transaction in this call."
+    },
+    {
+      "id": "O05",
+      "status": "PASS",
+      "cashEffectPaise": 5000000,
+      "principalEffectPaise": 5000000,
+      "incomeEffectPaise": 0,
+      "accountClosingPaise": 5000000,
+      "expectedPaise": 5000000
+    },
+    {
+      "id": "O06",
+      "status": "PASS",
+      "cashPaise": 940000,
+      "expectedCashPaise": 940000,
+      "receivableIncreasePaise": 100000,
+      "collectionDirection": "decrease",
+      "givenCountedAsIncome": false,
+      "collectionCountedAsIncome": false,
+      "differencePaise": 0
+    },
+    {
+      "id": "HOUSEHOLD",
+      "status": "PASS",
+      "incomePaise": 50000,
+      "expensePaise": 20000,
+      "sharedCount": 2,
+      "note": "Unmarked expense of 10000 paise is excluded."
+    },
+    {
+      "id": "ALERTS64",
+      "status": "PASS",
+      "combos": 64,
+      "failures": 0
+    }
+  ]
+}

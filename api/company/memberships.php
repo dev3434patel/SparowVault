@@ -9,6 +9,8 @@ try {
         company_memberships_list();
     } elseif ($method === "POST") {
         company_memberships_invite();
+    } elseif ($method === "PATCH") {
+        company_memberships_set_role_dispatch();
     } else {
         json_error("Method not allowed", 405);
     }

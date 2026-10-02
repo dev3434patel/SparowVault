@@ -1,6 +1,6 @@
-import { SYNC_CONTRACT_SERVER_ALLOWLIST } from "@/config/syncContracts";
+import { CLOUD_COLLECTIONS } from "@/config/syncContracts";
 
-export const CLOUD_COLLECTIONS = SYNC_CONTRACT_SERVER_ALLOWLIST;
+export { CLOUD_COLLECTIONS };
 
 export type CloudCollectionKey = (typeof CLOUD_COLLECTIONS)[number];
 

@@ -1,0 +1,12 @@
+{
+  "releaseRun": "20261003-personal-os-0048c3",
+  "commands": [
+    {"name": "personal_household_rules_golden", "exit": 0},
+    {"name": "vitest household+statementLocalBooks+personalBookWorkflows", "exit": 0, "tests": 31},
+    {"name": "personal_release_target_guard", "exit": 0, "result": "owner-target-refused"},
+    {"name": "personal_household_disposable", "exit": 0, "database": "sparowvault_test", "result": "household-disposable-pass"},
+    {"name": "host:package", "exit": 0, "sha256": "664D1BC8DF2A713E6554CAC47314E6FF01C411B4324F446F51ECA69C07412D58"},
+    {"name": "statement live API oracles", "exit": null, "result": "NOT_RUN"},
+    {"name": "two browser profile sync", "exit": null, "result": "NOT_RUN"}
+  ]
+}

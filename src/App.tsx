@@ -15,6 +15,7 @@ import { getDB } from "@/db/database";
 import { replayMutations } from "@/services/durableOutbox";
 import { useUIStore } from "@/store/uiStore";
 import { RequiredPinChange } from "@/components/auth/RequiredPinChange";
+import { useMessages } from "@/i18n/useMessages";
 import { lazy, Suspense } from "react";
 
 const CompanyApp = lazy(() =>
@@ -34,6 +35,7 @@ export default function App() {
   const syncFromUrl = useNavStore((s) => s.syncFromUrl);
   const dataLoaded = useDataStore((s) => s.loaded);
   const dataLoadingFor = useDataStore((s) => s.loadingFor);
+  const adminCopy = useMessages().ui.admin;
   const isCompanyPortal = typeof window !== "undefined" && window.location.pathname.startsWith("/company");
   const isAdminPortal = typeof window !== "undefined" && window.location.pathname.startsWith("/admin");
 
@@ -156,9 +158,9 @@ export default function App() {
     return (
       <AuthShell>
         <div className="rounded-lg border border-border bg-card p-6 text-center">
-          <div className="text-lg font-semibold">Admin access required</div>
-          <p className="mt-2 text-sm text-muted-foreground">Use an admin account at /admin.</p>
-          <a href="/" className="mt-4 inline-block text-primary hover:underline">Go to user portal</a>
+          <div className="text-lg font-semibold">{adminCopy.accessRequired}</div>
+          <p className="mt-2 text-sm text-muted-foreground">{adminCopy.useAdminAccount}</p>
+          <a href="/" className="mt-4 inline-block text-primary hover:underline">{adminCopy.goUserPortal}</a>
         </div>
       </AuthShell>
     );
@@ -168,9 +170,9 @@ export default function App() {
     return (
       <AuthShell>
         <div className="rounded-lg border border-border bg-card p-6 text-center">
-          <div className="text-lg font-semibold">Admin account detected</div>
-          <p className="mt-2 text-sm text-muted-foreground">Admin accounts are restricted to /admin login.</p>
-          <a href="/admin" className="mt-4 inline-block text-primary hover:underline">Go to admin portal</a>
+          <div className="text-lg font-semibold">{adminCopy.accountDetected}</div>
+          <p className="mt-2 text-sm text-muted-foreground">{adminCopy.restricted}</p>
+          <a href="/admin" className="mt-4 inline-block text-primary hover:underline">{adminCopy.goAdminPortal}</a>
         </div>
       </AuthShell>
     );

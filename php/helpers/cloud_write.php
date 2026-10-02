@@ -5,6 +5,7 @@ require_once __DIR__ . "/finance_events.php";
 require_once __DIR__ . "/household_auth.php";
 require_once __DIR__ . "/user_audit.php";
 require_once __DIR__ . "/expense_contributions.php";
+require_once __DIR__ . "/billing.php";
 
 class CloudWriteException extends RuntimeException {
     public function __construct(string $message, public int $status, public string $errorCode) {
@@ -146,6 +147,23 @@ function cloud_write_save(PDO $db, string $userId, string $collection, array $ne
     if ($tombstone->fetch()) throw new CloudWriteException("This record was permanently deleted", 409, "DELETED_ENTITY_CONFLICT");
     cloud_validate_entity_for_collection($userId, $collection, $next);
     cloud_validate_money_fields($collection, $next);
+    if ($collection === "transactions") {
+        if ($before !== null || (int)($next["isDeleted"] ?? 0) === 1) {
+            // edits, soft-deletes, and ledger reversals are not capped
+        } else {
+            $limit = billing_max_transactions_per_month($userId);
+            if ($limit !== null) {
+                $used = billing_count_transactions_in_month($db, $userId, gmdate("Y-m"));
+                if ($used >= $limit) {
+                    throw new CloudWriteException(
+                        "Monthly transaction limit reached for your plan.",
+                        422,
+                        "PLAN_QUOTA_EXCEEDED"
+                    );
+                }
+            }
+        }
+    }
     if ($before) cloud_enforce_household_write($db, $userId, $collection, $before);
     cloud_enforce_household_write($db, $userId, $collection, $next);
     if (!$deferReferences) cloud_write_validate_references($db, $userId, $collection, $next);

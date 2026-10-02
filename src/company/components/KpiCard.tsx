@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/Button";
 import { CompanyMoney, type MoneySemantic } from "@/company/components/CompanyMoney";
 import { cn } from "@/lib/utils";
 import { ChevronRight } from "lucide-react";
+import { useI18n } from "@/company/i18n/react";
 
 const accent: Record<MoneySemantic, string> = {
   neutral: "before:bg-[hsl(var(--primary))]",
@@ -37,6 +38,7 @@ export function KpiCard({
   semantic?: MoneySemantic;
   className?: string;
 }) {
+  const { t } = useI18n();
   return (
     <Card
       className={cn(
@@ -88,7 +90,7 @@ export function KpiCard({
                   onRetry();
                 }}
               >
-                Retry
+                {t("common.retry")}
               </Button>
             ) : null}
           </div>

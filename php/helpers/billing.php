@@ -85,6 +85,53 @@ function billing_user_quotas(string $userId): array {
 /**
  * Quick: is `feature_key` enabled (boolean) for this user's plan?
  */
+/**
+ * Active plan cap for new ledger transactions this calendar month (UTC).
+ * null = unlimited; 0 = no new transactions allowed.
+ */
+function billing_max_transactions_per_month(string $userId): ?int {
+    $db = db_conn();
+    $st = $db->prepare(
+        "SELECT pf.is_enabled, pf.limit_value
+           FROM subscriptions s
+           JOIN plan_features pf ON pf.plan_id = s.plan_id AND pf.feature_key = 'max_transactions_per_month'
+          WHERE s.user_id = ? AND s.status IN ('active','trial')
+          ORDER BY s.id DESC
+          LIMIT 1"
+    );
+    try {
+        $st->execute([$userId]);
+    } catch (Throwable) {
+        return null;
+    }
+    $row = $st->fetch();
+    if (!$row) {
+        return null;
+    }
+    if ((int)$row["is_enabled"] !== 1) {
+        return 0;
+    }
+    if ($row["limit_value"] === null) {
+        return null;
+    }
+    return (int)$row["limit_value"];
+}
+
+function billing_count_transactions_in_month(PDO $db, string $userId, string $monthYm): int {
+    $st = $db->prepare(
+        "SELECT COUNT(*) AS c
+           FROM cloud_collection_rows
+          WHERE user_id = ?
+            AND collection_name = 'transactions'
+            AND deleted_at IS NULL
+            AND txn_month = ?
+            AND COALESCE(JSON_EXTRACT(payload, '$.isDeleted'), 0) = 0"
+    );
+    $st->execute([$userId, $monthYm]);
+    $row = $st->fetch();
+    return $row ? (int)$row["c"] : 0;
+}
+
 function billing_user_has_feature(string $userId, string $featureKey): bool {
     $db = db_conn();
     $st = $db->prepare(

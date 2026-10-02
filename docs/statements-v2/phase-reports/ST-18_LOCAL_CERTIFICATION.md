@@ -2,8 +2,12 @@
 
 | Field | Value |
 |-------|--------|
-| Date | 2026-09-22T19:18:46.644Z |
+| Date | 2026-10-01T20:38:18.948Z |
 | Vitest exit | 0 |
+| Recognized banks | 38 |
+| Fixture-tested layouts | 5 |
+| Registered-only layouts | 15 |
+| Banks with no layout spec | 18 |
 | Target banks | 20 |
 | verified-for-scope layouts | 0 |
 | BLOCKED_FOR_20_BANK_CLAIM | true |

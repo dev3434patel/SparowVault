@@ -32,7 +32,9 @@ export type CompanyNavKey =
   | "approvals"
   | "settings"
   | "audit"
-  | "export";
+  | "export"
+  | "modules"
+  | "invoices";
 
 export interface CompanyRouteMatch {
   key: CompanyNavKey;
@@ -119,6 +121,10 @@ export function companyPath(key: CompanyNavKey, params: Record<string, string> =
       return `${APP_PREFIX}/audit`;
     case "export":
       return `${APP_PREFIX}/export`;
+    case "modules":
+      return `${APP_PREFIX}/modules`;
+    case "invoices":
+      return `${APP_PREFIX}/invoices`;
     default:
       return "/company";
   }
@@ -193,6 +199,8 @@ export function pathToCompanyRoute(pathname: string): CompanyRouteMatch {
   if (path === `${APP_PREFIX}/settings`) return { key: "settings", params: {}, path };
   if (path === `${APP_PREFIX}/audit`) return { key: "audit", params: {}, path };
   if (path === `${APP_PREFIX}/export`) return { key: "export", params: {}, path };
+  if (path === `${APP_PREFIX}/modules`) return { key: "modules", params: {}, path };
+  if (path === `${APP_PREFIX}/invoices`) return { key: "invoices", params: {}, path };
 
   if (path.startsWith("/company")) {
     return { key: "dashboard", params: {}, path };
@@ -235,4 +243,6 @@ export const COMPANY_SIDEBAR_NAV: CompanySidebarItem[] = [
   { key: "audit", labelKey: "nav.audit", path: companyPath("audit"), groupKey: "nav.group.control" },
   { key: "export", labelKey: "nav.export", path: companyPath("export"), groupKey: "nav.group.control" },
   { key: "settings", labelKey: "nav.settings", path: companyPath("settings"), groupKey: "nav.group.control" },
+  { key: "modules", labelKey: "nav.modules", path: companyPath("modules"), groupKey: "nav.group.insights" },
+  { key: "invoices", labelKey: "nav.invoices", path: companyPath("invoices"), groupKey: "nav.group.money" },
 ];

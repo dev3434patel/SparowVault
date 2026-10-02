@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { PageHeader } from "@/components/layout/PageHeader";
+import { PersonalPageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -50,6 +50,7 @@ import { differenceInCalendarDays, format } from "date-fns";
 import { HandCoins, Pencil, Plus, Trash2, CheckCircle, Users, History, Copy, Ban } from "lucide-react";
 import { refsForUdhari } from "@/services/refIntegrity";
 import { paiseToRupees, rupeesToPaise } from "@/utils/money";
+import { useMessages } from "@/i18n/useMessages";
 
 function ageingShort(labels: { label: string; amountPaise: number }[]): string {
   const parts: string[] = [];
@@ -73,6 +74,7 @@ function ageingShort(labels: { label: string; amountPaise: number }[]): string {
 }
 
 export function UdhariPage() {
+  const copy = useMessages().copy.udhari;
   const user = useAuthStore((s) => s.currentUser);
   const udhari = useDataStore((s) => s.udhari);
   const upsertLocal = useDataStore((s) => s.upsertLocal);
@@ -138,22 +140,22 @@ export function UdhariPage() {
     const refs = refsForUdhari(id);
     if (refs.blocking) {
       toast({
-        title: "Cannot delete entry",
+        title: copy.cannotDelete,
         description: refs.message,
         kind: "warning",
       });
       return;
     }
     const ok = await confirm({
-      title: "Delete this udhari entry?",
-      description: "This entry will be removed permanently.",
+      title: copy.deleteTitle,
+      description: copy.deleteBody,
       destructive: true,
-      confirmLabel: "Delete entry",
+      confirmLabel: copy.deleteConfirm,
     });
     if (!ok) return;
     await udhariRepo.softDelete(id);
     removeLocal("udhari", id);
-    toast({ title: "Udhari removed", kind: "info" });
+    toast({ title: copy.removed, kind: "info" });
   }
 
   async function settle(u: UdhariRecord, amtRupee: number, accountId: string) {
@@ -214,7 +216,7 @@ export function UdhariPage() {
     if (!user) return;
     const reasonError = validateWriteOffReason(reason);
     if (reasonError) {
-      toast({ title: "Reason required", description: reasonError, kind: "error" });
+      toast({ title: copy.reasonRequired, description: reasonError, kind: "error" });
       return;
     }
     const newSettled = Math.min(u.amount, u.amountSettled + amtRupee);
@@ -260,15 +262,14 @@ export function UdhariPage() {
       } as unknown as UdhariSettlement,
     });
     upsertLocal("udhariSettlements", st);
-    toast({ title: "Write-off recorded", kind: "success" });
+    toast({ title: copy.writeOff, kind: "success" });
     setWriteOff(null);
   }
 
   return (
     <div>
-      <PageHeader
-        title="Udhari & Advances"
-        description="Informal lending: cash and receivable/payable move together. Settlements post as udhari_collect / udhari_repay (not income). Write-offs post bad-debt expense."
+      <PersonalPageHeader
+        screen="udhari"
         actions={
           <Button onClick={() => setAdding(true)}>
             <Plus className="h-4 w-4" /> New Entry
@@ -295,7 +296,7 @@ export function UdhariPage() {
               {peopleRows.length === 0 ? (
                 <EmptyState
                   icon={<Users className="h-6 w-6" />}
-                  title="No people yet"
+                  title={copy.emptyPeople}
                   description="Add udhari entries; balances group by person name + phone."
                 />
               ) : (
@@ -369,7 +370,7 @@ export function UdhariPage() {
                                 variant="outline"
                                 onClick={() => {
                                   void navigator.clipboard.writeText(wa);
-                                  toast({ title: "Reminder copied", kind: "success" });
+                                  toast({ title: copy.reminderCopied, kind: "success" });
                                 }}
                               >
                                 <Copy className="mr-1 h-3 w-3" /> Copy
@@ -444,7 +445,7 @@ export function UdhariPage() {
                   {filtered.length === 0 ? (
                     <EmptyState
                       icon={<HandCoins className="h-6 w-6" />}
-                      title="No entries"
+                      title={copy.emptyEntries}
                       description="Track money given/taken from friends, family, suppliers."
                     />
                   ) : (

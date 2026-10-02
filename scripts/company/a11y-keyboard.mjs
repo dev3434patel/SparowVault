@@ -85,6 +85,19 @@ async function ensureApp(page) {
   }
 }
 
+async function useOwnerCompany(page) {
+  const switcher = page.getByRole("button", { name: /switch company/i }).first();
+  if (!(await switcher.count())) return;
+  await switcher.click();
+  await page.waitForURL(/\/company\/select/, { timeout: 20000 });
+  const owner = page.getByRole("button", { name: /OWNER/ }).first();
+  await owner.waitFor({ state: "visible", timeout: 20000 }).catch(() => {});
+  if (await owner.count()) {
+    await owner.click();
+    await page.waitForURL(/\/company\/app/, { timeout: 45000 });
+  }
+}
+
 async function assertNoTrap(page, label) {
   const start = await page.evaluate(() => {
     const el = document.activeElement;
@@ -170,6 +183,7 @@ async function main() {
     record("receipt:tab-to-action", receiptReach || true, "form-reachable");
 
     // --- ADD PARTY ---
+    await useOwnerCompany(page);
     await page.goto(`${BASE}/company/app/parties/new`, { waitUntil: "domcontentloaded" });
     await ensureApp(page);
     await page.waitForSelector("h1, form, main", { timeout: 20000 });
@@ -187,6 +201,7 @@ async function main() {
       await page.keyboard.type(`A11y Party ${Date.now().toString().slice(-4)}`);
     }
     const saveParty = page.getByRole("button", { name: /create party/i }).first();
+    await saveParty.waitFor({ state: "visible", timeout: 20000 }).catch(() => {});
     if (await saveParty.count()) {
       await saveParty.focus();
       record("party:tab-to-save", true);
@@ -208,6 +223,7 @@ async function main() {
     await ensureApp(page);
     await page.waitForSelector("h1, h2, main", { timeout: 20000 });
     const lockBtn = page.getByRole("button", { name: /lock period/i });
+    await lockBtn.first().waitFor({ state: "visible", timeout: 20000 }).catch(() => {});
     if (await lockBtn.count()) {
       await lockBtn.focus();
       record("lock:focus-visible", await hasFocusRing(page).catch(() => true));
@@ -232,7 +248,7 @@ async function main() {
       await page.keyboard.press("Tab");
       record("sheet:tab-inside", true);
       await page.keyboard.press("Escape");
-      await page.waitForTimeout(300);
+      await page.waitForFunction(() => !document.querySelector('[role="dialog"]'), null, { timeout: 3000 }).catch(() => {});
       const gone = await page.evaluate(() => !document.querySelector('[role="dialog"]'));
       record("sheet:escape-closes", gone);
     }

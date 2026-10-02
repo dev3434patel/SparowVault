@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/Button";
 import { getAdminDashboard } from "@/lib/cloud/saasClient";
 import { Users, CreditCard, TrendingUp, AlertCircle, RefreshCw, Loader2 } from "lucide-react";
+import { useMessages } from "@/i18n/useMessages";
 
 interface DashStats {
   users?: number;
@@ -17,6 +18,8 @@ interface DashStats {
 }
 
 export function AdminDashboardPage() {
+  const chrome = useMessages().ui;
+  const dash = chrome.admin.body.dashboard;
   const [stats, setStats] = useState<DashStats>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -28,7 +31,7 @@ export function AdminDashboardPage() {
       const data = await getAdminDashboard();
       setStats(data as DashStats);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Failed to load dashboard");
+      setError(e instanceof Error ? e.message : dash.loadFailed);
     } finally {
       setLoading(false);
     }
@@ -38,71 +41,71 @@ export function AdminDashboardPage() {
 
   const CARDS = [
     {
-      label: "Total Users",
+      label: dash.totalUsers,
       value: loading ? "—" : String(stats.users ?? 0),
       icon: Users,
       accent: "text-primary",
       bg: "bg-primary/10",
-      desc: "All registered accounts",
+      desc: dash.totalUsersDesc,
     },
     {
-      label: "Active Subscriptions",
+      label: dash.activeSubscriptions,
       value: loading ? "—" : String(stats.activeSubscriptions ?? 0),
       icon: CreditCard,
       accent: "text-income",
       bg: "bg-income/10",
-      desc: "Currently paying users",
+      desc: dash.activeSubscriptionsDesc,
     },
     {
-      label: "MRR Estimate",
+      label: dash.mrr,
       value: loading ? "—" : `₹${Number(stats.mrrEstimateInr ?? 0).toLocaleString("en-IN")}`,
       icon: TrendingUp,
       accent: "text-income",
       bg: "bg-income/10",
-      desc: "Monthly recurring revenue",
+      desc: dash.mrrDesc,
     },
     {
-      label: "Failed Payments",
+      label: dash.failedPayments,
       value: loading ? "—" : String(stats.failedPayments ?? 0),
       icon: AlertCircle,
       accent: Number(stats.failedPayments ?? 0) > 0 ? "text-expense" : "text-muted-foreground",
       bg: Number(stats.failedPayments ?? 0) > 0 ? "bg-expense/10" : "bg-surface-2",
-      desc: "Payments that failed and need review",
+      desc: dash.failedPaymentsDesc,
     },
     {
-      label: "API Buckets",
+      label: dash.apiBuckets,
       value: loading ? "—" : String(stats.rateLimitBuckets ?? 0),
       icon: RefreshCw,
       accent: "text-info",
       bg: "bg-info/10",
-      desc: "Active rate-limit bucket rows",
+      desc: dash.apiBucketsDesc,
     },
     {
-      label: "Audit Events (24h)",
+      label: dash.auditEvents,
       value: loading ? "—" : String(stats.recentAuditEvents24h ?? 0),
       icon: AlertCircle,
       accent: "text-warning",
       bg: "bg-warning/10",
-      desc: "Recent audited admin/user mutations",
+      desc: dash.auditEventsDesc,
     },
     {
-      label: "Payments (24h)",
+      label: dash.payments24h,
       value: loading ? "—" : String(stats.payments24h ?? 0),
       icon: CreditCard,
       accent: "text-primary",
       bg: "bg-primary/10",
-      desc: "Payment records created in last day",
+      desc: dash.payments24hDesc,
     },
   ];
 
   return (
     <div>
       <PageHeader
-        title="Admin Dashboard"
-        description="Platform-wide operational overview."
+        title={dash.title}
+        description={dash.description}
         actions={
           <Button variant="outline" size="sm" onClick={load} loading={loading}>
-            <RefreshCw className="h-4 w-4" /> Refresh
+            <RefreshCw className="h-4 w-4" /> {chrome.common.refresh}
           </Button>
         }
       />
@@ -112,14 +115,14 @@ export function AdminDashboardPage() {
           <AlertCircle className="h-4 w-4 shrink-0" />
           <span>{error}</span>
           <Button variant="outline" size="sm" onClick={load} className="ml-auto shrink-0">
-            Retry
+            {chrome.admin.retry}
           </Button>
         </div>
       )}
 
       {loading && !error && (
         <div className="mb-4 flex items-center gap-2 text-sm text-muted-foreground">
-          <Loader2 className="h-4 w-4 animate-spin" /> Loading stats…
+          <Loader2 className="h-4 w-4 animate-spin" /> {dash.loading}
         </div>
       )}
 
@@ -149,7 +152,7 @@ export function AdminDashboardPage() {
 
       {!loading && !error && stats.actor && (
         <p className="mt-5 text-xs text-muted-foreground">
-          Viewed as <span className="font-medium text-foreground">@{stats.actor}</span>
+          {dash.viewedAs} <span className="font-medium text-foreground">@{stats.actor}</span>
         </p>
       )}
     </div>

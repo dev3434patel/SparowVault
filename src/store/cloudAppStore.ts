@@ -5,7 +5,7 @@ interface CloudAppState {
   viewerRole: "user" | "admin";
   flags: Record<string, boolean>;
   settings: Record<string, unknown>;
-  effectiveFeatures: Record<string, boolean>;
+  effectiveFeatures: Record<string, boolean | number>;
   hydrate: () => Promise<void>;
 }
 

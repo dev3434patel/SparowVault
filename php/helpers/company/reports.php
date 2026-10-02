@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . "/reports_statements.php";
 require_once __DIR__ . "/reports_subledgers.php";
+require_once __DIR__ . "/reports_management.php";
 
 /**
  * Report registry — single SoT shared with FE (config/company-report-registry.json).
@@ -96,6 +97,24 @@ function company_report_handler_table(): array {
                 throw new CompanyPostingException("ledgerId required", 422, "VALIDATION_ERROR");
             }
             return company_cash_bank_book($db, $companyId, $ledgerId, (string)$opts["from"], (string)$opts["to"]);
+        },
+        "receipts_payments" => static function (PDO $db, string $companyId, array $opts) {
+            return company_report_receipts_payments($db, $companyId, (string)$opts["from"], (string)$opts["to"]);
+        },
+        "project_report" => static function (PDO $db, string $companyId, array $opts) {
+            return company_report_posted_dimension($db, $companyId, (string)$opts["from"], (string)$opts["to"], "project");
+        },
+        "business_report" => static function (PDO $db, string $companyId, array $opts) {
+            return company_report_posted_dimension($db, $companyId, (string)$opts["from"], (string)$opts["to"], "business");
+        },
+        "area_report" => static function (PDO $db, string $companyId, array $opts) {
+            return company_report_posted_dimension($db, $companyId, (string)$opts["from"], (string)$opts["to"], "area");
+        },
+        "category_report" => static function (PDO $db, string $companyId, array $opts) {
+            return company_report_posted_dimension($db, $companyId, (string)$opts["from"], (string)$opts["to"], "category");
+        },
+        "user_activity" => static function (PDO $db, string $companyId, array $opts) {
+            return company_report_user_activity($db, $companyId, (string)$opts["from"], (string)$opts["to"]);
         },
     ];
 }

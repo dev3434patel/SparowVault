@@ -17,8 +17,10 @@ import {
 } from "@/company/components/PageChrome";
 import { Search } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useI18n } from "@/company/i18n/react";
 
 export function CategoriesPanel({ canManage }: { canManage: boolean }) {
+  const { t } = useI18n();
   const companyId = useCompanyStore((s) => s.activeCompanyId);
   const [categories, setCategories] = useState<PartyCategoryRow[]>([]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -44,7 +46,7 @@ export function CategoriesPanel({ canManage }: { canManage: boolean }) {
         setMembers([]);
       }
     } catch (e) {
-      setErr(e instanceof Error ? e.message : "Failed to load categories");
+      setErr(e instanceof Error ? e.message : t("masters.loadCategoriesFailed"));
       setCategories([]);
     } finally {
       setLoading(false);
@@ -63,7 +65,7 @@ export function CategoriesPanel({ canManage }: { canManage: boolean }) {
       }
       setMembers(mem);
     } catch (e) {
-      setErr(e instanceof Error ? e.message : "Failed to load category");
+      setErr(e instanceof Error ? e.message : t("masters.loadCategoryFailed"));
       setMembers([]);
     } finally {
       setDetailLoading(false);
@@ -108,7 +110,7 @@ export function CategoriesPanel({ canManage }: { canManage: boolean }) {
       const id = res.category?.id ?? res.categoryId;
       if (id) setSelectedId(id);
     } catch (error) {
-      setErr(error instanceof Error ? error.message : "Create failed");
+      setErr(error instanceof Error ? error.message : t("masters.createFailed"));
     } finally {
       setBusy(false);
     }
@@ -124,7 +126,7 @@ export function CategoriesPanel({ canManage }: { canManage: boolean }) {
       await loadList();
       await loadDetail(selectedId);
     } catch (error) {
-      setErr(error instanceof Error ? error.message : "Rename failed");
+      setErr(error instanceof Error ? error.message : t("masters.renameFailed"));
     } finally {
       setBusy(false);
     }
@@ -134,7 +136,7 @@ export function CategoriesPanel({ canManage }: { canManage: boolean }) {
     if (!companyId || !selectedId || !canManage) return;
     const cat = categories.find((c) => c.id === selectedId);
     if (cat && cat.memberCount > 0) {
-      setErr(`Cannot delete “${cat.name}” while it has ${cat.memberCount} member(s). Remove parties first.`);
+      setErr(t("masters.deleteNamed", { name: cat.name, n: cat.memberCount }));
       return;
     }
     setBusy(true);
@@ -145,7 +147,7 @@ export function CategoriesPanel({ canManage }: { canManage: boolean }) {
       setMembers([]);
       await loadList();
     } catch (error) {
-      setErr(error instanceof Error ? error.message : "Delete failed");
+      setErr(error instanceof Error ? error.message : t("masters.deleteFailed"));
     } finally {
       setBusy(false);
     }
@@ -161,7 +163,7 @@ export function CategoriesPanel({ canManage }: { canManage: boolean }) {
       await loadList();
       await loadDetail(selectedId);
     } catch (error) {
-      setErr(error instanceof Error ? error.message : "Assign failed");
+      setErr(error instanceof Error ? error.message : t("masters.assignFailed"));
     } finally {
       setBusy(false);
     }
@@ -176,7 +178,7 @@ export function CategoriesPanel({ canManage }: { canManage: boolean }) {
       await loadList();
       await loadDetail(selectedId);
     } catch (error) {
-      setErr(error instanceof Error ? error.message : "Remove failed");
+      setErr(error instanceof Error ? error.message : t("masters.removeFailed"));
     } finally {
       setBusy(false);
     }
@@ -187,19 +189,20 @@ export function CategoriesPanel({ canManage }: { canManage: boolean }) {
   return (
     <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
       <SectionCard
-        title="Categories"
+        title={t("masters.catTitle")}
         actions={
           canManage ? (
             <form className="flex items-center gap-2" onSubmit={(e) => void onCreate(e)}>
               <Input
                 value={newName}
                 onChange={(e) => setNewName(e.target.value)}
-                placeholder="e.g. Farmers"
+                placeholder={t("masters.newNamePh")}
                 className="h-8 w-36 text-sm"
-                aria-label="New category name"
+                id="company-new-category"
+                aria-label={t("masters.newName")}
               />
               <Button type="submit" size="sm" disabled={busy || !newName.trim()}>
-                Create category
+                {t("masters.createCategory")}
               </Button>
             </form>
           ) : null
@@ -215,18 +218,18 @@ export function CategoriesPanel({ canManage }: { canManage: boolean }) {
         ) : null}
         {!loading && categories.length === 0 ? (
           <EmptyState
-            title="No categories yet"
-            body="No categories yet — group parties (e.g., Farmers, Builders) for focused reports."
+            title={t("masters.emptyTitle")}
+            body={t("masters.emptyBody")}
             actions={
               canManage ? (
                 <Button
                   size="sm"
                   onClick={() => {
-                    const el = document.querySelector<HTMLInputElement>('input[aria-label="New category name"]');
+                    const el = document.getElementById("company-new-category");
                     el?.focus();
                   }}
                 >
-                  Create first category
+                  {t("masters.createFirst")}
                 </Button>
               ) : null
             }
@@ -245,7 +248,7 @@ export function CategoriesPanel({ canManage }: { canManage: boolean }) {
                   )}
                 >
                   <span className="font-medium">{c.name}</span>
-                  <ToneBadge label={`${c.memberCount} members`} tone="neutral" />
+                  <ToneBadge label={t("masters.memberCount", { n: c.memberCount })} tone="neutral" />
                 </button>
               </li>
             ))}
@@ -253,18 +256,18 @@ export function CategoriesPanel({ canManage }: { canManage: boolean }) {
         ) : null}
       </SectionCard>
 
-      <SectionCard title={selected ? selected.name : "Category detail"}>
+      <SectionCard title={selected ? selected.name : t("masters.detail")}>
         {!selectedId ? (
-          <p className="text-sm text-muted-foreground">Select a category to manage members.</p>
+          <p className="text-sm text-muted-foreground">{t("masters.selectCategory")}</p>
         ) : (
           <div className="space-y-4">
             {canManage ? (
               <form className="flex flex-col gap-2 sm:flex-row sm:items-end" onSubmit={(e) => void onRename(e)}>
-                <Field label="Rename" className="flex-1">
+                <Field label={t("masters.rename")} className="flex-1">
                   <Input value={renameValue} onChange={(e) => setRenameValue(e.target.value)} className="h-10" />
                 </Field>
                 <Button type="submit" size="sm" variant="outline" disabled={busy || !renameValue.trim()}>
-                  Save name
+                  {t("masters.saveName")}
                 </Button>
                 <Button
                   type="button"
@@ -273,29 +276,29 @@ export function CategoriesPanel({ canManage }: { canManage: boolean }) {
                   disabled={busy || (selected?.memberCount ?? 0) > 0}
                   title={
                     (selected?.memberCount ?? 0) > 0
-                      ? `Cannot delete while ${selected?.memberCount} member(s) remain`
-                      : "Delete category"
+                      ? t("masters.cannotDelete", { n: selected?.memberCount ?? 0 })
+                      : t("masters.deleteCategory")
                   }
                   onClick={() => void onDelete()}
                 >
-                  Delete
+                  {t("common.delete")}
                 </Button>
               </form>
             ) : null}
             {(selected?.memberCount ?? 0) > 0 && canManage ? (
               <p className="text-xs text-muted-foreground">
-                Delete is blocked while members exist — remove parties first.
+                {t("masters.deleteBlocked")}
               </p>
             ) : null}
 
             <div>
               <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                Members ({members.length})
+                {t("masters.members", { n: members.length })}
               </h3>
               {detailLoading ? (
                 <div className="h-16 animate-pulse rounded-lg bg-muted" />
               ) : members.length === 0 ? (
-                <p className="text-sm text-muted-foreground">No parties in this category yet.</p>
+                <p className="text-sm text-muted-foreground">{t("masters.noParties")}</p>
               ) : (
                 <ul className="divide-y divide-border text-sm">
                   {members.map((m) => (
@@ -306,7 +309,7 @@ export function CategoriesPanel({ canManage }: { canManage: boolean }) {
                       </div>
                       {canManage ? (
                 <Button type="button" size="sm" variant="outline" disabled={busy} onClick={() => void onUnassign(m.id)}>
-                          Remove party
+                          {t("masters.removeParty")}
                         </Button>
                       ) : null}
                     </li>
@@ -318,20 +321,20 @@ export function CategoriesPanel({ canManage }: { canManage: boolean }) {
             {canManage ? (
               <div>
                 <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                  Assign party
+                  {t("masters.assignParty")}
                 </h3>
                 <div className="relative mb-2">
                   <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                   <Input
                     value={partyQuery}
                     onChange={(e) => setPartyQuery(e.target.value)}
-                    placeholder="Search parties…"
+                    placeholder={t("masters.searchParties")}
                     className="h-10 pl-9"
                   />
                 </div>
                 {pickerParties.length === 0 ? (
                   <p className="text-sm text-muted-foreground">
-                    {partyQuery.trim() ? "No matching parties." : "All parties are already assigned, or none exist."}
+                    {partyQuery.trim() ? t("masters.noMatch") : t("masters.allAssigned")}
                   </p>
                 ) : (
                   <ul className="max-h-48 divide-y divide-border overflow-y-auto rounded-lg border border-border text-sm">
@@ -339,7 +342,7 @@ export function CategoriesPanel({ canManage }: { canManage: boolean }) {
                       <li key={p.id} className="flex items-center justify-between gap-2 px-3 py-2">
                         <span>{p.displayName}</span>
                         <Button type="button" size="sm" disabled={busy} onClick={() => void onAssign(p.id)}>
-                          Assign party
+                          {t("masters.assignParty")}
                         </Button>
                       </li>
                     ))}

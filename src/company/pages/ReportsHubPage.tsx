@@ -1,11 +1,19 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Field } from "@/components/ui/Label";
 import { companyNavigate, companyPath } from "@/company/routes";
 import { companyApi } from "@/company/api/client";
+import {
+  beginReportLoadAt,
+  initialReportLoadState,
+  rejectReportLoad,
+  reportScreenStatus,
+  settleReportLoad,
+} from "@/company/lib/reportLoad";
 import { useCompanyStore } from "@/company/store/companyStore";
+import { ApiError } from "@/lib/apiClient";
 import { formatMoney } from "@/utils/money";
 import reportRegistry from "../../../config/company-report-registry.json";
 import { PageHeader } from "@/company/components/PageChrome";
@@ -44,7 +52,7 @@ const REPORT_GROUPS: Array<{ title: string; keys: string[] }> = [
   },
   {
     title: "Management",
-    keys: ["receipts-payments", "project-report", "business-report", "area-report", "category-report"],
+    keys: ["receipts-payments", "project-report", "business-report", "area-report", "category-report", "user-activity"],
   },
 ];
 
@@ -163,9 +171,8 @@ export function ReportViewPage({ reportKey }: { reportKey: string }) {
   const [parties, setParties] = useState<Array<{ id: string; name: string }>>([]);
   const [ledgers, setLedgers] = useState<Array<{ id: string; name: string }>>([]);
   const [side, setSide] = useState("receivable");
-  const [data, setData] = useState<unknown>(null);
-  const [err, setErr] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loadState, setLoadState] = useState(initialReportLoadState);
+  const requestSeq = useRef(0);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -178,6 +185,11 @@ export function ReportViewPage({ reportKey }: { reportKey: string }) {
   const registryEntry = (reportRegistry.reports as RegistryReport[]).find((r) => r.key === reportKey);
   const needsParty = Boolean(registryEntry?.requires?.includes("partyId"));
   const needsLedger = Boolean(registryEntry?.requires?.includes("ledgerId"));
+  const autoRun = !needsParty && !needsLedger;
+  const screen = reportScreenStatus(loadState, reportKey, autoRun);
+  const data = screen === "ready" ? loadState.data : null;
+  const err = screen === "error" ? loadState.error : null;
+  const loading = screen === "loading";
 
   useEffect(() => {
     if (!companyId || !needsParty) return;
@@ -196,11 +208,15 @@ export function ReportViewPage({ reportKey }: { reportKey: string }) {
   async function load() {
     if (!companyId) return;
     if (needsParty && !partyId.trim()) {
-      setErr(t("reports.partyRequired"));
+      requestSeq.current += 1;
+      const seq = requestSeq.current;
+      setLoadState((current) => ({ ...rejectReportLoad(current, reportKey, t("reports.partyRequired")), seq }));
       return;
     }
     if (needsLedger && !ledgerId.trim()) {
-      setErr(t("reports.ledgerRequired"));
+      requestSeq.current += 1;
+      const seq = requestSeq.current;
+      setLoadState((current) => ({ ...rejectReportLoad(current, reportKey, t("reports.ledgerRequired")), seq }));
       return;
     }
     const sideValue =
@@ -218,11 +234,14 @@ export function ReportViewPage({ reportKey }: { reportKey: string }) {
           : undefined,
     });
     if (!parsed.ok) {
-      setErr(parsed.message);
+      requestSeq.current += 1;
+      const seq = requestSeq.current;
+      setLoadState((current) => ({ ...rejectReportLoad(current, reportKey, parsed.message), seq }));
       return;
     }
-    setLoading(true);
-    setErr(null);
+    requestSeq.current += 1;
+    const seq = requestSeq.current;
+    setLoadState((current) => beginReportLoadAt(current, seq));
     try {
       const extra: Record<string, string> = {};
       if (parsed.data.partyId) extra.partyId = parsed.data.partyId;
@@ -232,19 +251,17 @@ export function ReportViewPage({ reportKey }: { reportKey: string }) {
       const reportApiKey =
         reportKey === "receivables" || reportKey === "payables" ? "ageing" : reportKey;
       const res = await companyApi.report(companyId, reportApiKey, from, to, extra);
-      setData(res.data);
+      setLoadState((current) => settleReportLoad(current, seq, reportKey, { ok: true, data: res.data }));
     } catch (e) {
-      setErr(e instanceof Error ? e.message : "Report failed");
-      setData(null);
-    } finally {
-      setLoading(false);
+      const message = e instanceof ApiError || e instanceof Error ? e.message : "Report failed";
+      setLoadState((current) => settleReportLoad(current, seq, reportKey, { ok: false, error: message }));
     }
   }
 
   useEffect(() => {
-    if (!needsParty && !needsLedger) void load();
+    if (autoRun) void load();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [companyId, reportKey, from, to, side]);
+  }, [companyId, reportKey, from, to, side, autoRun]);
 
   const tables = useMemo(() => {
     if (data == null) return [];

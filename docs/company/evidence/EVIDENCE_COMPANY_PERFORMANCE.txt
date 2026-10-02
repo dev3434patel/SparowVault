@@ -1,9 +1,9 @@
 {
-    "companyId": "c8045a4b-a18a-4597-9d74-5100a419172a",
+    "companyId": "9cbc0451-63f6-465f-a0a0-eadc6979429d",
     "parties": 50,
     "vouchers": 80,
-    "partyInsertSec": 0.02,
-    "voucherPostSec": 0.74,
+    "partyInsertSec": 0.021,
+    "voucherPostSec": 0.915,
     "trialBalanceSec": 0.008,
     "tbRows": 2
 }

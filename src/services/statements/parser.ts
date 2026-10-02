@@ -1,5 +1,6 @@
 import { BANKS, type BankId, type StatementAnalysis, type StatementPage, type StatementRow, type StatementToken } from "./types";
 import { detectStatementIssuer } from "./issuer";
+import { uncertifiedLayoutIssue } from "./layoutRegistry";
 import { buildPageCoverage, isNonTransactionNarration } from "./verifier";
 
 export const MAX_STATEMENT_ROWS = 2000;
@@ -170,6 +171,14 @@ export function analyzeStatement(pages: StatementPage[], selectedBank: BankId | 
   const bank = detected.length === 1 ? detected[0].id : selectedBank === "auto" ? null : selectedBank;
   const issuer = detectStatementIssuer(pages);
   const result: StatementAnalysis = { parserVersion: "statement-text-v2", bank, rows: [], openingPaise: null, closingPaise: null, periodFrom: null, periodTo: null, periodSource: "transactions", order: "ascending", issues: [], warnings: [], pageCount: pages.length };
+  const finish = () => {
+    if (result.bank) {
+      const certificationIssue = uncertifiedLayoutIssue(result.bank);
+      if (certificationIssue) result.issues.push(certificationIssue);
+    }
+    result.issues = [...new Set(result.issues)];
+    return result;
+  };
   // Only strong header/footer issuer evidence can contradict the detected bank.
   if (!issuer.needsConfirmation && issuer.bankId && bank && issuer.bankId !== bank) {
     result.warnings.push(`Header/footer issuer hint (${issuer.bankId}) differs from selected/detected bank (${bank}).`);
@@ -282,7 +291,7 @@ export function analyzeStatement(pages: StatementPage[], selectedBank: BankId | 
       if (!row.description) row.issues.push("Missing transaction narration.");
       if (row.balancePaise === null) row.issues.push("Invalid or missing running balance.");
       result.rows.push(row); lastRow = row; lastNarrationY = line.y;
-      if (result.rows.length > MAX_STATEMENT_ROWS) { result.issues.push(`More than ${MAX_STATEMENT_ROWS} rows; split the statement by period.`); return result; }
+      if (result.rows.length > MAX_STATEMENT_ROWS) { result.issues.push(`More than ${MAX_STATEMENT_ROWS} rows; split the statement by period.`); return finish(); }
     }
   }
   if (kotakNumbered) {
@@ -323,6 +332,5 @@ export function analyzeStatement(pages: StatementPage[], selectedBank: BankId | 
       "OCR critical fields require human verification even when page confidence is high; page confidence is not money-digit proof.",
     );
   }
-  result.issues = [...new Set(result.issues)];
-  return result;
+  return finish();
 }

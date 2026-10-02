@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PageHeader } from "@/components/layout/PageHeader";
+import { PersonalPageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -16,12 +16,14 @@ import {
 } from "@/services/authService";
 import { Lock, LogOut, Save, UserCircle2 } from "lucide-react";
 import { formatDate } from "@/lib/format";
+import { useMessages } from "@/i18n/useMessages";
+import type { PersonalChrome } from "@/i18n/messages/personalChrome";
 
-function validatePin(pin: string) {
-  if (!/^\d{4,8}$/.test(pin)) return "PIN must be 4 to 8 digits";
-  if (["0000", "1111", "1234", "123456", "9999"].includes(pin)) return "Choose a less common PIN";
+function validatePin(pin: string, auth: PersonalChrome["auth"]) {
+  if (!/^\d{4,8}$/.test(pin)) return auth.pinDigits;
+  if (["0000", "1111", "1234", "123456", "9999"].includes(pin)) return auth.pinCommon;
   if (/^(19|20)\d{2}(0[1-9]|1[0-2])$/.test(pin) || /^(0[1-9]|[12]\d|3[01])(0[1-9]|1[0-2])\d{2}$/.test(pin)) {
-    return "Avoid date-like PINs";
+    return auth.pinDate;
   }
   return null;
 }
@@ -32,6 +34,10 @@ export function ProfilePage() {
   const lock = useAuthStore((s) => s.lock);
   const logout = useAuthStore((s) => s.logout);
   const toast = useUIStore((s) => s.toast);
+  const messages = useMessages();
+  const p = messages.ui.profile;
+  const auth = messages.ui.auth;
+  const common = messages.ui.common;
 
   const [form, setForm] = useState({
     displayName: user?.displayName ?? "",
@@ -65,9 +71,9 @@ export function ProfilePage() {
     try {
       await updateUserProfile(user.id, form);
       await refresh();
-      toast({ title: "Profile updated", kind: "success" });
+      toast({ title: p.updated, kind: "success" });
     } catch (e) {
-      toast({ title: e instanceof Error ? e.message : "Failed to save profile", kind: "error" });
+      toast({ title: e instanceof Error ? e.message : p.saveFailed, kind: "error" });
     } finally {
       setSaving(false);
     }
@@ -76,17 +82,17 @@ export function ProfilePage() {
   async function savePin() {
     if (!user) return;
     setPinErr(null);
-    const pinError = validatePin(newPin);
+    const pinError = validatePin(newPin, auth);
     if (pinError) {
       setPinErr(pinError);
       return;
     }
     if (newPin === oldPin) {
-      setPinErr("New PIN must be different from current PIN");
+      setPinErr(auth.pinDifferent);
       return;
     }
     if (newPin !== confirmNew) {
-      setPinErr("PINs do not match");
+      setPinErr(auth.pinsMismatch);
       return;
     }
     setPinSaving(true);
@@ -95,10 +101,10 @@ export function ProfilePage() {
       setOldPin("");
       setNewPin("");
       setConfirmNew("");
-      toast({ title: "PIN changed", kind: "success" });
+      toast({ title: p.pinChanged, kind: "success" });
       await logout();
     } catch (e) {
-      setPinErr(e instanceof Error ? e.message : "Failed");
+      setPinErr(e instanceof Error ? e.message : auth.pinChangeFailed);
     } finally {
       setPinSaving(false);
     }
@@ -111,10 +117,10 @@ export function ProfilePage() {
       await saveSecurityAnswerService(user.id, form.securityQuestion, securityAnswer, securityPin);
       setSecurityAnswer("");
       setSecurityPin("");
-      toast({ title: "Security recovery updated", kind: "success" });
+      toast({ title: p.recoveryUpdated, kind: "success" });
       await refresh();
     } catch (e) {
-      toast({ title: e instanceof Error ? e.message : "Failed to update recovery", kind: "error" });
+      toast({ title: e instanceof Error ? e.message : p.recoveryFailed, kind: "error" });
     } finally {
       setSecuritySaving(false);
     }
@@ -123,13 +129,13 @@ export function ProfilePage() {
   async function recoverPin() {
     if (!user) return;
     setRecoveryErr(null);
-    const pinError = validatePin(recoveryNewPin);
+    const pinError = validatePin(recoveryNewPin, auth);
     if (pinError) {
       setRecoveryErr(pinError);
       return;
     }
     if (recoveryNewPin !== recoveryConfirmPin) {
-      setRecoveryErr("New PINs do not match");
+      setRecoveryErr(auth.pinsMismatch);
       return;
     }
     setRecoverySaving(true);
@@ -138,10 +144,10 @@ export function ProfilePage() {
       setRecoveryAnswer("");
       setRecoveryNewPin("");
       setRecoveryConfirmPin("");
-      toast({ title: "PIN reset successful", kind: "success" });
+      toast({ title: p.pinReset, kind: "success" });
       await logout();
     } catch (e) {
-      setRecoveryErr(e instanceof Error ? e.message : "PIN reset failed");
+      setRecoveryErr(e instanceof Error ? e.message : p.pinResetFailed);
     } finally {
       setRecoverySaving(false);
     }
@@ -149,10 +155,7 @@ export function ProfilePage() {
 
   return (
     <div>
-      <PageHeader
-        title="Profile & Security"
-        description="Personal details, avatar, security question, and PIN management."
-      />
+      <PersonalPageHeader screen="profile" />
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
         <Card className="lg:col-span-1">
@@ -172,19 +175,19 @@ export function ProfilePage() {
               {user.email ? <Badge variant="outline">{user.email}</Badge> : null}
             </div>
             <div className="mt-4 w-full space-y-2 text-left text-xs">
-              <InfoRow label="Profile ID" value={user.id.slice(0, 12) + "…"} />
-              <InfoRow label="Created" value={formatDate(user.createdAt)} />
+              <InfoRow label={p.profileId} value={user.id.slice(0, 12) + "…"} />
+              <InfoRow label={p.created} value={formatDate(user.createdAt)} />
               <InfoRow
-                label="Last login"
+                label={p.lastLogin}
                 value={user.lastLoginAt ? formatDate(user.lastLoginAt) : "—"}
               />
             </div>
             <div className="mt-4 flex w-full gap-2">
               <Button variant="outline" className="flex-1" onClick={() => lock()}>
-                <Lock className="h-4 w-4" /> Lock
+                <Lock className="h-4 w-4" /> {common.lock}
               </Button>
               <Button variant="destructive" className="flex-1" onClick={() => logout()}>
-                <LogOut className="h-4 w-4" /> Logout
+                <LogOut className="h-4 w-4" /> {common.logout}
               </Button>
             </div>
           </CardContent>
@@ -195,33 +198,33 @@ export function ProfilePage() {
             <CardHeader>
               <div className="flex items-center gap-2">
                 <UserCircle2 className="h-5 w-5" />
-                <CardTitle>Personal details</CardTitle>
+                <CardTitle>{p.personal}</CardTitle>
               </div>
-              <CardDescription>Displayed throughout the app</CardDescription>
+              <CardDescription>{p.personalHint}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-2 gap-3">
-                <Field label="Display name" className="col-span-2">
+                <Field label={p.displayName} className="col-span-2">
                   <Input
                     value={form.displayName}
                     onChange={(e) => setForm({ ...form, displayName: e.target.value })}
                   />
                 </Field>
-                <Field label="Mobile">
+                <Field label={p.mobile}>
                   <Input
                     value={form.mobile}
                     onChange={(e) => setForm({ ...form, mobile: e.target.value })}
                     placeholder="+91…"
                   />
                 </Field>
-                <Field label="Email">
+                <Field label={p.email}>
                   <Input
                     type="email"
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
                   />
                 </Field>
-                <Field label="Avatar emoji" className="col-span-2">
+                <Field label={p.avatarEmoji} className="col-span-2">
                   <div className="flex flex-wrap gap-2">
                     {AVATAR_EMOJIS.map((e) => (
                       <button
@@ -239,7 +242,7 @@ export function ProfilePage() {
                     ))}
                   </div>
                 </Field>
-                <Field label="Avatar color" className="col-span-2">
+                <Field label={p.avatarColor} className="col-span-2">
                   <div className="flex flex-wrap gap-2">
                     {AVATAR_COLORS.map((c) => (
                       <button
@@ -256,33 +259,33 @@ export function ProfilePage() {
                     ))}
                   </div>
                 </Field>
-                <Field label="Security question" className="col-span-2">
+                <Field label={p.securityQuestion} className="col-span-2">
                   <Input
                     value={form.securityQuestion}
                     onChange={(e) =>
                       setForm({ ...form, securityQuestion: e.target.value })
                     }
-                    placeholder="Your mother's first school"
+                    placeholder={p.securityQuestionPh}
                   />
                 </Field>
-                <Field label="Current PIN for recovery changes" className="col-span-2">
-                  <Input aria-label="Current PIN for recovery changes" type="password" autoComplete="current-password" value={securityPin} onChange={e => setSecurityPin(e.target.value)} />
+                <Field label={p.currentPinRecovery} className="col-span-2">
+                  <Input aria-label={p.currentPinRecovery} type="password" autoComplete="current-password" value={securityPin} onChange={e => setSecurityPin(e.target.value)} />
                 </Field>
-                <Field label="Security answer (hidden hash)" className="col-span-2">
+                <Field label={p.securityAnswer} className="col-span-2">
                   <Input
                     type="password"
                     value={securityAnswer}
                     onChange={(e) => setSecurityAnswer(e.target.value)}
-                    placeholder="Enter your secret answer"
+                    placeholder={p.secretPh}
                   />
                 </Field>
               </div>
                 <div className="mt-3 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
                   <Button variant="outline" onClick={saveSecurityRecovery} loading={securitySaving}>
-                    Save security recovery
+                    {p.saveRecovery}
                   </Button>
                   <Button onClick={saveProfile} loading={saving}>
-                  <Save className="h-4 w-4" /> Save profile
+                  <Save className="h-4 w-4" /> {p.saveProfile}
                 </Button>
               </div>
             </CardContent>
@@ -292,27 +295,27 @@ export function ProfilePage() {
             <CardHeader>
               <div className="flex items-center gap-2">
                 <Lock className="h-5 w-5" />
-                <CardTitle>Change PIN</CardTitle>
+                <CardTitle>{p.changePin}</CardTitle>
               </div>
-              <CardDescription>4-8 digits; used to unlock this profile</CardDescription>
+              <CardDescription>{p.changePinHint}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-                <Field label="Current PIN" required>
+                <Field label={p.currentPin} required>
                   <Input
                     type="password"
                     value={oldPin}
                     onChange={(e) => setOldPin(e.target.value)}
                   />
                 </Field>
-                <Field label="New PIN" required>
+                <Field label={p.newPin} required>
                   <Input
                     type="password"
                     value={newPin}
                     onChange={(e) => setNewPin(e.target.value)}
                   />
                 </Field>
-                <Field label="Confirm new" required>
+                <Field label={p.confirmNew} required>
                   <Input
                     type="password"
                     value={confirmNew}
@@ -327,7 +330,7 @@ export function ProfilePage() {
               ) : null}
               <div className="mt-3 flex justify-end">
                 <Button onClick={savePin} loading={pinSaving}>
-                  <Save className="h-4 w-4" /> Update PIN
+                  <Save className="h-4 w-4" /> {p.updatePin}
                 </Button>
               </div>
             </CardContent>
@@ -337,27 +340,27 @@ export function ProfilePage() {
             <CardHeader>
               <div className="flex items-center gap-2">
                 <Lock className="h-5 w-5" />
-                <CardTitle>Forgot PIN recovery</CardTitle>
+                <CardTitle>{p.forgot}</CardTitle>
               </div>
-              <CardDescription>Reset PIN using your saved security answer (current session required)</CardDescription>
+              <CardDescription>{p.forgotHint}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-                <Field label="Security answer" required>
+                <Field label={p.securityAnswer} required>
                   <Input
                     type="password"
                     value={recoveryAnswer}
                     onChange={(e) => setRecoveryAnswer(e.target.value)}
                   />
                 </Field>
-                <Field label="New PIN" required>
+                <Field label={p.newPin} required>
                   <Input
                     type="password"
                     value={recoveryNewPin}
                     onChange={(e) => setRecoveryNewPin(e.target.value)}
                   />
                 </Field>
-                <Field label="Confirm new PIN" required>
+                <Field label={p.confirmNewPin} required>
                   <Input
                     type="password"
                     value={recoveryConfirmPin}
@@ -372,7 +375,7 @@ export function ProfilePage() {
               ) : null}
               <div className="mt-3 flex justify-end">
                 <Button onClick={recoverPin} loading={recoverySaving}>
-                  Reset PIN via recovery
+                  {p.resetVia}
                 </Button>
               </div>
             </CardContent>

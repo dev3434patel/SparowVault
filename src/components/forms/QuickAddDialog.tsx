@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { useUIStore } from "@/store/uiStore";
 import { TransactionForm } from "./TransactionForm";
+import { formatIntentLabel } from "@/lib/format";
 import {
   INCOMING_INTENT_LABELS,
   OUTGOING_INTENT_LABELS,
@@ -18,10 +19,14 @@ import {
 } from "@/services/transactionIntent";
 import type { IncomingIntent, OutgoingIntent, TransactionIntent } from "@/types";
 import { rupeesToPaise } from "@/utils/money";
+import { useMessages } from "@/i18n/useMessages";
 
 type Step = "amount" | "intent" | "form";
 
 export function QuickAddDialog() {
+  const messages = useMessages();
+  const copy = messages.ui.quickAdd;
+  const common = messages.ui.common;
   const mode = useUIStore((s) => s.quickAddOpen);
   const close = useUIStore((s) => s.closeQuickAdd);
   const open = mode !== null;
@@ -47,20 +52,20 @@ export function QuickAddDialog() {
 
   const intentOptions =
     direction === "out"
-      ? (Object.entries(OUTGOING_INTENT_LABELS) as [OutgoingIntent, string][])
+      ? (Object.keys(OUTGOING_INTENT_LABELS) as OutgoingIntent[]).map((id) => [id, formatIntentLabel(id)] as const)
       : direction === "in"
-        ? (Object.entries(INCOMING_INTENT_LABELS) as [IncomingIntent, string][])
+        ? (Object.keys(INCOMING_INTENT_LABELS) as IncomingIntent[]).map((id) => [id, formatIntentLabel(id)] as const)
         : [];
 
   return (
     <Dialog open={open} onOpenChange={(o) => !o && handleClose()}>
       <DialogContent size="lg">
         <DialogHeader>
-          <DialogTitle>Quick add</DialogTitle>
+          <DialogTitle>{copy.title}</DialogTitle>
           <DialogDescription>
-            {step === "amount" && "Enter amount and choose whether money went out or came in."}
-            {step === "intent" && "What happened? Pick the closest match."}
-            {step === "form" && "Confirm details — preview shows financial effects before save."}
+            {step === "amount" && copy.amountHelp}
+            {step === "intent" && copy.intentHelp}
+            {step === "form" && copy.formHelp}
           </DialogDescription>
         </DialogHeader>
 
@@ -69,7 +74,7 @@ export function QuickAddDialog() {
             <Input
               type="number"
               min={0}
-              placeholder="Amount (₹)"
+              placeholder={copy.amountPh}
               value={amount}
               onChange={(e) => setAmount(e.target.value === "" ? "" : Number(e.target.value))}
             />
@@ -79,14 +84,14 @@ export function QuickAddDialog() {
                 variant={direction === "out" ? "default" : "outline"}
                 onClick={() => setDirection("out")}
               >
-                Money went out
+                {copy.out}
               </Button>
               <Button
                 type="button"
                 variant={direction === "in" ? "default" : "outline"}
                 onClick={() => setDirection("in")}
               >
-                Money came in
+                {copy.inn}
               </Button>
             </div>
             <Button
@@ -94,7 +99,7 @@ export function QuickAddDialog() {
               disabled={!direction || amount === "" || Number(amount) <= 0}
               onClick={() => setStep("intent")}
             >
-              Continue
+              {common.continue}
             </Button>
           </div>
         )}
@@ -116,7 +121,7 @@ export function QuickAddDialog() {
               </Button>
             ))}
             <Button type="button" variant="ghost" onClick={() => setStep("amount")}>
-              Back
+              {common.back}
             </Button>
           </div>
         )}

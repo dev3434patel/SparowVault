@@ -11,6 +11,9 @@ import { CompanyMoney } from "@/company/components/CompanyMoney";
 import { KpiCard } from "@/company/components/KpiCard";
 import { PageHeader, ToneBadge } from "@/company/components/PageChrome";
 import { cn } from "@/lib/utils";
+import { useHasPermission } from "@/company/components/PermissionGate";
+import { statementRowAmountPaise } from "@/company/finance/voucherListAmount";
+import { useI18n } from "@/company/i18n/react";
 
 const ROLE_OPTIONS: PartyRoleCode[] = [
   "CUSTOMER",
@@ -26,15 +29,14 @@ const ROLE_OPTIONS: PartyRoleCode[] = [
   "OTHER",
 ];
 
-function roleLabel(code: string) {
-  return code
-    .toLowerCase()
-    .split("_")
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join(" ");
+function roleLabel(code: string, t: (key: string) => string) {
+  const key = `partyRole.${code}`;
+  const label = t(key);
+  return label === key ? code : label;
 }
 
 export function PartyDetailPage({ partyId }: { partyId: string }) {
+  const { t } = useI18n();
   const companyId = useCompanyStore((s) => s.activeCompanyId);
   const [party, setParty] = useState<CompanyParty | null>(null);
   const [statement, setStatement] = useState<Record<string, unknown> | null>(null);
@@ -43,6 +45,18 @@ export function PartyDetailPage({ partyId }: { partyId: string }) {
   const [err, setErr] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [savingRoles, setSavingRoles] = useState(false);
+  const [statementError, setStatementError] = useState<string | null>(null);
+  const [billsError, setBillsError] = useState<string | null>(null);
+  const canManage = useHasPermission("manage_parties");
+  const [range] = useState(() => {
+    const params = new URLSearchParams(typeof window === "undefined" ? "" : window.location.search);
+    const from = params.get("from");
+    const to = params.get("to");
+    if (from && to) return { from, to };
+    const start = new Date();
+    start.setMonth(start.getMonth() - 3);
+    return { from: start.toISOString().slice(0, 10), to: new Date().toISOString().slice(0, 10) };
+  });
 
   useEffect(() => {
     if (!companyId || !partyId) return;
@@ -54,29 +68,39 @@ export function PartyDetailPage({ partyId }: { partyId: string }) {
         const p = await companyApi.getParty(companyId, partyId);
         if (cancelled) return;
         setParty(p);
-        const from = new Date();
-        from.setMonth(from.getMonth() - 3);
-        const fromStr = from.toISOString().slice(0, 10);
-        const toStr = new Date().toISOString().slice(0, 10);
-        const [rep, billsR, billsP] = await Promise.all([
-          companyApi.report(companyId, "party-statement", fromStr, toStr, { partyId }).catch(() => null),
-          companyApi.listBills(companyId, "RECEIVABLE").catch(() => []),
-          companyApi.listBills(companyId, "PAYABLE").catch(() => []),
+        const [rep, billsR, billsP] = await Promise.allSettled([
+          companyApi.report(companyId, "party-statement", range.from, range.to, { partyId }),
+          companyApi.listBills(companyId, "RECEIVABLE"),
+          companyApi.listBills(companyId, "PAYABLE"),
         ]);
         if (cancelled) return;
-        setStatement(rep ? ((rep.data as Record<string, unknown>) ?? null) : null);
-        setRecv(
-          billsR
-            .filter((b) => String(b.partyId) === partyId)
-            .reduce((a, b) => a + Number(b.outstandingPaise ?? 0), 0),
-        );
-        setPay(
-          billsP
-            .filter((b) => String(b.partyId) === partyId)
-            .reduce((a, b) => a + Number(b.outstandingPaise ?? 0), 0),
-        );
+        if (rep.status === "fulfilled") {
+          setStatement((rep.value.data as Record<string, unknown>) ?? null);
+          setStatementError(null);
+        } else {
+          setStatement(null);
+          setStatementError(rep.reason instanceof Error ? rep.reason.message : t("partyDetail.statementFailed"));
+        }
+        if (billsR.status === "fulfilled" && billsP.status === "fulfilled") {
+          setBillsError(null);
+          setRecv(
+            billsR.value
+              .filter((b) => String(b.partyId) === partyId)
+              .reduce((a, b) => a + Number(b.outstandingPaise ?? 0), 0),
+          );
+          setPay(
+            billsP.value
+              .filter((b) => String(b.partyId) === partyId)
+              .reduce((a, b) => a + Number(b.outstandingPaise ?? 0), 0),
+          );
+        } else {
+          setRecv(0);
+          setPay(0);
+          const reason = billsR.status === "rejected" ? billsR.reason : billsP.status === "rejected" ? billsP.reason : null;
+          setBillsError(reason instanceof Error ? reason.message : t("partyDetail.billsFailed"));
+        }
       } catch (e) {
-        if (!cancelled) setErr(e instanceof Error ? e.message : "Failed to load party");
+        if (!cancelled) setErr(e instanceof Error ? e.message : t("partyDetail.loadFailed"));
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -84,18 +108,18 @@ export function PartyDetailPage({ partyId }: { partyId: string }) {
     return () => {
       cancelled = true;
     };
-  }, [companyId, partyId]);
+  }, [companyId, partyId, range.from, range.to, t]);
 
-  const name = party?.displayName ?? `Party ${partyId}`;
+  const name = party?.displayName ?? t("partyDetail.fallbackName", { id: partyId });
   const closing = Number(statement?.closingPaise ?? party?.openingBalancePaise ?? recv - pay);
   const plain =
     typeof statement?.plainLanguage === "string" && statement.plainLanguage
-      ? { sentence: String(statement.plainLanguage), shortLabel: "Balance", side: "settled" as const, amountPaise: Math.abs(closing) }
+      ? { sentence: String(statement.plainLanguage), shortLabel: t("parties.balance"), side: "settled" as const, amountPaise: Math.abs(closing) }
       : plainLanguageBalance(name, closing);
   const rows = Array.isArray(statement?.rows) ? (statement!.rows as Array<Record<string, unknown>>) : [];
 
   async function toggleRole(code: PartyRoleCode) {
-    if (!companyId || !party) return;
+    if (!companyId || !party || !canManage) return;
     const next = party.roles.includes(code)
       ? party.roles.filter((r) => r !== code)
       : [...party.roles, code];
@@ -105,7 +129,7 @@ export function PartyDetailPage({ partyId }: { partyId: string }) {
       const updated = await companyApi.updateParty(companyId, partyId, { roles: next });
       setParty(updated as CompanyParty);
     } catch (e) {
-      setErr(e instanceof Error ? e.message : "Could not update roles");
+      setErr(e instanceof Error ? e.message : t("partyDetail.rolesFailed"));
     } finally {
       setSavingRoles(false);
     }
@@ -114,18 +138,18 @@ export function PartyDetailPage({ partyId }: { partyId: string }) {
   return (
     <div className="space-y-4">
       <PageHeader
-        title={loading ? "Party" : name}
+        title={loading ? t("partyDetail.title") : name}
         subtitle={plain.sentence}
         actions={
           <div className="flex flex-wrap gap-2">
             <Button size="sm" variant="outline" onClick={() => companyNavigate(companyPath("parties"))}>
-              ← Parties
+              {t("partyDetail.back")}
             </Button>
             <Button size="sm" onClick={() => companyNavigate(companyPath("quick-received"))}>
-              Receive
+              {t("parties.receive")}
             </Button>
             <Button size="sm" variant="secondary" onClick={() => companyNavigate(companyPath("quick-paid"))}>
-              Pay
+              {t("parties.pay")}
             </Button>
           </div>
         }
@@ -134,49 +158,55 @@ export function PartyDetailPage({ partyId }: { partyId: string }) {
 
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         <KpiCard
-          label="They owe you"
+          label={t("partyDetail.theyOwe")}
           paise={recv}
+          error={billsError}
           semantic={recv > 0 ? "credit" : "neutral"}
           onClick={() => companyNavigate(companyPath("receivables"))}
         />
         <KpiCard
-          label="You owe them"
+          label={t("partyDetail.youOwe")}
           paise={pay}
+          error={billsError}
           semantic={pay > 0 ? "debit" : "neutral"}
           onClick={() => companyNavigate(companyPath("payables"))}
         />
         <KpiCard
           label={plain.shortLabel}
           paise={plain.amountPaise}
+          error={statementError}
           semantic={plain.side === "they_pay" ? "credit" : plain.side === "you_pay" ? "debit" : "neutral"}
         />
         <Card className="relative overflow-hidden shadow-[var(--shadow-card)] before:absolute before:inset-y-0 before:left-0 before:w-1 before:bg-[hsl(var(--primary))]">
           <CardContent className="space-y-1.5 p-4 pl-5">
-            <div className="text-[11px] font-semibold uppercase tracking-[0.06em] text-muted-foreground">Mobile</div>
+            <div className="text-[11px] font-semibold uppercase tracking-[0.06em] text-muted-foreground">{t("common.mobile")}</div>
             <div className="text-base font-semibold tracking-tight">{party?.mobile || "—"}</div>
-            <div className="text-[11px] text-muted-foreground">{party?.partyType ?? "PERSON"}</div>
+            <div className="text-[11px] text-muted-foreground">{t(`partyType.${party?.partyType ?? "PERSON"}`)}</div>
+            {(party?.tags ?? []).length > 0 ? (
+              <div className="text-[11px] text-muted-foreground">{(party?.tags ?? []).join(", ")}</div>
+            ) : null}
           </CardContent>
         </Card>
       </div>
 
       <Tabs defaultValue="overview">
         <TabsList>
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="ledger">Ledger</TabsTrigger>
-          <TabsTrigger value="bills">Bills</TabsTrigger>
-          <TabsTrigger value="vouchers">Vouchers</TabsTrigger>
+          <TabsTrigger value="overview">{t("partyDetail.overview")}</TabsTrigger>
+          <TabsTrigger value="ledger">{t("partyDetail.ledger")}</TabsTrigger>
+          <TabsTrigger value="bills">{t("partyDetail.bills")}</TabsTrigger>
+          <TabsTrigger value="vouchers">{t("nav.vouchers")}</TabsTrigger>
         </TabsList>
         <TabsContent value="overview" className="space-y-3">
           <Card className="shadow-[var(--shadow-card)]">
             <CardHeader className="border-b border-border/80 bg-[hsl(var(--surface))]/60 pb-3">
-              <CardTitle className="text-sm">Roles</CardTitle>
+              <CardTitle className="text-sm">{t("parties.roles")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3 pt-4">
               <div className="flex flex-wrap gap-1.5">
                 {party?.roles?.length ? (
-                  party.roles.map((r) => <ToneBadge key={String(r)} label={roleLabel(String(r))} tone="info" />)
+                  party.roles.map((r) => <ToneBadge key={String(r)} label={roleLabel(String(r), t)} tone="info" />)
                 ) : (
-                  <span className="text-sm text-muted-foreground">No roles yet — tap below to set Lender, Customer, etc.</span>
+                  <span className="text-sm text-muted-foreground">{t("partyDetail.noRoles")}</span>
                 )}
               </div>
               <div className="flex flex-wrap gap-1.5">
@@ -186,7 +216,7 @@ export function PartyDetailPage({ partyId }: { partyId: string }) {
                     <button
                       key={code}
                       type="button"
-                      disabled={savingRoles || !party}
+                      disabled={savingRoles || !party || !canManage}
                       onClick={() => void toggleRole(code)}
                       className={cn(
                         "rounded-lg border px-2.5 py-1 text-xs font-medium transition disabled:opacity-50",
@@ -195,7 +225,7 @@ export function PartyDetailPage({ partyId }: { partyId: string }) {
                           : "border-border text-muted-foreground hover:bg-surface-2",
                       )}
                     >
-                      {roleLabel(code)}
+                      {roleLabel(code, t)}
                     </button>
                   );
                 })}
@@ -206,15 +236,24 @@ export function PartyDetailPage({ partyId }: { partyId: string }) {
         <TabsContent value="ledger">
           <Card className="shadow-[var(--shadow-card)]">
             <CardContent className="space-y-2 p-4 text-sm">
-              {rows.length === 0 ? (
-                <p className="text-muted-foreground">Statement will appear after vouchers post.</p>
+              {statementError ? (
+                <p className="text-destructive">{statementError}</p>
+              ) : rows.length === 0 ? (
+                <p className="text-muted-foreground">{t("partyDetail.statementEmpty")}</p>
               ) : (
                 rows.map((r, i) => (
                   <div key={i} className="flex justify-between gap-2 border-b border-border py-1.5 last:border-0">
                     <span>
-                      {String(r.voucher_date ?? r.voucherDate ?? "")} · {String(r.voucher_number ?? r.voucherNumber ?? "")}
+                      {String(r.date ?? r.voucher_date ?? r.voucherDate ?? "")} · {String(r.voucherNumber ?? r.voucher_number ?? "")}
                     </span>
-                    <CompanyMoney paise={Number(r.amount_paise ?? r.amountPaise ?? 0)} className="text-sm" />
+                    <CompanyMoney
+                      paise={statementRowAmountPaise({
+                        debitPaise: Number(r.debitPaise ?? r.debit_paise ?? 0),
+                        creditPaise: Number(r.creditPaise ?? r.credit_paise ?? 0),
+                        amountPaise: Number(r.amountPaise ?? r.amount_paise ?? 0),
+                      })}
+                      className="text-sm"
+                    />
                   </div>
                 ))
               )}
@@ -224,20 +263,25 @@ export function PartyDetailPage({ partyId }: { partyId: string }) {
         <TabsContent value="bills">
           <Card className="shadow-[var(--shadow-card)]">
             <CardContent className="space-y-2 p-4 text-sm">
+              {billsError ? <p className="text-destructive">{billsError}</p> : null}
+              {!billsError ? (
+                <>
               <div className="flex justify-between">
-                <span className="text-muted-foreground">Open receivable</span>
+                <span className="text-muted-foreground">{t("partyDetail.openReceivable")}</span>
                 <CompanyMoney paise={recv} semantic="credit" className="text-sm" />
               </div>
               <div className="flex justify-between">
-                <span className="text-muted-foreground">Open payable</span>
+                <span className="text-muted-foreground">{t("partyDetail.openPayable")}</span>
                 <CompanyMoney paise={pay} semantic="debit" className="text-sm" />
               </div>
+                </>
+              ) : null}
               <div className="flex flex-wrap gap-2 pt-2">
                 <Button size="sm" variant="outline" onClick={() => companyNavigate(companyPath("receivables"))}>
-                  Receivables
+                  {t("nav.receivables")}
                 </Button>
                 <Button size="sm" variant="outline" onClick={() => companyNavigate(companyPath("payables"))}>
-                  Payables
+                  {t("nav.payables")}
                 </Button>
               </div>
             </CardContent>
@@ -249,9 +293,9 @@ export function PartyDetailPage({ partyId }: { partyId: string }) {
               <Button
                 size="sm"
                 variant="outline"
-                onClick={() => companyNavigate(`${companyPath("vouchers")}?partyId=${encodeURIComponent(partyId)}`)}
+                onClick={() => companyNavigate(`${companyPath("vouchers")}?partyId=${encodeURIComponent(partyId)}&from=${encodeURIComponent(range.from)}&to=${encodeURIComponent(range.to)}`)}
               >
-                View vouchers
+                {t("partyDetail.viewVouchers")}
               </Button>
             </CardContent>
           </Card>

@@ -4,11 +4,14 @@ require_once __DIR__ . "/bootstrap.php";
 require_once __DIR__ . "/../../php/controllers/company.php";
 
 try {
-    if (($_SERVER["REQUEST_METHOD"] ?? "GET") !== "GET") {
+    $method = strtoupper((string)($_SERVER["REQUEST_METHOD"] ?? "GET"));
+    if ($method === "GET") {
+        company_ledgers_list();
+    } elseif ($method === "POST") {
+        company_ledgers_mutate_dispatch();
+    } else {
         json_error("Method not allowed", 405);
-        exit;
     }
-    company_ledgers_list();
 } catch (Throwable $e) {
     company_handle_exception($e);
 }

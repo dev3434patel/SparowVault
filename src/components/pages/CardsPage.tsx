@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { PageHeader } from "@/components/layout/PageHeader";
+import { PersonalPageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -23,8 +23,11 @@ import {
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/Tabs";
 import { useDataStore } from "@/store/dataStore";
 import { useAuthStore } from "@/store/authStore";
-import { cardRepo, transactionRepo } from "@/repositories";
-import type { Card as CardT, Transaction } from "@/types";
+import { cardRepo, cardStatementRepo, transactionRepo } from "@/repositories";
+import type { Card as CardT, CardStatement, Transaction } from "@/types";
+import { formatCardMoneyFact, readCardMoneyFact } from "@/services/statements/cardMoneyFact";
+import { statementReceiptQuery } from "@/services/statements/receiptLink";
+import { useNavStore } from "@/store/navStore";
 import { useUIStore } from "@/store/uiStore";
 import { confirm } from "@/store/uiStore";
 import { cardSchema } from "@/services/validators";
@@ -41,8 +44,15 @@ import {
   type CreditCardIntel,
 } from "@/services/cardEngine";
 import { CardEmiSimulatorDialog } from "@/components/finance/CardEmiSimulatorDialog";
+import { CardBooksPanel } from "@/components/finance/CardBooksPanel";
+import { planCapMessage, snapshotFromEffectiveFeatures } from "@/services/modulePolicy";
+import { useCloudAppStore } from "@/store/cloudAppStore";
+import { useMessages } from "@/i18n/useMessages";
 
 export function CardsPage() {
+  const messages = useMessages();
+  const fields = messages.fields;
+  const copy = messages.copy.cards;
   const user = useAuthStore((s) => s.currentUser);
   const cards = useDataStore((s) => s.cards);
   const transactions = useDataStore((s) => s.transactions);
@@ -60,8 +70,23 @@ export function CardsPage() {
   const [repairAccountId, setRepairAccountId] = useState("");
   const [repairSaving, setRepairSaving] = useState(false);
   const [emiSimCard, setEmiSimCard] = useState<CardT | null>(null);
+  const [statements, setStatements] = useState<CardStatement[]>([]);
+  const [statementCardFocus, setStatementCardFocus] = useState<string | null>(null);
+  const navActionId = useNavStore((s) => s.navActionId);
+
+  useEffect(() => {
+    const focus = statementReceiptQuery(window.location.search).cardId;
+    setStatementCardFocus(focus);
+    if (focus) setExpandedId(focus);
+  }, [navActionId]);
+
+  useEffect(() => {
+    if (!user) return;
+    void cardStatementRepo.list(user.id).then((rows) => setStatements(rows.filter((row) => row.isDeleted !== 1))).catch(() => setStatements([]));
+  }, [user?.id, navActionId]);
 
   const creditCards = cards.filter((c) => c.type === "credit");
+  const shownCreditCards = statementCardFocus ? creditCards.filter((card) => card.id === statementCardFocus) : creditCards;
   const activeCreditCards = creditCards.filter((c) => c.isInactive !== 1 && c.isDeleted !== 1);
   const debitCards = cards.filter((c) => c.type === "debit");
 
@@ -94,14 +119,14 @@ export function CardsPage() {
       const patched = await transactionRepo.update(repairTxn.id, { linkedCardId: repairCardId });
       if (patched) {
         upsertLocal("transactions", patched);
-        toast({ title: "Card linked", kind: "success" });
+        toast({ title: copy.linked, kind: "success" });
       }
       setRepairTxn(null);
       setRepairCardId("");
     } catch (e) {
       toast({
-        title: "Update failed",
-        description: e instanceof Error ? e.message : "Try again",
+        title: copy.updateFailed,
+        description: e instanceof Error ? e.message : copy.tryAgain,
         kind: "error",
       });
     } finally {
@@ -120,14 +145,14 @@ export function CardsPage() {
       });
       if (patched) {
         upsertLocal("transactions", patched);
-        toast({ title: "Converted to UPI / bank", kind: "success" });
+        toast({ title: copy.converted, kind: "success" });
       }
       setRepairTxn(null);
       setRepairAccountId("");
     } catch (e) {
       toast({
-        title: "Update failed",
-        description: e instanceof Error ? e.message : "Try again",
+        title: copy.updateFailed,
+        description: e instanceof Error ? e.message : copy.tryAgain,
         kind: "error",
       });
     } finally {
@@ -146,13 +171,13 @@ export function CardsPage() {
       const patched = await transactionRepo.update(repairTxn.id, { notes, tags });
       if (patched) {
         upsertLocal("transactions", patched);
-        toast({ title: "Marked as legacy / manual", kind: "info" });
+        toast({ title: copy.markedLegacy, kind: "info" });
       }
       setRepairTxn(null);
     } catch (e) {
       toast({
-        title: "Update failed",
-        description: e instanceof Error ? e.message : "Try again",
+        title: copy.updateFailed,
+        description: e instanceof Error ? e.message : copy.tryAgain,
         kind: "error",
       });
     } finally {
@@ -167,23 +192,23 @@ export function CardsPage() {
       if (updated) {
         upsertLocal("cards", updated);
         toast({
-          title: "Card archived",
-          description: "Referenced cards are archived instead of removed so old transactions keep their card name.",
+          title: copy.archived,
+          description: copy.archiveHint,
           kind: "info",
         });
       }
       return;
     }
     const ok = await confirm({
-      title: "Delete this card?",
-      description: "This card will be removed permanently.",
+      title: copy.deleteTitle,
+      description: copy.deleteBody,
       destructive: true,
-      confirmLabel: "Delete card",
+      confirmLabel: copy.deleteConfirm,
     });
     if (!ok) return;
     await cardRepo.softDelete(id);
     removeLocal("cards", id);
-    toast({ title: "Card removed", kind: "info" });
+    toast({ title: copy.removed, kind: "info" });
   }
 
   useEffect(() => {
@@ -195,20 +220,19 @@ export function CardsPage() {
 
   return (
     <div>
-      <PageHeader
-        title="Cards"
-        description="Track your credit & debit cards, utilization, and statement dues."
+      <PersonalPageHeader
+        screen="cards"
         actions={
           <Button onClick={() => setAdding(true)}>
-            <Plus className="h-4 w-4" /> New Card
+            <Plus className="h-4 w-4" /> {copy.new}
           </Button>
         }
       />
 
       <Tabs value={tab} onValueChange={setTab}>
         <TabsList>
-          <TabsTrigger value="credit">Credit Cards ({creditCards.length})</TabsTrigger>
-          <TabsTrigger value="debit">Debit Cards ({debitCards.length})</TabsTrigger>
+          <TabsTrigger value="credit">{copy.creditTab} ({creditCards.length})</TabsTrigger>
+          <TabsTrigger value="debit">{copy.debitTab} ({debitCards.length})</TabsTrigger>
           <TabsTrigger value="review">
             Review{repairQueue.length ? ` (${repairQueue.length})` : ""}
           </TabsTrigger>
@@ -220,8 +244,8 @@ export function CardsPage() {
               <CardContent>
                 <EmptyState
                   icon={<CreditCard className="h-6 w-6" />}
-                  title="No credit cards yet"
-                  description="Add a credit card to track dues, utilization, and payment reminders."
+                  title={copy.emptyCredit}
+                  description={copy.emptyCreditBody}
                   action={
                     <Button onClick={() => setAdding(true)}>
                       <Plus className="h-4 w-4" /> Add Card
@@ -232,7 +256,10 @@ export function CardsPage() {
             </Card>
           ) : (
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-              {creditCards.map((c) => {
+              {statementCardFocus && shownCreditCards.length === 0 ? (
+                <p className="text-sm text-muted-foreground">That imported card is not on this device.</p>
+              ) : null}
+              {shownCreditCards.map((c) => {
                 const h = healthMap.get(c.id);
                 return (
                   <Card
@@ -263,6 +290,16 @@ export function CardsPage() {
 
                       {(() => {
                         const intel = intelMap.get(c.id);
+                        const savedStatement = statements
+                          .filter((row) => row.cardId === c.id)
+                          .sort((a, b) => b.statementDate.localeCompare(a.statementDate))[0];
+                        const minimumFact = savedStatement
+                          ? readCardMoneyFact(savedStatement, "minimumDue")
+                          : {
+                              valuePaise: intel?.minimumDuePaise ?? null,
+                              evidence: intel ? "estimated" as const : "not_observed" as const,
+                              needsReview: false,
+                            };
                         const risk = intel?.risk ?? "safe";
                         const riskTone =
                           risk === "over_limit" || risk === "danger"
@@ -344,7 +381,7 @@ export function CardsPage() {
                               <div>
                                 <div className="text-muted-foreground">Minimum due</div>
                                 <div className="tabular-nums">
-                                  {formatINR(paiseToRupees(intel?.minimumDuePaise ?? 0), { decimals: 0 })}
+                                  {formatCardMoneyFact(minimumFact, (paise) => formatINR(paiseToRupees(paise), { decimals: 0 }))}
                                 </div>
                               </div>
                               <div>
@@ -425,7 +462,7 @@ export function CardsPage() {
                                 </div>
                               </div>
                             ) : null}
-                            {intel?.minimumDueWarning ? (
+                            {intel?.minimumDueWarning && minimumFact.evidence === "source_observed" && minimumFact.valuePaise != null && minimumFact.valuePaise > 0 ? (
                               <div className="mt-2 rounded-md border border-warning/30 bg-warning/10 p-2 text-[11px] text-warning">
                                 {intel.minimumDueWarning}
                               </div>
@@ -445,7 +482,7 @@ export function CardsPage() {
                                 className="h-7 px-2 text-xs"
                                 onClick={() => setExpandedId(expandedId === c.id ? null : c.id)}
                               >
-                                {expandedId === c.id ? "Hide" : "Show"} linked transactions ({linked.length})
+                                {expandedId === c.id ? copy.hide : copy.show} {copy.linkedTx} ({linked.length})
                               </Button>
                               {expandedId === c.id ? (
                                 <ul className="mt-1 max-h-40 space-y-1 overflow-y-auto rounded border border-border p-2 text-[11px]">
@@ -517,8 +554,8 @@ export function CardsPage() {
               <CardContent>
                 <EmptyState
                   icon={<CreditCard className="h-6 w-6" />}
-                  title="No debit cards yet"
-                  description="Add a debit card reference linked to your bank account."
+                  title={copy.emptyDebit}
+                  description={copy.emptyDebitBody}
                   action={
                     <Button onClick={() => setAdding(true)}>
                       <Plus className="h-4 w-4" /> Add Card
@@ -576,8 +613,8 @@ export function CardsPage() {
               <CardContent className="py-8">
                 <EmptyState
                   icon={<CreditCard className="h-6 w-6" />}
-                  title="No credit-card repair items"
-                  description="Credit-card links, payment links, limits, and due-day setup are clean."
+                  title={copy.repairClear}
+                  description={copy.repairClearBody}
                 />
               </CardContent>
             </Card>
@@ -601,8 +638,8 @@ export function CardsPage() {
                     paymentMode: "credit_card",
                     merchantOrPerson:
                       issue.kind === "card_invalid_limit"
-                        ? `${issue.card?.nickname ?? "Card"} - set a positive credit limit`
-                        : `${issue.card?.nickname ?? "Card"} - set a due day between 1 and 31`,
+                        ? copy.limitIssue.replace("{name}", issue.card?.nickname ?? copy.cardWord)
+                        : copy.dueIssue.replace("{name}", issue.card?.nickname ?? copy.cardWord),
                     description: "",
                     notes: "",
                     tags: [],
@@ -631,7 +668,7 @@ export function CardsPage() {
                         </Badge>
                       </div>
                       <div className="text-muted-foreground">
-                        {t.merchantOrPerson || t.description || "Expense"} ·{" "}
+                        {t.merchantOrPerson || t.description || copy.expenseWord} ·{" "}
                         {formatINR(paiseToRupees(transactionAmountPaise(t)), {
                           decimals: 2,
                         })}
@@ -639,11 +676,11 @@ export function CardsPage() {
                     </div>
                     {issue.transaction ? (
                       <Button size="sm" variant="secondary" onClick={() => setRepairTxn(t)}>
-                        Fix transaction
+                        {copy.fixTxn}
                       </Button>
                     ) : issue.card ? (
                       <Button size="sm" variant="secondary" onClick={() => setEditing(issue.card ?? null)}>
-                        Edit card
+                        {copy.editCard}
                       </Button>
                     ) : null}
                   </div>
@@ -668,10 +705,10 @@ export function CardsPage() {
                   decimals: 2,
                 })}
               </p>
-              <Field label="Link to credit card">
+              <Field label={fields.linkCreditCard}>
                 <Select value={repairCardId || undefined} onValueChange={setRepairCardId}>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select card" />
+                    <SelectValue placeholder={copy.selectCard} />
                   </SelectTrigger>
                   <SelectContent>
                     {activeCreditCards.map((c) => (
@@ -693,10 +730,10 @@ export function CardsPage() {
               </div>
               <div className="border-t border-border pt-4">
                 <p className="mb-2 text-sm font-medium">Or convert to bank / UPI</p>
-                <Field label="Account (cash source)">
+                <Field label={fields.cashSource}>
                   <Select value={repairAccountId || undefined} onValueChange={setRepairAccountId}>
                     <SelectTrigger>
-                      <SelectValue placeholder="Account" />
+                      <SelectValue placeholder={copy.account} />
                     </SelectTrigger>
                     <SelectContent>
                       {accounts.map((a) => (
@@ -748,7 +785,7 @@ export function CardsPage() {
         onSaved={(c) => {
           upsertLocal("cards", c);
           toast({
-            title: editing ? "Card updated" : "Card added",
+            title: editing ? copy.updated : copy.added,
             kind: "success",
           });
           setAdding(false);
@@ -756,10 +793,14 @@ export function CardsPage() {
         }}
       />
 
+      <CardBooksPanel />
+
       <CardEmiSimulatorDialog
         open={!!emiSimCard}
         onOpenChange={(o) => !o && setEmiSimCard(null)}
-        cardLabel={emiSimCard ? `${emiSimCard.nickname} •••• ${emiSimCard.last4 || ""}` : "Card"}
+        cardLabel={emiSimCard ? `${emiSimCard.nickname} •••• ${emiSimCard.last4 || ""}` : copy.cardWord}
+        cardId={emiSimCard?.id}
+        userId={user?.id}
       />
     </div>
   );
@@ -780,6 +821,9 @@ function CardForm({
   defaultType: "credit" | "debit";
   onSaved: (c: CardT) => void;
 }) {
+  const messages = useMessages();
+  const fields = messages.fields;
+  const copy = messages.copy.cards;
   const accounts = useDataStore((s) => s.accounts);
   const [state, setState] = useState({
     nickname: card?.nickname ?? "",
@@ -820,10 +864,21 @@ function CardForm({
     if (!userId) return;
     const parse = cardSchema.safeParse(state);
     if (!parse.success) {
-      setErr(parse.error.issues[0]?.message ?? "Invalid");
+      setErr(parse.error.issues[0]?.message ?? copy.invalid);
       return;
     }
     const payload = { ...parse.data };
+    if (!card) {
+      const cap = planCapMessage(
+        snapshotFromEffectiveFeatures(useCloudAppStore.getState().effectiveFeatures),
+        "cards",
+        useDataStore.getState().cards.filter((row) => row.isDeleted !== 1).length,
+      );
+      if (cap) {
+        setErr(cap);
+        return;
+      }
+    }
     if (card) {
       const updated = await cardRepo.update(card.id, payload as unknown as Partial<CardT>);
       if (updated) onSaved(updated);
@@ -842,10 +897,10 @@ function CardForm({
     <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
       <DialogContent size="lg">
         <DialogHeader>
-          <DialogTitle>{card ? "Edit Card" : "New Card"}</DialogTitle>
+          <DialogTitle>{card ? copy.edit : copy.new}</DialogTitle>
         </DialogHeader>
         <form onSubmit={submit} className="grid grid-cols-2 gap-3">
-          <Field label="Type">
+          <Field label={fields.type}>
             <Select
               value={state.type}
               onValueChange={(v) => setState({ ...state, type: v as "credit" | "debit" })}
@@ -854,12 +909,12 @@ function CardForm({
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="credit">Credit Card</SelectItem>
-                <SelectItem value="debit">Debit Card</SelectItem>
+                <SelectItem value="credit">{copy.credit}</SelectItem>
+                <SelectItem value="debit">{copy.debit}</SelectItem>
               </SelectContent>
             </Select>
           </Field>
-          <Field label="Bank">
+          <Field label={fields.bank}>
             <Select value={state.bank} onValueChange={(v) => setState({ ...state, bank: v })}>
               <SelectTrigger>
                 <SelectValue />
@@ -873,14 +928,14 @@ function CardForm({
               </SelectContent>
             </Select>
           </Field>
-          <Field label="Nickname" required className="col-span-2">
+          <Field label={fields.nickname} required className="col-span-2">
             <Input
               value={state.nickname}
               onChange={(e) => setState({ ...state, nickname: e.target.value })}
               placeholder="HDFC Regalia"
             />
           </Field>
-          <Field label="Last 4 digits">
+          <Field label={fields.last4}>
             <Input
               value={state.last4}
               maxLength={4}
@@ -890,7 +945,7 @@ function CardForm({
               placeholder="1234"
             />
           </Field>
-          <Field label="Color">
+          <Field label={fields.color}>
             <Input
               type="color"
               value={state.color}
@@ -899,13 +954,13 @@ function CardForm({
             />
           </Field>
           {!isCredit ? (
-            <Field label="Linked account" className="col-span-2">
+            <Field label={fields.linkedAccount} className="col-span-2">
               <Select
                 value={state.linkedAccountId}
                 onValueChange={(v) => setState({ ...state, linkedAccountId: v })}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="Select account" />
+                  <SelectValue placeholder={copy.selectAccount} />
                 </SelectTrigger>
                 <SelectContent>
                   {accounts.map((a) => (
@@ -918,21 +973,21 @@ function CardForm({
             </Field>
           ) : (
             <>
-              <Field label="Credit limit (₹)" required>
+              <Field label={fields.creditLimit} required>
                 <Input
                   type="number"
                   value={state.creditLimit}
                   onChange={(e) => setState({ ...state, creditLimit: +e.target.value })}
                 />
               </Field>
-              <Field label="Interest rate % (APR)">
+              <Field label={fields.interestApr}>
                 <Input
                   type="number"
                   value={state.interestRate}
                   onChange={(e) => setState({ ...state, interestRate: +e.target.value })}
                 />
               </Field>
-              <Field label="Statement day" required>
+              <Field label={fields.statementDay} required>
                 <Input
                   type="number"
                   min={1}
@@ -941,7 +996,7 @@ function CardForm({
                   onChange={(e) => setState({ ...state, statementDay: +e.target.value })}
                 />
               </Field>
-              <Field label="Due day" required>
+              <Field label={fields.dueDay} required>
                 <Input
                   type="number"
                   min={1}
@@ -950,14 +1005,14 @@ function CardForm({
                   onChange={(e) => setState({ ...state, dueDay: +e.target.value })}
                 />
               </Field>
-              <Field label="Annual fee (₹)">
+              <Field label={fields.annualFee}>
                 <Input
                   type="number"
                   value={state.annualFee}
                   onChange={(e) => setState({ ...state, annualFee: +e.target.value })}
                 />
               </Field>
-              <Field label="Reward note">
+              <Field label={fields.rewardNote}>
                 <Input
                   value={state.rewardNote}
                   onChange={(e) => setState({ ...state, rewardNote: e.target.value })}

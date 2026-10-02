@@ -32,9 +32,9 @@ export function CashFlowChart({ initialLoading, errs, flowChart, ageing, load }:
         ) : (
           <>
             {errs.flow ? <ErrorState message={errs.flow} onRetry={load} /> : null}
-            {flowChart.length === 0 ? (
+            {!errs.flow && flowChart.length === 0 ? (
               <p className="text-sm text-muted-foreground">No cash movements in this period.</p>
-            ) : (
+            ) : errs.flow ? null : (
               <div className="h-56">
                 <ResponsiveContainer width="100%" height="100%">
                   <BarChart data={flowChart}>
@@ -68,6 +68,8 @@ export function CashFlowChart({ initialLoading, errs, flowChart, ageing, load }:
       <SectionCard title={t("bills.ageing")}>
         {initialLoading ? (
           <SkeletonChart className="h-56" />
+        ) : errs.ageing ? (
+          <ErrorState message={errs.ageing} onRetry={load} />
         ) : ageing.length === 0 ? (
           <p className="text-sm text-muted-foreground">No ageing buckets to show.</p>
         ) : (

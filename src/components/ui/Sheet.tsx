@@ -39,6 +39,9 @@ export const SheetContent = React.forwardRef<
   SheetContentProps
 >(({ className, children, side = "right", size = "md", onOpenAutoFocus, ...props }, ref) => {
   const localRef = React.useRef<HTMLDivElement | null>(null);
+  const closeOnEscape = React.useCallback(() => {
+    localRef.current?.querySelector<HTMLButtonElement>('button[aria-label="Close"]')?.click();
+  }, []);
   const setRefs = React.useCallback(
     (node: HTMLDivElement | null) => {
       localRef.current = node;
@@ -49,7 +52,8 @@ export const SheetContent = React.forwardRef<
   );
 
   // Radix portals content when open; trap reinforces Tab cycle + restore-focus.
-  useFocusTrap(true, localRef);
+  // Escape must close even when another dismissable layer is stacked above this sheet.
+  useFocusTrap(true, localRef, { onEscape: closeOnEscape });
 
   const sideCls: Record<Side, string> = {
     right:

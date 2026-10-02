@@ -10,6 +10,7 @@
   "scripts": {
     "dev": "concurrently -n server,client -c blue,green \"npm:dev:server\" \"npm:dev:client\"",
     "dev:server": "node scripts/ensure-php-api-port.mjs && php -S localhost:8080 -t . php/dev-router.php",
+    "aa:local": "tsx scripts/aa-local-provider.ts",
     "dev:client": "vite",
     "dev:review": "node scripts/start-integrity-preview.mjs",
     "prebuild": "node scripts/clean-build.mjs",
@@ -203,6 +204,7 @@
     "axe-core": "^4.13.0",
     "concurrently": "^9.1.0",
     "eslint": "^9",
+    "eslint-plugin-react-hooks": "^7.1.1",
     "fake-indexeddb": "6.2.5",
     "tailwindcss": "^4",
     "tsx": "^4.19.2",

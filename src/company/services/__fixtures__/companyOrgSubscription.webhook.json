@@ -1,0 +1,7 @@
+{
+  "source": "local-fixture",
+  "subject": "company_org_subscriptions",
+  "planCode": "company-trial",
+  "status": "TRIAL",
+  "event": "subscription.activated"
+}

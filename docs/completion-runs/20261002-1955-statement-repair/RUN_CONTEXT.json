@@ -1,0 +1,352 @@
+{
+  "run_id": "20261002-1955-statement-repair",
+  "lane": "statement card facts and local apply recovery",
+  "git_head": "6395ec9a040652a39a45b72ac12136cdd382df33",
+  "disposable_test_db": "fake-indexeddb name statement-books-<uuid>, deleted in afterEach. Owner books were not opened or reset.",
+  "forbidden_fixture_paise_not_copied": true,
+  "baseline_before_edits": {
+    "command": "npx vitest run src/services/__tests__/statementLocalBooks.test.ts",
+    "result": "3 passed",
+    "assertions": [
+      "stores confirmed matches locally after a simulated import result: writes only the two named confirmed matches and the import source; transaction count stays 0",
+      "does not write local books when the signed-in user changed: no cache writes and no rows when the active user switches or signs out during load",
+      "saves one card statement whose closing balance is the reviewed closing figure: closing 62000, opening 100000, payments 80000, credits 10000, and before this repair interest and fees were 0 with notes saying the zero meant the reviewed rows had no interest or fee line; a second save updates the same row and does not post transactions"
+    ]
+  },
+  "after_edits": {
+    "commands": [
+      "npx vitest run src/services/__tests__/statementLocalBooks.test.ts src/services/__tests__/obligationEngine.test.ts tests/unit/phase-02-sync-contracts.test.ts",
+      "npx tsc --noEmit"
+    ],
+    "vitest": "20 passed",
+    "tsc": "exit 0"
+  },
+  "dexie_version_bump": false,
+  "october_audit": [
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\00_METHOD_LOCK.md",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\01_CURRENT_STATE.md",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\02_ARCHITECTURE.md",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\03_DATABASE.md",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\04_API.md",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\05_ACCOUNTING.md",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\06_FEATURE_MATRIX.md",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\07_PAGE_MATRIX.md",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\08_FUNCTION_MATRIX.md",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\09_UI_UX.md",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\10_DASHBOARD_AUDIT.md",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\11_DESIGN_SYSTEM.md",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\12_VISIBILITY_DISCOVERABILITY.md",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\13_RESPONSIVE.md",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\14_ACCESSIBILITY.md",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\15_SECURITY.md",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\16_PERFORMANCE.md",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\17_TESTING.md",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\18_REPORT_EXPORT.md",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\19_PRODUCT_COMPLETENESS.md",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\20_REMEDIATION_PLAN.md",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\21_FINAL_SCORECARD.md",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\MASTER_AUDIT_REPORT.md",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\MASTER_WHOLE_PROJECT_AUDIT_REPORT.md",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\OPEN_GAPS.md",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\raw\\ENV_SNAPSHOT.txt",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\raw\\EVIDENCE_100K.txt",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\raw\\EVIDENCE_A11Y_AXE.txt",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\raw\\EVIDENCE_A11Y_KEYBOARD.txt",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\raw\\EVIDENCE_BACKUP_RESTORE.txt",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\raw\\EVIDENCE_BROWSER_AUTH.txt",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\raw\\EVIDENCE_COMPANY_PHP.txt",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\raw\\EVIDENCE_COMPANY_SECURITY_FULL.txt",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\raw\\EVIDENCE_COMPANY_UNIT.txt",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\raw\\EVIDENCE_DB_PROBE.txt",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\raw\\EVIDENCE_EXPORT_FIDELITY.txt",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\raw\\EVIDENCE_GATE_ALL.txt",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\raw\\EVIDENCE_HYDRATE.txt",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\raw\\EVIDENCE_IDOR.txt",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\raw\\EVIDENCE_LATENCY.txt",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\raw\\EVIDENCE_MANAGEMENT_AND_MODULES.txt",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\raw\\EVIDENCE_PERSONAL_REGRESSION.txt",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\raw\\EVIDENCE_PRODUCT_BROWSER.txt",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\raw\\EVIDENCE_SECURITY_MATRIX.txt",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\raw\\EVIDENCE_VIEWPORT.txt",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\raw\\list-companies.php",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\raw\\SUMMARY.txt",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\screens\\A-after-login.png",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\screens\\A-dashboard.png",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\screens\\B-party.png",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\screens\\C-loan-preview.png",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\screens\\C-loan-saved.png",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\screens\\D-farmer-advance.png",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\screens\\E-property-Property_advance.png",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\screens\\E-property-Property_expense.png",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\screens\\E-property-Property_investment_asset.png",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\screens\\F-vouchers.png",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\screens\\G-reverse.png",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\screens\\H-receivables.png",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\screens\\I-balance-sheet.png",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\screens\\I-day-book.png",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\screens\\I-profit-loss.png",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\screens\\I-reports.png",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\screens\\I-trial-balance.png",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\screens\\J-users.png",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\screens\\K-approvals.png",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\screens\\L-settings.png",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\screens\\M-export.png",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\screens\\N-lock-company.png",
+      "status": "HISTORICAL_REPORTED"
+    },
+    {
+      "file": "docs\\company\\whole-project-audit\\20261001-014647\\screens\\N-lock-vouchers.png",
+      "status": "HISTORICAL_REPORTED"
+    }
+  ],
+  "source_hashes_after_edit": [
+    {
+      "file": "src/types/index.ts",
+      "sha256": "d77809b5d8042539ee5ddceb0b186af8e4b4e78f10a86a7a45fe5054c7c0be62"
+    },
+    {
+      "file": "src/services/statements/localBooks.ts",
+      "sha256": "d8443daeea4cc5eaa2d803bf45b08e454043e4bcd69c5acdd0ddfed581c7daba"
+    },
+    {
+      "file": "src/services/statements/cardMoneyFact.ts",
+      "sha256": "728c7ec7d10b682e20669c19731e61675f2b34fe2d6c8b110663b60563175dad"
+    },
+    {
+      "file": "src/services/statements/localApply.ts",
+      "sha256": "547b9935e2b8e9d693d8b298cb0a9fc306c12b69e9aa45804030fe56441aa356"
+    },
+    {
+      "file": "src/services/__tests__/statementLocalBooks.test.ts",
+      "sha256": "c57a0d0e9a0fdbdbe4a2273be6f88be3f71b9555f41bd64f5879f4ca651b025c"
+    },
+    {
+      "file": "src/config/syncContracts.ts",
+      "sha256": "f453983de5c795eeaa9e0100444202cc41c811f048452f209253da7d4b948f47"
+    }
+  ],
+  "contract_for_other_lanes": {
+    "card_money": "minimumDuePaise, feesPaise, and interestPaise are number or null. Evidence is source_observed, user_confirmed, estimated, or not_observed. Printed zero is 0 with source_observed. Missing is null with not_observed. estimated and user_confirmed must not replace source_observed. Do not render null as rupee zero or as nothing due.",
+    "legacy_notes": [
+      "Interest is 0 because the reviewed rows did not include an interest line.",
+      "Fees are 0 because the reviewed rows did not include a fee line.",
+      "Minimum due is 0 because it was not in the reviewed rows."
+    ],
+    "receipt_query": {
+      "transactions": "/transactions?statementTx=<comma-separated ids>",
+      "reconciliation": "/reconciliation?statementMatch=<comma-separated ids>",
+      "cards": "/cards?statementCard=<card id>"
+    },
+    "local_apply_states": [
+      "SERVER_COMMITTED",
+      "LOCAL_APPLY_PENDING",
+      "LOCAL_APPLIED"
+    ],
+    "outbox_collection": "statementImports"
+  }
+}

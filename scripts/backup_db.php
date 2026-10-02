@@ -1,6 +1,12 @@
 <?php
 declare(strict_types=1);
 if (PHP_SAPI !== "cli") { http_response_code(403); exit; }
+require_once __DIR__ . "/../php/helpers/app.php";
+$destructive = destructive_database_target_decision();
+if ($destructive["outcome"] !== "allowed") {
+    fwrite(STDERR, $destructive["detail"] . PHP_EOL);
+    exit(2);
+}
 require_once __DIR__ . "/../php/config/db.php";
 
 // Backups contain credentials and financial records. Never put them in the web root.

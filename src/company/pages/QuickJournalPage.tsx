@@ -3,18 +3,21 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Field } from "@/components/ui/Label";
+import { dimensionSplit } from "@/company/services/costSplit";
 import { assertBalanced, sumCredit, sumDebit } from "@/company/services/voucherBalance";
 import type { CompanyLedger, DraftVoucherLine, LineSide } from "@/company/types";
 import { parseMoneyInputToPaise, formatMoney } from "@/utils/money";
 import { companyApi } from "@/company/api/client";
 import { useCompanyStore } from "@/company/store/companyStore";
 import { PageHeader } from "@/company/components/PageChrome";
+import { useHasPermission } from "@/company/components/PermissionGate";
 import { useI18n } from "@/company/i18n/react";
 
 type Row = { ledgerId: string; side: LineSide; amount: string };
 
 export function QuickJournalPage() {
   const { t } = useI18n();
+  const canPost = useHasPermission("create_journal");
   const companyId = useCompanyStore((s) => s.activeCompanyId);
   const [ledgers, setLedgers] = useState<CompanyLedger[]>([]);
   const [rows, setRows] = useState<Row[]>([
@@ -25,6 +28,10 @@ export function QuickJournalPage() {
   const [err, setErr] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [note, setNote] = useState("");
+  const [centreA, setCentreA] = useState("");
+  const [centreB, setCentreB] = useState("");
+  const [splitA, setSplitA] = useState("");
+  const [splitB, setSplitB] = useState("");
   const [correctionOfVoucherId, setCorrectionOfVoucherId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -89,6 +96,10 @@ export function QuickJournalPage() {
       setErr("Select a company first");
       return;
     }
+    if (!canPost) {
+      setErr("You do not have permission to post a journal.");
+      return;
+    }
     try {
       assertBalanced(lines);
     } catch (e) {
@@ -98,17 +109,36 @@ export function QuickJournalPage() {
     setSaving(true);
     setErr(null);
     try {
+      let postedLines = lines.map((l) => ({
+        ledgerId: l.ledgerId,
+        side: l.side,
+        amountPaise: l.amountPaise,
+      }));
+      if (centreA && centreB && splitA && splitB) {
+        const firstDebit = postedLines.find((line) => line.side === "DEBIT");
+        const split = dimensionSplit(firstDebit?.amountPaise ?? 0, [
+          { costCentreId: centreA, amountPaise: parseMoneyInputToPaise(splitA, { allowZero: false, throwOnInvalid: true }) },
+          { costCentreId: centreB, amountPaise: parseMoneyInputToPaise(splitB, { allowZero: false, throwOnInvalid: true }) },
+        ]);
+        if (split.error || !split.costAllocations || !firstDebit) {
+          setErr(split.error ?? "The dimension split must equal the voucher amount.");
+          setSaving(false);
+          return;
+        }
+        let attached = false;
+        postedLines = postedLines.map((line) => {
+          if (attached || line !== firstDebit) return line;
+          attached = true;
+          return { ...line, costAllocations: split.costAllocations };
+        });
+      }
       const res = await companyApi.postVoucher(companyId, {
         mutationId: `ui-jnl-${crypto.randomUUID()}`,
         voucherType: "JOURNAL",
         voucherDate: new Date().toISOString().slice(0, 10),
         narration: note || "Journal entry",
         correctionOfVoucherId: correctionOfVoucherId || undefined,
-        lines: lines.map((l) => ({
-          ledgerId: l.ledgerId,
-          side: l.side,
-          amountPaise: l.amountPaise,
-        })),
+        lines: postedLines,
         status: "POSTED",
       });
       setMsg(`Posted journal ${(res as { id?: string }).id ?? ""}`);
@@ -186,6 +216,20 @@ export function QuickJournalPage() {
       <Field label={t("common.note")}>
         <Input value={note} onChange={(e) => setNote(e.target.value)} />
       </Field>
+      <div className="flex flex-wrap gap-2">
+        <Field label="Cost centre A">
+          <Input value={centreA} onChange={(e) => setCentreA(e.target.value)} placeholder="Optional id" />
+        </Field>
+        <Field label="Split A">
+          <Input value={splitA} onChange={(e) => setSplitA(e.target.value)} placeholder="0.00" />
+        </Field>
+        <Field label="Cost centre B">
+          <Input value={centreB} onChange={(e) => setCentreB(e.target.value)} placeholder="Optional id" />
+        </Field>
+        <Field label="Split B">
+          <Input value={splitB} onChange={(e) => setSplitB(e.target.value)} placeholder="0.00" />
+        </Field>
+      </div>
       <Card>
         <CardHeader className="pb-2">
           <CardTitle className="text-sm">Totals</CardTitle>

@@ -29,6 +29,9 @@ import { isoToLocalDate, localDateToIso } from "@/lib/format";
 import { rupeesToPaise, transactionAmountPaise, udhariAmountPaise, udhariSettledPaise } from "@/utils/money";
 import { contributionError, expenseRecovery } from "@/services/expenseContributions";
 import { formatINR } from "@/lib/format";
+import { useCloudAppStore } from "@/store/cloudAppStore";
+import { assertTransactionCreateAllowed } from "@/services/transactionMonthlyCap";
+import { useMessages } from "@/i18n/useMessages";
 
 interface Props {
   initial?: Partial<Transaction>;
@@ -42,6 +45,10 @@ function nowDateInput() {
 }
 
 export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Props) {
+  const messages = useMessages();
+  const f = messages.copy.txnForm;
+  const typeLabels = messages.copy.transactions.types;
+  const payLabels = messages.copy.transactions.payments;
   const user = useAuthStore((s) => s.currentUser);
   const accounts = useDataStore((s) => s.accounts);
   const categories = useDataStore((s) => s.categories);
@@ -225,10 +232,23 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
         if (!patched) throw new Error("Not found");
         saved = patched;
       } else {
+        assertTransactionCreateAllowed(
+          useCloudAppStore.getState().effectiveFeatures,
+          transactions,
+          user.id,
+        );
         saved = await transactionRepo.create({
           userId: user.id,
           data: payload as unknown as Transaction,
         });
+      }
+      if (saved.type === "transfer") {
+        const { saveTransferLinkForTransaction } = await import("@/services/personalBookWorkflows");
+        const link = await saveTransferLinkForTransaction(user.id, saved);
+        if (link && saved.transferLinkId !== link.id) {
+          const linked = await transactionRepo.update(saved.id, { transferLinkId: link.id });
+          if (linked) saved = linked;
+        }
       }
       upsertLocal("transactions", saved);
       if (saved.type === "emi_payment" && saved.linkedLoanId) {
@@ -239,12 +259,12 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
         }
       }
       toast({
-        title: initial?.id ? "Transaction updated" : "Transaction added",
+        title: initial?.id ? f.updated : f.added,
         kind: "success",
       });
       onSaved?.(saved);
     } catch (e) {
-      const msg = e instanceof Error ? e.message : "Save failed";
+      const msg = e instanceof Error ? e.message : f.saveFailed;
       setErrors({ _: msg });
     } finally {
       setSaving(false);
@@ -261,7 +281,7 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
 
   return (
     <form onSubmit={submit} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-      <Field label="Type" required error={fieldError("type")}>
+      <Field label={f.type} required error={fieldError("type")}>
         <Select
           value={isContribution ? "contribution" : state.type}
           onValueChange={(v) => {
@@ -279,39 +299,39 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            {!forcedType && <SelectItem value="contribution">Contribution return</SelectItem>}
+            {!forcedType && <SelectItem value="contribution">{f.contribution}</SelectItem>}
             {txTypes.map((t) => (
               <SelectItem key={t.value} value={t.value}>
-                {t.label}
+                {typeLabels[t.value] ?? t.label}
               </SelectItem>
             ))}
           </SelectContent>
         </Select>
       </Field>
       {isContribution && <div className="sm:col-span-2">
-        <Field label="Original shared expense" required error={contributionProblem ?? fieldError("linkedOriginalTransactionId")}>
-          <select aria-label="Original shared expense" className="w-full rounded-md border border-border bg-background p-2 text-sm" value={state.linkedOriginalTransactionId} onChange={e => {
+        <Field label={f.originalExpense} required error={contributionProblem ?? fieldError("linkedOriginalTransactionId")}>
+          <select aria-label={f.originalExpense} className="w-full rounded-md border border-border bg-background p-2 text-sm" value={state.linkedOriginalTransactionId} onChange={e => {
             const original = transactions.find(t => t.id === e.target.value);
             setState(s => ({ ...s, linkedOriginalTransactionId: e.target.value, categoryId: original?.categoryId ?? "", businessOrPersonal: original?.businessOrPersonal ?? "personal" }));
           }}>
-            <option value="">Select expense</option>
-            {transactions.filter(t => t.userId === user?.id && t.type === "expense" && !t.isDeleted && !t.isReimbursable && t.businessOrPersonal !== "mixed").map(t => <option key={t.id} value={t.id}>{t.date.slice(0, 10)} / {t.description || t.merchantOrPerson} / {formatINR(expenseRecovery(t, transactions, initial?.id).remainingPaise / 100)} remaining</option>)}
+            <option value="">{f.selectExpense}</option>
+            {transactions.filter(t => t.userId === user?.id && t.type === "expense" && !t.isDeleted && !t.isReimbursable && t.businessOrPersonal !== "mixed").map(t => <option key={t.id} value={t.id}>{t.date.slice(0, 10)} / {t.description || t.merchantOrPerson} / {f.remainingOption.replace("{amount}", formatINR(expenseRecovery(t, transactions, initial?.id).remainingPaise / 100))}</option>)}
           </select>
         </Field>
-        {contributionOriginal && <div className="mt-2 flex flex-wrap gap-4 text-xs tabular-nums"><span>Gross expense: {formatINR(transactionAmountPaise(contributionOriginal) / 100)}</span><span>Remaining: {formatINR(expenseRecovery(contributionOriginal, transactions, initial?.id).remainingPaise / 100)}</span><span>Income: {formatINR(0)}</span></div>}
+        {contributionOriginal && <div className="mt-2 flex flex-wrap gap-4 text-xs tabular-nums"><span>{f.grossExpense.replace("{amount}", formatINR(transactionAmountPaise(contributionOriginal) / 100))}</span><span>{f.remaining.replace("{amount}", formatINR(expenseRecovery(contributionOriginal, transactions, initial?.id).remainingPaise / 100))}</span><span>{f.incomeZero.replace("{amount}", formatINR(0))}</span></div>}
       </div>}
-      <Field label="Date" required error={fieldError("date")}>
+      <Field label={f.date} required error={fieldError("date")}>
         <Input
           type="date"
-          aria-label="Transaction date"
+          aria-label={f.dateAria}
           value={state.date}
           onChange={(e) => setState({ ...state, date: e.target.value })}
         />
       </Field>
-      <Field label="Amount (₹)" required error={fieldError("amount")}>
+      <Field label={f.amount} required error={fieldError("amount")}>
         <Input
           type="number"
-          aria-label="Transaction amount"
+          aria-label={f.amountAria}
           step="0.01"
           inputMode="decimal"
           value={state.amount as number}
@@ -322,7 +342,7 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
         />
       </Field>
       {state.type === "transfer" ? null : (
-        <Field label="Payment Mode" required error={fieldError("paymentMode")}>
+        <Field label={f.payment} required error={fieldError("paymentMode")}>
           <Select
             value={state.paymentMode}
             onValueChange={(v) => setState({ ...state, paymentMode: v as PaymentMode })}
@@ -333,7 +353,7 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
             <SelectContent>
               {PAYMENT_MODES.filter(p => !isContribution || p.value !== "credit_card").map((p) => (
                 <SelectItem key={p.value} value={p.value}>
-                  {p.label}
+                  {payLabels[p.value] ?? p.label}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -343,8 +363,8 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
       <Field
         label={
           (state.type === "expense" || state.type === "refund") && state.paymentMode === "credit_card"
-            ? "Tag account (optional — does not move cash)"
-            : "Account"
+            ? f.tagAccount
+            : f.account
         }
         required={
           !(
@@ -373,11 +393,11 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
           }
         >
           <SelectTrigger>
-            <SelectValue placeholder="Select account" />
+            <SelectValue placeholder={f.selectAccount} />
           </SelectTrigger>
           <SelectContent>
             {(state.type === "expense" || state.type === "refund") && state.paymentMode === "credit_card" ? (
-              <SelectItem value="__none__">None (card only)</SelectItem>
+              <SelectItem value="__none__">{f.noneCard}</SelectItem>
             ) : null}
             {accounts.map((a) => (
               <SelectItem key={a.id} value={a.id}>
@@ -389,13 +409,13 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
       </Field>
 
       {state.type === "transfer" ? (
-        <Field label="To Account" required error={fieldError("toAccountId")}>
+        <Field label={f.toAccount} required error={fieldError("toAccountId")}>
           <Select
             value={state.toAccountId || undefined}
             onValueChange={(v) => setState({ ...state, toAccountId: v })}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Destination account" />
+              <SelectValue placeholder={f.destination} />
             </SelectTrigger>
             <SelectContent>
               {accounts
@@ -410,7 +430,7 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
         </Field>
       ) : state.type === "udhari_collect" || state.type === "udhari_repay" ? null : (
         <Field
-          label="Category"
+          label={f.category}
           required={
             state.type === "income" ||
             state.type === "expense" ||
@@ -424,7 +444,7 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
             onValueChange={(v) => setState({ ...state, categoryId: v })}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Select category" />
+              <SelectValue placeholder={f.selectCategory} />
             </SelectTrigger>
             <SelectContent>
               {filteredCategories.map((c) => (
@@ -439,13 +459,13 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
       )}
 
       {state.type === "cc_payment" && activeCreditCards.length ? (
-        <Field label="Credit Card" className="sm:col-span-2" required error={fieldError("linkedCardId")}>
+        <Field label={f.creditCard} className="sm:col-span-2" required error={fieldError("linkedCardId")}>
           <Select
             value={state.linkedCardId || undefined}
             onValueChange={(v) => setState({ ...state, linkedCardId: v })}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Select card" />
+              <SelectValue placeholder={f.selectCard} />
             </SelectTrigger>
             <SelectContent>
               {activeCreditCards.map((c) => (
@@ -458,13 +478,13 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
         </Field>
       ) : null}
       {(state.type === "emi_payment" || state.type === "loan_prepayment") && loans.length ? (
-        <Field label="Loan" className="sm:col-span-2" required error={fieldError("linkedLoanId")}>
+        <Field label={f.loan} className="sm:col-span-2" required error={fieldError("linkedLoanId")}>
           <Select
             value={state.linkedLoanId || undefined}
             onValueChange={(v) => setState({ ...state, linkedLoanId: v })}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Select loan" />
+              <SelectValue placeholder={f.selectLoan} />
             </SelectTrigger>
             <SelectContent>
               {loans.map((l) => (
@@ -477,13 +497,13 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
         </Field>
       ) : null}
       {state.type === "loan_disbursement" && loans.length ? (
-        <Field label="Loan" className="sm:col-span-2" required error={fieldError("linkedLoanId")}>
+        <Field label={f.loan} className="sm:col-span-2" required error={fieldError("linkedLoanId")}>
           <Select
             value={state.linkedLoanId || undefined}
             onValueChange={(v) => setState({ ...state, linkedLoanId: v })}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Select loan" />
+              <SelectValue placeholder={f.selectLoan} />
             </SelectTrigger>
             <SelectContent>
               {loans.map((l) => (
@@ -496,13 +516,13 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
         </Field>
       ) : null}
       {(state.type === "savings_contribution" || state.type === "goal_withdrawal") && goals.length ? (
-        <Field label="Goal" className="sm:col-span-2" required error={fieldError("linkedGoalId")}>
+        <Field label={f.goal} className="sm:col-span-2" required error={fieldError("linkedGoalId")}>
           <Select
             value={state.linkedGoalId || undefined}
             onValueChange={(v) => setState({ ...state, linkedGoalId: v })}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Select goal" />
+              <SelectValue placeholder={f.selectGoal} />
             </SelectTrigger>
             <SelectContent>
               {goals.map((g) => (
@@ -515,13 +535,13 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
         </Field>
       ) : null}
       {(state.type === "investment_contribution" || state.type === "investment_sell") && investments.length ? (
-        <Field label="Investment" className="sm:col-span-2" required error={fieldError("linkedSavingsId")}>
+        <Field label={f.investment} className="sm:col-span-2" required error={fieldError("linkedSavingsId")}>
           <Select
             value={state.linkedSavingsId || undefined}
             onValueChange={(v) => setState({ ...state, linkedSavingsId: v })}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Select investment" />
+              <SelectValue placeholder={f.selectInvestment} />
             </SelectTrigger>
             <SelectContent>
               {investments.map((i) => (
@@ -536,13 +556,13 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
       {(state.type === "expense" || state.type === "refund") &&
       state.paymentMode === "credit_card" &&
       activeCreditCards.length ? (
-        <Field label="Credit card used" className="sm:col-span-2" required error={fieldError("linkedCardId")}>
+        <Field label={f.cardUsed} className="sm:col-span-2" required error={fieldError("linkedCardId")}>
           <Select
             value={state.linkedCardId || undefined}
             onValueChange={(v) => setState({ ...state, linkedCardId: v })}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Select card" />
+              <SelectValue placeholder={f.selectCard} />
             </SelectTrigger>
             <SelectContent>
               {activeCreditCards.map((c) => (
@@ -560,13 +580,13 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
         state.type === "udhari_repay" ||
         state.type === "udhari_write_off") &&
       udhariLinkChoices.length ? (
-        <Field label="Udhari Record" className="sm:col-span-2" required error={fieldError("linkedUdhariId")}>
+        <Field label={f.udhari} className="sm:col-span-2" required error={fieldError("linkedUdhariId")}>
           <Select
             value={state.linkedUdhariId || undefined}
             onValueChange={(v) => setState({ ...state, linkedUdhariId: v })}
           >
             <SelectTrigger>
-              <SelectValue placeholder="Select udhari record" />
+              <SelectValue placeholder={f.selectUdhari} />
             </SelectTrigger>
             <SelectContent>
               {udhariLinkChoices.map((u) => (
@@ -580,7 +600,7 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
       ) : null}
 
       <Field
-        label="Merchant / Person"
+        label={f.merchant}
         className="sm:col-span-2"
         required={
           state.type === "udhari_given" ||
@@ -593,19 +613,19 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
         <Input
           value={state.merchantOrPerson}
           onChange={(e) => setState({ ...state, merchantOrPerson: e.target.value })}
-          placeholder="e.g. Swiggy, HDFC, Rahul"
+          placeholder={f.merchantPh}
         />
       </Field>
 
-      <Field label="Description" className="sm:col-span-2">
+      <Field label={f.description} className="sm:col-span-2">
         <Input
           value={state.description}
           onChange={(e) => setState({ ...state, description: e.target.value })}
-          placeholder="Short description"
+          placeholder={f.descriptionPh}
         />
       </Field>
 
-      <Field label="Tags (comma-separated)" className="sm:col-span-2">
+      <Field label={f.tags} className="sm:col-span-2">
         <Input
           value={state.tags.join(", ")}
           onChange={(e) =>
@@ -617,15 +637,15 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
                 .filter(Boolean),
             })
           }
-          placeholder="e.g. family, festive"
+          placeholder={f.tagsPh}
         />
       </Field>
 
-      <Field label="Notes" className="sm:col-span-2">
+      <Field label={f.notes} className="sm:col-span-2">
         <Textarea
           value={state.notes}
           onChange={(e) => setState({ ...state, notes: e.target.value })}
-          placeholder="Optional notes"
+          placeholder={f.notesPh}
           rows={2}
         />
       </Field>
@@ -636,21 +656,21 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
             checked={!!state.billAvailable}
             onCheckedChange={(c) => setState({ ...state, billAvailable: c ? 1 : 0 })}
           />
-          Bill available
+          {f.bill}
         </label>
         <label className="flex items-center gap-2 text-sm">
           <Checkbox
             checked={!!state.gstApplicable}
             onCheckedChange={(c) => setState({ ...state, gstApplicable: c ? 1 : 0 })}
           />
-          GST applicable
+          {f.gst}
         </label>
         <label className="flex items-center gap-2 text-sm">
           <Checkbox
             checked={!!state.taxFlag}
             onCheckedChange={(c) => setState({ ...state, taxFlag: c ? 1 : 0 })}
           />
-          Tax relevant
+          {f.tax}
         </label>
         <label className="flex items-center gap-2 text-sm">
           <Checkbox
@@ -659,11 +679,11 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
               setState({ ...state, businessOrPersonal: c ? "business" : "personal" })
             }
           />
-          Business (not personal)
+          {f.business}
         </label>
       </div>
 
-      <Field label="Need / Want">
+      <Field label={f.needWant}>
         <Select
           value={state.needWant}
           onValueChange={(v) =>
@@ -674,14 +694,14 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="unassigned">Unassigned</SelectItem>
-            <SelectItem value="need">Need</SelectItem>
-            <SelectItem value="want">Want</SelectItem>
-            <SelectItem value="luxury">Luxury</SelectItem>
+            <SelectItem value="unassigned">{f.unassigned}</SelectItem>
+            <SelectItem value="need">{f.need}</SelectItem>
+            <SelectItem value="want">{f.want}</SelectItem>
+            <SelectItem value="luxury">{f.luxury}</SelectItem>
           </SelectContent>
         </Select>
       </Field>
-      <Field label="Fixed / Variable">
+      <Field label={f.fixedVariable}>
         <Select
           value={state.fixedVariable}
           onValueChange={(v) =>
@@ -692,16 +712,16 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="unassigned">Unassigned</SelectItem>
-            <SelectItem value="fixed">Fixed</SelectItem>
-            <SelectItem value="variable">Variable</SelectItem>
+            <SelectItem value="unassigned">{f.unassigned}</SelectItem>
+            <SelectItem value="fixed">{f.fixed}</SelectItem>
+            <SelectItem value="variable">{f.variable}</SelectItem>
           </SelectContent>
         </Select>
       </Field>
 
       {preview?.lines.length ? (
         <div className="sm:col-span-2 space-y-2 rounded-md border border-border bg-muted/30 p-3 text-sm leading-relaxed">
-          <div className="font-medium text-foreground">Before you save</div>
+          <div className="font-medium text-foreground">{f.beforeSave}</div>
           <ul className="list-inside list-disc space-y-1 text-muted-foreground">
             {preview.lines.map((line, i) => (
               <li key={i}>{line}</li>
@@ -718,10 +738,10 @@ export function TransactionForm({ initial, forcedType, onCancel, onSaved }: Prop
 
       <div className="flex flex-col-reverse gap-2 pt-2 sm:col-span-2 sm:flex-row sm:items-center sm:justify-end">
         <Button type="button" variant="ghost" onClick={onCancel}>
-          Cancel
+          {f.cancel}
         </Button>
         <Button type="submit" loading={saving} disabled={!canSave}>
-          {initial?.id ? "Save Changes" : "Add Transaction"}
+          {initial?.id ? f.saveChanges : f.add}
         </Button>
       </div>
     </form>

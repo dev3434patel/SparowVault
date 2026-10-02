@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { companyApi } from "@/company/api/client";
-import { PermissionGate } from "@/company/components/PermissionGate";
+import { PermissionGate, useHasPermission } from "@/company/components/PermissionGate";
 import { companyNavigate, companyPath } from "@/company/routes";
 import { useCompanyStore } from "@/company/store/companyStore";
 import { ApiError } from "@/lib/apiClient";
@@ -61,6 +61,7 @@ export function ExportPage() {
   const [busy, setBusy] = useState(false);
   const [pinOpen, setPinOpen] = useState(false);
   const [pending, setPending] = useState<{ format: string; report: string } | null>(null);
+  const canBackup = useHasPermission("export_backup");
 
   function ask(format: string, report = "day-book") {
     setPending({ format, report });
@@ -154,9 +155,18 @@ export function ExportPage() {
           <div className="border-b border-border/80 bg-[hsl(var(--surface))]/60 px-4 py-3">
             <h2 className="text-sm font-semibold">Full data backup</h2>
           </div>
-          <div className="p-4 text-sm text-muted-foreground">
-            Operational database backup/restore is performed with the certified mysqldump drill (ops harness), not from
-            this browser pack. Use report exports above for day-to-day sharing.
+          <div className="space-y-2 p-4 text-sm text-muted-foreground">
+            <p>
+              Download this company's books as JSON. The file stays on this company and leaves out PINs, passwords, and
+              tokens. It is not a server-wide database dump.
+            </p>
+            {canBackup ? (
+              <Button size="sm" variant="outline" disabled={busy} onClick={() => ask("json", "backup")}>
+                Download company backup
+              </Button>
+            ) : (
+              <p>Company backup needs the export backup permission.</p>
+            )}
           </div>
         </section>
 

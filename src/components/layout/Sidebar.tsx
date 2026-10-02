@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { useNavStore, type NavKey } from "@/store/navStore";
+import { useMessages } from "@/i18n/useMessages";
 import { cn } from "@/lib/utils";
 import {
   LayoutDashboard,
@@ -29,6 +31,7 @@ import { useUIStore } from "@/store/uiStore";
 import { Button } from "@/components/ui/Button";
 import { useCloudAppStore } from "@/store/cloudAppStore";
 import { useAuthStore } from "@/store/authStore";
+import { navVisibilityFlags, personalMobileMoreKeys, personalNavHidden } from "@/services/modulePolicy";
 
 interface NavItem {
   key: NavKey;
@@ -45,6 +48,7 @@ const NAV: NavItem[] = [
   { key: "categories", label: "Categories", icon: FolderTree, group: "Ledger" },
   { key: "budgets", label: "Budgets", icon: BarChart3, group: "Planning" },
   { key: "goals", label: "Goals", icon: Target, group: "Planning" },
+  { key: "envelopes", label: "Envelopes", icon: PiggyBank, group: "Planning" },
   { key: "savings", label: "Savings & Investments", icon: PiggyBank, group: "Planning" },
   { key: "accounts", label: "Accounts", icon: Wallet, group: "Money" },
   { key: "cards", label: "Cards", icon: CreditCard, group: "Money" },
@@ -71,6 +75,7 @@ const NAV: NavItem[] = [
 ];
 
 export function Sidebar() {
+  const messages = useMessages();
   const razorpayEnabled = import.meta.env.VITE_ENABLE_RAZORPAY === "true";
   const active = useNavStore((s) => s.active);
   const setActive = useNavStore((s) => s.setActive);
@@ -78,6 +83,7 @@ export function Sidebar() {
   const setCollapsed = useUIStore((s) => s.setSidebarCollapsed);
   const viewerRole = useCloudAppStore((s) => s.viewerRole);
   const flags = useCloudAppStore((s) => s.flags);
+  const navFlags = navVisibilityFlags(flags, useCloudAppStore((s) => s.effectiveFeatures));
   const branding = useCloudAppStore((s) => s.settings);
   const currentUser = useAuthStore((s) => s.currentUser);
   const isAdminOverride = (currentUser?.username ?? "").toLowerCase() === "admin";
@@ -87,8 +93,8 @@ export function Sidebar() {
     if (isAdminPortal && item.group !== "Admin") return false;
     if (!isAdminPortal && item.group === "Admin") return false;
     if (item.group === "Admin" && viewerRole !== "admin" && !isAdminOverride) return false;
-    if (item.key === "export" && flags.exports === false) return false;
-    if (!razorpayEnabled && (item.key === "subscription" || item.key === "admin-subscriptions")) return false;
+    if (personalNavHidden(navFlags, item.key)) return false;
+    if (!razorpayEnabled && (item.key === "admin-subscriptions" || item.key === "subscription")) return false;
     return true;
   });
 
@@ -114,7 +120,7 @@ export function Sidebar() {
               {String(branding.app_title ?? "SparowVault")}
             </div>
             <div className="text-[11px] text-muted-foreground">
-              Personal Finance OS
+              {messages.ui.layout.tagline}
             </div>
           </div>
         ) : null}
@@ -125,7 +131,7 @@ export function Sidebar() {
           <div key={group} className="mt-3">
             {!collapsed ? (
               <div className="px-3 pb-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-                {group}
+                {groupLabel(messages, group)}
               </div>
             ) : (
               <div className="mx-3 my-2 h-px bg-[hsl(var(--border))]" />
@@ -145,10 +151,10 @@ export function Sidebar() {
                         : "text-muted-foreground hover:bg-surface-2 hover:text-[hsl(var(--foreground))]",
                       collapsed && "justify-center px-2",
                     )}
-                    title={collapsed ? it.label : undefined}
+                    title={collapsed ? catalogLabel(messages, it.key, it.label) : undefined}
                   >
                     <Icon className="h-4 w-4 shrink-0" />
-                    {!collapsed ? <span className="truncate">{it.label}</span> : null}
+                    {!collapsed ? <span className="truncate">{catalogLabel(messages, it.key, it.label)}</span> : null}
                   </button>
                 );
               })}
@@ -165,10 +171,10 @@ export function Sidebar() {
               "flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-surface-2 hover:text-foreground",
               collapsed && "justify-center px-2",
             )}
-            title="Company Books"
+            title={messages.ui.layout.companyBooks}
           >
             <LandmarkIcon className="h-4 w-4 shrink-0" />
-            {!collapsed ? <span className="truncate">Company Books</span> : null}
+            {!collapsed ? <span className="truncate">{messages.ui.layout.companyBooks}</span> : null}
           </a>
         ) : null}
         <Button
@@ -176,13 +182,13 @@ export function Sidebar() {
           size="sm"
           onClick={() => setCollapsed(!collapsed)}
           className="w-full"
-          title={collapsed ? "Expand" : "Collapse"}
+          title={collapsed ? messages.ui.layout.expand : messages.ui.layout.collapse}
         >
           {collapsed ? (
             <ChevronsRight className="h-4 w-4" />
           ) : (
             <>
-              <ChevronsLeft className="h-4 w-4" /> Collapse
+              <ChevronsLeft className="h-4 w-4" /> {messages.ui.layout.collapse}
             </>
           )}
         </Button>
@@ -191,37 +197,98 @@ export function Sidebar() {
   );
 }
 
+function groupLabel(messages: ReturnType<typeof useMessages>, group: string): string {
+  const nav = messages.nav;
+  if (group === "Overview") return nav.overview;
+  if (group === "Ledger") return nav.ledger;
+  if (group === "Planning") return nav.planning;
+  if (group === "Money") return nav.money;
+  if (group === "Insights") return nav.insights;
+  if (group === "Data") return nav.data;
+  if (group === "System") return nav.system;
+  return group;
+}
+
+function catalogLabel(messages: ReturnType<typeof useMessages>, key: string, fallback: string): string {
+  const pageKey = key === "bill-calendar" ? "billCalendar" : key;
+  const pages = messages.pages as Record<string, string>;
+  return pages[pageKey] ?? fallback;
+}
+
+const MOBILE_PRIMARY: NavItem[] = [
+  { key: "dashboard", label: "Home", icon: LayoutDashboard, group: "Overview" },
+  { key: "transactions", label: "Ledger", icon: Receipt, group: "Ledger" },
+  { key: "budgets", label: "Budget", icon: BarChart3, group: "Planning" },
+  { key: "goals", label: "Goals", icon: Target, group: "Planning" },
+  { key: "reports", label: "Reports", icon: Banknote, group: "Insights" },
+];
+
 export function MobileNav() {
+  const messages = useMessages();
   const active = useNavStore((s) => s.active);
   const setActive = useNavStore((s) => s.setActive);
-  const items: NavItem[] = [
-    { key: "dashboard", label: "Home", icon: LayoutDashboard, group: "Overview" },
-    { key: "transactions", label: "Ledger", icon: Receipt, group: "Ledger" },
-    { key: "budgets", label: "Budget", icon: BarChart3, group: "Planning" },
-    { key: "goals", label: "Goals", icon: Target, group: "Planning" },
-    { key: "reports", label: "Reports", icon: Banknote, group: "Insights" },
-  ];
+  const navFlags = navVisibilityFlags(
+    useCloudAppStore((s) => s.flags),
+    useCloudAppStore((s) => s.effectiveFeatures),
+  );
+  const razorpayEnabled = import.meta.env.VITE_ENABLE_RAZORPAY === "true";
+  const [more, setMore] = useState(false);
+  const items = MOBILE_PRIMARY.filter((item) => !personalNavHidden(navFlags, item.key));
+  const moreKeySet = new Set(personalMobileMoreKeys(NAV.map((item) => item.key), navFlags, razorpayEnabled));
+  const moreItems = NAV.filter((item) => moreKeySet.has(item.key));
   return (
-    <nav className="md:hidden fixed bottom-0 inset-x-0 z-30 flex items-stretch justify-around border-t border-border bg-[hsl(var(--card))]/95 backdrop-blur">
-      {items.map((it) => {
-        const Icon = it.icon;
-        const isActive = active === it.key;
-        return (
-          <button
-            key={it.key}
-            onClick={() => setActive(it.key)}
-            className={cn(
-              "flex flex-col items-center justify-center gap-0.5 py-2 flex-1 text-[10px]",
-              isActive
-                ? "text-primary"
-                : "text-muted-foreground",
-            )}
-          >
-            <Icon className="h-5 w-5" />
-            {it.label}
-          </button>
-        );
-      })}
-    </nav>
+    <>
+      {more ? (
+        <div className="md:hidden fixed inset-x-0 bottom-14 z-40 border-t border-border bg-card p-3 shadow-lg">
+          <div className="grid grid-cols-2 gap-2">
+            {moreItems.map((it) => (
+              <button
+                key={it.key}
+                type="button"
+                className="rounded-md border border-border px-3 py-2 text-left text-sm"
+                onClick={() => {
+                  setActive(it.key);
+                  setMore(false);
+                }}
+              >
+                {catalogLabel(messages, it.key, it.label)}
+              </button>
+            ))}
+          </div>
+        </div>
+      ) : null}
+      <nav className="md:hidden fixed bottom-0 inset-x-0 z-30 flex items-stretch justify-around border-t border-border bg-[hsl(var(--card))]/95 backdrop-blur">
+        {items.map((it) => {
+          const Icon = it.icon;
+          const isActive = active === it.key;
+          return (
+            <button
+              key={it.key}
+              onClick={() => {
+                setMore(false);
+                setActive(it.key);
+              }}
+              className={cn(
+                "flex flex-col items-center justify-center gap-0.5 py-2 flex-1 text-[10px]",
+                isActive ? "text-primary" : "text-muted-foreground",
+              )}
+            >
+              <Icon className="h-5 w-5" />
+              {it.key === "dashboard" ? messages.ui.layout.home : catalogLabel(messages, it.key, it.label)}
+            </button>
+          );
+        })}
+        <button
+          type="button"
+          onClick={() => setMore((v) => !v)}
+          className={cn(
+            "flex flex-col items-center justify-center gap-0.5 py-2 flex-1 text-[10px]",
+            more ? "text-primary" : "text-muted-foreground",
+          )}
+        >
+          {messages.ui.layout.more}
+        </button>
+      </nav>
+    </>
   );
 }

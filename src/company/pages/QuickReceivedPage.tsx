@@ -10,7 +10,9 @@ import { companyApi, type VoucherPreviewLine } from "@/company/api/client";
 import { useCompanyStore } from "@/company/store/companyStore";
 import { companyNavigate, companyPath } from "@/company/routes";
 import { PageHeader } from "@/company/components/PageChrome";
+import { useHasPermission } from "@/company/components/PermissionGate";
 import { useI18n } from "@/company/i18n/react";
+import { localIsoDate } from "@/company/lib/localDate";
 
 function QuickForm({
   title,
@@ -22,6 +24,7 @@ function QuickForm({
   direction: "received" | "paid";
 }) {
   const { t } = useI18n();
+  const canPost = useHasPermission(direction === "received" ? "create_receipt" : "create_payment");
   const companyId = useCompanyStore((s) => s.activeCompanyId);
   const purposes = useMemo(
     () => getPurposesForVoucherType(direction === "received" ? "RECEIPT" : "PAYMENT"),
@@ -30,7 +33,7 @@ function QuickForm({
   const defaultPurpose = (purposes[0]?.code ??
     (direction === "received" ? "OTHER_RECEIPT" : "OTHER_PAYMENT")) as PurposeCode;
   const [amount, setAmount] = useState("");
-  const [date, setDate] = useState(() => new Date().toISOString().slice(0, 10));
+  const [date, setDate] = useState(() => localIsoDate());
   const [purpose, setPurpose] = useState<PurposeCode>(defaultPurpose);
   const [partyId, setPartyId] = useState("");
   const [cashLedgerId, setCashLedgerId] = useState("");
@@ -45,6 +48,10 @@ function QuickForm({
   const [previewHash, setPreviewHash] = useState<string | undefined>();
   const [previewErr, setPreviewErr] = useState<string | null>(null);
   const [previewLoading, setPreviewLoading] = useState(false);
+  const [splitA, setSplitA] = useState("");
+  const [splitB, setSplitB] = useState("");
+  const [centreA, setCentreA] = useState("");
+  const [centreB, setCentreB] = useState("");
 
   const meta = PURPOSE_CATALOGUE[purpose];
   const requiresParty = Boolean(meta?.requiresParty);
@@ -108,7 +115,7 @@ function QuickForm({
         } catch (e) {
           setPreviewLines([]);
           setPreviewHash(undefined);
-          setPreviewErr(e instanceof Error ? e.message : "Preview failed");
+          setPreviewErr(e instanceof Error ? e.message : t("quick.previewFailed"));
         } finally {
           setPreviewLoading(false);
         }
@@ -118,7 +125,7 @@ function QuickForm({
     return () => {
       window.clearTimeout(handle);
     };
-  }, [companyId, amount, purpose, partyId, cashLedgerId, requiresParty]);
+  }, [companyId, amount, purpose, partyId, cashLedgerId, requiresParty, t]);
 
   const ledgerNameById = useMemo(() => {
     const m = new Map<string, string>();
@@ -131,11 +138,15 @@ function QuickForm({
     setOk(null);
     setPostedId(null);
     if (!companyId) {
-      setErr("Select a company first");
+      setErr(t("quick.selectCompany"));
+      return;
+    }
+    if (!canPost) {
+      setErr(t("quick.noPostPermission"));
       return;
     }
     if (requiresParty && !partyId) {
-      setErr("Party is required for this purpose");
+      setErr(t("quick.partyRequired"));
       return;
     }
     if (previewErr) {
@@ -143,13 +154,27 @@ function QuickForm({
       return;
     }
     if (!cashLedgerId) {
-      setErr("Cash/bank ledger required");
+      setErr(t("quick.cashBankRequired"));
       return;
     }
     setSaving(true);
     setErr(null);
     try {
       const amountPaise = parseMoneyInputToPaise(amount, { allowZero: false, throwOnInvalid: true });
+      let costAllocations: Array<{ costCentreId: string; amountPaise: number }> | undefined;
+      if (centreA && centreB && splitA && splitB) {
+        const a = parseMoneyInputToPaise(splitA, { allowZero: false, throwOnInvalid: true });
+        const b = parseMoneyInputToPaise(splitB, { allowZero: false, throwOnInvalid: true });
+        if (a + b !== amountPaise) {
+          setErr(t("quick.splitMustEqual"));
+          setSaving(false);
+          return;
+        }
+        costAllocations = [
+          { costCentreId: centreA, amountPaise: a },
+          { costCentreId: centreB, amountPaise: b },
+        ];
+      }
       const res = await companyApi.postVoucher(companyId, {
         mutationId: `ui-${crypto.randomUUID()}`,
         purpose,
@@ -159,6 +184,7 @@ function QuickForm({
         cashBankLedgerId: cashLedgerId,
         narration: note || undefined,
         status: "POSTED",
+        ...(costAllocations ? { costAllocations } : {}),
         ...(previewHash ? { previewHash } : {}),
       });
       setOk(`Posted voucher ${res.voucherNumber || res.id}`);
@@ -168,7 +194,7 @@ function QuickForm({
       setPreviewLines([]);
       setPreviewHash(undefined);
     } catch (error) {
-      setErr(error instanceof Error ? error.message : "Post failed");
+      setErr(error instanceof Error ? error.message : t("quick.postFailed"));
     } finally {
       setSaving(false);
     }
@@ -292,6 +318,18 @@ function QuickForm({
         ) : null}
 
         <div className="flex flex-wrap gap-2 pt-1">
+          <Field label="Cost centre A">
+            <Input value={centreA} onChange={(e) => setCentreA(e.target.value)} placeholder="Optional id" />
+          </Field>
+          <Field label="Split A">
+            <Input value={splitA} onChange={(e) => setSplitA(e.target.value)} placeholder="0.00" />
+          </Field>
+          <Field label="Cost centre B">
+            <Input value={centreB} onChange={(e) => setCentreB(e.target.value)} placeholder="Optional id" />
+          </Field>
+          <Field label="Split B">
+            <Input value={splitB} onChange={(e) => setSplitB(e.target.value)} placeholder="0.00" />
+          </Field>
           <Button type="submit" className="min-h-11 flex-1 sm:flex-none" disabled={saving || !!previewErr || previewLines.length === 0}>
             {saving ? t("quick.posting") : t("quick.post")}
           </Button>

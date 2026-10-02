@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { PageHeader } from "@/components/layout/PageHeader";
+import { PersonalPageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -36,6 +36,9 @@ import type { EMIPayment, Loan } from "@/types";
 import { useUIStore } from "@/store/uiStore";
 import { confirm } from "@/store/uiStore";
 import { loanSchema } from "@/services/validators";
+import { planCapMessage, snapshotFromEffectiveFeatures } from "@/services/modulePolicy";
+import { useMessages } from "@/i18n/useMessages";
+import { useCloudAppStore } from "@/store/cloudAppStore";
 import {
   amortizationSchedule,
   calculateEMI,
@@ -65,6 +68,9 @@ import { format } from "date-fns";
 import { refsForLoan } from "@/services/refIntegrity";
 
 export function LoansPage() {
+  const messages = useMessages();
+  const fields = messages.fields;
+  const copy = messages.copy.loans;
   const user = useAuthStore((s) => s.currentUser);
   const loans = useDataStore((s) => s.loans);
   const emis = useDataStore((s) => s.emis);
@@ -146,15 +152,15 @@ export function LoansPage() {
   async function handleCloseLoan(l: Loan) {
     if (l.status === "closed") return;
     const ok = await confirm({
-      title: "Close this loan?",
-      description: "Marks the loan as closed in your records. You can reopen it from edit if needed.",
-      confirmLabel: "Close loan",
+      title: copy.closeTitle,
+      description: copy.closeBody,
+      confirmLabel: copy.close,
     });
     if (!ok) return;
     const updated = await loanRepo.update(l.id, { status: "closed" });
     if (updated) {
       upsertLocal("loans", updated);
-      toast({ title: "Loan closed", kind: "success" });
+      toast({ title: copy.closed, kind: "success" });
     }
   }
 
@@ -162,29 +168,28 @@ export function LoansPage() {
     const refs = refsForLoan(id);
     if (refs.blocking) {
       toast({
-        title: "Cannot delete loan",
+        title: copy.cannotDelete,
         description: refs.message,
         kind: "warning",
       });
       return;
     }
     const ok = await confirm({
-      title: "Delete this loan?",
-      description: "This loan will be removed permanently.",
+      title: copy.deleteTitle,
+      description: copy.deleteBody,
       destructive: true,
-      confirmLabel: "Delete loan",
+      confirmLabel: copy.deleteConfirm,
     });
     if (!ok) return;
     await loanRepo.softDelete(id);
     removeLocal("loans", id);
-    toast({ title: "Loan removed", kind: "info" });
+    toast({ title: copy.removed, kind: "info" });
   }
 
   return (
     <div>
-      <PageHeader
-        title="Loans & EMI"
-        description="Track all loans, repayment schedules, interest burden, and overdue EMIs."
+      <PersonalPageHeader
+        screen="loans"
         actions={
           <Button onClick={() => setAdding(true)}>
             <Plus className="h-4 w-4" /> New Loan
@@ -256,7 +261,7 @@ export function LoansPage() {
           </div>
           <div>
             <div className="text-muted-foreground">Priority</div>
-            <div className="font-semibold">{debtSummary.highInterestPriority ?? "None"}</div>
+            <div className="font-semibold">{debtSummary.highInterestPriority ?? copy.none}</div>
           </div>
           <div>
             <div className="text-muted-foreground">EMI burden</div>
@@ -268,7 +273,7 @@ export function LoansPage() {
             <div className="text-muted-foreground">Debt-to-income</div>
             <div className="tabular-nums font-semibold">
               {debtSummary.debtToIncomePct === null
-                ? "Add income"
+                ? copy.addIncome
                 : formatPercent(debtSummary.debtToIncomePct, 1)}
             </div>
           </div>
@@ -299,8 +304,8 @@ export function LoansPage() {
           <CardContent>
             <EmptyState
               icon={<Landmark className="h-6 w-6" />}
-              title="No loans tracked yet"
-              description="Add a loan to auto-generate EMI schedule, interest burden, and reminders."
+              title={copy.emptyTitle}
+              description={copy.emptyBody}
               action={
                 <Button onClick={() => setAdding(true)}>
                   <Plus className="h-4 w-4" /> Add Loan
@@ -417,7 +422,7 @@ export function LoansPage() {
                   <Progress value={Math.min(100, pct)} tone="income" />
                   {l.prepaymentAllowed === 1 && l.status === "active" ? (
                     <div className="mt-3 flex flex-wrap items-end gap-2 rounded-md border border-border p-2">
-                      <Field label="Prepayment simulator (₹)" className="min-w-[140px] flex-1">
+                      <Field label={fields.prepayment} className="min-w-[140px] flex-1">
                         <Input
                           inputMode="decimal"
                           placeholder="e.g. 50000"
@@ -484,7 +489,7 @@ export function LoansPage() {
                           size="sm"
                           variant="outline"
                           onClick={() => void handleCloseLoan(l)}
-                          title="Close loan"
+                          title={copy.close}
                         >
                           <Ban className="h-3.5 w-3.5" />
                         </Button>
@@ -515,7 +520,7 @@ export function LoansPage() {
         userId={user?.id}
         onSaved={(l) => {
           upsertLocal("loans", l);
-          toast({ title: editing ? "Loan updated" : "Loan added", kind: "success" });
+          toast({ title: editing ? copy.updated : copy.added, kind: "success" });
           setAdding(false);
           setEditing(null);
         }}
@@ -627,6 +632,9 @@ function LoanForm({
   userId?: string;
   onSaved: (l: Loan) => void;
 }) {
+  const messages = useMessages();
+  const fields = messages.fields;
+  const copy = messages.copy.loans;
   const [state, setState] = useState({
     lender: loan?.lender ?? "",
     loanType: loan?.loanType ?? "personal",
@@ -705,7 +713,7 @@ function LoanForm({
     if (!userId) return;
     const parse = loanSchema.safeParse(state);
     if (!parse.success) {
-      setErr(parse.error.issues[0]?.message ?? "Invalid");
+      setErr(parse.error.issues[0]?.message ?? copy.invalid);
       return;
     }
     setSaving(true);
@@ -738,6 +746,17 @@ function LoanForm({
             ? parse.data.blockedAmount
             : undefined,
       };
+      if (!loan) {
+        const cap = planCapMessage(
+          snapshotFromEffectiveFeatures(useCloudAppStore.getState().effectiveFeatures),
+          "loans",
+          useDataStore.getState().loans.filter((row) => row.isDeleted !== 1).length,
+        );
+        if (cap) {
+          setErr(cap);
+          return;
+        }
+      }
       if (loan) {
         const updated = await loanRepo.update(loan.id, payload as unknown as Partial<Loan>);
         if (updated) onSaved(updated);
@@ -749,7 +768,7 @@ function LoanForm({
         onSaved(created);
       }
     } catch (e) {
-      setErr(e instanceof Error ? e.message : "Failed to save loan");
+      setErr(e instanceof Error ? e.message : copy.saveFailed);
     } finally {
       setSaving(false);
     }
@@ -759,17 +778,17 @@ function LoanForm({
     <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
       <DialogContent size="lg">
         <DialogHeader>
-          <DialogTitle>{loan ? "Edit Loan" : "New Loan"}</DialogTitle>
+          <DialogTitle>{loan ? copy.edit : copy.new}</DialogTitle>
         </DialogHeader>
         <form onSubmit={submit} className="grid grid-cols-2 gap-3">
-          <Field label="Lender" required className="col-span-2">
+          <Field label={fields.lender} required className="col-span-2">
             <Input
               value={state.lender}
               onChange={(e) => setState({ ...state, lender: e.target.value })}
               placeholder="HDFC Bank"
             />
           </Field>
-          <Field label="Loan type">
+          <Field label={fields.loanType}>
             <Select
               value={state.loanType}
               onValueChange={(v) =>
@@ -788,7 +807,7 @@ function LoanForm({
               </SelectContent>
             </Select>
           </Field>
-          <Field label="Tracking mode">
+          <Field label={fields.trackingMode}>
             <Select
               value={state.lifecycleMode}
               onValueChange={(v) =>
@@ -805,7 +824,7 @@ function LoanForm({
               </SelectContent>
             </Select>
           </Field>
-          <Field label="Interest method">
+          <Field label={fields.interestMethod}>
             <Select
               value={state.interestType}
               onValueChange={(v) => setState({ ...state, interestType: v as typeof state.interestType })}
@@ -821,21 +840,21 @@ function LoanForm({
               </SelectContent>
             </Select>
           </Field>
-          <Field label="Start date" required>
+          <Field label={fields.startDate} required>
             <Input
               type="date"
               value={state.startDate}
               onChange={(e) => setState({ ...state, startDate: e.target.value })}
             />
           </Field>
-          <Field label="Principal (₹)" required>
+          <Field label={fields.principal} required>
             <Input
               type="number"
               value={state.principal}
               onChange={(e) => setState({ ...state, principal: +e.target.value })}
             />
           </Field>
-          <Field label="Disbursed amount (INR)">
+          <Field label={fields.disbursed}>
             <Input
               type="number"
               min={0}
@@ -843,21 +862,21 @@ function LoanForm({
               onChange={(e) => setState({ ...state, disbursedAmount: +e.target.value })}
             />
           </Field>
-          <Field label="First EMI date">
+          <Field label={fields.firstEmi}>
             <Input
               type="date"
               value={state.firstEmiDate}
               onChange={(e) => setState({ ...state, firstEmiDate: e.target.value })}
             />
           </Field>
-          <Field label="Tenure (months)" required>
+          <Field label={fields.tenure} required>
             <Input
               type="number"
               value={state.tenureMonths}
               onChange={(e) => setState({ ...state, tenureMonths: +e.target.value })}
             />
           </Field>
-          <Field label="Interest %">
+          <Field label={fields.interestPct}>
             <Input
               type="number"
               step="0.01"
@@ -867,7 +886,7 @@ function LoanForm({
               }
             />
           </Field>
-          <Field label="EMI due day (1-28)">
+          <Field label={fields.emiDueDay}>
             <Input
               type="number"
               min={1}
@@ -876,7 +895,7 @@ function LoanForm({
               onChange={(e) => setState({ ...state, emiDueDay: +e.target.value })}
             />
           </Field>
-          <Field label="Processing fee (₹)">
+          <Field label={fields.processingFee}>
             <Input
               type="number"
               value={state.processingFee}
@@ -885,7 +904,7 @@ function LoanForm({
           </Field>
           {importedLifecycle ? (
             <>
-              <Field label="Completed EMIs">
+              <Field label={fields.completedEmis}>
                 <Input
                   type="number"
                   min={0}
@@ -893,7 +912,7 @@ function LoanForm({
                   onChange={(e) => setState({ ...state, completedEmis: +e.target.value })}
                 />
               </Field>
-              <Field label="Remaining EMIs">
+              <Field label={fields.remainingEmis}>
                 <Input
                   type="number"
                   min={0}
@@ -901,7 +920,7 @@ function LoanForm({
                   onChange={(e) => setState({ ...state, remainingEmis: +e.target.value })}
                 />
               </Field>
-              <Field label="Outstanding principal (INR)">
+              <Field label={fields.outstanding}>
                 <Input
                   type="number"
                   min={0}
@@ -911,14 +930,14 @@ function LoanForm({
                   }
                 />
               </Field>
-              <Field label="Next due date">
+              <Field label={fields.nextDue}>
                 <Input
                   type="date"
                   value={state.nextDueDate}
                   onChange={(e) => setState({ ...state, nextDueDate: e.target.value })}
                 />
               </Field>
-              <Field label="EMI override (optional)">
+              <Field label={fields.emiOverride}>
                 <Input
                   type="number"
                   min={0}
@@ -928,7 +947,7 @@ function LoanForm({
               </Field>
             </>
           ) : null}
-          <Field label="Foreclosure charges %">
+          <Field label={fields.foreclosure}>
             <Input
               type="number"
               value={state.foreclosureCharges}
@@ -937,7 +956,7 @@ function LoanForm({
               }
             />
           </Field>
-          <Field label="Linked credit card">
+          <Field label={fields.linkedCard}>
             <Select
               value={state.linkedCardId || "__none__"}
               onValueChange={(v) =>
@@ -957,7 +976,7 @@ function LoanForm({
               </SelectContent>
             </Select>
           </Field>
-          <Field label="Blocked amount on card (INR)">
+          <Field label={fields.blockedAmount}>
             <Input
               type="number"
               min={0}

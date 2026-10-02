@@ -154,7 +154,7 @@ export function DashboardPage() {
       ) : null}
 
       <KpiSection
-        range={range}
+        period={period}
         loading={loading}
         initialLoading={initialLoading}
         load={load}
@@ -181,13 +181,20 @@ export function DashboardPage() {
         approvals={approvals}
         onAccount={onAccount}
         load={load}
+        figuresUnverified={Boolean(errs.ar || errs.ap || errs.approvals || errs.cash || errs.flow || errs.pnl)}
       />
 
       <Suspense fallback={<SkeletonChart className="h-56" />}>
         <CashFlowChart initialLoading={initialLoading} errs={errs} flowChart={flowChart} ageing={ageing} load={load} />
       </Suspense>
 
-      <RecentVouchers initialLoading={initialLoading} topParties={topParties} recent={recent} />
+      <RecentVouchers
+        initialLoading={initialLoading}
+        topParties={topParties}
+        recent={recent}
+        partiesError={errs.ar}
+        recentError={errs.recent}
+      />
     </div>
   );
 }

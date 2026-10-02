@@ -1,0 +1,124 @@
+{
+    "companyId": "29c50320-6323-4652-8db8-da9c2dd9b4c7",
+    "otherCompanyId": "6f814d56-679c-44b4-97b0-4ba82b616c8f",
+    "results": [
+        {
+            "id": "O07",
+            "status": "PASS",
+            "expectedIncomePaise": 1000000,
+            "actualIncomePaise": 1000000,
+            "expectedReceivablePaise": 680000,
+            "actualReceivablePaise": 680000,
+            "differencePaise": 0
+        },
+        {
+            "id": "O08",
+            "status": "PASS",
+            "allocationPaise": 10000,
+            "debitLinePaise": 10000,
+            "unequalRejected": true,
+            "differencePaise": 0
+        },
+        {
+            "id": "O09",
+            "status": "FAIL",
+            "qty": 6,
+            "storedValue": 600,
+            "storedCogs": 400,
+            "expectedValuePaise": 60000,
+            "expectedCogsPaise": 40000,
+            "valueDifferencePaise": -59400,
+            "cogsDifferencePaise": -39600,
+            "vouchersAdded": 0,
+            "uiSendsUnit": 100,
+            "note": "Modules page sends unit 100 and 150. Paise for Rs 100 and Rs 150 are 10000 and 15000."
+        },
+        {
+            "id": "O10",
+            "status": "PASS",
+            "expectedSalaryDebitPaise": 3180000,
+            "actualSalaryDebitPaise": 3180000,
+            "differencePaise": 0,
+            "paymentRepeatsSalaryExpense": false
+        },
+        {
+            "id": "O11",
+            "status": "PASS",
+            "cashPostedAgain": 0,
+            "vouchersAdded": 0,
+            "feePaise": 15000,
+            "feeVoucherCreated": false
+        },
+        {
+            "id": "O12",
+            "status": "FAIL",
+            "expectedCompanyPayablePaise": 100000,
+            "planCompanyPayable": 100000,
+            "singleDatabaseTransaction": false,
+            "vouchersAdded": 0,
+            "personalRowsWritten": 0,
+            "differencePaise": 100000
+        },
+        {
+            "id": "O13",
+            "status": "PASS",
+            "omittedTotal": 140,
+            "matchedTotal": 125,
+            "automaticElimination": false,
+            "note": "An omitted pair stays inside the management total. There is no statutory consolidation."
+        },
+        {
+            "id": "AUTH",
+            "status": "FAIL",
+            "permissions": {
+                "bobReopen": false,
+                "bobOpening": false,
+                "bobApprove": false,
+                "bobBackup": false,
+                "aliceReopen": true
+            },
+            "openingDenied": false,
+            "pinMissingDenied": true,
+            "pinWrongDenied": true,
+            "pinValidAccepted": true,
+            "foreignCompanySaleRows": 0,
+            "stalePreviewRejected": true
+        },
+        {
+            "id": "REPORTS6",
+            "status": "PASS",
+            "reports": {
+                "receipts-payments": {
+                    "ok": true,
+                    "rowCount": 1
+                },
+                "project-report": {
+                    "ok": true,
+                    "rowCount": 1
+                },
+                "business-report": {
+                    "ok": true,
+                    "rowCount": 1
+                },
+                "area-report": {
+                    "ok": true,
+                    "rowCount": 1
+                },
+                "category-report": {
+                    "ok": true,
+                    "rowCount": 1
+                },
+                "user-activity": {
+                    "ok": true,
+                    "rowCount": 1
+                }
+            }
+        },
+        {
+            "id": "IDEMPOTENCY",
+            "status": "PASS",
+            "sameVoucherReturned": true,
+            "error": null
+        }
+    ]
+}

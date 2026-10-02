@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { PageHeader } from "@/components/layout/PageHeader";
+import { useEffect, useMemo, useState } from "react";
+import { PersonalPageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent } from "@/components/ui/Card";
 import { EmptyState } from "@/components/ui/Table";
 import { Button } from "@/components/ui/Button";
@@ -24,15 +24,41 @@ import {
 import { useDataStore } from "@/store/dataStore";
 import { useAuthStore } from "@/store/authStore";
 import { categoryRepo } from "@/repositories";
+import { categoryRollupPaise } from "@/services/categoryRollup";
+import { transactionAmountPaise } from "@/utils/money";
 import { categorySchema } from "@/services/validators";
 import { suggestNextCategoryColor } from "@/services/categoryColorEngine";
 import type { Category } from "@/types";
+import { formatINR } from "@/lib/format";
+import { paiseToRupees } from "@/utils/money";
 import { useUIStore } from "@/store/uiStore";
 import { confirm } from "@/store/uiStore";
 import { Plus, Archive, ArchiveRestore, Pencil, Trash2, Tag } from "lucide-react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
 import { CategoryCleanupPanel } from "@/components/categories/CategoryCleanupPanel";
 import { findDuplicateCategoryColors } from "@/services/categoryColorEngine";
+import { parentCategoryTotals } from "@/services/personalBookWorkflows";
+import { useMessages } from "@/i18n/useMessages";
+
+function parentWouldCycle(categories: Category[], categoryId: string | undefined, parentId: string | null): boolean {
+  if (!parentId) return false;
+  if (categoryId && parentId === categoryId) return true;
+  const byId = new Map(categories.map((c) => [c.id, c]));
+  const seen = new Set<string>();
+  let cursor: string | null = parentId;
+  while (cursor) {
+    if (categoryId && cursor === categoryId) return true;
+    if (seen.has(cursor)) return true;
+    seen.add(cursor);
+    cursor = byId.get(cursor)?.parentId ?? null;
+  }
+  return false;
+}
+
+function parentTypeFits(parent: Category, childAppliesTo: Category["appliesTo"]): boolean {
+  if (parent.appliesTo === "mixed" || childAppliesTo === "mixed") return true;
+  return parent.appliesTo === childAppliesTo;
+}
 
 const ICON_PRESETS = [
   "🍽️","🛒","🏠","💡","📱","🌐","⚡","🔥","⛽","✈️","🛍️","🏥","📚","🎬","👨‍👩‍👧","💼","🧾","🛡️","📋","💳","🔁","💝","🔧","✨","💰","🏆","🎯","💎","📊","📈","🏦","🪙","🧮","💻","🏢","🏘️","💹","↩️","💸","🎁","⭐","🤝","💵",
@@ -42,6 +68,7 @@ const COLOR_PRESETS = [
 ];
 
 export function CategoriesPage() {
+  const copy = useMessages().copy.categories;
   const user = useAuthStore((s) => s.currentUser);
   const categories = useDataStore((s) => s.categories);
   const transactions = useDataStore((s) => s.transactions);
@@ -59,9 +86,30 @@ export function CategoriesPage() {
     return true;
   });
 
+  const rollup = useMemo(
+    () =>
+      categoryRollupPaise(
+        categories.map((c) => ({ id: c.id, parentId: c.parentId })),
+        transactions
+          .filter((t) => t.isDeleted !== 1)
+          .map((t) => ({ id: t.id, categoryId: t.categoryId, amountPaise: transactionAmountPaise(t) })),
+      ),
+    [categories, transactions],
+  );
+
   function usageCount(c: Category) {
     return transactions.filter((t) => t.categoryId === c.id).length;
   }
+
+  const parentTotals = useMemo(() => {
+    const rows = parentCategoryTotals(
+      categories.map((category) => ({ id: category.id, parentId: category.parentId, name: category.name })),
+      transactions
+        .filter((tx) => tx.isDeleted !== 1)
+        .map((tx) => ({ id: tx.id, categoryId: tx.categoryId, amountPaise: transactionAmountPaise(tx) })),
+    );
+    return new Map(rows.map((row) => [row.categoryId, row.totalPaise]));
+  }, [categories, transactions]);
 
   async function handleArchive(c: Category) {
     const updated = await categoryRepo.update(c.id, {
@@ -70,7 +118,7 @@ export function CategoriesPage() {
     if (updated) {
       upsertLocal("categories", updated);
       toast({
-        title: updated.archived ? "Category archived" : "Category restored",
+        title: updated.archived ? copy.archived : copy.restored,
         kind: "info",
       });
     }
@@ -79,49 +127,47 @@ export function CategoriesPage() {
   async function handleDelete(c: Category) {
     if (usageCount(c) > 0) {
       toast({
-        title: "Cannot delete",
+        title: copy.cannotDelete,
         description: `${usageCount(c)} transaction(s) use this category. Archive instead or remap records first.`,
         kind: "warning",
       });
       return;
     }
     const ok = await confirm({
-      title: "Delete this category?",
-      description: "This category will be removed permanently.",
+      title: copy.deleteTitle,
+      description: copy.deleteBody,
       destructive: true,
-      confirmLabel: "Delete category",
+      confirmLabel: copy.deleteConfirm,
     });
     if (!ok) return;
     await categoryRepo.softDelete(c.id);
     removeLocal("categories", c.id);
-    toast({ title: "Category deleted", kind: "info" });
+    toast({ title: copy.deleted, kind: "info" });
   }
 
   const dupColors = findDuplicateCategoryColors(categories);
 
   return (
     <div>
-      <PageHeader
-        title="Categories"
-        description="Organize your money flows with custom taxonomy. Supports income, expense, and tax/GST flags."
+      <PersonalPageHeader
+        screen="categories"
         actions={
           <Button onClick={() => setAdding(true)}>
-            <Plus className="h-4 w-4" /> New Category
+            <Plus className="h-4 w-4" /> {copy.newButton}
           </Button>
         }
       />
 
       <Tabs defaultValue="list" className="mt-2">
         <TabsList className="no-print">
-          <TabsTrigger value="list">List</TabsTrigger>
-          <TabsTrigger value="cleanup">Cleanup &amp; merge</TabsTrigger>
+          <TabsTrigger value="list">{copy.list}</TabsTrigger>
+          <TabsTrigger value="cleanup">{copy.cleanup}</TabsTrigger>
         </TabsList>
         <TabsContent value="list" className="mt-4 space-y-4">
       {dupColors.length > 0 ? (
         <div className="rounded-md border border-warning/40 bg-warning-soft/30 px-3 py-2 text-sm text-muted-foreground">
-          <span className="font-medium text-foreground">Duplicate colors: </span>
-          {dupColors.length} group(s) share the same swatch — charts use distinct colors, but editing colors
-          here makes lists easier to scan.
+          <span className="font-medium text-foreground">{copy.duplicateColors} </span>
+          {dupColors.length} {copy.duplicateColorsBody}
         </div>
       ) : null}
       <div className="mb-4 flex flex-wrap items-center gap-2">
@@ -130,9 +176,9 @@ export function CategoriesPage() {
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All categories</SelectItem>
-            <SelectItem value="income">Income only</SelectItem>
-            <SelectItem value="expense">Expense only</SelectItem>
+            <SelectItem value="all">{copy.all}</SelectItem>
+            <SelectItem value="income">{copy.incomeOnly}</SelectItem>
+            <SelectItem value="expense">{copy.expenseOnly}</SelectItem>
           </SelectContent>
         </Select>
         <label className="flex items-center gap-2 text-sm">
@@ -140,7 +186,7 @@ export function CategoriesPage() {
             checked={showArchived}
             onCheckedChange={(c) => setShowArchived(!!c)}
           />
-          Show archived
+          {copy.showArchived}
         </label>
         <div className="ml-auto text-sm text-muted-foreground">
           {visible.length} categories
@@ -152,11 +198,11 @@ export function CategoriesPage() {
           <CardContent>
             <EmptyState
               icon={<Tag className="h-6 w-6" />}
-              title="No categories"
-              description="Create your first category to start tracking."
+              title={copy.emptyTitle}
+              description={copy.emptyBody}
               action={
                 <Button onClick={() => setAdding(true)}>
-                  <Plus className="h-4 w-4" /> New Category
+                  <Plus className="h-4 w-4" /> {copy.newButton}
                 </Button>
               }
             />
@@ -177,20 +223,25 @@ export function CategoriesPage() {
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-1.5">
                       <div className="truncate text-sm font-semibold">{c.name}</div>
-                      {c.archived ? <Badge variant="outline">Archived</Badge> : null}
+                      {c.archived ? <Badge variant="outline">{copy.archivedBadge}</Badge> : null}
                     </div>
                     <div className="mt-0.5 text-xs text-muted-foreground">
                       {c.appliesTo === "income"
-                        ? "Income"
+                        ? copy.income
                         : c.appliesTo === "expense"
-                          ? "Expense"
-                          : "Mixed"}{" "}
-                      • {usageCount(c)} record(s)
+                          ? copy.expense
+                          : copy.mixed}{" "}
+                      • {usageCount(c)} {copy.records}
+                      {parentTotals.has(c.id)
+                        ? ` • ${copy.parentTotal} ${formatINR(paiseToRupees(parentTotals.get(c.id) ?? 0))}`
+                        : rollup.get(c.id)
+                          ? ` • ${formatINR(paiseToRupees(rollup.get(c.id) ?? 0))}`
+                          : ""}
                     </div>
                     <div className="mt-1.5 flex flex-wrap gap-1">
-                      {c.taxRelevant ? <Badge variant="info">Tax</Badge> : null}
-                      {c.gstRelevant ? <Badge variant="warning">GST</Badge> : null}
-                      {c.budgetable ? <Badge variant="secondary">Budgetable</Badge> : null}
+                      {c.taxRelevant ? <Badge variant="info">{copy.tax}</Badge> : null}
+                      {c.gstRelevant ? <Badge variant="warning">{copy.gst}</Badge> : null}
+                      {c.budgetable ? <Badge variant="secondary">{copy.budgetable}</Badge> : null}
                     </div>
                   </div>
                   <div className="flex flex-col gap-1">
@@ -243,7 +294,7 @@ export function CategoriesPage() {
         onSaved={(c) => {
           upsertLocal("categories", c);
           toast({
-            title: editing ? "Category updated" : "Category created",
+            title: editing ? copy.updated : copy.created,
             kind: "success",
           });
           setAdding(false);
@@ -270,6 +321,8 @@ function CategoryForm({
   onSaved: (c: Category) => void;
   userId?: string;
 }) {
+  const copy = useMessages().copy.categories;
+  const saveLabel = useMessages().ui.common.save;
   const [state, setState] = useState({
     name: category?.name ?? "",
     icon: category?.icon ?? ICON_PRESETS[0],
@@ -278,6 +331,7 @@ function CategoryForm({
     budgetable: (category?.budgetable ?? 1) as 0 | 1,
     taxRelevant: (category?.taxRelevant ?? 0) as 0 | 1,
     gstRelevant: (category?.gstRelevant ?? 0) as 0 | 1,
+    parentId: (category?.parentId ?? null) as string | null,
   });
   const [err, setErr] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
@@ -301,6 +355,7 @@ function CategoryForm({
         budgetable: category.budgetable,
         taxRelevant: category.taxRelevant,
         gstRelevant: category.gstRelevant,
+        parentId: category.parentId,
       });
     } else {
       const appliesTo = "expense" as const;
@@ -312,6 +367,7 @@ function CategoryForm({
         budgetable: 1,
         taxRelevant: 0,
         gstRelevant: 0,
+        parentId: null,
       });
     }
     setErr(null);
@@ -323,21 +379,31 @@ function CategoryForm({
     if (!userId || saving) return;
     const parse = categorySchema.safeParse(state);
     if (!parse.success) {
-      setErr(parse.error.issues[0]?.message ?? "Invalid");
+      setErr(parse.error.issues[0]?.message ?? copy.invalid);
+      return;
+    }
+    const parentId = parse.data.parentId ?? null;
+    if (parentWouldCycle(allCategories, category?.id, parentId)) {
+      setErr(copy.ownParent);
+      return;
+    }
+    const parent = parentId ? allCategories.find((c) => c.id === parentId) : null;
+    if (parent && !parentTypeFits(parent, parse.data.appliesTo)) {
+      setErr(copy.parentKind);
       return;
     }
     setErr(null);
     setSaving(true);
     try {
       if (category) {
-        const updated = await categoryRepo.update(category.id, parse.data);
+        const updated = await categoryRepo.update(category.id, { ...parse.data, parentId });
         if (updated) onSaved(updated);
       } else {
         const created = await categoryRepo.create({
           userId,
           data: {
             ...parse.data,
-            parentId: null,
+            parentId,
             sortOrder: 999,
             archived: 0,
           },
@@ -345,7 +411,7 @@ function CategoryForm({
         onSaved(created);
       }
     } catch (error) {
-      setErr(error instanceof Error ? error.message : "Failed to save category");
+      setErr(error instanceof Error ? error.message : copy.saveFailed);
     } finally {
       setSaving(false);
     }
@@ -355,17 +421,17 @@ function CategoryForm({
     <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{category ? "Edit category" : "New category"}</DialogTitle>
+          <DialogTitle>{category ? copy.edit : copy.new}</DialogTitle>
         </DialogHeader>
         <form onSubmit={submit} className="space-y-3">
-          <Field label="Name" required>
+          <Field label={copy.name} required>
             <Input
               value={state.name}
               onChange={(e) => setState({ ...state, name: e.target.value })}
-              placeholder="Groceries"
+              placeholder={copy.namePh}
             />
           </Field>
-          <Field label="Applies to">
+          <Field label={copy.appliesTo}>
             <Select
               value={state.appliesTo}
               onValueChange={(v) => {
@@ -383,13 +449,34 @@ function CategoryForm({
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="expense">Expense</SelectItem>
-                <SelectItem value="income">Income</SelectItem>
-                <SelectItem value="mixed">Mixed</SelectItem>
+                <SelectItem value="expense">{copy.expense}</SelectItem>
+                <SelectItem value="income">{copy.income}</SelectItem>
+                <SelectItem value="mixed">{copy.mixed}</SelectItem>
               </SelectContent>
             </Select>
           </Field>
-          <Field label="Icon">
+          <Field label={copy.parent}>
+            <Select
+              value={state.parentId ?? "none"}
+              onValueChange={(v) => setState({ ...state, parentId: v === "none" ? null : v })}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder={copy.noParent} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="none">{copy.noParent}</SelectItem>
+                {allCategories
+                  .filter((c) => c.isDeleted !== 1 && c.id !== category?.id && parentTypeFits(c, state.appliesTo))
+                  .filter((c) => !parentWouldCycle(allCategories, category?.id, c.id))
+                  .map((c) => (
+                    <SelectItem key={c.id} value={c.id}>
+                      {c.name}
+                    </SelectItem>
+                  ))}
+              </SelectContent>
+            </Select>
+          </Field>
+          <Field label={copy.icon}>
             <div className="flex flex-wrap gap-1.5">
               {ICON_PRESETS.map((i) => (
                 <button
@@ -403,7 +490,7 @@ function CategoryForm({
               ))}
             </div>
           </Field>
-          <Field label="Color">
+          <Field label={copy.color}>
             <div className="flex flex-wrap gap-1.5">
               {COLOR_PRESETS.map((c) => (
                 <button
@@ -454,7 +541,7 @@ function CategoryForm({
             <Button type="button" variant="ghost" onClick={onClose}>
               Cancel
             </Button>
-            <Button type="submit" loading={saving} disabled={saving}>Save</Button>
+            <Button type="submit" loading={saving} disabled={saving}>{saveLabel}</Button>
           </DialogFooter>
         </form>
       </DialogContent>

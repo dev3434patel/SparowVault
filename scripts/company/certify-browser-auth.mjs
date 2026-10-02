@@ -325,7 +325,17 @@ async function run() {
     await shot(page, "I-reports");
     let reportsOpened = 0;
     for (const key of ["trial-balance", "profit-loss", "balance-sheet", "day-book"]) {
-      await page.goto(`${BASE}/company/app/reports/${key}`, { waitUntil: "networkidle", timeout: 60000 });
+      const reportUrl = `${BASE}/company/app/reports/${key}`;
+      for (let attempt = 0; attempt < 3; attempt++) {
+        try {
+          await page.goto(reportUrl, { waitUntil: "domcontentloaded", timeout: 60000 });
+          break;
+        } catch (err) {
+          const msg = String(err);
+          if (attempt === 2 || !/interrupted by another navigation/i.test(msg)) throw err;
+          await page.waitForTimeout(500);
+        }
+      }
       await page.waitForTimeout(600);
       const body = await page.locator("body").innerText();
       if (new RegExp(key.split("-").join("|"), "i").test(body) || /debit|credit|total|₹|paise|ledger|report/i.test(body)) {

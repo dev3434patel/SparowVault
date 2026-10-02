@@ -1,0 +1,170 @@
+{
+  "database": "sparowvault_test_svrepair_20261001",
+  "calls": [
+    {
+      "name": "bridge",
+      "status": 201,
+      "ok": true,
+      "error": null,
+      "code": null,
+      "posted": true,
+      "state": "proposed",
+      "bankDelta": null
+    },
+    {
+      "name": "bridge-again",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "code": null,
+      "posted": false,
+      "state": "proposed",
+      "bankDelta": null
+    },
+    {
+      "name": "cheque-issue",
+      "status": 201,
+      "ok": true,
+      "error": null,
+      "code": null,
+      "posted": null,
+      "state": "issued",
+      "bankDelta": 0
+    },
+    {
+      "name": "cheque-clear",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "code": null,
+      "posted": true,
+      "state": "cleared",
+      "bankDelta": -2500000
+    },
+    {
+      "name": "cheque-clear-again",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "code": null,
+      "posted": false,
+      "state": "cleared",
+      "bankDelta": 0
+    },
+    {
+      "name": "item-create",
+      "status": 201,
+      "ok": true,
+      "error": null,
+      "code": null,
+      "posted": null,
+      "state": 0,
+      "bankDelta": null
+    },
+    {
+      "name": "item-buy",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "code": null,
+      "posted": null,
+      "state": 2,
+      "bankDelta": null
+    },
+    {
+      "name": "item-sell",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "code": null,
+      "posted": null,
+      "state": 1,
+      "bankDelta": null
+    },
+    {
+      "name": "fee-issue",
+      "status": 201,
+      "ok": true,
+      "error": null,
+      "code": null,
+      "posted": null,
+      "state": "issued",
+      "bankDelta": 0
+    },
+    {
+      "name": "fee-clear",
+      "status": 200,
+      "ok": true,
+      "error": null,
+      "code": null,
+      "posted": true,
+      "state": "cleared",
+      "bankDelta": -1000
+    }
+  ],
+  "health": {
+    "status": 200,
+    "body": {
+      "ok": true,
+      "data": {
+        "status": "healthy",
+        "appEnv": "test",
+        "version": "phase_14_saas_billing_2026_05_13",
+        "razorpayEnabled": false,
+        "db": {
+          "status": "ok",
+          "latencyMs": 0
+        },
+        "requestId": "24fbfca8e13b08b8",
+        "totalMs": 2,
+        "time": "2026-09-30T20:10:17+00:00"
+      }
+    }
+  },
+  "healthz": {
+    "status": 200,
+    "body": {
+      "ok": true,
+      "data": {
+        "status": "healthy",
+        "service": "sparowvault-company",
+        "checks": {
+          "db": {
+            "ok": true,
+            "latencyMs": 0,
+            "error": null
+          },
+          "companyTables": {
+            "ok": true,
+            "count": 37,
+            "minRequired": 20
+          },
+          "version": {
+            "app": "0.1.0",
+            "schema": "phase_14_saas_billing_2026_05_13"
+          }
+        },
+        "appEnv": "test",
+        "time": "2026-09-30T20:10:17+00:00",
+        "totalMs": 4
+      }
+    }
+  },
+  "measureBeforeFee": "\nWarning: Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0\n{\"database\":\"sparowvault_test_svrepair_20261001\",\"payable\":-750000,\"expense\":750000,\"salary\":0,\"reimbursementVouchers\":1,\"bank\":-2500000,\"uncleared\":0,\"stock\":10000,\"cogs\":10000,\"itemQty\":1,\"itemValue\":10000,\"itemCogs\":10000,\"postedVouchers\":5}",
+  "measure": "\nWarning: Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0\n{\"database\":\"sparowvault_test_svrepair_20261001\",\"payable\":-750000,\"expense\":750000,\"salary\":0,\"reimbursementVouchers\":1,\"bank\":-2501250,\"uncleared\":0,\"stock\":10000,\"cogs\":10000,\"itemQty\":1,\"itemValue\":10000,\"itemCogs\":10000,\"postedVouchers\":8}",
+  "measureErr": "PHP Warning:  Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0\n",
+  "measureExit": 0,
+  "reapply": {
+    "exitCode": 0,
+    "tail": [
+      "APPLY 20260930_company_phase_sv.sql …",
+      "  statements ok=13 fail=0",
+      "APPLY 20260930_company_branch_url.sql …",
+      "  statements ok=5 fail=0",
+      "company_tables=37",
+      "MIGRATION PASS",
+      "NOTE: company migrations have no DOWN scripts. Rollback = restore from backup.",
+      ""
+    ]
+  }
+}

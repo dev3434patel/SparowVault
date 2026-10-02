@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import * as XLSX from "xlsx";
-import { PageHeader } from "@/components/layout/PageHeader";
+import { PersonalPageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Field } from "@/components/ui/Label";
@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/Table";
 import { useDataStore } from "@/store/dataStore";
 import { useAuthStore } from "@/store/authStore";
+import { AccountAggregatorConnect } from "@/components/aa/AccountAggregatorConnect";
 import { auditRepo, transactionRepo } from "@/repositories";
 import type { PaymentMode, Transaction, TransactionType } from "@/types";
 import { useUIStore } from "@/store/uiStore";
@@ -47,6 +48,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/Dialog";
+import { useMessages } from "@/i18n/useMessages";
 
 type MappingKey =
   | "date"
@@ -65,6 +67,31 @@ type MappingKey =
   | "taxFlag"
   | "gstFlag"
   | "billAvailable";
+
+function fieldLabel(copy: {
+  date: string; type: string; amount: string; category: string; account: string; card: string; loan: string; person: string;
+  description: string; merchant: string; payment: string; business: string; notes: string; tax: string; gst: string; bill: string;
+}, key: MappingKey): string {
+  const labels: Record<MappingKey, string> = {
+    date: copy.date,
+    type: copy.type,
+    amount: copy.amount,
+    category: copy.category,
+    account: copy.account,
+    card: copy.card,
+    loan: copy.loan,
+    person: copy.person,
+    description: copy.description,
+    merchantOrPerson: copy.merchant,
+    paymentMode: copy.payment,
+    businessOrPersonal: copy.business,
+    notes: copy.notes,
+    taxFlag: copy.tax,
+    gstFlag: copy.gst,
+    billAvailable: copy.bill,
+  };
+  return labels[key];
+}
 
 const TARGET_FIELDS: { key: MappingKey; label: string; required?: boolean }[] = [
   { key: "date", label: "Date", required: true },
@@ -86,6 +113,7 @@ const TARGET_FIELDS: { key: MappingKey; label: string; required?: boolean }[] = 
 ];
 
 export function ImportPage() {
+  const copy = useMessages().copy.importCenter;
   const user = useAuthStore((s) => s.currentUser);
   const categories = useDataStore((s) => s.categories);
   const accounts = useDataStore((s) => s.accounts);
@@ -145,7 +173,7 @@ export function ImportPage() {
     const first = wb.Sheets[wb.SheetNames[0]];
     const json = XLSX.utils.sheet_to_json(first, { defval: "" }) as Record<string, unknown>[];
     if (json.length === 0) {
-      toast({ title: "Empty file", kind: "warning" });
+      toast({ title: copy.emptyFile, kind: "warning" });
       return;
     }
     const hdrs = Object.keys(json[0]);
@@ -177,8 +205,8 @@ export function ImportPage() {
     if (!user) return;
     if (!mapping.date || !mapping.type || !mapping.amount) {
       toast({
-        title: "Mapping incomplete",
-        description: "Date, Type, and Amount are required",
+        title: copy.mappingIncomplete,
+        description: copy.requiredFields,
         kind: "warning",
       });
       return;
@@ -329,13 +357,13 @@ export function ImportPage() {
       setHeaders([]);
       setMapping({});
       toast({
-        title: "Import complete",
+        title: copy.complete,
         description: `Imported ${imported}, skipped ${skipped}`,
         kind: imported > 0 ? "success" : "warning",
       });
     } catch (e) {
       toast({
-        title: e instanceof Error ? e.message : "Import failed",
+        title: e instanceof Error ? e.message : copy.failed,
         kind: "error",
       });
     } finally {
@@ -362,14 +390,14 @@ export function ImportPage() {
         },
       });
       toast({
-        title: "Import rolled back",
+        title: copy.rolledBack,
         description: `${plan.transactionIdsToSoftDelete.length} imported transactions were soft-deleted.`,
         kind: "success",
       });
       setLastImportBatch(null);
     } catch (e) {
       toast({
-        title: e instanceof Error ? e.message : "Rollback failed",
+        title: e instanceof Error ? e.message : copy.rollbackFailed,
         kind: "error",
       });
     } finally {
@@ -416,7 +444,7 @@ export function ImportPage() {
         version?: number;
         collections?: Record<string, unknown[]>;
       };
-      if (!payload.collections) throw new Error("Invalid backup");
+      if (!payload.collections) throw new Error(copy.invalidBackup);
       let total = 0;
       let merged = 0;
       let skipped = 0;
@@ -450,6 +478,23 @@ export function ImportPage() {
           savingsContribRepo,
           reminderRepo,
           recurringRepo,
+          transferLinkRepo,
+          cardStatementRepo,
+          cardPaymentAllocationRepo,
+          cardEmiPlanRepo,
+          cardEmiInstallmentRepo,
+          obligationRepo,
+          sinkingFundRepo,
+          householdRepo,
+          householdMemberRepo,
+          householdPermissionRepo,
+          fixedIncomeAssetRepo,
+          insurancePolicyRepo,
+          assetValuationRepo,
+          importSourceRepo,
+          reconciliationMatchRepo,
+          attachmentRepo,
+          snapshotRepo,
         } = await import("@/repositories");
         const table: Record<string, { create: (i: { userId: string; data: T }) => Promise<T> }> = {
           accounts: accountRepo as unknown as { create: (i: { userId: string; data: T }) => Promise<T> },
@@ -471,7 +516,29 @@ export function ImportPage() {
           },
           reminders: reminderRepo as unknown as { create: (i: { userId: string; data: T }) => Promise<T> },
           recurringRules: recurringRepo as unknown as { create: (i: { userId: string; data: T }) => Promise<T> },
+          transferLinks: transferLinkRepo as unknown as { create: (i: { userId: string; data: T }) => Promise<T> },
+          cardStatements: cardStatementRepo as unknown as { create: (i: { userId: string; data: T }) => Promise<T> },
+          cardPaymentAllocations: cardPaymentAllocationRepo as unknown as { create: (i: { userId: string; data: T }) => Promise<T> },
+          cardEmiPlans: cardEmiPlanRepo as unknown as { create: (i: { userId: string; data: T }) => Promise<T> },
+          cardEmiInstallments: cardEmiInstallmentRepo as unknown as { create: (i: { userId: string; data: T }) => Promise<T> },
+          obligations: obligationRepo as unknown as { create: (i: { userId: string; data: T }) => Promise<T> },
+          sinkingFunds: sinkingFundRepo as unknown as { create: (i: { userId: string; data: T }) => Promise<T> },
+          households: householdRepo as unknown as { create: (i: { userId: string; data: T }) => Promise<T> },
+          householdMembers: householdMemberRepo as unknown as { create: (i: { userId: string; data: T }) => Promise<T> },
+          householdPermissions: householdPermissionRepo as unknown as { create: (i: { userId: string; data: T }) => Promise<T> },
+          fixedIncomeAssets: fixedIncomeAssetRepo as unknown as { create: (i: { userId: string; data: T }) => Promise<T> },
+          insurancePolicies: insurancePolicyRepo as unknown as { create: (i: { userId: string; data: T }) => Promise<T> },
+          assetValuations: assetValuationRepo as unknown as { create: (i: { userId: string; data: T }) => Promise<T> },
+          importSources: importSourceRepo as unknown as { create: (i: { userId: string; data: T }) => Promise<T> },
+          reconciliationMatches: reconciliationMatchRepo as unknown as { create: (i: { userId: string; data: T }) => Promise<T> },
+          attachments: attachmentRepo as unknown as { create: (i: { userId: string; data: T }) => Promise<T> },
+          snapshots: snapshotRepo as unknown as { create: (i: { userId: string; data: T }) => Promise<T> },
         };
+        const inMemory = new Set([
+          "accounts", "cards", "categories", "transactions", "budgets", "goals", "goalContribs",
+          "loans", "emis", "udhari", "udhariSettlements", "investments", "savingsContribs",
+          "reminders", "recurringRules",
+        ]);
         const repo = table[repoKey];
         if (!repo) return;
         const existingRows =
@@ -494,7 +561,7 @@ export function ImportPage() {
             userId: user!.id,
             data: rest as unknown as T,
           });
-          upsertLocal(repoKey as never, created as never);
+          if (inMemory.has(repoKey)) upsertLocal(repoKey as never, created as never);
           signatures.add(sig);
           merged++;
         }
@@ -515,17 +582,34 @@ export function ImportPage() {
         "savingsContribs",
         "reminders",
         "recurringRules",
+        "transferLinks",
+        "cardStatements",
+        "cardPaymentAllocations",
+        "cardEmiPlans",
+        "cardEmiInstallments",
+        "obligations",
+        "sinkingFunds",
+        "households",
+        "householdMembers",
+        "householdPermissions",
+        "fixedIncomeAssets",
+        "insurancePolicies",
+        "assetValuations",
+        "importSources",
+        "reconciliationMatches",
+        "attachments",
+        "snapshots",
       ] as const) {
         await bulk(collections[key] as unknown[], key);
       }
       toast({
-        title: "Backup restored",
+        title: copy.restored,
         description: `${merged} merged, ${skipped} skipped (${total} in file)`,
         kind: merged > 0 ? "success" : "warning",
       });
     } catch (err) {
       console.error(err);
-      toast({ title: "Invalid backup file", kind: "error" });
+      toast({ title: copy.invalidFile, kind: "error" });
     }
   }
 
@@ -534,12 +618,12 @@ export function ImportPage() {
 
   return (
     <div>
-      <PageHeader
-        title="Import Center"
-        description="Import CSV/XLSX, map fields, preview, and restore JSON backups."
+      <AccountAggregatorConnect />
+      <PersonalPageHeader
+        screen="import"
         actions={
           <Button variant="outline" onClick={downloadTemplate}>
-            <Download className="h-4 w-4" /> Template
+            <Download className="h-4 w-4" /> {copy.template}
           </Button>
         }
       />
@@ -547,8 +631,8 @@ export function ImportPage() {
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
         <Card className="lg:col-span-2">
           <CardHeader>
-            <CardTitle>Import transactions</CardTitle>
-            <CardDescription>CSV or Excel · field mapping · duplicate detection</CardDescription>
+            <CardTitle>{copy.screenTitle}</CardTitle>
+            <CardDescription>{copy.subtitle}</CardDescription>
           </CardHeader>
           <CardContent>
             {rows.length === 0 ? (
@@ -557,9 +641,9 @@ export function ImportPage() {
                 onClick={() => fileInput.current?.click()}
               >
                 <FileUp className="mx-auto mb-3 h-8 w-8 text-muted-foreground" />
-                <div className="font-medium">Drop file or click to browse</div>
+                <div className="font-medium">{copy.drop}</div>
                 <div className="mt-1 text-xs text-muted-foreground">
-                  Accepts .xlsx, .xls, .csv
+                  {copy.accepts}
                 </div>
                 <input
                   ref={fileInput}
@@ -576,14 +660,14 @@ export function ImportPage() {
               <>
                 <div className="mb-3 flex items-center justify-between">
                   <div className="text-sm">
-                    <span className="font-medium">{rows.length}</span> rows loaded ·{" "}
-                    <Badge variant="success">{valid} valid</Badge>{" "}
+                    <span className="font-medium">{rows.length}</span> {copy.rowsLoaded} ·{" "}
+                    <Badge variant="success">{valid} {copy.valid}</Badge>{" "}
                     {invalid > 0 ? (
-                      <Badge variant="warning">{invalid} need mapping</Badge>
+                      <Badge variant="warning">{invalid} {copy.needMapping}</Badge>
                     ) : null}
                     {preview?.duplicateCandidates ? (
                       <Badge variant="outline">
-                        {preview.duplicateCandidates} duplicate candidate(s)
+                        {preview.duplicateCandidates} {copy.duplicateCandidates}
                       </Badge>
                     ) : null}
                   </div>
@@ -596,14 +680,14 @@ export function ImportPage() {
                       setMapping({});
                     }}
                   >
-                    Reset
+                    {copy.reset}
                   </Button>
                 </div>
                 <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
                   {TARGET_FIELDS.map((tf) => (
                     <Field
                       key={tf.key}
-                      label={tf.label + (tf.required ? " *" : "")}
+                      label={fieldLabel(copy, tf.key) + (tf.required ? " *" : "")}
                     >
                       <Select
                         value={mapping[tf.key] ?? "none"}
@@ -615,10 +699,10 @@ export function ImportPage() {
                         }
                       >
                         <SelectTrigger>
-                          <SelectValue placeholder="— not mapped —" />
+                          <SelectValue placeholder={copy.notMapped} />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="none">— not mapped —</SelectItem>
+                          <SelectItem value="none">{copy.notMapped}</SelectItem>
                           {headers.map((h) => (
                             <SelectItem key={h} value={h}>
                               {h}
@@ -632,19 +716,19 @@ export function ImportPage() {
                 {preview ? (
                   <div className="mt-4 grid grid-cols-2 gap-2 rounded-lg border border-border bg-surface-1 p-3 text-sm md:grid-cols-4">
                     <div>
-                      <div className="text-xs text-muted-foreground">Income estimate</div>
+                      <div className="text-xs text-muted-foreground">{copy.incomeEstimate}</div>
                       <div className="font-semibold">₹{paiseToRupees(preview.estimatedIncomePaise).toFixed(2)}</div>
                     </div>
                     <div>
-                      <div className="text-xs text-muted-foreground">Expense estimate</div>
+                      <div className="text-xs text-muted-foreground">{copy.expenseEstimate}</div>
                       <div className="font-semibold">₹{paiseToRupees(preview.estimatedExpensePaise).toFixed(2)}</div>
                     </div>
                     <div>
-                      <div className="text-xs text-muted-foreground">Card liability change</div>
+                      <div className="text-xs text-muted-foreground">{copy.cardLiability}</div>
                       <div className="font-semibold">₹{paiseToRupees(preview.estimatedCardLiabilityChangePaise).toFixed(2)}</div>
                     </div>
                     <div>
-                      <div className="text-xs text-muted-foreground">Cashflow effect</div>
+                      <div className="text-xs text-muted-foreground">{copy.cashflowEffect}</div>
                       <div className="font-semibold">₹{paiseToRupees(preview.estimatedCashflowEffectPaise).toFixed(2)}</div>
                     </div>
                     {[
@@ -670,7 +754,7 @@ export function ImportPage() {
                   </div>
                 ) : null}
                 <div className="mt-3 flex items-center justify-between gap-2">
-                  <Field label="Duplicates">
+                  <Field label={copy.duplicates}>
                     <Select
                       value={duplicateMode}
                       onValueChange={(v) => setDuplicateMode(v as "skip" | "allow")}
@@ -679,8 +763,8 @@ export function ImportPage() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="skip">Skip matching rows</SelectItem>
-                        <SelectItem value="allow">Allow all</SelectItem>
+                        <SelectItem value="skip">{copy.skipMatching}</SelectItem>
+                        <SelectItem value="allow">{copy.allowAll}</SelectItem>
                       </SelectContent>
                     </Select>
                   </Field>
@@ -690,7 +774,7 @@ export function ImportPage() {
                     loading={importing}
                     disabled={valid === 0}
                   >
-                    <Upload className="h-4 w-4" /> Import {valid} rows
+                    <Upload className="h-4 w-4" /> {copy.importRows.replace("{n}", String(valid))}
                   </Button>
                 </div>
 
@@ -718,7 +802,7 @@ export function ImportPage() {
                 </div>
                 {rows.length > 25 ? (
                   <div className="mt-2 text-xs text-muted-foreground">
-                    Showing first 25 rows of {rows.length}
+                    {copy.showingFirst.replace("{n}", String(rows.length))}
                   </div>
                 ) : null}
               </>
@@ -733,8 +817,8 @@ export function ImportPage() {
                 <Database className="h-6 w-6" />
               </div>
               <div>
-                <CardTitle>Restore backup</CardTitle>
-                <CardDescription>Merge a JSON backup into this profile</CardDescription>
+                <CardTitle>{copy.restoreTitle}</CardTitle>
+                <CardDescription>{copy.restoreBody}</CardDescription>
               </div>
             </div>
           </CardHeader>
@@ -743,7 +827,7 @@ export function ImportPage() {
               <div className="flex items-start gap-2">
                 <AlertTriangle className="h-4 w-4 shrink-0" />
                 <span>
-                  Records will be added to this profile. Existing data is preserved.
+                  {copy.restoreWarn}
                 </span>
               </div>
             </div>
@@ -752,7 +836,7 @@ export function ImportPage() {
               className="w-full"
               onClick={() => restoreInput.current?.click()}
             >
-              <Upload className="h-4 w-4" /> Select backup file
+              <Upload className="h-4 w-4" /> {copy.selectBackup}
             </Button>
             <input
               ref={restoreInput}
@@ -771,11 +855,11 @@ export function ImportPage() {
           <Card className="lg:col-span-3">
             <CardContent>
               <EmptyState
-                title="Ready to import"
-                description="Download a template, fill in transactions, and upload back."
+                title={copy.ready}
+                description={copy.readyBody}
                 action={
                   <Button variant="outline" onClick={downloadTemplate}>
-                    <Download className="h-4 w-4" /> Download template
+                    <Download className="h-4 w-4" /> {copy.downloadTemplate}
                   </Button>
                 }
               />
@@ -785,20 +869,19 @@ export function ImportPage() {
 
         <Card className="lg:col-span-3">
           <CardHeader>
-            <CardTitle>Repair Center</CardTitle>
+            <CardTitle>{copy.repairTitle}</CardTitle>
             <CardDescription>
-              Queues that can break reports, ledger accuracy, or future imports.
+              {copy.repairBody}
             </CardDescription>
           </CardHeader>
           <CardContent>
             {lastImportBatch?.importedRowIds.length ? (
               <div className="mb-4 flex flex-col gap-2 rounded-lg border border-warning/30 bg-warning-soft p-3 text-sm md:flex-row md:items-center md:justify-between">
                 <div>
-                  Last import batch <span className="font-mono">{lastImportBatch.importBatchId}</span>{" "}
-                  created {lastImportBatch.importedRowIds.length} transaction(s).
+                  {copy.lastBatch.replace("{id}", lastImportBatch.importBatchId).replace("{n}", String(lastImportBatch.importedRowIds.length))}
                 </div>
                 <Button variant="outline" size="sm" loading={rollingBack} onClick={rollbackLastImport}>
-                  Rollback last import
+                  {copy.rollback}
                 </Button>
               </div>
             ) : null}
@@ -809,9 +892,9 @@ export function ImportPage() {
       <Dialog open={restoreConfirmOpen} onOpenChange={setRestoreConfirmOpen}>
         <DialogContent size="sm">
           <DialogHeader>
-            <DialogTitle>Confirm backup restore</DialogTitle>
+            <DialogTitle>{copy.confirmRestore}</DialogTitle>
             <DialogDescription>
-              Restore will merge backup records into this profile. Existing data is preserved.
+              {copy.confirmRestoreBody}
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
@@ -822,9 +905,9 @@ export function ImportPage() {
                 setPendingRestoreFile(null);
               }}
             >
-              Cancel
+              {copy.cancel}
             </Button>
-            <Button onClick={confirmRestore}>Continue restore</Button>
+            <Button onClick={confirmRestore}>{copy.continueRestore}</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -833,41 +916,42 @@ export function ImportPage() {
 }
 
 function RepairQueueGrid({ repairQueue }: { repairQueue: DataRepairQueue }) {
+  const copy = useMessages().copy.importCenter;
   const items = [
     {
-      label: "Transactions without ledger event",
+      label: copy.repairLedger,
       count: repairQueue.transactionsWithoutLedgerEvent.length,
-      hint: "Needs ledger rebuild or transaction repair.",
+      hint: copy.repairLedgerHint,
     },
     {
-      label: "Credit-card transactions without card",
+      label: copy.repairCard,
       count: repairQueue.creditCardTransactionsWithoutCard.length,
-      hint: "Card purchase/payment cannot update card liability correctly.",
+      hint: copy.repairCardHint,
     },
     {
-      label: "EMI transactions without loan",
+      label: copy.repairEmi,
       count: repairQueue.emiTransactionsWithoutLoan.length,
-      hint: "EMI principal and interest split cannot be trusted.",
+      hint: copy.repairEmiHint,
     },
     {
-      label: "Udhari entries without person",
+      label: copy.repairUdhari,
       count: repairQueue.udhariEntriesWithoutPerson.length,
-      hint: "Receivable/payable ledger is missing person link.",
+      hint: copy.repairUdhariHint,
     },
     {
-      label: "Categories missing color",
+      label: copy.repairColor,
       count: repairQueue.categoriesMissingColor.length,
-      hint: "Dashboard charts may show duplicate or fallback colors.",
+      hint: copy.repairColorHint,
     },
     {
-      label: "Duplicate categories",
+      label: copy.repairDup,
       count: repairQueue.duplicateCategories.length,
-      hint: "Imports may map rows to the wrong category.",
+      hint: copy.repairDupHint,
     },
     {
-      label: "Legacy amount without amountPaise",
+      label: copy.repairLegacy,
       count: repairQueue.legacyAmountWithoutAmountPaise.length,
-      hint: "Money should be normalized before CA exports.",
+      hint: copy.repairLegacyHint,
     },
   ];
 

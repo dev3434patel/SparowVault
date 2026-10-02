@@ -1,7 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { companyApi } from "@/company/api/client";
 import { periodRange } from "@/company/lib/fy";
+import { companyAllows } from "@/company/auth/companyCan";
+import { voucherListAmountPaise } from "@/company/finance/voucherListAmount";
 import { useCompanyStore } from "@/company/store/companyStore";
+import type { CompanyVoucher } from "@/company/types";
 
 export type PeriodKind = "today" | "week" | "month" | "quarter" | "fy";
 
@@ -40,6 +43,29 @@ export function overdueAmount(
   }, 0);
 }
 
+/** A failed widget is not an empty book, even when every figure is still zero. */
+export function dashboardBookLooksEmpty(input: {
+  loading: boolean;
+  cash: number;
+  ar: number;
+  ap: number;
+  moneyIn: number;
+  moneyOut: number;
+  recentCount: number;
+  widgetErrors: Array<string | null | undefined>;
+}): boolean {
+  if (input.loading) return false;
+  if (input.widgetErrors.some((message) => Boolean(message))) return false;
+  return (
+    input.cash === 0 &&
+    input.ar === 0 &&
+    input.ap === 0 &&
+    input.moneyIn === 0 &&
+    input.moneyOut === 0 &&
+    input.recentCount === 0
+  );
+}
+
 export function dueWithinDays(
   bills: Array<{ outstandingPaise?: number; dueDate?: string | null }>,
   asOf: string,
@@ -60,6 +86,8 @@ export function useDashboardData() {
   const workspace = useCompanyStore((s) => s.workspace);
   const contextEpoch = useCompanyStore((s) => s.contextEpoch);
   const permissions = useCompanyStore((s) => s.permissions);
+  const permissionsState = useCompanyStore((s) => s.permissionsState);
+  const showApprovals = companyAllows(permissionsState, permissions, "approve_voucher");
 
   const [period, setPeriod] = useState<PeriodKind>("month");
   const range = useMemo(
@@ -106,7 +134,7 @@ export function useDashboardData() {
         companyApi.listBills(companyId, "PAYABLE"),
         companyApi.report(companyId, "day-book", range.from, range.to),
         companyApi.report(companyId, "profit-loss", range.from, range.to),
-        companyApi.listApprovals(companyId).catch(() => []),
+        showApprovals ? companyApi.listApprovals(companyId) : Promise.resolve(null),
         companyApi.report(companyId, "ageing", undefined, undefined, { side: "receivable", asOf }),
         companyApi.listVouchers(companyId, { from: range.from, to: range.to }),
       ]);
@@ -231,8 +259,10 @@ export function useDashboardData() {
       }
 
       if (settled[5].status === "fulfilled") {
-        const rows = settled[5].value as unknown[];
-        setApprovals(rows.length);
+        const rows = settled[5].value;
+        if (Array.isArray(rows)) setApprovals(rows.length);
+      } else if (showApprovals) {
+        nextErrs.approvals = "Could not load approvals";
       }
 
       if (settled[6].status === "fulfilled") {
@@ -263,28 +293,24 @@ export function useDashboardData() {
         } else {
           setAgeing([]);
         }
+      } else {
+        nextErrs.ageing = "Could not load ageing";
       }
 
       if (settled[7].status === "fulfilled") {
-        const vouchers = settled[7].value as Array<{
-          id: string;
-          voucherDate?: string;
-          voucherType?: string;
-          narration?: string;
-          debitTotalPaise?: number;
-          amountPaise?: number;
-          status?: string;
-        }>;
+        const vouchers = settled[7].value as CompanyVoucher[];
         setRecent(
           vouchers.slice(0, 10).map((v) => ({
             id: String(v.id),
             date: String(v.voucherDate ?? ""),
             type: String(v.voucherType ?? ""),
             narration: String(v.narration ?? ""),
-            amountPaise: Number(v.debitTotalPaise ?? v.amountPaise ?? 0),
+            amountPaise: voucherListAmountPaise(v),
             status: String(v.status ?? "POSTED"),
           })),
         );
+      } else {
+        nextErrs.recent = "Could not load recent vouchers";
       }
 
       setErrs(nextErrs);
@@ -294,16 +320,23 @@ export function useDashboardData() {
     } finally {
       setLoading(false);
     }
-  }, [companyId, range.from, range.to]);
+  }, [companyId, range.from, range.to, showApprovals]);
 
   useEffect(() => {
     void load();
   }, [load, contextEpoch]);
 
-  const showApprovals = permissions.length === 0 || permissions.includes("approve_voucher");
   const initialLoading = loading && !refreshedAt;
-  const isEmpty =
-    !loading && moneyIn === 0 && moneyOut === 0 && ar === 0 && ap === 0 && recent.length === 0 && cash === 0;
+  const isEmpty = dashboardBookLooksEmpty({
+    loading,
+    cash,
+    ar,
+    ap,
+    moneyIn,
+    moneyOut,
+    recentCount: recent.length,
+    widgetErrors: Object.values(errs),
+  });
 
   return {
     workspace,

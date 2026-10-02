@@ -1,4 +1,6 @@
 /** SparowVault Company domain types — money is always integer paise. */
+import type { CompanyPermission, PurposeCode } from "@/company/types/domainCodes";
+export type { CompanyPermission, PurposeCode };
 
 export type AccountNature = "ASSET" | "LIABILITY" | "EQUITY" | "INCOME" | "EXPENSE";
 
@@ -25,8 +27,6 @@ export type VoucherStatus =
   | "CANCELLED"
   | "REVERSED";
 
-export type { CompanyPermission, PurposeCode } from "@/company/types/domainCodes";
-
 export type SystemRoleCode =
   | "COMPANY_OWNER"
   | "SUPER_ADMIN"
@@ -40,7 +40,7 @@ export type MembershipStatus = "INVITED" | "ACTIVE" | "SUSPENDED";
 
 export type WorkspaceStatus = "ACTIVE" | "SUSPENDED" | "CLOSED";
 
-export type PartyType = "PERSON" | "BUSINESS" | "OTHER";
+export type PartyType = "PERSON" | "ORGANIZATION" | "BUSINESS" | "OTHER";
 
 export type PartyRoleCode =
   | "LENDER"
@@ -158,6 +158,7 @@ export interface CompanyParty {
   roles: PartyRoleCode[];
   categoryIds: string[];
   tagIds: string[];
+  tags?: string[];
   /** Open receivable outstanding (they owe you), paise */
   receivableOutstandingPaise?: number;
   /** Open payable outstanding (you owe them), paise */
@@ -238,6 +239,7 @@ export interface CompanyVoucher {
   correctionOfVoucherId?: string | null;
   mutationId: string;
   postedAt?: string | null;
+  debitTotalPaise?: number;
   lines: VoucherLine[];
 }
 

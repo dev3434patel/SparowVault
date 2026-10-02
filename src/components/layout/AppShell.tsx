@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useRef } from "react";
+import { useCloudAppStore } from "@/store/cloudAppStore";
+import { moduleWriteBlocked } from "@/services/modulePolicy";
 import { Sidebar, MobileNav } from "./Sidebar";
 import { Header } from "./Header";
 import { useNavStore, type NavKey } from "@/store/navStore";
@@ -9,6 +11,7 @@ import { ExpensesPage } from "@/components/pages/ExpensesPage";
 import { CategoriesPage } from "@/components/pages/CategoriesPage";
 import { BudgetsPage } from "@/components/pages/BudgetsPage";
 import { GoalsPage } from "@/components/pages/GoalsPage";
+import { EnvelopesPage } from "@/components/pages/EnvelopesPage";
 import { AccountsPage } from "@/components/pages/AccountsPage";
 import { CardsPage } from "@/components/pages/CardsPage";
 import { LoansPage } from "@/components/pages/LoansPage";
@@ -40,7 +43,9 @@ import { useDataStore } from "@/store/dataStore";
 import type { DataCollections } from "@/store/dataStore";
 import { Loader2 } from "lucide-react";
 import { runAlertEngine } from "@/services/alertsEngine";
+import { resumePendingStatementLocalApplies } from "@/services/statements/localApply";
 import { useAuthStore } from "@/store/authStore";
+import { applyProfileLanguage, useMessages } from "@/i18n/useMessages";
 import { motion, AnimatePresence } from "framer-motion";
 
 const PAGES: Record<NavKey, React.ComponentType> = {
@@ -51,6 +56,7 @@ const PAGES: Record<NavKey, React.ComponentType> = {
   categories: CategoriesPage,
   budgets: BudgetsPage,
   goals: GoalsPage,
+  envelopes: EnvelopesPage,
   accounts: AccountsPage,
   cards: CardsPage,
   loans: LoansPage,
@@ -77,15 +83,22 @@ const PAGES: Record<NavKey, React.ComponentType> = {
 };
 
 export function AppShell({ children }: { children?: React.ReactNode }) {
-  const razorpayEnabled = import.meta.env.VITE_ENABLE_RAZORPAY === "true";
   const active = useNavStore((s) => s.active);
+  const flags = useCloudAppStore((s) => s.flags);
+  const writeBlock = moduleWriteBlocked(flags, active);
   const navActionId = useNavStore((s) => s.navActionId);
   const loaded = useDataStore((s) => s.loaded);
   const ensureCollections = useDataStore((s) => s.ensureCollections);
   const currentUser = useAuthStore((s) => s.currentUser);
   const setCommandOpen = useUIStore((s) => s.setCommandOpen);
+  const settingsLanguage = useDataStore((s) => s.settings?.language);
+  const messages = useMessages();
 
-  const effectiveActive: NavKey = !razorpayEnabled && active === "subscription" ? "dashboard" : active;
+  useEffect(() => {
+    applyProfileLanguage(settingsLanguage);
+  }, [settingsLanguage]);
+
+  const effectiveActive: NavKey = active;
   const ActivePage = useMemo(() => PAGES[effectiveActive] ?? DashboardPage, [effectiveActive]);
   const mainContentRef = useRef<HTMLElement | null>(null);
 
@@ -103,7 +116,14 @@ export function AppShell({ children }: { children?: React.ReactNode }) {
   // Run alert engine whenever data loads / updates
   useEffect(() => {
     if (!currentUser || !loaded) return;
+    const userId = currentUser.id;
     runAlertEngine(currentUser).catch(console.error);
+    void resumePendingStatementLocalApplies(userId, () => useAuthStore.getState().currentUser?.id);
+    function onOnline() {
+      void resumePendingStatementLocalApplies(userId, () => useAuthStore.getState().currentUser?.id);
+    }
+    window.addEventListener("online", onOnline);
+    return () => window.removeEventListener("online", onOnline);
   }, [currentUser, loaded]);
 
   useEffect(() => {
@@ -143,6 +163,7 @@ export function AppShell({ children }: { children?: React.ReactNode }) {
       categories: ["categories", "transactions"],
       budgets: ["budgets", "transactions", "categories"],
       goals: ["goals", "goalContribs"],
+      envelopes: ["accounts", "transactions", "goalContribs"],
       accounts: ["accounts", "transactions"],
       cards: ["cards", "transactions"],
       loans: ["loans", "emis"],
@@ -178,7 +199,7 @@ export function AppShell({ children }: { children?: React.ReactNode }) {
       ],
       export: ["transactions", "categories", "accounts", "cards", "budgets", "goals", "investments", "loans", "udhari", "alerts", "auditLogs"],
       import: ["transactions", "categories", "accounts"],
-      "bill-calendar": ["recurringRules", "loans", "emis"],
+      "bill-calendar": ["recurringRules", "loans", "emis", "cards", "udhari"],
       reconciliation: ["transactions", "accounts"],
       household: ["transactions"],
       alerts: ["alerts"],
@@ -202,7 +223,7 @@ export function AppShell({ children }: { children?: React.ReactNode }) {
       <div className="flex min-h-screen items-center justify-center bg-background">
         <div className="flex flex-col items-center gap-3 text-muted-foreground">
           <Loader2 className="h-6 w-6 animate-spin text-primary" />
-          <div className="text-sm">Loading your finance workspace…</div>
+          <div className="text-sm">{messages.ui.layout.loadingWorkspace}</div>
         </div>
       </div>
     );
@@ -223,6 +244,11 @@ export function AppShell({ children }: { children?: React.ReactNode }) {
               transition={{ duration: 0.18 }}
               className="px-4 py-5 md:px-6 md:py-6"
             >
+              {writeBlock ? (
+                <p className="mb-3 rounded-md border border-amber-500/40 bg-amber-500/10 px-3 py-2 text-sm">
+                  {writeBlock}
+                </p>
+              ) : null}
               {children ?? <ActivePage />}
             </motion.div>
           </AnimatePresence>

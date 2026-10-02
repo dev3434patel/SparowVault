@@ -1,4 +1,8 @@
 import { cn } from "@/lib/utils";
+import { useMessages } from "@/i18n/useMessages";
+import type { Messages } from "@/i18n/messages/en";
+
+export type PersonalScreen = keyof Messages["screens"];
 
 export function PageHeader({
   title,
@@ -29,4 +33,19 @@ export function PageHeader({
       {actions ? <div className="flex flex-wrap items-center gap-2">{actions}</div> : null}
     </div>
   );
+}
+
+export function PersonalPageHeader({
+  screen,
+  title,
+  description,
+  actions,
+}: {
+  screen: PersonalScreen;
+  title?: string;
+  description?: string;
+  actions?: React.ReactNode;
+}) {
+  const copy = useMessages().screens[screen];
+  return <PageHeader title={title ?? copy.title} description={description ?? copy.description} actions={actions} />;
 }

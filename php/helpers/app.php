@@ -86,6 +86,136 @@ function validate_runtime_config(): void {
     require_safe_production_secrets();
 }
 
+/**
+ * Database name from DATABASE_URL or DB_*, or null when that target is absent.
+ * Does not open a connection.
+ */
+function configured_database_name(): ?string {
+    $databaseUrl = env_value("DATABASE_URL");
+    if (is_string($databaseUrl) && str_starts_with($databaseUrl, "mysql://")) {
+        $parts = parse_url($databaseUrl);
+        if ($parts === false) {
+            return null;
+        }
+        $name = isset($parts["path"]) ? rawurldecode(ltrim((string)$parts["path"], "/")) : "";
+        $slash = strpos($name, "/");
+        if ($slash !== false) {
+            $name = substr($name, 0, $slash);
+        }
+        $name = trim($name);
+        if ($name === "" || ($parts["host"] ?? "") === "") {
+            return null;
+        }
+        return $name;
+    }
+
+    $name = env_value("DB_NAME");
+    $host = env_value("DB_HOST");
+    $user = env_value("DB_USER");
+    if (!is_string($name) || trim($name) === "" || $host === null || $user === null) {
+        return null;
+    }
+    return trim($name);
+}
+
+/**
+ * Owner databases that destructive runners must reject before dump, truncate, or migrate.
+ *
+ * @return list<string>
+ */
+function destructive_database_forbidden_names(): array {
+    return [
+        "sparowvault",
+        "sparowvault_current_schema",
+        "sparowvault_final_merge",
+        "sparowvault_final_sql_validate",
+    ];
+}
+
+/**
+ * Strict disposable allowlist: exact sparowvault_test, or a per-run name that contains "test".
+ * The owner name sparowvault is never allowlisted.
+ */
+function destructive_database_name_allowed(?string $name): bool {
+    if (!is_string($name)) {
+        return false;
+    }
+    $trimmed = trim($name);
+    if ($trimmed === "") {
+        return false;
+    }
+    if (in_array(strtolower($trimmed), destructive_database_forbidden_names(), true)) {
+        return false;
+    }
+    if (strcasecmp($trimmed, "sparowvault_test") === 0) {
+        return true;
+    }
+    return stripos($trimmed, "test") !== false;
+}
+
+/**
+ * Destructive runners call this before any dump, truncate, or migrate.
+ * A missing per-run sentinel or a non-allowlisted name, including sparowvault, is refused.
+ * This does not open a database connection.
+ *
+ * @return array{outcome: string, detail: string}
+ */
+function destructive_database_target_decision(?string $name = null): array {
+    $target = $name ?? configured_database_name();
+    if (!destructive_database_name_allowed($target)) {
+        return [
+            "outcome" => "refused",
+            "detail" => "Refusing destructive runner: database is not allowlisted.",
+        ];
+    }
+    $sentinel = trim((string)(env_value("AUDIT_RUN_SENTINEL", "") ?? ""));
+    if ($sentinel === "") {
+        return [
+            "outcome" => "refused",
+            "detail" => "Refusing destructive runner: per-run sentinel is missing.",
+        ];
+    }
+    return ["outcome" => "allowed", "detail" => ""];
+}
+
+/**
+ * Production readiness configuration only.
+ * An empty secret or a missing database identity stays fail-closed.
+ * Readiness does not require the substring "test" and does not refuse APP_ENV=production.
+ * This does not open a connection. SELECT 1 and the required schema are checked by the caller.
+ *
+ * @return array{outcome: string, detail: string}
+ */
+function health_configuration_decision(): array {
+    $secret = trim((string)(env_value("CLOUD_JWT_SECRET", "") ?? ""));
+    $dbName = configured_database_name();
+    if ($secret === "" || $dbName === null) {
+        return [
+            "outcome" => "not_configured",
+            "detail" => "The process is not configured.",
+        ];
+    }
+    return ["outcome" => "ready", "detail" => ""];
+}
+
+/**
+ * Writes the health envelope and returns true when this process must not open a database.
+ */
+function health_block_unready(): bool {
+    $decision = health_configuration_decision();
+    if ($decision["outcome"] === "ready") {
+        return false;
+    }
+    json_ok([
+        "status" => $decision["outcome"] === "refused" ? "refused" : "not_configured",
+        "detail" => $decision["detail"],
+        "appEnv" => app_env(),
+        "requestId" => (string)($_SERVER["REQUEST_ID"] ?? ""),
+        "time" => gmdate("c"),
+    ], 503);
+    return true;
+}
+
 function setting_get_map(bool $publicOnly = false): array {
     $db = db_conn();
     if ($publicOnly) {

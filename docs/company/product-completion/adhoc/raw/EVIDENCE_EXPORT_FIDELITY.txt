@@ -1,8 +1,8 @@
-EXPORT FIDELITY GALLERY 2026-09-24T14:56:40+00:00
+EXPORT FIDELITY GALLERY 2026-09-30T20:21:41+00:00
 PASS pdf short TB size=1482
 PASS pdf 1000-row pack size=71634
-PASS docx short TB size=1253
-PASS docx 1000-row pack size=11169
+PASS docx short TB size=1252
+PASS docx 1000-row pack size=11170
 PASS xlsx short TB size=203
 PASS xlsx 1000-row pack size=41919
 PASS pdf empty report

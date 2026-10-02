@@ -1,0 +1,376 @@
+{
+    "database": "sparowvault_test_svverify_b182d886",
+    "generatedAt": "2026-09-30T15:03:39+00:00",
+    "results": [
+        {
+            "id": "O07-draft-revenue",
+            "surface": "C-sales-invoice",
+            "child": "draft does not recognise revenue",
+            "expected": 0,
+            "actual": 0,
+            "differencePaise": 0,
+            "status": "PASS",
+            "note": "income net is credit-positive"
+        },
+        {
+            "id": "O07-posted-revenue",
+            "surface": "C-sales-invoice",
+            "child": "posted sale recognises base only",
+            "expected": 1000000,
+            "actual": -1000000,
+            "differencePaise": -2000000,
+            "status": "FAIL",
+            "note": ""
+        },
+        {
+            "id": "O07-posted-tax",
+            "surface": "C-sales-invoice",
+            "child": "tax is a liability credit",
+            "expected": -180000,
+            "actual": -180000,
+            "differencePaise": 0,
+            "status": "PASS",
+            "note": ""
+        },
+        {
+            "id": "O07-posted-receivable",
+            "surface": "C-sales-invoice",
+            "child": "receivable is base plus tax",
+            "expected": 1180000,
+            "actual": 1180000,
+            "differencePaise": 0,
+            "status": "PASS",
+            "note": ""
+        },
+        {
+            "id": "O07-revenue-after-receipt",
+            "surface": "C-sales-invoice",
+            "child": "receipt does not re-recognise revenue",
+            "expected": 1000000,
+            "actual": -1000000,
+            "differencePaise": -2000000,
+            "status": "FAIL",
+            "note": ""
+        },
+        {
+            "id": "O07-open-receivable",
+            "surface": "C-sales-invoice",
+            "child": "receipt settles part of the receivable",
+            "expected": 680000,
+            "actual": 680000,
+            "differencePaise": 0,
+            "status": "PASS",
+            "note": ""
+        },
+        {
+            "id": "O07-bank",
+            "surface": "C-sales-invoice",
+            "child": "receipt increases bank once",
+            "expected": 500000,
+            "actual": 500000,
+            "differencePaise": 0,
+            "status": "PASS",
+            "note": ""
+        },
+        {
+            "id": "O08-allocation-sum",
+            "surface": "C-dimensions",
+            "child": "splits equal the line",
+            "expected": 100000,
+            "actual": 100000,
+            "differencePaise": 0,
+            "status": "PASS",
+            "note": ""
+        },
+        {
+            "id": "O08-line-not-doubled",
+            "surface": "C-dimensions",
+            "child": "voucher debit equals the line",
+            "expected": 100000,
+            "actual": 100000,
+            "differencePaise": 0,
+            "status": "PASS",
+            "note": ""
+        },
+        {
+            "id": "O08-project-report",
+            "surface": "C-reports",
+            "child": "project report debit equals the line",
+            "expected": 100000,
+            "actual": 100000,
+            "differencePaise": 0,
+            "status": "PASS",
+            "note": ""
+        },
+        {
+            "id": "O09-qty",
+            "surface": "C-inventory",
+            "child": "one unit remains",
+            "expected": 1,
+            "actual": 1,
+            "differencePaise": 0,
+            "status": "PASS",
+            "note": ""
+        },
+        {
+            "id": "O09-value",
+            "surface": "C-inventory",
+            "child": "remaining stock value",
+            "expected": 10000,
+            "actual": 10000,
+            "differencePaise": 0,
+            "status": "PASS",
+            "note": ""
+        },
+        {
+            "id": "O09-cogs",
+            "surface": "C-inventory",
+            "child": "cost of the unit sold",
+            "expected": 10000,
+            "actual": 10000,
+            "differencePaise": 0,
+            "status": "PASS",
+            "note": ""
+        },
+        {
+            "id": "O09-item-revenue",
+            "surface": "C-inventory",
+            "child": "sale price stored on the item",
+            "expected": 15000,
+            "actual": 15000,
+            "differencePaise": 0,
+            "status": "PASS",
+            "note": ""
+        },
+        {
+            "id": "O09-stock-ledger",
+            "surface": "C-inventory",
+            "child": "STOCK ledger should hold remaining value",
+            "expected": 10000,
+            "actual": 0,
+            "differencePaise": -10000,
+            "status": "FAIL",
+            "note": "item row is not a posted voucher"
+        },
+        {
+            "id": "O10-accrual-expense",
+            "surface": "C-payroll",
+            "child": "accrual expenses gross plus employer",
+            "expected": 3180000,
+            "actual": 3180000,
+            "differencePaise": 0,
+            "status": "PASS",
+            "note": ""
+        },
+        {
+            "id": "O10-accrual-payable",
+            "surface": "C-payroll",
+            "child": "net pay is a credit payable",
+            "expected": -2600000,
+            "actual": -2600000,
+            "differencePaise": 0,
+            "status": "PASS",
+            "note": ""
+        },
+        {
+            "id": "O10-payment-no-second-expense",
+            "surface": "C-payroll",
+            "child": "payment does not expense salary again",
+            "expected": 3180000,
+            "actual": 3180000,
+            "differencePaise": 0,
+            "status": "PASS",
+            "note": ""
+        },
+        {
+            "id": "O10-payable-cleared",
+            "surface": "C-payroll",
+            "child": "payment clears the payable",
+            "expected": 0,
+            "actual": 0,
+            "differencePaise": 0,
+            "status": "PASS",
+            "note": ""
+        },
+        {
+            "id": "O11-not-cleared-yet",
+            "surface": "C-cheque",
+            "child": "bank stays put until the cheque clears",
+            "expected": -2200000,
+            "actual": -4700000,
+            "differencePaise": -2500000,
+            "status": "FAIL",
+            "note": "match cashPostedAgain=0"
+        },
+        {
+            "id": "O11-match-does-not-double",
+            "surface": "C-cheque",
+            "child": "matching does not post a second cash amount",
+            "expected": 0,
+            "actual": 0,
+            "differencePaise": 0,
+            "status": "PASS",
+            "note": ""
+        },
+        {
+            "id": "O12-company-payable",
+            "surface": "C-bridge",
+            "child": "company books a payable for the reimbursement",
+            "expected": 750000,
+            "actual": 0,
+            "differencePaise": -750000,
+            "status": "FAIL",
+            "note": "link stored; plan companyPayable=750000; singleDatabaseTransaction=false"
+        },
+        {
+            "id": "O13-reject-unbalanced",
+            "surface": "C-journal",
+            "child": "one-sided journal is rejected",
+            "expected": "rejected",
+            "actual": "rejected",
+            "differencePaise": null,
+            "status": "PASS",
+            "note": "At least two voucher lines required"
+        },
+        {
+            "id": "AUTH-foreign-company",
+            "surface": "C-access",
+            "child": "viewer of Alpha cannot post into Beta",
+            "expected": "denied",
+            "actual": "denied",
+            "differencePaise": null,
+            "status": "PASS",
+            "note": "Company membership required"
+        },
+        {
+            "id": "AUTH-pin-without-reopen",
+            "surface": "C-settings",
+            "child": "valid PIN does not grant reopen_period",
+            "expected": false,
+            "actual": false,
+            "differencePaise": null,
+            "status": "PASS",
+            "note": ""
+        },
+        {
+            "id": "AUTH-pin-without-opening",
+            "surface": "C-ledgers",
+            "child": "valid PIN does not grant manage_opening_balances",
+            "expected": false,
+            "actual": false,
+            "differencePaise": null,
+            "status": "PASS",
+            "note": ""
+        },
+        {
+            "id": "AUTH-pin-without-approve",
+            "surface": "C-approvals",
+            "child": "valid PIN does not grant approve_voucher",
+            "expected": false,
+            "actual": false,
+            "differencePaise": null,
+            "status": "PASS",
+            "note": ""
+        },
+        {
+            "id": "AUTH-pin-without-backup",
+            "surface": "C-export",
+            "child": "valid PIN does not grant export_backup",
+            "expected": false,
+            "actual": false,
+            "differencePaise": null,
+            "status": "PASS",
+            "note": ""
+        },
+        {
+            "id": "AUTH-empty-permissions",
+            "surface": "C-permissions",
+            "child": "membership with no role denies",
+            "expected": 0,
+            "actual": 0,
+            "differencePaise": 0,
+            "status": "PASS",
+            "note": ""
+        },
+        {
+            "id": "AUTH-empty-post",
+            "surface": "C-permissions",
+            "child": "empty permissions cannot post",
+            "expected": "denied",
+            "actual": "denied",
+            "differencePaise": null,
+            "status": "PASS",
+            "note": "Missing permission: create_journal"
+        },
+        {
+            "id": "AUTH-preview-revoke",
+            "surface": "C-vouchers",
+            "child": "data entry cannot promote after preview",
+            "expected": "denied",
+            "actual": "denied",
+            "differencePaise": null,
+            "status": "PASS",
+            "note": "Missing permission: post_voucher"
+        },
+        {
+            "id": "RPT-receipts-payments",
+            "surface": "C-reports",
+            "child": "PHP handler runs",
+            "expected": "ran",
+            "actual": "ran",
+            "differencePaise": null,
+            "status": "PASS",
+            "note": "rows=3"
+        },
+        {
+            "id": "RPT-project-report",
+            "surface": "C-reports",
+            "child": "PHP handler runs",
+            "expected": "ran",
+            "actual": "ran",
+            "differencePaise": null,
+            "status": "PASS",
+            "note": "rows=2"
+        },
+        {
+            "id": "RPT-business-report",
+            "surface": "C-reports",
+            "child": "PHP handler runs",
+            "expected": "ran",
+            "actual": "ran",
+            "differencePaise": null,
+            "status": "PASS",
+            "note": "rows=1"
+        },
+        {
+            "id": "RPT-area-report",
+            "surface": "C-reports",
+            "child": "PHP handler runs",
+            "expected": "ran",
+            "actual": "ran",
+            "differencePaise": null,
+            "status": "PASS",
+            "note": "rows=1"
+        },
+        {
+            "id": "RPT-category-report",
+            "surface": "C-reports",
+            "child": "PHP handler runs",
+            "expected": "ran",
+            "actual": "ran",
+            "differencePaise": null,
+            "status": "PASS",
+            "note": "rows=1"
+        },
+        {
+            "id": "RPT-user-activity",
+            "surface": "C-reports",
+            "child": "PHP handler runs",
+            "expected": "ran",
+            "actual": "ran",
+            "differencePaise": null,
+            "status": "PASS",
+            "note": "rows=1"
+        }
+    ]
+}

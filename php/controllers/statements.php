@@ -5,6 +5,7 @@ require_once __DIR__ . "/../helpers/auth.php";
 require_once __DIR__ . "/../helpers/security.php";
 require_once __DIR__ . "/../helpers/utils.php";
 require_once __DIR__ . "/../helpers/cloud_write.php";
+require_once __DIR__ . "/../helpers/app.php";
 require_once __DIR__ . "/../helpers/statement_verifier.php";
 require_once __DIR__ . "/../helpers/statement_review_digest.php";
 
@@ -63,6 +64,10 @@ function statement_normalize_source_evidence($raw): array {
 }
 
 function statements_commit(PDO $db, string $user, array $body): array {
+    $flags = flag_get_map();
+    if (array_key_exists("import", $flags) && $flags["import"] === false) {
+        throw new CloudWriteException("Import is turned off.", 403, "MODULE_UNAVAILABLE");
+    }
     $allowed = ["userId", "accountId", "bank", "documentHash", "parserVersion", "openingPaise", "closingPaise", "order", "rows", "mutationId", "ocrSourceConfirmed", "sourceEvidence", "confirmedMatches", "reviewRevision", "reviewDigest"];
     if (array_diff(array_keys($body), $allowed)) throw new InvalidArgumentException("Unexpected statement field; files and passwords are not accepted by this endpoint");
     if (($body["userId"] ?? null) !== $user) throw new CloudWriteException("Account changed. Sign in to the original account.", 403, "OWNER_MISMATCH");
@@ -254,6 +259,10 @@ function statements_commit(PDO $db, string $user, array $body): array {
         cloud_write_save($db, $user, "importSources", $importSource);
     }
     $result["importSourceId"] = $importSourceId;
+    foreach ($pending as &$payload) {
+        $payload["statementSource"]["importSourceId"] = $importSourceId;
+    }
+    unset($payload);
 
     foreach ($pending as $payload) {
         if ($payload["type"] === "refund") {
@@ -495,6 +504,10 @@ function statements_card_commit(PDO $db, string $user, array $body): array {
         cloud_write_save($db, $user, "importSources", $importSource);
     }
     $result["importSourceId"] = $importSourceId;
+    foreach ($pending as &$payload) {
+        $payload["statementSource"]["importSourceId"] = $importSourceId;
+    }
+    unset($payload);
 
     foreach ($pending as $payload) {
         cloud_write_save($db, $user, "transactions", $payload);

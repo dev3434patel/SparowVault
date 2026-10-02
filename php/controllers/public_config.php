@@ -14,50 +14,67 @@ function public_config_get(): void {
 }
 
 /**
- * Phase 17 — richer /api/health.php response.
+ * Personal readiness for /api/health.php.
  *
- * Reports app status + DB connectivity + (optional) DB ping latency +
- * environment marker + version (from schema_version) + timestamp +
- * request id so monitoring tools can correlate.
+ * A 200 body means status "healthy": SELECT 1 succeeded and the personal schema
+ * is present. Process existence is not health. An empty secret or missing database
+ * is not_configured (non-200) and does not open a socket. Database-down and a
+ * missing schema are non-200. The body is bounded and contains no credentials
+ * and no schema dump.
  *
- * Production setups should wire UptimeRobot / Better Uptime against
- * this endpoint, expecting `ok:true` and `data.status == "healthy"`.
+ * This check does not read /api/healthz.php and does not require a company table count.
+ * /api/healthz.php remains company liveness.
  */
 function health_check_get(): void {
+    if (health_block_unready()) {
+        return;
+    }
     $started = microtime(true);
-    $dbStatus = "unknown";
-    $dbLatencyMs = null;
-    $schemaVersion = null;
+    $dbOk = false;
+    $schemaOk = false;
     try {
         $db = db_conn();
-        $dbStart = microtime(true);
         $db->query("SELECT 1");
-        $dbLatencyMs = (int)round((microtime(true) - $dbStart) * 1000);
-        $dbStatus = "ok";
-        try {
-            $st = $db->query("SELECT version_key FROM schema_version ORDER BY applied_at DESC LIMIT 1");
-            $row = $st->fetch();
-            $schemaVersion = $row ? (string)$row["version_key"] : null;
-        } catch (Throwable) {
-            $schemaVersion = null; // table absent on legacy installs — that's fine
-        }
-    } catch (Throwable $e) {
-        $dbStatus = "down: " . substr($e->getMessage(), 0, 64);
+        $dbOk = true;
+        $schemaOk = personal_readiness_schema_present($db);
+    } catch (Throwable) {
+        $dbOk = false;
+        $schemaOk = false;
     }
 
-    $env = app_env();
-    $razorpayEnabled = strtolower((string)(env_value("ENABLE_RAZORPAY", "false") ?? "false")) === "true";
-
-    $appHealthy = $dbStatus === "ok";
+    $healthy = $dbOk && $schemaOk;
     json_ok([
-        "status"          => $appHealthy ? "healthy" : "degraded",
-        "appEnv"          => $env,
-        "version"         => $schemaVersion,
-        "razorpayEnabled" => $razorpayEnabled,
-        "db"              => ["status" => $dbStatus, "latencyMs" => $dbLatencyMs],
-        "requestId"       => (string)($_SERVER["REQUEST_ID"] ?? ""),
-        "totalMs"         => (int)round((microtime(true) - $started) * 1000),
-        "time"            => gmdate("c"),
-    ], $appHealthy ? 200 : 503);
+        "status" => $healthy ? "healthy" : "unavailable",
+        "appEnv" => app_env(),
+        "checks" => [
+            "db" => $dbOk ? "ok" : "down",
+            "schema" => $schemaOk ? "ok" : "missing",
+        ],
+        "requestId" => (string)($_SERVER["REQUEST_ID"] ?? ""),
+        "totalMs" => (int)round((microtime(true) - $started) * 1000),
+        "time" => gmdate("c"),
+    ], $healthy ? 200 : 503);
+}
+
+/**
+ * Personal tables only. Company table counts are not part of this result.
+ */
+function personal_readiness_schema_present(PDO $db): bool {
+    $required = ["users", "cloud_collection_rows", "schema_version"];
+    $st = $db->prepare(
+        "SELECT table_name FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name IN (?,?,?)"
+    );
+    $st->execute($required);
+    $found = [];
+    while ($row = $st->fetch(PDO::FETCH_ASSOC)) {
+        $found[strtolower((string)($row["table_name"] ?? $row["TABLE_NAME"] ?? ""))] = true;
+    }
+    foreach ($required as $name) {
+        if (!isset($found[$name])) {
+            return false;
+        }
+    }
+    $count = $db->query("SELECT COUNT(*) FROM schema_version")->fetchColumn();
+    return (int)$count > 0;
 }
 

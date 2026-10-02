@@ -8,17 +8,24 @@ import { useAuthStore } from "@/store/authStore";
 import { formatDate } from "@/lib/format";
 import { cn } from "@/lib/utils";
 import { EmptyState } from "@/components/ui/Table";
+import { alertPreferenceEnabled } from "@/services/alertPreferences";
+import { useMessages } from "@/i18n/useMessages";
 
 export function AlertsDrawer() {
   const open = useUIStore((s) => s.alertsOpen);
   const setOpen = useUIStore((s) => s.setAlertsOpen);
   const alerts = useDataStore((s) => s.alerts);
+  const settings = useDataStore((s) => s.settings);
+  const visible = alerts.filter((a) => alertPreferenceEnabled(settings?.warningPreferences, a.kind));
   const user = useAuthStore((s) => s.currentUser);
   const upsertLocal = useDataStore((s) => s.upsertLocal);
   const removeLocal = useDataStore((s) => s.removeLocal);
 
-  const unread = alerts.filter((a) => !a.dismissed);
-  const dismissed = alerts.filter((a) => !!a.dismissed);
+  const messages = useMessages();
+  const copy = messages.ui.alerts;
+  const common = messages.ui.common;
+  const unread = visible.filter((a) => !a.dismissed);
+  const dismissed = visible.filter((a) => !!a.dismissed);
 
   async function dismiss(id: string) {
     if (!user) return;
@@ -45,17 +52,17 @@ export function AlertsDrawer() {
       <SheetContent side="right" size="lg" className="flex flex-col">
         <SheetHeader>
           <SheetTitle className="flex items-center gap-2">
-            <Bell className="h-5 w-5" /> Alerts Center
+            <Bell className="h-5 w-5" /> {copy.drawerTitle}
           </SheetTitle>
           <p className="text-xs text-muted-foreground">
-            {unread.length} active • {dismissed.length} dismissed
+            {unread.length} {copy.activeCount} • {dismissed.length} {copy.dismissed}
           </p>
         </SheetHeader>
 
         <div className="flex items-center justify-end gap-2 -mt-1">
           {unread.length > 0 ? (
             <Button size="sm" variant="outline" onClick={dismissAll}>
-              Dismiss all
+              {common.dismissAll}
             </Button>
           ) : null}
         </div>
@@ -64,8 +71,8 @@ export function AlertsDrawer() {
           {unread.length === 0 && dismissed.length === 0 ? (
             <EmptyState
               icon={<CheckCircle2 className="h-6 w-6 text-income" />}
-              title="You're all caught up"
-              description="No active alerts. We'll let you know if something needs attention."
+              title={copy.caughtUp}
+              description={copy.caughtUpBody}
             />
           ) : null}
 
@@ -109,7 +116,7 @@ export function AlertsDrawer() {
                 <Button
                   size="icon-sm"
                   variant="ghost"
-                  aria-label="Dismiss"
+                  aria-label={common.dismiss}
                   onClick={() => dismiss(a.id)}
                 >
                   ×
@@ -121,7 +128,7 @@ export function AlertsDrawer() {
           {dismissed.length > 0 ? (
             <div className="pt-4">
               <div className="mb-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
-                Dismissed
+                {copy.dismissed}
               </div>
               {dismissed.map((a) => (
                 <div

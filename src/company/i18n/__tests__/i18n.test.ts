@@ -89,4 +89,26 @@ describe("en/gu key parity (smoke)", () => {
     const guKeys = Object.keys(gu).sort();
     expect(guKeys).toEqual(enKeys);
   });
+
+  it("formatter and intent keys exist in both languages", () => {
+    for (const key of [
+      "format.tx.expense",
+      "format.tx.emi_payment",
+      "format.pay.cash",
+      "format.pay.upi",
+      "intent.purchase_expense",
+      "intent.salary_income",
+      "intent.other_incoming",
+      "voucherNew.title",
+      "modules.title",
+    ]) {
+      expect(en[key], key).toEqual(expect.any(String));
+      expect(String(en[key]).length, key).toBeGreaterThan(0);
+      expect(gu[key], key).toEqual(expect.any(String));
+      expect(String(gu[key]).length, key).toBeGreaterThan(0);
+    }
+    expect(gu["format.pay.upi"]).toBe("UPI");
+    expect(en["format.tx.expense"]).toBe("Expense");
+    expect(gu["format.tx.expense"]).toBe("ખર્ચ");
+  });
 });

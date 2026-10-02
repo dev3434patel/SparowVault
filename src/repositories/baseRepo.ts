@@ -4,6 +4,9 @@ import { nowIso, uid } from "@/lib/utils";
 import type { CloudCollectionKey } from "@/lib/cloud/collections";
 import { ApiError, isRetryableApiError } from "@/lib/apiClient";
 import { useAuthStore } from "@/store/authStore";
+import { useCloudAppStore } from "@/store/cloudAppStore";
+import { collectionWriteBlocked } from "@/services/modulePolicy";
+import { assertTransactionCreateAllowed } from "@/services/transactionMonthlyCap";
 import { canUseCloudRepo, cloudRepoGet, cloudRepoHardDelete, cloudRepoHardDeleteAll, cloudRepoList } from "@/lib/cloud/repoClient";
 import { commitMutation, enqueueMutation, mergeRemoteList, mutationTable, preserveLegacyPending, requireEmptyOutbox } from "@/services/durableOutbox";
 
@@ -16,11 +19,27 @@ export interface CreateInput<T extends BaseEntity> {
 export class BaseRepo<T extends BaseEntity> {
   constructor(protected table: () => Table<T, string>, protected idPrefix: string, protected cloudCollection?: CloudCollectionKey) {}
 
+  private assertModuleWritable(): void {
+    if (!this.cloudCollection) return;
+    const blocked = collectionWriteBlocked(useCloudAppStore.getState().flags, this.cloudCollection);
+    if (blocked) throw new Error(blocked);
+  }
+
   private canRemote(): boolean {
     return !!this.cloudCollection && canUseCloudRepo(this.cloudCollection);
   }
 
   async create(input: CreateInput<T>): Promise<T> {
+    this.assertModuleWritable();
+    if (this.cloudCollection === "transactions") {
+      const { useCloudAppStore } = await import("@/store/cloudAppStore");
+      const { useDataStore } = await import("@/store/dataStore");
+      assertTransactionCreateAllowed(
+        useCloudAppStore.getState().effectiveFeatures,
+        useDataStore.getState().transactions,
+        input.userId,
+      );
+    }
     const now = nowIso();
     const entity = { ...input.data, id: input.data.id ?? uid(this.idPrefix), userId: input.userId,
       createdAt: now, updatedAt: now, isDeleted: 0, version: 1,

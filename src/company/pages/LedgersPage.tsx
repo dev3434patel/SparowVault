@@ -7,11 +7,12 @@ import { Field } from "@/components/ui/Label";
 import { companyApi } from "@/company/api/client";
 import { companyNavigate, companyPath } from "@/company/routes";
 import { useCompanyStore } from "@/company/store/companyStore";
-import type { CompanyLedger, LineSide } from "@/company/types";
+import type { AccountGroup, CompanyLedger, LineSide } from "@/company/types";
 import { parseMoneyInputToPaise } from "@/utils/money";
 import { SkeletonTable } from "@/company/components/CompanySkeleton";
 import { ScrollTable } from "@/company/components/responsive";
 import { useI18n } from "@/company/i18n/react";
+import { useHasPermission } from "@/company/components/PermissionGate";
 
 export function LedgersPage({ cashBankOnly = false }: { cashBankOnly?: boolean }) {
   const { t } = useI18n();
@@ -25,14 +26,24 @@ export function LedgersPage({ cashBankOnly = false }: { cashBankOnly?: boolean }
   const [obSide, setObSide] = useState<LineSide>("DEBIT");
   const [obAmount, setObAmount] = useState("");
   const [savingOb, setSavingOb] = useState(false);
+  const canOpening = useHasPermission("manage_opening_balances");
+  const canManage = useHasPermission("manage_ledgers");
+  const [groups, setGroups] = useState<AccountGroup[]>([]);
+  const [newName, setNewName] = useState("");
+  const [newCode, setNewCode] = useState("");
+  const [newGroupId, setNewGroupId] = useState("");
+  const [editId, setEditId] = useState("");
+  const [editName, setEditName] = useState("");
 
   async function load() {
     if (!companyId) return;
     setLoading(true);
     try {
-      const rows = await companyApi.listLedgers(companyId);
-      setLedgers(rows);
-      if (!obLedgerId && rows[0]) setObLedgerId(rows[0].id);
+      const catalog = await companyApi.listLedgerCatalog(companyId);
+      setLedgers(catalog.ledgers);
+      setGroups(catalog.groups);
+      if (!newGroupId && catalog.groups[0]) setNewGroupId(catalog.groups[0].id);
+      if (!obLedgerId && catalog.ledgers[0]) setObLedgerId(catalog.ledgers[0].id);
     } catch (e) {
       setErr(e instanceof Error ? e.message : t("errors.loadFailed"));
     } finally {
@@ -66,21 +77,25 @@ export function LedgersPage({ cashBankOnly = false }: { cashBankOnly?: boolean }
   async function onOpeningBalance(e: React.FormEvent) {
     e.preventDefault();
     if (!companyId || !obLedgerId) return;
+    if (!canOpening) {
+      setErr(t("ledgers.openingNeedPermission"));
+      return;
+    }
     setErr(null);
     setOk(null);
     let amountPaise: number;
     try {
       amountPaise = parseMoneyInputToPaise(obAmount, { allowZero: false, throwOnInvalid: true });
     } catch (error) {
-      setErr(error instanceof Error ? error.message : "Invalid amount");
+      setErr(error instanceof Error ? error.message : t("ledgers.openingInvalidAmount"));
       return;
     }
     if (!capitalLedger) {
-      setErr("CAPITAL_LEDGER not found — seed COA first");
+      setErr(t("ledgers.openingCapitalMissing"));
       return;
     }
     if (obLedgerId === capitalLedger.id) {
-      setErr("Choose a ledger other than Capital for the opening line");
+      setErr(t("ledgers.openingNotCapital"));
       return;
     }
     const equitySide: LineSide = obSide === "DEBIT" ? "CREDIT" : "DEBIT";
@@ -97,10 +112,10 @@ export function LedgersPage({ cashBankOnly = false }: { cashBankOnly?: boolean }
           { ledgerId: capitalLedger.id, side: equitySide, amountPaise },
         ],
       });
-      setOk(`Opening balance posted (${res.voucherNumber || res.id})`);
+      setOk(t("ledgers.openingPosted", { number: res.voucherNumber || res.id }));
       setObAmount("");
     } catch (error) {
-      setErr(error instanceof Error ? error.message : "Opening balance failed");
+      setErr(error instanceof Error ? error.message : t("ledgers.openingFailed"));
     } finally {
       setSavingOb(false);
     }
@@ -117,14 +132,135 @@ export function LedgersPage({ cashBankOnly = false }: { cashBankOnly?: boolean }
       {ok ? <p className="text-sm text-emerald-600">{ok}</p> : null}
       {loading ? <SkeletonTable rows={6} cols={3} /> : null}
 
-      {cashBankOnly ? null : (
+      {!cashBankOnly && canManage ? (
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm">Manage ledgers</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <form
+              className="flex flex-col gap-2 sm:flex-row sm:items-end"
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (!companyId || !newName.trim() || !newCode.trim() || !newGroupId) return;
+                setErr(null);
+                setOk(null);
+                void companyApi
+                  .mutateLedger(companyId, {
+                    action: "create",
+                    name: newName.trim(),
+                    code: newCode.trim().toUpperCase(),
+                    groupId: newGroupId,
+                  })
+                  .then(() => {
+                    setOk("Ledger created. Opening differences are not posted.");
+                    setNewName("");
+                    setNewCode("");
+                    return load();
+                  })
+                  .catch((error: unknown) => setErr(error instanceof Error ? error.message : "Create failed"));
+              }}
+            >
+              <Field label="Group" className="flex-1">
+                <select
+                  className="flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-card px-3 text-sm"
+                  value={newGroupId}
+                  onChange={(e) => setNewGroupId(e.target.value)}
+                  required
+                >
+                  {groups.map((group) => (
+                    <option key={group.id} value={group.id}>
+                      {group.code} — {group.name}
+                    </option>
+                  ))}
+                </select>
+              </Field>
+              <Field label="Code">
+                <Input value={newCode} onChange={(e) => setNewCode(e.target.value.toUpperCase())} required />
+              </Field>
+              <Field label="Name" className="flex-1">
+                <Input value={newName} onChange={(e) => setNewName(e.target.value)} required />
+              </Field>
+              <Button type="submit" size="sm">
+                Create ledger
+              </Button>
+            </form>
+            <form
+              className="flex flex-col gap-2 sm:flex-row sm:items-end"
+              onSubmit={(e) => {
+                e.preventDefault();
+                if (!companyId || !editId || !editName.trim()) return;
+                setErr(null);
+                setOk(null);
+                void companyApi
+                  .mutateLedger(companyId, { action: "rename", ledgerId: editId, name: editName.trim() })
+                  .then(() => {
+                    setOk("Ledger renamed");
+                    return load();
+                  })
+                  .catch((error: unknown) => setErr(error instanceof Error ? error.message : "Rename failed"));
+              }}
+            >
+              <Field label="Rename" className="flex-1">
+                <select
+                  className="flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-card px-3 text-sm"
+                  value={editId}
+                  onChange={(e) => {
+                    setEditId(e.target.value);
+                    const row = ledgers.find((ledger) => ledger.id === e.target.value);
+                    setEditName(row?.name ?? "");
+                  }}
+                >
+                  <option value="">Choose a ledger</option>
+                  {ledgers.map((ledger) => (
+                    <option key={ledger.id} value={ledger.id}>
+                      {ledger.code} — {ledger.name}
+                    </option>
+                  ))}
+                </select>
+              </Field>
+              <Field label="New name" className="flex-1">
+                <Input value={editName} onChange={(e) => setEditName(e.target.value)} />
+              </Field>
+              <Button type="submit" size="sm" variant="outline" disabled={!editId}>
+                Rename
+              </Button>
+              <Button
+                type="button"
+                size="sm"
+                variant="outline"
+                disabled={!editId}
+                onClick={() => {
+                  if (!companyId || !editId) return;
+                  if (!window.confirm("Archive this unused ledger? Ledgers that already have voucher lines stay in the books.")) return;
+                  setErr(null);
+                  setOk(null);
+                  void companyApi
+                    .mutateLedger(companyId, { action: "archive", ledgerId: editId })
+                    .then(() => {
+                      setOk("Ledger archived");
+                      setEditId("");
+                      setEditName("");
+                      return load();
+                    })
+                    .catch((error: unknown) => setErr(error instanceof Error ? error.message : "Archive failed"));
+                }}
+              >
+                Archive
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+      ) : null}
+
+      {cashBankOnly || !canOpening ? null : (
       <Card>
         <CardHeader className="pb-2">
-          <CardTitle className="text-sm">Opening balances</CardTitle>
+          <CardTitle className="text-sm">{t("ledgers.openingTitle")}</CardTitle>
         </CardHeader>
         <CardContent>
           <form className="flex flex-col gap-2 sm:flex-row sm:items-end" onSubmit={(e) => void onOpeningBalance(e)}>
-            <Field label="Ledger" className="flex-1">
+            <Field label={t("ledgers.openingLedger")} className="flex-1">
               <select
                 className="flex h-9 w-full rounded-md border border-[hsl(var(--input))] bg-card px-3 text-sm"
                 value={obLedgerId}
@@ -138,31 +274,31 @@ export function LedgersPage({ cashBankOnly = false }: { cashBankOnly?: boolean }
                 ))}
               </select>
             </Field>
-            <Field label="Side">
+            <Field label={t("ledgers.openingSide")}>
               <select
                 className="flex h-9 rounded-md border border-[hsl(var(--input))] bg-card px-3 text-sm"
                 value={obSide}
                 onChange={(e) => setObSide(e.target.value as LineSide)}
               >
-                <option value="DEBIT">Debit</option>
-                <option value="CREDIT">Credit</option>
+                <option value="DEBIT">{t("vouchers.debit")}</option>
+                <option value="CREDIT">{t("vouchers.credit")}</option>
               </select>
             </Field>
-            <Field label="Amount">
+            <Field label={t("quick.amount")}>
               <Input value={obAmount} onChange={(e) => setObAmount(e.target.value)} placeholder="0.00" required />
             </Field>
             <Button type="submit" size="sm" disabled={savingOb || !capitalLedger}>
-              {savingOb ? "Posting…" : "Post opening"}
+              {savingOb ? t("quick.posting") : t("ledgers.openingPost")}
             </Button>
           </form>
           <p className="mt-2 text-xs text-muted-foreground">
-            Posts an OPENING_BALANCE voucher: selected ledger + CAPITAL_LEDGER (balancing side).
+            {t("ledgers.openingHelp")}
           </p>
         </CardContent>
       </Card>
       )}
 
-      {!loading && filtered.length === 0 ? (
+      {!loading && !err && filtered.length === 0 ? (
         <Card>
           <CardContent className="p-4 text-sm text-muted-foreground">
             {cashBankOnly ? t("ledgers.cashEmpty") : t("ledgers.empty")}

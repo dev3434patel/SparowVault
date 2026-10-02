@@ -1,0 +1,12 @@
+{
+  "releaseRun": "20261003-personal-os-0048c3",
+  "source": "php/config/statement_layouts.json as previously scored on 1 October 2026",
+  "rescoreThisRun": false,
+  "recognized": 38,
+  "targetLayouts": 20,
+  "syntheticTested": 5,
+  "syntheticTestedIds": ["kotak", "hdfc", "sbi", "axis", "indusind"],
+  "registeredOnly": 15,
+  "noLayoutSpec": 18,
+  "verifiedForScope": 0
+}

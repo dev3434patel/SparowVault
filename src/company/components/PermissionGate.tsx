@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Lock } from "lucide-react";
+import { companyAllows } from "@/company/auth/companyCan";
 import { useCompanyStore } from "@/company/store/companyStore";
 import type { CompanyPermission } from "@/company/types";
 import { useI18n } from "@/company/i18n/react";
@@ -35,11 +36,6 @@ const PERMISSION_LABELS: Partial<Record<CompanyPermission, string>> = {
   reopen_period: "Reopen periods",
   manage_opening_balances: "Manage opening balances",
 };
-
-function can(permissions: CompanyPermission[], need: CompanyPermission) {
-  if (permissions.length === 0) return true;
-  return permissions.includes(need);
-}
 
 export function permissionLabel(permission: CompanyPermission): string {
   return PERMISSION_LABELS[permission] ?? permission.replace(/_/g, " ");
@@ -79,12 +75,22 @@ export function PermissionGate({
   children: ReactNode;
   fallback?: ReactNode;
 }) {
+  const { t } = useI18n();
   const permissions = useCompanyStore((s) => s.permissions);
-  if (can(permissions, permission)) return <>{children}</>;
-  return <>{fallback ?? <PermissionDeniedBanner permission={permission} reason={reason} />}</>;
+  const permissionsState = useCompanyStore((s) => s.permissionsState);
+  if (permissionsState === "loading") {
+    return <p className="text-sm text-muted-foreground">{t("common.loadingWorkspace")}</p>;
+  }
+  if (companyAllows(permissionsState, permissions, permission)) return <>{children}</>;
+  const deniedReason =
+    permissionsState === "error"
+      ? "Access could not be confirmed. Protected actions stay closed until permissions load."
+      : reason;
+  return <>{fallback ?? <PermissionDeniedBanner permission={permission} reason={deniedReason} />}</>;
 }
 
 export function useHasPermission(permission: CompanyPermission): boolean {
   const permissions = useCompanyStore((s) => s.permissions);
-  return can(permissions, permission);
+  const permissionsState = useCompanyStore((s) => s.permissionsState);
+  return companyAllows(permissionsState, permissions, permission);
 }

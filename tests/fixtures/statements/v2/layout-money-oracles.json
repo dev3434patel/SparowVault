@@ -1,0 +1,109 @@
+{
+  "kind": "synthetic",
+  "note": "Deterministic money oracles for layout specs that already exist. Not real bank PDFs and not verified-for-scope.",
+  "generic": {
+    "openingPaise": 1000000,
+    "closingPaise": 5849950,
+    "debitPaise": 150050,
+    "creditPaise": 5000000,
+    "rows": [
+      {
+        "date": "2026-08-01",
+        "description": "SALARY ACME",
+        "reference": "R01",
+        "debitPaise": 0,
+        "creditPaise": 5000000,
+        "balancePaise": 6000000
+      },
+      {
+        "date": "2026-08-02",
+        "description": "UPI ZOMATO",
+        "reference": "R02",
+        "debitPaise": 50050,
+        "creditPaise": 0,
+        "balancePaise": 5949950
+      },
+      {
+        "date": "2026-08-03",
+        "description": "UPI UNKNOWN PERSON",
+        "reference": "R03",
+        "debitPaise": 100000,
+        "creditPaise": 0,
+        "balancePaise": 5849950
+      }
+    ]
+  },
+  "layouts": [
+    {
+      "layoutId": "hdfc.savings.generic.v1.en-IN.INR.native_pdf",
+      "bankId": "hdfc",
+      "kind": "generic",
+      "heading": "HDFC Bank",
+      "headers": ["Date", "Narration", "Chq/Ref No", "Withdrawal Amt", "Deposit Amt", "Closing Balance"]
+    },
+    {
+      "layoutId": "sbi.savings.generic.v1.en-IN.INR.native_pdf",
+      "bankId": "sbi",
+      "kind": "generic",
+      "heading": "State Bank of India",
+      "headers": ["Txn Date", "Description", "Ref No/Cheque No", "Debit", "Credit", "Balance"]
+    },
+    {
+      "layoutId": "axis.savings.generic.v1.en-IN.INR.native_pdf",
+      "bankId": "axis",
+      "kind": "generic",
+      "heading": "Axis Bank",
+      "headers": ["Tran Date", "Particulars", "Cheque No", "Debit", "Credit", "Balance"]
+    },
+    {
+      "layoutId": "indusind.savings.generic.v1.en-IN.INR.native_pdf",
+      "bankId": "indusind",
+      "kind": "generic",
+      "heading": "IndusInd Bank",
+      "headers": ["Date", "Particulars", "Chq No", "Withdrawal", "Deposit", "Balance"]
+    },
+    {
+      "layoutId": "kotak.savings.numbered.v1.en-IN.INR.native_pdf",
+      "bankId": "kotak",
+      "kind": "kotak-numbered",
+      "openingPaise": 100000,
+      "closingPaise": 394975,
+      "debitPaise": 210025,
+      "creditPaise": 505000,
+      "rows": [
+        {
+          "date": "2025-04-02",
+          "description": "SALARY TEST",
+          "reference": "R01",
+          "debitPaise": 0,
+          "creditPaise": 500000,
+          "balancePaise": 600000
+        },
+        {
+          "date": "2025-04-03",
+          "description": "UPI TEST SHOP WRAPPED NARRATION",
+          "reference": "R02",
+          "debitPaise": 10025,
+          "creditPaise": 0,
+          "balancePaise": 589975
+        },
+        {
+          "date": "2026-03-30",
+          "description": "TRANSFER HDFC BANK",
+          "reference": "R03",
+          "debitPaise": 200000,
+          "creditPaise": 0,
+          "balancePaise": 389975
+        },
+        {
+          "date": "2026-03-31",
+          "description": "TEST REFUND",
+          "reference": "R04",
+          "debitPaise": 0,
+          "creditPaise": 5000,
+          "balancePaise": 394975
+        }
+      ]
+    }
+  ]
+}

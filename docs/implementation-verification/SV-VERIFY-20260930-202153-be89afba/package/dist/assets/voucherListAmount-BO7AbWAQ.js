@@ -1,0 +1,1 @@
+function s(e){const t=(e.lines??[]).reduce((i,n)=>n.side==="DEBIT"?i+n.amountPaise:i,0);return t>0?t:e.debitTotalPaise??0}function a(e){const t=Number(e.debitPaise??0);if(t>0)return t;const i=Number(e.creditPaise??0);if(i>0)return i;const n=Number(e.amount_paise??e.amountPaise??0);return n>0?n:0}export{a as s,s as v};

@@ -1,4 +1,5 @@
 import { Building2, ChevronDown, Search, Bell, LogOut } from "lucide-react";
+import { companyAllows } from "@/company/auth/companyCan";
 import { useCompanyStore } from "@/company/store/companyStore";
 import { companyNavigate, companyPath } from "@/company/routes";
 import { Button } from "@/components/ui/Button";
@@ -15,6 +16,7 @@ export function CompanyHeader({ onMenu }: { onMenu?: () => void }) {
   const workspace = useCompanyStore((s) => s.workspace);
   const companyId = useCompanyStore((s) => s.activeCompanyId);
   const permissions = useCompanyStore((s) => s.permissions);
+  const permissionsState = useCompanyStore((s) => s.permissionsState);
   const clearCompany = useCompanyStore((s) => s.clear);
   const currentUser = useAuthStore((s) => s.currentUser);
   const logout = useAuthStore((s) => s.logout);
@@ -23,8 +25,7 @@ export function CompanyHeader({ onMenu }: { onMenu?: () => void }) {
   const fy = workspace ? fyLabelFromStartMonth(workspace.financialYearStartMonth) : "";
 
   useEffect(() => {
-    if (!companyId) return;
-    if (permissions.length && !permissions.includes("approve_voucher")) {
+    if (!companyId || !companyAllows(permissionsState, permissions, "approve_voucher")) {
       setApprovalCount(0);
       return;
     }
@@ -42,7 +43,7 @@ export function CompanyHeader({ onMenu }: { onMenu?: () => void }) {
     return () => {
       cancelled = true;
     };
-  }, [companyId, permissions]);
+  }, [companyId, permissions, permissionsState]);
 
   async function onLogout() {
     clearCompany();

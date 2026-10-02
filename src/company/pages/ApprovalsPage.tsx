@@ -174,7 +174,7 @@ export function ApprovalsPage() {
 
         {loading ? <SkeletonList rows={4} /> : null}
 
-        {!loading && rows.length === 0 ? (
+        {!loading && !err && rows.length === 0 ? (
 
           <EmptyState title={t("approvals.empty")} body={t("approvals.subtitle")} />
 

@@ -8,6 +8,7 @@ import type { User } from "@/types";
 import { getLastUserId } from "@/services/authService";
 import { KeyRound, Lock, Database, UserPlus } from "lucide-react";
 import { useUIStore } from "@/store/uiStore";
+import { useMessages } from "@/i18n/useMessages";
 
 export function ProfileLogin({
   onCreateNew,
@@ -16,6 +17,7 @@ export function ProfileLogin({
   onCreateNew: () => void;
   onCloudSignIn?: () => void;
 }) {
+  const auth = useMessages().ui.auth;
   const profiles = useAuthStore((s) => s.profiles);
   const login = useAuthStore((s) => s.login);
   const loading = useAuthStore((s) => s.loading);
@@ -41,9 +43,9 @@ export function ProfileLogin({
     setErr(null);
     try {
       await login(selected.id, pin);
-      toast({ title: `Welcome back, ${selected.displayName}`, kind: "success" });
+      toast({ title: `${auth.welcomeBack}, ${selected.displayName}`, kind: "success" });
     } catch (e) {
-      const msg = e instanceof Error ? e.message : "Login failed";
+      const msg = e instanceof Error ? e.message : auth.loginFailed;
       setErr(msg);
       setPin("");
     }
@@ -54,10 +56,10 @@ export function ProfileLogin({
       <CardContent className="p-6">
         <div className="mb-4 flex items-center gap-2">
           <Lock className="h-4 w-4 text-primary" />
-          <h1 className="text-xl font-semibold">Welcome back</h1>
+          <h1 className="text-xl font-semibold">{auth.welcomeBack}</h1>
         </div>
         <p className="text-sm text-muted-foreground">
-          Continue with your most recent account.
+          {auth.continueRecent}
         </p>
 
         <div className="my-5 space-y-2">
@@ -92,7 +94,7 @@ export function ProfileLogin({
             }}
             className="space-y-3"
           >
-            <Field label={`PIN for @${selected.username}`} error={err ?? undefined}>
+            <Field label={`${auth.pinFor} @${selected.username}`} error={err ?? undefined}>
               <div className="relative">
                 <Input
                   type="password"
@@ -100,7 +102,7 @@ export function ProfileLogin({
                   autoFocus
                   value={pin}
                   onChange={(e) => setPin(e.target.value)}
-                  placeholder="Enter PIN"
+                  placeholder={auth.enterPin}
                   className="pr-10"
                 />
                 <KeyRound className="absolute right-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -108,13 +110,13 @@ export function ProfileLogin({
             </Field>
             <div className="flex items-center gap-2">
               <Button type="submit" loading={loading} className="flex-1">
-                Unlock
+                {auth.unlock}
               </Button>
             </div>
           </form>
         ) : (
           <Button type="button" variant="outline" className="w-full" onClick={onCreateNew}>
-            <UserPlus className="h-4 w-4" /> Create another profile
+            <UserPlus className="h-4 w-4" /> {auth.createAnother}
           </Button>
         )}
 
@@ -125,7 +127,7 @@ export function ProfileLogin({
               onClick={onCloudSignIn}
               className="inline-flex items-center gap-1.5 text-primary hover:underline"
             >
-              <Database className="h-4 w-4" /> Sign in with SQL account (another device)
+              <Database className="h-4 w-4" /> {auth.sqlSignIn}
             </button>
           </div>
         ) : null}

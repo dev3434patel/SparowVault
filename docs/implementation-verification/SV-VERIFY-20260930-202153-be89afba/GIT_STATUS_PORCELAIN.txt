@@ -1,0 +1,138 @@
+ M .gitignore
+ M api/company/ledgers.php
+ M api/company/memberships.php
+ M api/company/workspace.php
+ M config/company-report-registry.json
+ M docs/certification/PHASE_L_VNEXT_FINANCE_GATE_REPORT.md
+ M php/controllers/company.php
+ M php/helpers/company/bootstrap.php
+ M php/helpers/company/posting_commit.php
+ M php/helpers/company/reports.php
+ M src/company/CompanyApp.tsx
+ M src/company/api/client/admin.ts
+ M src/company/api/client/core.ts
+ M src/company/components/NewActionMenu.tsx
+ M src/company/components/PermissionGate.tsx
+ M src/company/components/dashboard/AttentionSection.tsx
+ M src/company/components/dashboard/CashFlowChart.tsx
+ M src/company/components/dashboard/KpiSection.tsx
+ M src/company/components/dashboard/RecentVouchers.tsx
+ M src/company/hooks/useDashboardData.ts
+ M src/company/i18n/locales/en.json
+ M src/company/i18n/locales/gu.json
+ M src/company/layout/CompanyHeader.tsx
+ M src/company/pages/ApprovalsPage.tsx
+ M src/company/pages/AuditPage.tsx
+ M src/company/pages/DashboardPage.tsx
+ M src/company/pages/ExportPage.tsx
+ M src/company/pages/InviteAcceptPage.tsx
+ M src/company/pages/LedgersPage.tsx
+ M src/company/pages/MastersPage.tsx
+ M src/company/pages/PartiesPage.tsx
+ M src/company/pages/PartyDetailPage.tsx
+ M src/company/pages/QuickJournalPage.tsx
+ M src/company/pages/QuickReceivedPage.tsx
+ M src/company/pages/QuickTransferPage.tsx
+ M src/company/pages/ReceivablesPage.tsx
+ M src/company/pages/ReportsHubPage.tsx
+ M src/company/pages/SearchPage.tsx
+ M src/company/pages/SettingsPage.tsx
+ M src/company/pages/VoucherCreatePage.tsx
+ M src/company/pages/VouchersPage.tsx
+ M src/company/pages/masters/DimensionPanel.tsx
+ M src/company/pages/users/MemberDetail.tsx
+ M src/company/pages/users/UsersList.tsx
+ M src/company/routes.ts
+ M src/company/store/__tests__/logoutIsolation.test.ts
+ M src/company/store/companyStore.ts
+ M src/company/types/index.ts
+ M src/components/finance/CardEmiSimulatorDialog.tsx
+ M src/components/forms/TransactionForm.tsx
+ M src/components/layout/AdminAppShell.tsx
+ M src/components/layout/AlertsDrawer.tsx
+ M src/components/layout/AppShell.tsx
+ M src/components/layout/CommandPalette.tsx
+ M src/components/layout/PageHeader.tsx
+ M src/components/layout/Sidebar.tsx
+ M src/components/layout/SyncOutboxBadge.tsx
+ M src/components/pages/AccountsPage.tsx
+ M src/components/pages/AlertsPage.tsx
+ M src/components/pages/AuditPage.tsx
+ M src/components/pages/BillCalendarPage.tsx
+ M src/components/pages/BudgetsPage.tsx
+ M src/components/pages/CardsPage.tsx
+ M src/components/pages/CategoriesPage.tsx
+ M src/components/pages/DashboardPage.tsx
+ M src/components/pages/ExportPage.tsx
+ M src/components/pages/GoalsPage.tsx
+ M src/components/pages/HouseholdDashboardPage.tsx
+ M src/components/pages/ImportPage.tsx
+ M src/components/pages/InvestmentsPage.tsx
+ M src/components/pages/LoansPage.tsx
+ M src/components/pages/ProfilePage.tsx
+ M src/components/pages/ReconciliationPage.tsx
+ M src/components/pages/ReportsPage.tsx
+ M src/components/pages/SettingsPage.tsx
+ M src/components/pages/SubscriptionPage.tsx
+ M src/components/pages/SuggestionsPage.tsx
+ M src/components/pages/TransactionsPage.tsx
+ M src/components/pages/UdhariPage.tsx
+ M src/components/pages/WealthHubPage.tsx
+ M src/config/syncContracts.ts
+ M src/i18n/messages/en.ts
+ M src/i18n/useMessages.ts
+ M src/lib/cloud/collections.ts
+ M src/lib/navRoutes.ts
+ M src/repositories/baseRepo.ts
+ M src/services/__tests__/obligationEngine.test.ts
+ M src/services/alertsEngine.ts
+ M src/services/exportSafety.ts
+ M src/services/obligationEngine.ts
+ M src/store/navStore.ts
+?? api/company/bridge.php
+?? api/company/cheque-match.php
+?? api/company/documents.php
+?? api/company/groups.php
+?? api/company/gst.php
+?? api/company/invite-token.php
+?? api/company/invoice-draft.php
+?? api/company/items.php
+?? api/company/operations.php
+?? api/company/org-subscription.php
+?? api/company/payroll-preview.php
+?? api/company/recurring.php
+?? docs/current-product-inventory/
+?? docs/local-finalization/20260930-sv30/
+?? docs/product-completion/
+?? php/helpers/company/phase_sv.php
+?? php/helpers/company/phase_sv_pure.php
+?? php/helpers/company/reports_management.php
+?? php/scripts/company_phase_sv_golden.php
+?? sql/migrations/20260930_company_branch_url.sql
+?? sql/migrations/20260930_company_phase_sv.sql
+?? src/company/auth/
+?? src/company/finance/
+?? src/company/hooks/__tests__/
+?? src/company/pages/InvoiceDocumentPage.tsx
+?? src/company/pages/ModulesPage.tsx
+?? src/company/services/__fixtures__/
+?? src/company/services/__tests__/booksPhases.test.ts
+?? src/company/services/__tests__/costSplit.test.ts
+?? src/company/services/booksPhases.ts
+?? src/company/services/costSplit.ts
+?? src/components/finance/CardBooksPanel.tsx
+?? src/components/pages/EnvelopesPage.tsx
+?? src/components/planning/
+?? src/i18n/__tests__/
+?? src/i18n/messages/gu.ts
+?? src/services/__tests__/alertPreferences.test.ts
+?? src/services/__tests__/modulePolicy.test.ts
+?? src/services/__tests__/personalBookWorkflows.test.ts
+?? src/services/__tests__/wavePersonalMath.test.ts
+?? src/services/alertPreferences.ts
+?? src/services/categoryRollup.ts
+?? src/services/modulePolicy.ts
+?? src/services/personalBookWorkflows.ts
+?? src/services/reconciliationDecision.ts
+?? src/services/reservationMath.ts
+?? tests/unit/syncBadgeLabel.test.ts

@@ -1,0 +1,15 @@
+{
+  "releaseRun": "20261003-personal-os-0048c3",
+  "decision": "LOCAL_REMEDIATION_REQUIRED",
+  "commit": "6395ec9",
+  "parents": 47,
+  "parentsRescoredThisRun": false,
+  "note": "October 2 PASS_LOCAL_UNIT is not a 47-parent pass. This run closed the cross-login invite gap on sparowvault_test and did not retest every parent.",
+  "householdDisposable": "PASS",
+  "twoBrowserProfiles": "NOT_RUN",
+  "statementLiveApi": "NOT_RUN",
+  "immutablePackage": "NOT_RUN",
+  "staging": "STAGING_ACCESS_BLOCKED",
+  "production": "AWAITING_PRODUCTION_AUTHORIZATION",
+  "bankLayoutsVerifiedForScope": 0
+}

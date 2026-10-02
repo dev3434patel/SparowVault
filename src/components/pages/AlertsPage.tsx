@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { PageHeader } from "@/components/layout/PageHeader";
+import { PersonalPageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -9,6 +9,7 @@ import { useAuthStore } from "@/store/authStore";
 import { alertRepo } from "@/repositories";
 import { useUIStore } from "@/store/uiStore";
 import { runAlertEngine } from "@/services/alertsEngine";
+import { alertPreferenceEnabled } from "@/services/alertPreferences";
 import {
   AlertTriangle,
   BellOff,
@@ -20,17 +21,26 @@ import { formatDate } from "@/lib/format";
 import { pathToNav } from "@/lib/navRoutes";
 import { useNavStore } from "@/store/navStore";
 import { EmptyState } from "@/components/ui/Table";
+import { useMessages } from "@/i18n/useMessages";
 
 export function AlertsPage() {
   const user = useAuthStore((s) => s.currentUser);
   const setActive = useNavStore((s) => s.setActive);
   const alerts = useDataStore((s) => s.alerts);
+  const settings = useDataStore((s) => s.settings);
+  const visibleAlerts = useMemo(
+    () => alerts.filter((a) => alertPreferenceEnabled(settings?.warningPreferences, a.kind)),
+    [alerts, settings],
+  );
   const upsertLocal = useDataStore((s) => s.upsertLocal);
   const removeLocal = useDataStore((s) => s.removeLocal);
   const toast = useUIStore((s) => s.toast);
+  const messages = useMessages();
+  const copy = messages.ui.alerts;
+  const common = messages.ui.common;
 
-  const active = useMemo(() => alerts.filter((a) => !a.dismissed), [alerts]);
-  const dismissed = useMemo(() => alerts.filter((a) => a.dismissed), [alerts]);
+  const active = useMemo(() => visibleAlerts.filter((a) => !a.dismissed), [visibleAlerts]);
+  const dismissed = useMemo(() => visibleAlerts.filter((a) => a.dismissed), [visibleAlerts]);
 
   const severityCounts = useMemo(() => {
     const m: Record<string, number> = { info: 0, warning: 0, danger: 0, success: 0 };
@@ -60,7 +70,7 @@ export function AlertsPage() {
       if (!freshIds.has(a.id)) removeLocal("alerts", a.id);
     }
     for (const a of fresh) upsertLocal("alerts", a);
-    toast({ title: "Alerts refreshed", kind: "success" });
+    toast({ title: copy.refreshed, kind: "success" });
   }
 
   async function dismissAll() {
@@ -71,17 +81,16 @@ export function AlertsPage() {
 
   return (
     <div>
-      <PageHeader
-        title="Alerts Center"
-        description="Proactive warnings: budget, EMI, dues, udhari, savings, and more."
+      <PersonalPageHeader
+        screen="alerts"
         actions={
           <div className="flex gap-2">
             <Button variant="outline" onClick={rerun}>
-              <RefreshCw className="h-4 w-4" /> Refresh
+              <RefreshCw className="h-4 w-4" /> {common.refresh}
             </Button>
             {active.length > 0 ? (
               <Button variant="outline" onClick={dismissAll}>
-                <BellOff className="h-4 w-4" /> Dismiss all
+                <BellOff className="h-4 w-4" /> {common.dismissAll}
               </Button>
             ) : null}
           </div>
@@ -89,16 +98,16 @@ export function AlertsPage() {
       />
 
       <div className="mb-4 grid grid-cols-2 gap-3 md:grid-cols-4">
-        <StatCard label="Active" value={active.length} tone="primary" />
-        <StatCard label="Critical" value={severityCounts.danger ?? 0} tone="danger" />
-        <StatCard label="Warnings" value={severityCounts.warning ?? 0} tone="warning" />
-        <StatCard label="Info" value={severityCounts.info ?? 0} tone="info" />
+        <StatCard label={copy.active} value={active.length} tone="primary" />
+        <StatCard label={copy.critical} value={severityCounts.danger ?? 0} tone="danger" />
+        <StatCard label={copy.warnings} value={severityCounts.warning ?? 0} tone="warning" />
+        <StatCard label={copy.info} value={severityCounts.info ?? 0} tone="info" />
       </div>
 
       <Tabs defaultValue="active">
         <TabsList>
-          <TabsTrigger value="active">Active ({active.length})</TabsTrigger>
-          <TabsTrigger value="dismissed">Dismissed ({dismissed.length})</TabsTrigger>
+          <TabsTrigger value="active">{copy.activeTab} ({active.length})</TabsTrigger>
+          <TabsTrigger value="dismissed">{copy.dismissedTab} ({dismissed.length})</TabsTrigger>
         </TabsList>
         <TabsContent value="active">
           {active.length === 0 ? (
@@ -106,8 +115,8 @@ export function AlertsPage() {
               <CardContent>
                 <EmptyState
                   icon={<CheckCircle2 className="h-6 w-6 text-income" />}
-                  title="All clear"
-                  description="No active alerts. Your finances are in a good place right now."
+                  title={copy.allClear}
+                  description={copy.allClearBody}
                 />
               </CardContent>
             </Card>
@@ -152,11 +161,11 @@ export function AlertsPage() {
                               variant="outline"
                               onClick={() => setActive(pathToNav(a.linkHref!), "user")}
                             >
-                              Open
+                              {common.open}
                             </Button>
                           ) : null}
                           <Button size="sm" variant="ghost" onClick={() => dismiss(a.id)}>
-                            Dismiss
+                            {common.dismiss}
                           </Button>
                         </div>
                       </div>
@@ -170,7 +179,7 @@ export function AlertsPage() {
           {dismissed.length === 0 ? (
             <Card>
               <CardContent>
-                <EmptyState title="No dismissed alerts" description="Nothing here." />
+                <EmptyState title={copy.noneDismissed} description={copy.noneDismissedBody} />
               </CardContent>
             </Card>
           ) : (
@@ -187,7 +196,7 @@ export function AlertsPage() {
                       </div>
                       <div className="flex gap-1">
                         <Button size="sm" variant="ghost" onClick={() => restore(a.id)}>
-                          Restore
+                          {common.restore}
                         </Button>
                         <Button
                           size="icon-sm"

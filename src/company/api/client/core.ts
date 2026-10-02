@@ -76,7 +76,12 @@ export function mapParty(row: Record<string, unknown>, companyId?: string): Comp
     notes: (row.notes as string) ?? undefined,
     roles: roles as CompanyParty["roles"],
     categoryIds: [],
-    tagIds: [],
+    tagIds: Array.isArray(row.tag_ids)
+      ? row.tag_ids.map((id) => String(id))
+      : Array.isArray(row.tagIds)
+        ? (row.tagIds as unknown[]).map((id) => String(id))
+        : [],
+    tags: Array.isArray(row.tags) ? row.tags.map((name) => String(name)) : [],
     receivableOutstandingPaise: Number(
       row.receivable_outstanding_paise ?? row.receivableOutstandingPaise ?? 0,
     ),
@@ -125,6 +130,7 @@ export function mapVoucher(row: Record<string, unknown>): CompanyVoucher {
     correctionOfVoucherId: (row.correction_of_voucher_id ?? row.correctionOfVoucherId) as string | null | undefined,
     mutationId: String(row.mutation_id ?? row.mutationId ?? ""),
     postedAt: (row.posted_at ?? row.postedAt) as string | null | undefined,
+    debitTotalPaise: Number(row.debit_total_paise ?? row.debitTotalPaise ?? row.amountPaise ?? 0),
     lines: linesRaw.map((l, i) => {
       const line = l as Record<string, unknown>;
       return {

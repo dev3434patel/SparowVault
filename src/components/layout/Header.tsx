@@ -15,10 +15,13 @@ import { SyncOutboxBadge } from "@/components/layout/SyncOutboxBadge";
 import { useNavStore } from "@/store/navStore";
 import { useDataStore } from "@/store/dataStore";
 import { lazy, Suspense, useMemo, useState } from "react";
+import { useMessages } from "@/i18n/useMessages";
 
 const StatementImportDialog = lazy(() => import("@/components/statements/StatementImportDialog"));
 
 export function Header() {
+  const messages = useMessages();
+  const layout = messages.ui.layout;
   const [statementOpen, setStatementOpen] = useState(false);
   const currentUser = useAuthStore((s) => s.currentUser);
   const logout = useAuthStore((s) => s.logout);
@@ -37,12 +40,12 @@ export function Header() {
   return (
     <header className="sticky top-0 z-20 flex h-14 items-center gap-2 border-b border-border bg-background/80 px-3 backdrop-blur sm:gap-3 sm:px-4">
       <button
-        aria-label="Search sections"
+        aria-label={layout.searchSections}
         onClick={() => setCommandOpen(true)}
         className="flex h-9 min-w-0 flex-1 items-center gap-2 rounded-md border border-border bg-surface px-3 text-left text-sm text-muted-foreground hover:bg-surface-2 sm:max-w-md"
       >
         <Search className="h-4 w-4" />
-        <span className="hidden min-w-0 flex-1 truncate min-[430px]:block">Quick search, jump to section…</span>
+        <span className="hidden min-w-0 flex-1 truncate min-[430px]:block">{layout.searchHint}</span>
         <kbd className="hidden sm:inline-flex rounded border border-border bg-card px-1.5 py-0.5 text-[10px]">
           Ctrl K
         </kbd>
@@ -50,24 +53,24 @@ export function Header() {
 
       <div className="flex items-center gap-2">
         <SyncOutboxBadge />
-        <Button variant="outline" size="icon-sm" aria-label="Upload bank statement" title="Upload bank statement" onClick={() => setStatementOpen(true)}><Upload className="h-4 w-4" /></Button>
+        <Button variant="outline" size="icon-sm" aria-label={layout.uploadStatement} title={layout.uploadStatement} onClick={() => setStatementOpen(true)}><Upload className="h-4 w-4" /></Button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button size="sm" className="shadow" aria-label="Quick Add">
-              <Plus className="h-4 w-4" /> <span className="hidden sm:inline">Quick Add</span>
+            <Button size="sm" className="shadow" aria-label={layout.quickAdd}>
+              <Plus className="h-4 w-4" /> <span className="hidden sm:inline">{layout.quickAdd}</span>
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Add a transaction</DropdownMenuLabel>
+            <DropdownMenuLabel>{layout.addTransaction}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem onSelect={() => openQuickAdd("income")}>
-              Income
+              {layout.income}
             </DropdownMenuItem>
             <DropdownMenuItem onSelect={() => openQuickAdd("expense")}>
-              Expense
+              {layout.expense}
             </DropdownMenuItem>
             <DropdownMenuItem onSelect={() => openQuickAdd("transfer")}>
-              Transfer
+              {layout.transfer}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -75,7 +78,7 @@ export function Header() {
         <Button
           variant="outline"
           size="icon-sm"
-          aria-label="Alerts"
+          aria-label={layout.alerts}
           onClick={() => setAlertsOpen(true)}
           className="relative"
         >
@@ -91,7 +94,7 @@ export function Header() {
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button aria-label="Profile menu" className="flex items-center gap-2 rounded-md pr-1 hover:bg-surface-2">
+            <button aria-label={layout.profileMenu} className="flex items-center gap-2 rounded-md pr-1 hover:bg-surface-2">
               {currentUser ? (
                 <div
                   className="flex h-8 w-8 items-center justify-center rounded-full text-base"
@@ -113,24 +116,24 @@ export function Header() {
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onSelect={() => setActive("profile")}>
-                  <User2 className="h-4 w-4" /> Profile & Security
+                  <User2 className="h-4 w-4" /> {layout.profileSecurity}
                 </DropdownMenuItem>
                 <DropdownMenuItem onSelect={() => setActive("settings")}>
-                  <Users className="h-4 w-4" /> Settings
+                  <Users className="h-4 w-4" /> {layout.settings}
                 </DropdownMenuItem>
                 <DropdownMenuItem onSelect={() => lock()}>
-                  <Lock className="h-4 w-4" /> Lock session
+                  <Lock className="h-4 w-4" /> {layout.lockSession}
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem destructive onSelect={() => logout()}>
-                  <LogOut className="h-4 w-4" /> Logout / Switch profile
+                  <LogOut className="h-4 w-4" /> {layout.logoutSwitch}
                 </DropdownMenuItem>
               </>
             ) : null}
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
-      {statementOpen && <Suspense fallback={<span role="status" className="sr-only">Loading statement importer</span>}><StatementImportDialog onClose={() => setStatementOpen(false)} /></Suspense>}
+      {statementOpen && <Suspense fallback={<span role="status" className="sr-only">{layout.loadingStatement}</span>}><StatementImportDialog onClose={() => setStatementOpen(false)} /></Suspense>}
     </header>
   );
 }

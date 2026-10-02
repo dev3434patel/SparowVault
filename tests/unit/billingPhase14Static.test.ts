@@ -42,6 +42,21 @@ describe("Phase 14 SaaS billing and Razorpay hardening", () => {
     expect(php).not.toMatch(/current_period_start = UTC_TIMESTAMP\(\), current_period_end/);
   });
 
+  it("subscription effectiveFeatures include numeric plan quotas", () => {
+    const php = read("php/controllers/subscriptions.php");
+    expect(php).toMatch(/limit_value FROM plan_features/);
+    expect(php).toMatch(/\$global\[\$key\] = \$enabled \? \(int\)\$row\["limit_value"\] : false/);
+  });
+
+  it("transaction create enforces monthly cap before cloud write", () => {
+    const billing = read("php/helpers/billing.php");
+    expect(billing).toMatch(/function billing_max_transactions_per_month/);
+    expect(billing).toMatch(/function billing_count_transactions_in_month/);
+    const write = read("php/helpers/cloud_write.php");
+    expect(write).toMatch(/billing_max_transactions_per_month/);
+    expect(write).toMatch(/PLAN_QUOTA_EXCEEDED/);
+  });
+
   it("quota helper returns all numeric quotas for the active plan, not just one joined row", () => {
     const php = read("php/helpers/billing.php");
     const quotaFn = php.slice(

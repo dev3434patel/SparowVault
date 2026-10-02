@@ -11,6 +11,7 @@ type AttentionSectionProps = {
   approvals: number;
   onAccount: number;
   load: () => void | Promise<void>;
+  figuresUnverified?: boolean;
 };
 
 export function AttentionSection({
@@ -20,6 +21,7 @@ export function AttentionSection({
   approvals,
   onAccount,
   load,
+  figuresUnverified = false,
 }: AttentionSectionProps) {
   const { t } = useI18n();
   return (
@@ -72,7 +74,9 @@ export function AttentionSection({
         ) : null}
         {!arOverdue && !apOverdue && !(showApprovals && approvals) && !onAccount ? (
           <p className="rounded-xl border border-dashed border-border px-3.5 py-3 text-muted-foreground">
-            Nothing urgent right now — books look clear.
+            {figuresUnverified
+              ? "Some figures failed to load. They are not a verified zero."
+              : "Nothing urgent right now — books look clear."}
           </p>
         ) : null}
       </div>

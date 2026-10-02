@@ -39,7 +39,7 @@ export async function createSubscriptionOrder(planId: number) {
 }
 
 export async function getMySubscription() {
-  return apiRequest<{ subscription: Record<string, unknown> | null; effectiveFeatures: Record<string, boolean> }>(
+  return apiRequest<{ subscription: Record<string, unknown> | null; effectiveFeatures: Record<string, boolean | number> }>(
     "/api/subscriptions/my.php",
     { auth: true },
   );

@@ -1,0 +1,121 @@
+{
+  "secretHitCount": 0,
+  "secretHits": [],
+  "envHostKeys": {
+    "DB_HOST": {
+      "empty": false,
+      "length": 2
+    },
+    "DB_PORT": {
+      "empty": false,
+      "length": 6
+    },
+    "DB_NAME": {
+      "empty": false,
+      "length": 2
+    },
+    "DB_USER": {
+      "empty": false,
+      "length": 2
+    },
+    "DB_PASS": {
+      "empty": false,
+      "length": 2
+    },
+    "CLOUD_JWT_SECRET": {
+      "empty": false,
+      "length": 2
+    },
+    "CLOUD_JWT_EXPIRES_IN": {
+      "empty": false,
+      "length": 4
+    },
+    "APP_ENV": {
+      "empty": false,
+      "length": 12
+    },
+    "APP_BASE_URL": {
+      "empty": false,
+      "length": 2
+    },
+    "CORS_ALLOWED_ORIGINS": {
+      "empty": false,
+      "length": 2
+    },
+    "ENABLE_RAZORPAY": {
+      "empty": false,
+      "length": 7
+    },
+    "RAZORPAY_KEY_ID": {
+      "empty": false,
+      "length": 2
+    },
+    "RAZORPAY_KEY_SECRET": {
+      "empty": false,
+      "length": 2
+    },
+    "RAZORPAY_WEBHOOK_SECRET": {
+      "empty": false,
+      "length": 2
+    },
+    "VITE_API_BASE_URL": {
+      "empty": false,
+      "length": 2
+    },
+    "VITE_CLOUD_ONLY_MODE": {
+      "empty": false,
+      "length": 6
+    },
+    "VITE_ENABLE_RAZORPAY": {
+      "empty": false,
+      "length": 7
+    }
+  },
+  "probes": [
+    {
+      "path": "/",
+      "status": 200,
+      "contentType": "text/html; charset=UTF-8",
+      "bodyStart": "<!doctype html> <html lang=\"en\" suppressHydrationWarning> <head> <meta charset=\"UTF-8\" /> <link rel=\"icon\" type=\"image/x-icon\" href=\"/favicon.ico\" /> <meta name="
+    },
+    {
+      "path": "/index.html",
+      "status": 200,
+      "contentType": "text/html; charset=UTF-8",
+      "bodyStart": "<!doctype html> <html lang=\"en\" suppressHydrationWarning> <head> <meta charset=\"UTF-8\" /> <link rel=\"icon\" type=\"image/x-icon\" href=\"/favicon.ico\" /> <meta name="
+    },
+    {
+      "path": "/company/app/invoices",
+      "status": 200,
+      "contentType": "text/html; charset=UTF-8",
+      "bodyStart": "<!doctype html> <html lang=\"en\" suppressHydrationWarning> <head> <meta charset=\"UTF-8\" /> <link rel=\"icon\" type=\"image/x-icon\" href=\"/favicon.ico\" /> <meta name="
+    },
+    {
+      "path": "/api/healthz.php",
+      "status": 500,
+      "contentType": "application/json; charset=utf-8",
+      "bodyStart": "{\"ok\":false,\"error\":\"Missing required environment variables: CLOUD_JWT_SECRET\",\"requestId\":\"823eb7cbfafff855\",\"code\":\"ENV_VALIDATION_FAILED\"}"
+    },
+    {
+      "path": "/assets/ApprovalsPage-CPLEh3fW.js",
+      "status": 200,
+      "contentType": "application/javascript",
+      "bodyStart": "import{j as s}from\"./radix-CuDMtghq.js\";import{a as r}from\"./lucide-DK3Lu_bV.js\";import{u as B,B as P,b as x,i as D}from\"./index-Bs1y_WwO.js\";import{C as L}from\"./CompanyMoney-DUNT"
+    },
+    {
+      "path": "/assets/pdf.worker.min-wgc6bjNh.mjs",
+      "status": 200,
+      "contentType": "application/javascript",
+      "bodyStart": "/** * @licstart The following is the entire license notice for the * JavaScript code in this page * * Copyright 2024 Mozilla Foundation * * Licensed under the Apache License,"
+    }
+  ],
+  "restore": {
+    "source": "sparowvault_test_svverify_b182d886",
+    "target": "sparowvault_test_svverify_b182d886_restore",
+    "targetContainsTest": true,
+    "sourceVouchers": 21,
+    "restoredVouchers": 21,
+    "match": true,
+    "ownerSchemaStillPresent": true
+  }
+}

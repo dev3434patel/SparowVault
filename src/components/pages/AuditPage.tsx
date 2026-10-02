@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { PageHeader } from "@/components/layout/PageHeader";
+import { PersonalPageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
 import { Badge } from "@/components/ui/Badge";
@@ -20,11 +20,18 @@ import {
   EmptyState,
 } from "@/components/ui/Table";
 import { useDataStore } from "@/store/dataStore";
+import { useAuthStore } from "@/store/authStore";
+import { useNavStore } from "@/store/navStore";
 import { useUIStore } from "@/store/uiStore";
+import { Field } from "@/components/ui/Label";
+import { captureFinancialSnapshot, attachmentHasContent, createAttachmentMetadata } from "@/services/personalBookWorkflows";
+import { planFeatureOff } from "@/services/modulePolicy";
+import { useCloudAppStore } from "@/store/cloudAppStore";
 import { Button } from "@/components/ui/Button";
 import { Download, ShieldCheck } from "lucide-react";
 import { formatDate } from "@/lib/format";
 import { exportModuleToSheet } from "@/exports/xlsxExporter";
+import { useMessages } from "@/i18n/useMessages";
 
 const ACTION_TONES: Record<string, "info" | "warning" | "danger" | "success" | "outline"> = {
   create: "success",
@@ -44,7 +51,10 @@ const ACTION_TONES: Record<string, "info" | "warning" | "danger" | "success" | "
 };
 
 export function AuditPage() {
+  const copy = useMessages().copy.audit;
+  const user = useAuthStore((s) => s.currentUser);
   const logs = useDataStore((s) => s.auditLogs);
+  const setActive = useNavStore((s) => s.setActive);
   const toast = useUIStore((s) => s.toast);
   const [search, setSearch] = useState("");
   const [action, setAction] = useState<string>("all");
@@ -83,20 +93,26 @@ export function AuditPage() {
         Detail: l.detail,
       })),
     );
-    toast({ title: "Audit log exported", kind: "success" });
+    toast({ title: copy.exported, kind: "success" });
   }
 
   return (
     <div>
-      <PageHeader
-        title="Audit & Backup"
-        description="Full activity history for this profile. Every create, update, delete is recorded."
+      <PersonalPageHeader
+        screen="audit"
         actions={
-          <Button variant="outline" onClick={exportLogs}>
-            <Download className="h-4 w-4" /> Export log
-          </Button>
+          <div className="flex gap-2">
+            <Button variant="outline" onClick={() => setActive("export")}>
+              Export backup
+            </Button>
+            <Button variant="outline" onClick={exportLogs}>
+              <Download className="h-4 w-4" /> Export log
+            </Button>
+          </div>
         }
       />
+
+      <RecordsCard userId={user?.id} />
 
       <div className="mb-4 grid grid-cols-2 gap-3 md:grid-cols-4">
         <Card>
@@ -139,7 +155,7 @@ export function AuditPage() {
         <CardContent className="p-4">
           <div className="mb-3 flex flex-wrap gap-2">
             <Input
-              placeholder="Search details, entity, ID…"
+              placeholder={copy.search}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="max-w-xs"
@@ -175,8 +191,8 @@ export function AuditPage() {
           {filtered.length === 0 ? (
             <EmptyState
               icon={<ShieldCheck className="h-6 w-6" />}
-              title="No audit events"
-              description="As you add, edit, and manage data, events will appear here."
+              title={copy.emptyTitle}
+              description={copy.emptyBody}
             />
           ) : (
             <div className="max-h-[600px] overflow-auto">
@@ -213,5 +229,109 @@ export function AuditPage() {
         </CardContent>
       </Card>
     </div>
+  );
+}
+
+function RecordsCard({ userId }: { userId?: string }) {
+  const copy = useMessages().copy.audit;
+  const toast = useUIStore((s) => s.toast);
+  const attachmentOff = planFeatureOff(useCloudAppStore((s) => s.effectiveFeatures), "attachment_storage_mb");
+  const [fileName, setFileName] = useState("");
+  const [linkedId, setLinkedId] = useState("");
+  const [contentBase64, setContentBase64] = useState("");
+  const [sizeBytes, setSizeBytes] = useState(0);
+  const [mimeType, setMimeType] = useState("application/octet-stream");
+
+  async function onFile(file: File | undefined) {
+    if (!file) return;
+    setFileName(file.name);
+    setMimeType(file.type || "application/octet-stream");
+    setSizeBytes(file.size);
+    const bytes = new Uint8Array(await file.arrayBuffer());
+    let binary = "";
+    bytes.forEach((byte) => {
+      binary += String.fromCharCode(byte);
+    });
+    setContentBase64(btoa(binary));
+  }
+
+  async function saveAttachment() {
+    if (!userId) return;
+    if (attachmentOff) {
+      toast({ title: copy.attachmentPlan, kind: "info" });
+      return;
+    }
+    try {
+      const quota = useCloudAppStore.getState().effectiveFeatures.attachment_storage_mb;
+      const maxBytes = typeof quota === "number" ? Math.round(quota * 1024 * 1024) : quota === true ? null : undefined;
+      const saved = await createAttachmentMetadata(userId, {
+        fileName,
+        mimeType,
+        sizeBytes,
+        linkedType: "other",
+        linkedId,
+        contentBase64,
+      }, undefined, { maxBytes });
+      if (!attachmentHasContent(saved.notes)) {
+        throw new Error("Attachment content is not stored");
+      }
+      setFileName("");
+      setLinkedId("");
+      setContentBase64("");
+      setSizeBytes(0);
+      toast({
+        title: copy.attachmentSaved,
+        description: copy.attachmentBody,
+        kind: "success",
+      });
+    } catch (error) {
+      toast({ title: error instanceof Error ? error.message : copy.attachmentFailed, kind: "error" });
+    }
+  }
+
+  async function saveSnapshot() {
+    if (!userId) return;
+    const periodKey = new Date().toISOString().slice(0, 7);
+    try {
+      await captureFinancialSnapshot(userId, {
+        periodKey,
+        totalIncome: 0,
+        totalExpense: 0,
+        netSavings: 0,
+        savingsRate: 0,
+        budgetUsage: 0,
+        creditUtilization: 0,
+        healthScore: 0,
+      });
+      toast({ title: copy.snapshotSaved, description: "This record does not add cash. JSON backup includes it from Export.", kind: "success" });
+    } catch (error) {
+      toast({ title: error instanceof Error ? error.message : copy.snapshotFailed, kind: "error" });
+    }
+  }
+
+  return (
+    <Card className="mb-4">
+      <CardHeader>
+        <CardTitle>Records</CardTitle>
+        <CardDescription>Attachment metadata and a period snapshot. Neither one moves bank cash.</CardDescription>
+      </CardHeader>
+      <CardContent className="flex flex-wrap items-end gap-3">
+        <Field label="File">
+          <Input type="file" onChange={(event) => void onFile(event.target.files?.[0])} />
+        </Field>
+        <Field label="File name">
+          <Input value={fileName} onChange={(event) => setFileName(event.target.value)} placeholder="receipt.pdf" />
+        </Field>
+        <Field label="Linked record id">
+          <Input value={linkedId} onChange={(event) => setLinkedId(event.target.value)} />
+        </Field>
+        {attachmentOff ? (
+          <p className="text-sm text-muted-foreground">Attachment storage is not available on your current plan.</p>
+        ) : (
+          <Button variant="outline" onClick={() => void saveAttachment()}>{copy.saveAttachment}</Button>
+        )}
+        <Button variant="outline" onClick={() => void saveSnapshot()}>Capture snapshot</Button>
+      </CardContent>
+    </Card>
   );
 }

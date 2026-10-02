@@ -1,9 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/Dialog";
 import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
+import { useMessages } from "@/i18n/useMessages";
 import { useUIStore } from "@/store/uiStore";
 import { useNavStore, type NavKey } from "@/store/navStore";
 import { useDataStore } from "@/store/dataStore";
+import { useCloudAppStore } from "@/store/cloudAppStore";
+import { navVisibilityFlags, personalNavHidden } from "@/services/modulePolicy";
 import {
   LayoutDashboard,
   Receipt,
@@ -42,6 +45,7 @@ const NAV_ITEMS: { key: NavKey; label: string; icon: React.ComponentType<{ class
   { key: "expenses", label: "Expenses", icon: Receipt },
   { key: "budgets", label: "Budgets", icon: BarChart3 },
   { key: "goals", label: "Goals", icon: Target },
+  { key: "envelopes", label: "Envelopes", icon: Wallet },
   { key: "accounts", label: "Accounts", icon: Wallet },
   { key: "cards", label: "Cards", icon: CreditCard },
   { key: "loans", label: "Loans & EMI", icon: CreditCard },
@@ -56,14 +60,22 @@ const NAV_ITEMS: { key: NavKey; label: string; icon: React.ComponentType<{ class
   { key: "import", label: "Import Center", icon: Upload },
   { key: "alerts", label: "Alerts", icon: Bell },
   { key: "settings", label: "Settings", icon: Settings },
+  { key: "categories", label: "Categories", icon: LayoutDashboard },
+  { key: "profile", label: "Profile", icon: Settings },
+  { key: "audit", label: "Audit", icon: Scale },
+  { key: "subscription", label: "Subscription", icon: Wallet },
 ];
 
 export function CommandPalette() {
+  const messages = useMessages();
   const open = useUIStore((s) => s.commandOpen);
   const setOpen = useUIStore((s) => s.setCommandOpen);
   const openQuickAdd = useUIStore((s) => s.openQuickAdd);
   const setActive = useNavStore((s) => s.setActive);
   const transactions = useDataStore((s) => s.transactions);
+  const flags = useCloudAppStore((s) => s.flags);
+  const effectiveFeatures = useCloudAppStore((s) => s.effectiveFeatures);
+  const razorpayEnabled = import.meta.env.VITE_ENABLE_RAZORPAY === "true";
   const [query, setQuery] = useState("");
 
   useEffect(() => {
@@ -71,10 +83,13 @@ export function CommandPalette() {
   }, [open]);
 
   const items: CmdItem[] = useMemo(() => {
+    const navFlags = navVisibilityFlags(flags, effectiveFeatures);
     const acts: CmdItem[] = [
-      ...NAV_ITEMS.map((n) => ({
+      ...NAV_ITEMS.filter((n) => !personalNavHidden(navFlags, n.key) && (razorpayEnabled || n.key !== "subscription")).map((n) => ({
         id: `nav:${n.key}`,
-        label: `Go to ${n.label}`,
+        label: `${messages.ui.command.goTo} ${
+          (messages.pages as Record<string, string>)[n.key === "bill-calendar" ? "billCalendar" : n.key] ?? n.label
+        }`,
         group: "Navigate" as const,
         action: () => {
           setActive(n.key);
@@ -84,29 +99,29 @@ export function CommandPalette() {
       })),
       {
         id: "act:add-income",
-        label: "Add income",
+        label: messages.ui.command.addIncome,
         group: "Actions",
         action: () => {
           openQuickAdd("income");
           setOpen(false);
         },
         icon: Plus,
-        hint: "Quick add",
+        hint: messages.ui.command.quickAdd,
       },
       {
         id: "act:add-expense",
-        label: "Add expense",
+        label: messages.ui.command.addExpense,
         group: "Actions",
         action: () => {
           openQuickAdd("expense");
           setOpen(false);
         },
         icon: Plus,
-        hint: "Quick add",
+        hint: messages.ui.command.quickAdd,
       },
       {
         id: "act:add-transfer",
-        label: "Add transfer",
+        label: messages.ui.command.addTransfer,
         group: "Actions",
         action: () => {
           openQuickAdd("transfer");
@@ -135,7 +150,7 @@ export function CommandPalette() {
       }
     }
     return acts;
-  }, [openQuickAdd, setActive, setOpen, transactions, query]);
+  }, [openQuickAdd, setActive, setOpen, transactions, query, messages, flags, effectiveFeatures, razorpayEnabled]);
 
   const filtered = query
     ? items.filter((i) =>
@@ -151,7 +166,7 @@ export function CommandPalette() {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent className="p-0 overflow-hidden" size="md" showClose={false}>
         <VisuallyHidden.Root>
-          <DialogTitle>Command palette</DialogTitle>
+          <DialogTitle>{messages.ui.command.title}</DialogTitle>
         </VisuallyHidden.Root>
         <div className="flex items-center gap-2 border-b border-border px-3">
           <Search className="h-4 w-4 text-muted-foreground" />
@@ -159,7 +174,7 @@ export function CommandPalette() {
             autoFocus
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Type a command, search transactions, jump to page…"
+            placeholder={messages.ui.command.placeholder}
             className="flex-1 bg-transparent py-3 text-sm outline-none"
           />
           <kbd className="rounded border border-border bg-card px-1.5 py-0.5 text-[10px]">
@@ -170,7 +185,11 @@ export function CommandPalette() {
           {Object.entries(grouped).map(([group, arr]) => (
             <div key={group} className="px-1">
               <div className="px-3 pt-2 pb-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-                {group}
+                {group === "Navigate"
+                  ? messages.ui.command.navigate
+                  : group === "Actions"
+                    ? messages.ui.command.actions
+                    : messages.ui.command.transactions}
               </div>
               {arr.map((it) => {
                 const Icon = it.icon;
@@ -196,7 +215,7 @@ export function CommandPalette() {
           ))}
           {filtered.length === 0 ? (
             <div className="py-8 text-center text-sm text-muted-foreground">
-              No matches
+              {messages.ui.command.noMatches}
             </div>
           ) : null}
         </div>

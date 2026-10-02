@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-09-21",
+  "updatedAt": "2026-10-01",
   "statuses": ["registered", "synthetic-tested", "real-corpus-tested", "verified-for-scope", "disabled"],
   "documentClasses": ["deposit_account", "credit_card", "loan", "other"],
   "processingModes": ["native_pdf", "ocr_selective", "hybrid"],
@@ -23,7 +23,7 @@
       "adapter": "kotak-numbered",
       "adapterVersion": "statement-text-v2",
       "limitations": ["Real private corpus certification requires owner-authorized holdout; not claimed here"],
-      "evidence": ["tests/fixtures/statements/kotak-numbered.pdf", "tests/unit/statementParser.test.ts"]
+      "evidence": ["tests/fixtures/statements/kotak-numbered.pdf", "tests/fixtures/statements/v2/layout-money-oracles.json", "tests/unit/statementLayoutMoney.test.ts", "tests/unit/statementParser.test.ts"]
     },
     {
       "layoutId": "hdfc.savings.generic.v1.en-IN.INR.native_pdf",
@@ -39,7 +39,7 @@
       "adapter": "geometric-shared",
       "adapterVersion": "statement-text-v2",
       "limitations": ["Synthetic only; real-customer layout not measured"],
-      "evidence": ["tests/fixtures/statements/hdfc.pdf"]
+      "evidence": ["tests/fixtures/statements/hdfc.pdf", "tests/fixtures/statements/v2/layout-money-oracles.json", "tests/unit/statementLayoutMoney.test.ts"]
     },
     {
       "layoutId": "sbi.savings.generic.v1.en-IN.INR.native_pdf",
@@ -55,7 +55,7 @@
       "adapter": "geometric-shared",
       "adapterVersion": "statement-text-v2",
       "limitations": ["Synthetic only; real-customer layout not measured"],
-      "evidence": ["tests/fixtures/statements/sbi.pdf"]
+      "evidence": ["tests/fixtures/statements/sbi.pdf", "tests/fixtures/statements/v2/layout-money-oracles.json", "tests/unit/statementLayoutMoney.test.ts"]
     },
     {
       "layoutId": "axis.savings.generic.v1.en-IN.INR.native_pdf",
@@ -71,7 +71,7 @@
       "adapter": "geometric-shared",
       "adapterVersion": "statement-text-v2",
       "limitations": ["Synthetic only; real-customer layout not measured"],
-      "evidence": ["tests/fixtures/statements/axis.pdf"]
+      "evidence": ["tests/fixtures/statements/axis.pdf", "tests/fixtures/statements/v2/layout-money-oracles.json", "tests/unit/statementLayoutMoney.test.ts"]
     },
     {
       "layoutId": "indusind.savings.generic.v1.en-IN.INR.native_pdf",
@@ -87,7 +87,7 @@
       "adapter": "geometric-shared",
       "adapterVersion": "statement-text-v2",
       "limitations": ["Synthetic only; real-customer layout not measured"],
-      "evidence": ["tests/fixtures/statements/indusind.pdf"]
+      "evidence": ["tests/fixtures/statements/indusind.pdf", "tests/fixtures/statements/v2/layout-money-oracles.json", "tests/unit/statementLayoutMoney.test.ts"]
     },
     {
       "layoutId": "icici.savings.registered.v0.en-IN.INR.native_pdf",

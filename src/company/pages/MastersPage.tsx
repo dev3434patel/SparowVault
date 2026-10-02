@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/Tabs";
 import { companyNavigate, companyPath, type CompanyNavKey } from "@/company/routes";
 import { type DimensionKind } from "@/company/api/client";
+import { companyAllows } from "@/company/auth/companyCan";
 import { useCompanyStore } from "@/company/store/companyStore";
 import type { CompanyPermission } from "@/company/types";
 import { PageHeader } from "@/company/components/PageChrome";
@@ -13,27 +14,33 @@ type MasterTabId = DimensionKind | "categories";
 
 const TABS: Array<{
   id: MasterTabId;
-  label: string;
+  labelKey: string;
   pathKey: CompanyNavKey;
 }> = [
-  { id: "business-units", label: "Business Units", pathKey: "masters-business-units" },
-  { id: "branches", label: "Branches", pathKey: "masters-business-units" },
-  { id: "areas", label: "Areas", pathKey: "masters-areas" },
-  { id: "projects", label: "Projects", pathKey: "masters-projects" },
-  { id: "cost-centres", label: "Cost Centres", pathKey: "masters-cost-centres" },
-  { id: "categories", label: "Categories", pathKey: "masters-categories" },
+  { id: "business-units", labelKey: "masters.businessUnits", pathKey: "masters-business-units" },
+  { id: "branches", labelKey: "masters.branches", pathKey: "masters-business-units" },
+  { id: "areas", labelKey: "masters.areas", pathKey: "masters-areas" },
+  { id: "projects", labelKey: "masters.projects", pathKey: "masters-projects" },
+  { id: "cost-centres", labelKey: "masters.costCentres", pathKey: "masters-cost-centres" },
+  { id: "categories", labelKey: "masters.categories", pathKey: "masters-categories" },
 ];
 
-function canPerm(permissions: CompanyPermission[], need: CompanyPermission) {
-  if (permissions.length === 0) return true;
-  return permissions.includes(need);
+function canPerm(
+  permissions: CompanyPermission[],
+  state: "loading" | "ready" | "error",
+  need: CompanyPermission,
+) {
+  return companyAllows(state, permissions, need);
 }
 
 export function MastersPage({ tab }: { tab?: string }) {
   const { t } = useI18n();
   const permissions = useCompanyStore((s) => s.permissions);
-  const canViewCategories = canPerm(permissions, "view_dashboard") || canPerm(permissions, "manage_parties");
-  const canManageCategories = canPerm(permissions, "manage_parties");
+  const permissionsState = useCompanyStore((s) => s.permissionsState);
+  const canViewCategories =
+    canPerm(permissions, permissionsState, "view_dashboard") ||
+    canPerm(permissions, permissionsState, "manage_parties");
+  const canManageCategories = canPerm(permissions, permissionsState, "manage_parties");
 
   const normalized = (tab ?? "business-units").replace(/_/g, "-");
   const fromRoute =
@@ -74,18 +81,18 @@ export function MastersPage({ tab }: { tab?: string }) {
         }}
       >
         <TabsList className="flex h-auto flex-wrap gap-1">
-          {visibleTabs.map((t) => (
-            <TabsTrigger key={t.id} value={t.id}>
-              {t.label}
+          {visibleTabs.map((tab) => (
+            <TabsTrigger key={tab.id} value={tab.id}>
+              {t(tab.labelKey)}
             </TabsTrigger>
           ))}
         </TabsList>
-        {visibleTabs.map((t) => (
-          <TabsContent key={t.id} value={t.id}>
-            {t.id === "categories" ? (
+        {visibleTabs.map((tab) => (
+          <TabsContent key={tab.id} value={tab.id}>
+            {tab.id === "categories" ? (
               <CategoriesPanel canManage={canManageCategories} />
             ) : (
-              <DimensionPanel kind={t.id as DimensionKind} />
+              <DimensionPanel kind={tab.id as DimensionKind} />
             )}
           </TabsContent>
         ))}

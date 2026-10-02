@@ -7,6 +7,7 @@ require_once __DIR__ . "/controllers/subscriptions.php";
 require_once __DIR__ . "/controllers/payments.php";
 require_once __DIR__ . "/controllers/admin.php";
 require_once __DIR__ . "/controllers/imports.php";
+require_once __DIR__ . "/controllers/aa.php";
 require_once __DIR__ . "/controllers/account.php";
 require_once __DIR__ . "/helpers/http.php";
 
@@ -164,6 +165,22 @@ function dispatch_request(): void {
     if ($uri === "/api/import/transactions.php") {
         if ($method === "POST") {
             imports_transactions_bulk();
+            return;
+        }
+        json_error("Method not allowed", 405);
+        return;
+    }
+    if ($uri === "/api/aa/status.php") {
+        if ($method === "GET") {
+            aa_status();
+            return;
+        }
+        json_error("Method not allowed", 405);
+        return;
+    }
+    if ($uri === "/api/aa/forward.php") {
+        if ($method === "POST") {
+            aa_forward();
             return;
         }
         json_error("Method not allowed", 405);

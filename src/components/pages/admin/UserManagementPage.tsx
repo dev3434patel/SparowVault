@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/Select";
 import { useUIStore } from "@/store/uiStore";
 import { AlertCircle, KeyRound, Loader2, RefreshCw, Search, ShieldCheck, User } from "lucide-react";
+import { fillMessage, useMessages } from "@/i18n/useMessages";
 
 type UserRow = {
   id: string;
@@ -45,7 +46,29 @@ type PlanRow = {
   price_inr: string;
 };
 
+function subscriptionLabel(
+  status: string,
+  labels: {
+    pending: string;
+    trial: string;
+    active: string;
+    pastDue: string;
+    cancelled: string;
+    expired: string;
+  },
+): string {
+  if (status === "pending") return labels.pending;
+  if (status === "trial") return labels.trial;
+  if (status === "active") return labels.active;
+  if (status === "past_due") return labels.pastDue;
+  if (status === "cancelled") return labels.cancelled;
+  if (status === "expired") return labels.expired;
+  return status;
+}
+
 export function UserManagementPage() {
+  const chrome = useMessages().ui;
+  const copy = chrome.admin.body.users;
   const [users, setUsers] = useState<UserRow[]>([]);
   const [plans, setPlans] = useState<PlanRow[]>([]);
   const [loading, setLoading] = useState(false);
@@ -68,7 +91,7 @@ export function UserManagementPage() {
       setUsers(userRows as UserRow[]);
       setPlans(planRows as PlanRow[]);
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Failed to load users");
+      setError(e instanceof Error ? e.message : copy.loadFailed);
     } finally {
       setLoading(false);
     }
@@ -97,9 +120,9 @@ export function UserManagementPage() {
     try {
       await toggleUserActive(userId);
       await loadData();
-      toast({ title: "User status updated", kind: "success" });
+      toast({ title: copy.statusUpdated, kind: "success" });
     } catch (e) {
-      toast({ title: e instanceof Error ? e.message : "Unable to update user", kind: "error" });
+      toast({ title: e instanceof Error ? e.message : copy.updateFailed, kind: "error" });
     } finally {
       setBusyId(null);
     }
@@ -111,9 +134,9 @@ export function UserManagementPage() {
       await assignUserPlan(userId, planId);
       await loadData();
       setPlanSelectKey((k) => k + 1);
-      toast({ title: `Assigned ${planCode} plan successfully`, kind: "success" });
+      toast({ title: fillMessage(copy.planAssigned, { plan: planCode }), kind: "success" });
     } catch (e) {
-      toast({ title: e instanceof Error ? e.message : "Unable to assign plan", kind: "error" });
+      toast({ title: e instanceof Error ? e.message : copy.assignFailed, kind: "error" });
     } finally {
       setBusyId(null);
     }
@@ -123,32 +146,32 @@ export function UserManagementPage() {
     if (!pinUser) return;
     const common = new Set(["0000", "1111", "1234", "123456", "9999"]);
     if (!/^\d{4,8}$/.test(newPin)) {
-      toast({ title: "PIN must be 4–8 digits", kind: "error" });
+      toast({ title: copy.pinLength, kind: "error" });
       return;
     }
     if (common.has(newPin)) {
-      toast({ title: "Choose a less common PIN", kind: "error" });
+      toast({ title: copy.pinCommon, kind: "error" });
       return;
     }
     if (newPin !== confirmPin) {
-      toast({ title: "PIN confirmation does not match", kind: "error" });
+      toast({ title: copy.pinMismatch, kind: "error" });
       return;
     }
     setBusyId(`pin:${pinUser.id}`);
     try {
       const res = await adminResetUserPin(pinUser.id, newPin);
       toast({
-        title: `PIN updated for @${pinUser.username}`,
+        title: fillMessage(copy.pinUpdated, { username: pinUser.username }),
         description: res.mustChangePin
-          ? "User will be asked to change PIN on next login."
-          : "Share the temporary PIN securely with the user.",
+          ? copy.pinMustChange
+          : copy.pinShare,
         kind: "success",
       });
       setPinUser(null);
       setNewPin("");
       setConfirmPin("");
     } catch (e) {
-      toast({ title: e instanceof Error ? e.message : "Unable to reset PIN", kind: "error" });
+      toast({ title: e instanceof Error ? e.message : copy.pinResetFailed, kind: "error" });
     } finally {
       setBusyId(null);
     }
@@ -160,11 +183,11 @@ export function UserManagementPage() {
   return (
     <div>
       <PageHeader
-        title="User Management"
-        description={`${users.length} total users · ${activeCount} active · ${adminCount} admin`}
+        title={copy.title}
+        description={fillMessage(copy.summary, { total: users.length, active: activeCount, admins: adminCount })}
         actions={
           <Button variant="outline" size="sm" onClick={loadData} loading={loading}>
-            <RefreshCw className="h-4 w-4" /> Refresh
+            <RefreshCw className="h-4 w-4" /> {chrome.common.refresh}
           </Button>
         }
       />
@@ -174,7 +197,7 @@ export function UserManagementPage() {
           <AlertCircle className="h-4 w-4 shrink-0" />
           {error}
           <Button variant="outline" size="sm" onClick={loadData} className="ml-auto">
-            Retry
+            {chrome.admin.retry}
           </Button>
         </div>
       )}
@@ -185,36 +208,36 @@ export function UserManagementPage() {
           <Search className="absolute left-2.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             className="pl-8"
-            placeholder="Search by name or username…"
+            placeholder={copy.search}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
         <Select value={roleFilter} onValueChange={(v) => setRoleFilter(v as typeof roleFilter)}>
           <SelectTrigger className="w-36">
-            <SelectValue placeholder="Role" />
+            <SelectValue placeholder={copy.role} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All roles</SelectItem>
-            <SelectItem value="user">User</SelectItem>
-            <SelectItem value="admin">Admin</SelectItem>
+            <SelectItem value="all">{copy.allRoles}</SelectItem>
+            <SelectItem value="user">{copy.roleUser}</SelectItem>
+            <SelectItem value="admin">{copy.roleAdmin}</SelectItem>
           </SelectContent>
         </Select>
         <Select value={statusFilter} onValueChange={(v) => setStatusFilter(v as typeof statusFilter)}>
           <SelectTrigger className="w-36">
-            <SelectValue placeholder="Status" />
+            <SelectValue placeholder={copy.status} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All statuses</SelectItem>
-            <SelectItem value="active">Active</SelectItem>
-            <SelectItem value="inactive">Inactive</SelectItem>
+            <SelectItem value="all">{copy.allStatuses}</SelectItem>
+            <SelectItem value="active">{chrome.common.active}</SelectItem>
+            <SelectItem value="inactive">{chrome.admin.inactive}</SelectItem>
           </SelectContent>
         </Select>
       </div>
 
       {loading && (
         <div className="flex items-center gap-2 py-8 text-sm text-muted-foreground">
-          <Loader2 className="h-4 w-4 animate-spin" /> Loading users…
+          <Loader2 className="h-4 w-4 animate-spin" /> {copy.loading}
         </div>
       )}
 
@@ -222,8 +245,8 @@ export function UserManagementPage() {
         <Card>
           <CardContent className="py-12 text-center text-sm text-muted-foreground">
             {search || roleFilter !== "all" || statusFilter !== "all"
-              ? "No users match your filters."
-              : "No users registered yet."}
+              ? copy.noMatch
+              : copy.empty}
           </CardContent>
         </Card>
       )}
@@ -234,11 +257,11 @@ export function UserManagementPage() {
             <Table className="min-w-[900px]">
               <TableHeader>
                 <TableRow>
-                  <TableHead>User</TableHead>
-                  <TableHead>Role</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Joined</TableHead>
-                  <TableHead>Actions</TableHead>
+                  <TableHead>{copy.user}</TableHead>
+                  <TableHead>{copy.role}</TableHead>
+                  <TableHead>{copy.status}</TableHead>
+                  <TableHead>{copy.joined}</TableHead>
+                  <TableHead>{copy.actions}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -261,22 +284,22 @@ export function UserManagementPage() {
                       <TableCell>
                         <div className="space-y-1">
                           <Badge variant={isAdmin ? "default" : "secondary"}>
-                            {u.role}
+                            {u.role === "admin" ? copy.roleAdmin : u.role === "user" ? copy.roleUser : u.role}
                           </Badge>
                           {u.subscription_plan_code ? (
                             <div className="text-xs text-muted-foreground">
-                              Plan: <span className="font-medium text-foreground">{u.subscription_plan_name ?? u.subscription_plan_code}</span>
-                              {u.subscription_status ? ` (${u.subscription_status.replace("_", " ")})` : ""}
+                              {fillMessage(copy.planLine, { name: u.subscription_plan_name ?? u.subscription_plan_code ?? "" })}
+                              {u.subscription_status ? ` (${subscriptionLabel(u.subscription_status, chrome.admin.body.subscriptions)})` : ""}
                             </div>
                           ) : (
-                            <div className="text-xs text-muted-foreground">Plan: not assigned</div>
+                            <div className="text-xs text-muted-foreground">{copy.planNone}</div>
                           )}
                         </div>
                       </TableCell>
                       <TableCell>
                         <span className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium ${isActive ? "bg-income/15 text-income" : "bg-expense/15 text-expense"}`}>
                           <span className={`h-1.5 w-1.5 rounded-full ${isActive ? "bg-income" : "bg-expense"}`} />
-                          {isActive ? "Active" : "Inactive"}
+                          {isActive ? chrome.common.active : chrome.admin.inactive}
                         </span>
                       </TableCell>
                       <TableCell className="text-xs text-muted-foreground">
@@ -290,7 +313,7 @@ export function UserManagementPage() {
                             loading={busyId === `toggle:${u.id}`}
                             onClick={() => handleToggle(u.id)}
                           >
-                            {isActive ? "Deactivate" : "Activate"}
+                            {isActive ? copy.deactivate : copy.activate}
                           </Button>
                           <Button
                             size="sm"
@@ -302,7 +325,7 @@ export function UserManagementPage() {
                             }}
                           >
                             <KeyRound className="h-3.5 w-3.5" />
-                            Set PIN
+                            {copy.setPin}
                           </Button>
                           {plans.length > 0 && (
                             <Select
@@ -313,7 +336,7 @@ export function UserManagementPage() {
                               }}
                             >
                               <SelectTrigger className="h-8 w-36 text-xs">
-                                <SelectValue placeholder="Assign plan…" />
+                                <SelectValue placeholder={copy.assignPlan} />
                               </SelectTrigger>
                               <SelectContent>
                                 {plans.map((p) => (
@@ -338,13 +361,10 @@ export function UserManagementPage() {
       <Dialog open={!!pinUser} onOpenChange={(o) => !o && setPinUser(null)}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Set PIN for @{pinUser?.username}</DialogTitle>
+            <DialogTitle>{fillMessage(copy.pinTitle, { username: pinUser?.username ?? "" })}</DialogTitle>
           </DialogHeader>
-          <p className="text-sm text-muted-foreground">
-            This replaces the user&apos;s login PIN. Share it securely. When supported, they will be asked to
-            change it on next login.
-          </p>
-          <Field label="New PIN (4–8 digits, avoid 1234 / 0000)">
+          <p className="text-sm text-muted-foreground">{copy.pinHelp}</p>
+          <Field label={copy.newPin}>
             <Input
               type="password"
               inputMode="numeric"
@@ -353,7 +373,7 @@ export function UserManagementPage() {
               onChange={(e) => setNewPin(e.target.value.replace(/\D/g, "").slice(0, 8))}
             />
           </Field>
-          <Field label="Confirm PIN">
+          <Field label={copy.confirmPin}>
             <Input
               type="password"
               inputMode="numeric"
@@ -364,13 +384,13 @@ export function UserManagementPage() {
           </Field>
           <DialogFooter>
             <Button variant="outline" onClick={() => setPinUser(null)}>
-              Cancel
+              {chrome.common.cancel}
             </Button>
             <Button
               loading={busyId === `pin:${pinUser?.id}`}
               onClick={handleResetPin}
             >
-              Save PIN
+              {copy.savePin}
             </Button>
           </DialogFooter>
         </DialogContent>

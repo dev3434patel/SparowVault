@@ -23,11 +23,16 @@ function user_effective_features(string $userId, ?array $subscription): array {
         return $global;
     }
     $db = db_conn();
-    $st = $db->prepare("SELECT feature_key, is_enabled FROM plan_features WHERE plan_id = ?");
+    $st = $db->prepare("SELECT feature_key, is_enabled, limit_value FROM plan_features WHERE plan_id = ?");
     $st->execute([$subscription["plan_id"]]);
     while ($row = $st->fetch()) {
         $key = (string)$row["feature_key"];
-        $global[$key] = ($global[$key] ?? true) && ((int)$row["is_enabled"] === 1);
+        $enabled = ((int)$row["is_enabled"] === 1);
+        if ($row["limit_value"] !== null) {
+            $global[$key] = $enabled ? (int)$row["limit_value"] : false;
+            continue;
+        }
+        $global[$key] = ($global[$key] ?? true) && $enabled;
     }
     return $global;
 }

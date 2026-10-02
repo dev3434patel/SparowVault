@@ -1,4 +1,4 @@
-GATE browser 2026-09-24T17:23:37.531Z
+GATE browser 2026-09-30T20:21:23.582Z
 ✓ src/company/pages/CreateCompanyPage.tsx
 ✓ src/company/pages/PartiesPage.tsx
 ✓ src/company/pages/LedgersPage.tsx
@@ -26,18 +26,4 @@ GATE browser 2026-09-24T17:23:37.531Z
 ✓ Journey L Approvals
 ✓ Journey M Audit + Export + Search
 ✓ Journey N Settings / period locks + lock gate
-✓ LIVE A 200
-✓ LIVE B 200
-✓ LIVE C 200
-✓ LIVE D 200
-✓ LIVE E 200
-✓ LIVE F 200
-✓ LIVE G 200
-✓ LIVE H 200
-✓ LIVE I 200
-✓ LIVE J 200
-✓ LIVE K 200
-✓ LIVE L 200
-✓ LIVE M 200
-✓ LIVE N 200
 Browser smoke PASS (structural A–N)

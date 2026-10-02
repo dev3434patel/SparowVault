@@ -7,6 +7,7 @@ const NAV_TO_PATH: Record<NavKey, string> = {
   expenses: "/expenses",
   budgets: "/budgets",
   goals: "/goals",
+  envelopes: "/envelopes",
   accounts: "/accounts",
   cards: "/cards",
   loans: "/loans",

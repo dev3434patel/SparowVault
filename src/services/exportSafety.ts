@@ -1,17 +1,35 @@
+import { cardStatementForExport } from "@/services/statements/cardMoneyFact";
 import type {
   Account,
+  AssetValuation,
+  AttachmentMeta,
   Budget,
   Card,
+  CardEmiInstallment,
+  CardEmiPlan,
+  CardPaymentAllocation,
+  CardStatement,
   Category,
+  FinancialSnapshot,
+  FixedIncomeAsset,
   Goal,
   GoalContribution,
+  Household,
+  HouseholdMember,
+  HouseholdPermission,
+  ImportSource,
+  InsurancePolicy,
   Investment,
   Loan,
   EMIPayment,
+  Obligation,
+  ReconciliationMatch,
   RecurringRule,
   Reminder,
   SavingsContribution,
+  SinkingFund,
   Transaction,
+  TransferLink,
   UdhariRecord,
   UdhariSettlement,
   User,
@@ -40,7 +58,44 @@ export interface FullExportCollections {
   savingsContribs: SavingsContribution[];
   reminders: Reminder[];
   recurringRules: RecurringRule[];
+  transferLinks?: TransferLink[];
+  cardStatements?: CardStatement[];
+  cardPaymentAllocations?: CardPaymentAllocation[];
+  cardEmiPlans?: CardEmiPlan[];
+  cardEmiInstallments?: CardEmiInstallment[];
+  obligations?: Obligation[];
+  sinkingFunds?: SinkingFund[];
+  households?: Household[];
+  householdMembers?: HouseholdMember[];
+  householdPermissions?: HouseholdPermission[];
+  fixedIncomeAssets?: FixedIncomeAsset[];
+  insurancePolicies?: InsurancePolicy[];
+  assetValuations?: AssetValuation[];
+  importSources?: ImportSource[];
+  reconciliationMatches?: ReconciliationMatch[];
+  attachments?: AttachmentMeta[];
+  snapshots?: FinancialSnapshot[];
 }
+
+export const PERSONAL_BACKUP_EXTRA_KEYS = [
+  "transferLinks",
+  "cardStatements",
+  "cardPaymentAllocations",
+  "cardEmiPlans",
+  "cardEmiInstallments",
+  "obligations",
+  "sinkingFunds",
+  "households",
+  "householdMembers",
+  "householdPermissions",
+  "fixedIncomeAssets",
+  "insurancePolicies",
+  "assetValuations",
+  "importSources",
+  "reconciliationMatches",
+  "attachments",
+  "snapshots",
+] as const satisfies readonly (keyof FullExportCollections)[];
 
 export function buildUserOwnedFullExportPayload(
   user: Pick<User, "id" | "username" | "displayName">,
@@ -72,6 +127,18 @@ export function buildUserOwnedFullExportPayload(
       savingsContribs: ownRows(collections.savingsContribs, user.id),
       reminders: ownRows(collections.reminders, user.id),
       recurringRules: ownRows(collections.recurringRules, user.id),
+      ...ownedExtras(collections, user.id),
     },
   };
+}
+
+function ownedExtras(collections: FullExportCollections, userId: string): Record<string, unknown[]> {
+  const extras: Record<string, unknown[]> = {};
+  for (const key of PERSONAL_BACKUP_EXTRA_KEYS) {
+    const rows = collections[key];
+    if (!rows) continue;
+    const owned = ownRows(rows as UserScopedRow[], userId);
+    extras[key] = key === "cardStatements" ? owned.map((row) => cardStatementForExport(row as CardStatement)) : owned;
+  }
+  return extras;
 }

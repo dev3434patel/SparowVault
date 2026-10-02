@@ -188,7 +188,19 @@ describe("Phase 2 database/schema drift", () => {
   });
 
   it("has every PHP-referenced table in the full database schema", () => {
-    const schemaTables = sqlTables(read("sql/SPAROWVAULT_FULL_DATABASE.sql") + "\n" + read("sql/migrations/20260910_atomic_writes.sql") + "\n" + read("sql/migrations/20260911_security_sessions.sql"));
+    const companyMigrationSql = sourceFiles(resolve(root, "sql/migrations"), ".sql")
+      .filter((file) => /company/i.test(file) && !file.endsWith("_rollback.sql"))
+      .sort()
+      .map((file) => readFileSync(file, "utf8"))
+      .join("\n");
+    const schemaTables = sqlTables(
+      [
+        read("sql/SPAROWVAULT_FULL_DATABASE.sql"),
+        read("sql/migrations/20260910_atomic_writes.sql"),
+        read("sql/migrations/20260911_security_sessions.sql"),
+        companyMigrationSql,
+      ].join("\n"),
+    );
     const phpFiles = ["php", "api"].flatMap(directory => sourceFiles(resolve(root, directory), ".php"));
 
     const refs = new Set<string>();
@@ -203,13 +215,17 @@ describe("Phase 2 database/schema drift", () => {
       "CURRENT_TIMESTAMP",
       "accepted_at",
       "and",
+      "another",
       "attempt_count",
       "current",
+      "draft",
       "failed",
       "hit_count",
       "is_enabled",
       "security_question",
       "setting_value",
+      "status",
+      "validated",
     ]);
     const missing = [...refs]
       .filter((table) => !sqlWords.has(table))

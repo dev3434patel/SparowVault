@@ -10,6 +10,7 @@ import { SubscriptionManagementPage } from "@/components/pages/admin/Subscriptio
 import { FeatureFlagsPage } from "@/components/pages/admin/FeatureFlagsPage";
 import { BrandingSettingsPage } from "@/components/pages/admin/BrandingSettingsPage";
 import { UserManagementPage } from "@/components/pages/admin/UserManagementPage";
+import { useMessages } from "@/i18n/useMessages";
 
 const ADMIN_PAGES: Record<NavKey, React.ComponentType> = {
   "admin-dashboard": AdminDashboardPage,
@@ -24,6 +25,7 @@ const ADMIN_PAGES: Record<NavKey, React.ComponentType> = {
   expenses: AdminDashboardPage,
   budgets: AdminDashboardPage,
   goals: AdminDashboardPage,
+  envelopes: AdminDashboardPage,
   accounts: AdminDashboardPage,
   cards: AdminDashboardPage,
   loans: AdminDashboardPage,
@@ -44,16 +46,21 @@ const ADMIN_PAGES: Record<NavKey, React.ComponentType> = {
   subscription: AdminDashboardPage,
 };
 
-const ADMIN_NAV: Array<{ key: NavKey; label: string; icon: React.ComponentType<{ className?: string }> }> = [
-  { key: "admin-dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { key: "admin-users", label: "Users", icon: Users },
-  { key: "admin-plans", label: "Plans", icon: Banknote },
-  { key: "admin-subscriptions", label: "Subscriptions", icon: Receipt },
-  { key: "admin-flags", label: "Feature Flags", icon: Bell },
-  { key: "admin-branding", label: "Branding", icon: Settings },
+const ADMIN_NAV: Array<{
+  key: NavKey;
+  label: "dashboard" | "users" | "plans" | "subscriptions" | "flags" | "branding";
+  icon: React.ComponentType<{ className?: string }>;
+}> = [
+  { key: "admin-dashboard", label: "dashboard", icon: LayoutDashboard },
+  { key: "admin-users", label: "users", icon: Users },
+  { key: "admin-plans", label: "plans", icon: Banknote },
+  { key: "admin-subscriptions", label: "subscriptions", icon: Receipt },
+  { key: "admin-flags", label: "flags", icon: Bell },
+  { key: "admin-branding", label: "branding", icon: Settings },
 ];
 
 export function AdminAppShell() {
+  const admin = useMessages().ui.admin;
   const razorpayEnabled = import.meta.env.VITE_ENABLE_RAZORPAY === "true";
   const active = useNavStore((s) => s.active);
   const navActionId = useNavStore((s) => s.navActionId);
@@ -87,9 +94,9 @@ export function AdminAppShell() {
         <div className="border-b border-border px-5 py-4">
           <div className="flex items-center gap-2 text-base font-semibold">
             <Shield className="h-4 w-4 text-primary" />
-            Admin Console
+            {admin.console}
           </div>
-          <div className="mt-1 text-xs text-muted-foreground">{String(branding.app_title ?? "SparowVault")} platform control</div>
+          <div className="mt-1 text-xs text-muted-foreground">{String(branding.app_title ?? "SparowVault")} {admin.platformControl}</div>
         </div>
         <nav className="space-y-1 p-3">
           {adminNavItems.map((item) => {
@@ -104,7 +111,7 @@ export function AdminAppShell() {
                 }`}
               >
                 <Icon className="h-4 w-4" />
-                {item.label}
+                {admin[item.label]}
               </button>
             );
           })}
@@ -113,13 +120,13 @@ export function AdminAppShell() {
       <div className="flex min-w-0 flex-1 flex-col overflow-hidden">
         <header className="flex h-14 items-center justify-between gap-3 border-b border-border px-3 sm:px-5">
           <div>
-            <div className="text-sm font-semibold">Admin Panel</div>
+            <div className="text-sm font-semibold">{admin.panel}</div>
             <div className="text-xs text-muted-foreground">@{currentUser?.username ?? "admin"}</div>
           </div>
           <div className="flex items-center gap-2">
-            <a href="/" className="text-sm text-primary hover:underline">User portal</a>
+            <a href="/" className="text-sm text-primary hover:underline">{admin.userPortal}</a>
             <Button variant="outline" size="sm" onClick={() => logout()}>
-              <LogOut className="h-4 w-4" /> Logout
+              <LogOut className="h-4 w-4" /> {admin.logout}
             </Button>
           </div>
         </header>
@@ -136,7 +143,7 @@ export function AdminAppShell() {
                 }`}
               >
                 <Icon className="h-3.5 w-3.5" />
-                {item.label}
+                {admin[item.label]}
               </button>
             );
           })}

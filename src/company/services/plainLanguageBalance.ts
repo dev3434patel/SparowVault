@@ -1,4 +1,12 @@
+import { createI18n, readStoredLocale, type MessagesByLocale } from "@/company/i18n/index";
+import en from "@/company/i18n/locales/en.json";
+import gu from "@/company/i18n/locales/gu.json";
 import { formatMoney } from "@/utils/money";
+
+function phrase(key: string, params?: Record<string, string | number>): string {
+  const locale = typeof localStorage === "undefined" ? "en" : readStoredLocale();
+  return createI18n({ locale, fallback: "en", messages: { en, gu } as MessagesByLocale }).t(key, params);
+}
 
 export type PlainBalanceSide = "you_pay" | "they_pay" | "settled";
 
@@ -19,29 +27,29 @@ export function plainLanguageBalance(
   partyDisplayName: string,
   signedBalancePaise: number,
 ): PlainLanguageBalance {
-  const name = partyDisplayName.trim() || "Party";
+  const name = partyDisplayName.trim() || phrase("balance.party");
   if (signedBalancePaise === 0) {
     return {
       side: "settled",
       amountPaise: 0,
-      sentence: `Settled with ${name}`,
-      shortLabel: "Settled",
+      sentence: phrase("balance.settledWith", { name }),
+      shortLabel: phrase("balance.settled"),
     };
   }
   if (signedBalancePaise > 0) {
     return {
       side: "they_pay",
       amountPaise: signedBalancePaise,
-      sentence: `${name} has to pay you: ${formatMoney(signedBalancePaise)}`,
-      shortLabel: "Receivable",
+      sentence: phrase("balance.theyPay", { name, amount: formatMoney(signedBalancePaise) }),
+      shortLabel: phrase("balance.receivable"),
     };
   }
   const abs = Math.abs(signedBalancePaise);
   return {
     side: "you_pay",
     amountPaise: abs,
-    sentence: `You have to pay ${name}: ${formatMoney(abs)}`,
-    shortLabel: "Payable",
+    sentence: phrase("balance.youPay", { name, amount: formatMoney(abs) }),
+    shortLabel: phrase("balance.payable"),
   };
 }
 

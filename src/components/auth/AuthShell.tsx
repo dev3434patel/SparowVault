@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
 import { IndianRupee } from "lucide-react";
 import { ThemeSwitch } from "@/components/layout/ThemeSwitch";
+import { useMessages } from "@/i18n/useMessages";
 
 export function AuthShell({ children }: { children: React.ReactNode }) {
+  const auth = useMessages().ui.auth;
   return (
     <div className="auth-bg min-h-screen w-full flex flex-col">
       <header className="flex items-center justify-between px-6 py-4">
@@ -13,7 +15,7 @@ export function AuthShell({ children }: { children: React.ReactNode }) {
           <div>
             <div className="text-sm font-semibold leading-none tracking-tight">SparowVault</div>
             <div className="text-[11px] text-muted-foreground">
-              Personal Finance OS
+              {auth.tagline}
             </div>
           </div>
         </div>
@@ -30,7 +32,7 @@ export function AuthShell({ children }: { children: React.ReactNode }) {
         </motion.div>
       </main>
       <footer className="px-6 py-4 text-center text-[11px] text-muted-foreground">
-        SQL-first mode: account and finance data are managed through secure server APIs.
+        {auth.sqlFooter}
       </footer>
     </div>
   );

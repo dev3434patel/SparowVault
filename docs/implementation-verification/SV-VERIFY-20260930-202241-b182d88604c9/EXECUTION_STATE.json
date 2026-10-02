@@ -1,0 +1,27 @@
+{
+  "runId": "SV-VERIFY-20260930-202241-b182d88604c9",
+  "status": "closed",
+  "groups": [
+    "a00-freeze",
+    "trace-children",
+    "oracles-auth",
+    "journeys-package",
+    "final-artifacts"
+  ],
+  "finalConclusion": "LOCAL_REMEDIATION_REQUIRED",
+  "counts": {
+    "pass": 27,
+    "fail": 6,
+    "blockedLocal": 0,
+    "blockedExternal": 7,
+    "notRun": 299,
+    "notApplicable": 0,
+    "personalLocalComplete": 0,
+    "companyLocalComplete": 0,
+    "personalParents": 47,
+    "companyParents": 36
+  },
+  "productSourceModifiedDuringAudit": false,
+  "disposableDatabase": "sparowvault_test_svverify_b182d886",
+  "restoreDatabase": "sparowvault_test_svverify_b182d886_restore"
+}

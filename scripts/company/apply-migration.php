@@ -23,6 +23,8 @@ $ORDER = [
     "20260923_company_reversal_fk.sql",
     "20260923_company_bill_on_account.sql",
     "20260924_company_perf_indexes.sql",
+    "20260930_company_phase_sv.sql",
+    "20260930_company_branch_url.sql",
 ];
 
 $args = array_slice($argv, 1);
@@ -73,7 +75,11 @@ function apply_sql_file(PDO $db, string $path): array {
     $errors = [];
     foreach ($statements as $i => $stmt) {
         try {
-            $db->exec($stmt);
+            $result = $db->query($stmt);
+            if ($result instanceof PDOStatement) {
+                $result->fetchAll();
+                $result->closeCursor();
+            }
             $ok++;
         } catch (Throwable $e) {
             $msg = $e->getMessage();
@@ -113,7 +119,11 @@ foreach ($files as $file) {
     $totalFail += $r["fail"];
 }
 
-$tables = $db->query("SHOW TABLES LIKE 'company_%'")->fetchAll(PDO::FETCH_COLUMN);
+$tableSt = $db->query("SHOW TABLES LIKE 'company_%'");
+$tables = $tableSt instanceof PDOStatement ? $tableSt->fetchAll(PDO::FETCH_COLUMN) : [];
+if ($tableSt instanceof PDOStatement) {
+    $tableSt->closeCursor();
+}
 sort($tables);
 echo "company_tables=" . count($tables) . "\n";
 echo $totalFail === 0 ? "MIGRATION PASS\n" : "MIGRATION FAIL fail=$totalFail\n";

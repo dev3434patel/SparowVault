@@ -1,4 +1,4 @@
-SECURITY FULL MATRIX 2026-09-24T14:49:08+00:00
+SECURITY FULL MATRIX 2026-09-30T20:21:36+00:00
 PASS csrf_require_for_mutations exists
 PASS csrf_issue_token exists
 PASS apply_cors_headers exists
@@ -14,8 +14,8 @@ PASS voucher-item GET requires view_day_book
 PASS voucher-preview uses company_can_preview_voucher
 PASS exports enforce report view_* permission
 PASS period-locks GET requires view_dashboard
-PASS deprecated purposes rejected in posting
-PASS shared create/preview permission helper
+FAIL deprecated purposes rejected in posting
+FAIL shared create/preview permission helper
 PASS report view_* map lives in reports.php
 PASS XSS payload stored as data (UI must escape)
 PASS DOCX export does not embed raw executable HTML script tag
@@ -31,5 +31,5 @@ PASS CORS unknown origin not reflected
 PASS CORS Origin null not reflected
 PASS SQLi search probe does not cause SQL syntax error (HTTP 403)
 PASS rate-limit login exercised hits=5 blocked429=no-window-not-exhausted
-API_BASE=http://localhost:8080
-SUMMARY fail=0
+API_BASE=http://[::1]:8080
+SUMMARY fail=2

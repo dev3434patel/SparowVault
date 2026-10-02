@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Field } from "@/components/ui/Label";
+import { dimensionSplit } from "@/company/services/costSplit";
 import { mapPurposeToDraftLines } from "@/company/services/purposeEngine";
 import { assertBalanced } from "@/company/services/voucherBalance";
 import { parseMoneyInputToPaise, formatMoney } from "@/utils/money";
@@ -10,15 +11,21 @@ import { companyApi } from "@/company/api/client";
 import { useCompanyStore } from "@/company/store/companyStore";
 import type { CompanyLedger } from "@/company/types";
 import { PageHeader } from "@/company/components/PageChrome";
+import { useHasPermission } from "@/company/components/PermissionGate";
 import { useI18n } from "@/company/i18n/react";
 
 export function QuickTransferPage() {
   const { t } = useI18n();
+  const canPost = useHasPermission("create_contra");
   const companyId = useCompanyStore((s) => s.activeCompanyId);
   const [amount, setAmount] = useState("");
   const [fromId, setFromId] = useState("");
   const [toId, setToId] = useState("");
   const [note, setNote] = useState("");
+  const [centreA, setCentreA] = useState("");
+  const [centreB, setCentreB] = useState("");
+  const [splitA, setSplitA] = useState("");
+  const [splitB, setSplitB] = useState("");
   const [msg, setMsg] = useState<string | null>(null);
   const [err, setErr] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
@@ -76,6 +83,10 @@ export function QuickTransferPage() {
       setErr("Select a company first");
       return;
     }
+    if (!canPost) {
+      setErr("You do not have permission to post a transfer.");
+      return;
+    }
     if (preview.error) {
       setErr(preview.error);
       return;
@@ -84,13 +95,31 @@ export function QuickTransferPage() {
     setErr(null);
     try {
       const amountPaise = parseMoneyInputToPaise(amount, { allowZero: false, throwOnInvalid: true });
+      const debitLine: {
+        ledgerId: string;
+        side: "DEBIT";
+        amountPaise: number;
+        costAllocations?: Array<{ costCentreId: string; amountPaise: number }>;
+      } = { ledgerId: toId, side: "DEBIT", amountPaise };
+      if (centreA && centreB && splitA && splitB) {
+        const split = dimensionSplit(amountPaise, [
+          { costCentreId: centreA, amountPaise: parseMoneyInputToPaise(splitA, { allowZero: false, throwOnInvalid: true }) },
+          { costCentreId: centreB, amountPaise: parseMoneyInputToPaise(splitB, { allowZero: false, throwOnInvalid: true }) },
+        ]);
+        if (split.error || !split.costAllocations) {
+          setErr(split.error ?? "The dimension split must equal the voucher amount.");
+          setSaving(false);
+          return;
+        }
+        debitLine.costAllocations = split.costAllocations;
+      }
       const res = await companyApi.postVoucher(companyId, {
         mutationId: `ui-contra-${crypto.randomUUID()}`,
         voucherType: "CONTRA",
         voucherDate: new Date().toISOString().slice(0, 10),
         narration: note || "Transfer",
         lines: [
-          { ledgerId: toId, side: "DEBIT", amountPaise },
+          debitLine,
           { ledgerId: fromId, side: "CREDIT", amountPaise },
         ],
         status: "POSTED",
@@ -141,6 +170,20 @@ export function QuickTransferPage() {
       <Field label={t("quick.note")}>
         <Input value={note} onChange={(e) => setNote(e.target.value)} />
       </Field>
+      <div className="flex flex-wrap gap-2">
+        <Field label="Cost centre A">
+          <Input value={centreA} onChange={(e) => setCentreA(e.target.value)} placeholder="Optional id" />
+        </Field>
+        <Field label="Split A">
+          <Input value={splitA} onChange={(e) => setSplitA(e.target.value)} placeholder="0.00" />
+        </Field>
+        <Field label="Cost centre B">
+          <Input value={centreB} onChange={(e) => setCentreB(e.target.value)} placeholder="Optional id" />
+        </Field>
+        <Field label="Split B">
+          <Input value={splitB} onChange={(e) => setSplitB(e.target.value)} placeholder="0.00" />
+        </Field>
+      </div>
       <Card>
         <CardHeader className="pb-2">
           <CardTitle className="text-sm">{t("quick.preview")}</CardTitle>

@@ -1,5 +1,30 @@
 // Indian-aware formatting utilities
 import { format, parseISO } from "date-fns";
+import { readStoredLocale } from "@/company/i18n/index";
+import companyEn from "@/company/i18n/locales/en.json";
+import companyGu from "@/company/i18n/locales/gu.json";
+import { personalCatalog } from "@/i18n/useMessages";
+
+const companyDictionaries = { en: companyEn, gu: companyGu } as Record<"en" | "gu", Record<string, string>>;
+
+/** Personal routes use the personal catalog. Company routes use the company catalog. */
+export function messageShell(): "personal" | "company" {
+  if (typeof window === "undefined") return "personal";
+  return window.location.pathname.startsWith("/company") ? "company" : "personal";
+}
+
+function readPersonalLocale(): "en" | "gu" {
+  try {
+    return localStorage.getItem("sv:personalLocale") === "gu" ? "gu" : "en";
+  } catch {
+    return "en";
+  }
+}
+
+function companyLabel(key: string): string | undefined {
+  const locale = typeof localStorage === "undefined" ? "en" : readStoredLocale();
+  return companyDictionaries[locale][key] ?? companyDictionaries.en[key];
+}
 
 const INR_LOCALE = "en-IN";
 
@@ -103,37 +128,20 @@ export function isoToLocalDate(iso: string | Date | undefined | null): string {
 }
 
 export function formatPaymentMode(mode: string): string {
-  const map: Record<string, string> = {
-    cash: "Cash",
-    upi: "UPI",
-    bank_transfer: "Bank Transfer",
-    cheque: "Cheque",
-    debit_card: "Debit Card",
-    credit_card: "Credit Card",
-    wallet: "Wallet",
-    auto_debit: "Auto Debit",
-    other: "Other",
-  };
-  return map[mode] ?? mode;
+  if (messageShell() === "company") return companyLabel(`format.pay.${mode}`) ?? mode;
+  const payments = personalCatalog(readPersonalLocale()).copy.transactions.payments;
+  return mode in payments ? payments[mode as keyof typeof payments] : mode;
 }
 
-export function formatTxType(t: string): string {
-  const map: Record<string, string> = {
-    income: "Income",
-    expense: "Expense",
-    transfer: "Transfer",
-    loan_disbursement: "Loan Disbursement",
-    emi_payment: "EMI Payment",
-    cc_payment: "Card Payment",
-    udhari_given: "Udhari Given",
-    udhari_received: "Udhari Received",
-    udhari_collect: "Udhari Collected",
-    udhari_repay: "Udhari Repaid",
-    udhari_write_off: "Udhari Write-off",
-    savings_contribution: "Savings",
-    investment_contribution: "Investment",
-    refund: "Refund",
-    adjustment: "Adjustment",
-  };
-  return map[t] ?? t;
+export function formatTxType(type: string): string {
+  if (messageShell() === "company") return companyLabel(`format.tx.${type}`) ?? type;
+  const types = personalCatalog(readPersonalLocale()).copy.transactions.types;
+  return type in types ? types[type as keyof typeof types] : type;
+}
+
+/** Quick-add intent names. Personal shell reads personal messages; company shell reads company messages. */
+export function formatIntentLabel(intent: string): string {
+  if (messageShell() === "company") return companyLabel(`intent.${intent}`) ?? intent;
+  const intents = personalCatalog(readPersonalLocale()).ui.quickAdd.intents;
+  return intent in intents ? intents[intent as keyof typeof intents] : intent;
 }

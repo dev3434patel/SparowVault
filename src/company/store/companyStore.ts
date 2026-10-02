@@ -5,12 +5,15 @@ import type {
   CompanyWorkspace,
 } from "@/company/types";
 import { companyApi } from "@/company/api/client";
+import type { CompanyPermissionLoadState } from "@/company/auth/companyCan";
 
 interface CompanyStoreState {
   activeCompanyId: string | null;
   workspace: CompanyWorkspace | null;
   memberships: CompanyMembership[];
   permissions: CompanyPermission[];
+  /** loading and error both deny protected actions. ready + empty list also denies. */
+  permissionsState: CompanyPermissionLoadState;
   hydrated: boolean;
   /** Bumps on company switch so pages can clear filters/caches. */
   contextEpoch: number;
@@ -66,6 +69,7 @@ export const useCompanyStore = create<CompanyStoreState>((set, get) => ({
   workspace: null,
   memberships: [],
   permissions: [],
+  permissionsState: "loading",
   hydrated: false,
   contextEpoch: 0,
 
@@ -74,7 +78,9 @@ export const useCompanyStore = create<CompanyStoreState>((set, get) => ({
     set((s) => ({
       activeCompanyId: companyId,
       contextEpoch: s.contextEpoch + 1,
-      ...(companyId ? {} : { workspace: null, permissions: [] }),
+      permissions: [],
+      permissionsState: "loading",
+      ...(companyId ? {} : { workspace: null }),
     }));
     if (companyId) {
       void get().hydrateWorkspace(companyId);
@@ -87,12 +93,16 @@ export const useCompanyStore = create<CompanyStoreState>((set, get) => ({
       activeCompanyId: workspace.id,
       workspace,
       permissions,
+      permissionsState: permissions.length > 0 ? "ready" : "loading",
       contextEpoch: s.contextEpoch + 1,
       hydrated: true,
     }));
+    if (permissions.length === 0) {
+      void get().hydrateWorkspace(workspace.id);
+    }
   },
 
-  setPermissions: (permissions) => set({ permissions }),
+  setPermissions: (permissions) => set({ permissions, permissionsState: "ready" }),
 
   hydrateFromApi: async () => {
     try {
@@ -116,13 +126,13 @@ export const useCompanyStore = create<CompanyStoreState>((set, get) => ({
       const { workspace, permissions } = await companyApi.getWorkspace(companyId);
       if (seq !== hydrateSeq) return; // stale
       if (get().activeCompanyId !== companyId) return;
-      set({ workspace, permissions, activeCompanyId: companyId });
+      set({ workspace, permissions, permissionsState: "ready", activeCompanyId: companyId });
       writeStoredActive(companyId);
     } catch {
       if (seq !== hydrateSeq) return;
       // Do not wipe a newer successful workspace if company already moved.
       if (get().activeCompanyId !== companyId) return;
-      set({ workspace: null, permissions: [] });
+      set({ workspace: null, permissions: [], permissionsState: "error" });
     }
   },
 
@@ -133,6 +143,7 @@ export const useCompanyStore = create<CompanyStoreState>((set, get) => ({
       workspace: null,
       memberships: [],
       permissions: [],
+      permissionsState: "loading",
       hydrated: false,
       contextEpoch: 0,
     });

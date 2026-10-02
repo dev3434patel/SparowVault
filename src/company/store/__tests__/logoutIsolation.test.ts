@@ -101,6 +101,7 @@ describe("logout isolation — company store", () => {
     expect(s.workspace).toBeNull();
     expect(s.memberships).toEqual([]);
     expect(s.permissions).toEqual([]);
+    expect(s.permissionsState).toBe("loading");
     expect(s.hydrated).toBe(false);
     expect(s.contextEpoch).toBe(0);
   });

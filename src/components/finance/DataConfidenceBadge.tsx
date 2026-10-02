@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/Badge";
 import { cn } from "@/lib/utils";
+import { useMessages } from "@/i18n/useMessages";
 
 export type DataConfidence =
   | "actual"
@@ -8,15 +9,6 @@ export type DataConfidence =
   | "estimated"
   | "projected"
   | "needs_review";
-
-const LABELS: Record<DataConfidence, string> = {
-  actual: "Actual",
-  imported: "Imported",
-  user_confirmed: "User confirmed",
-  estimated: "Estimated",
-  projected: "Projected",
-  needs_review: "Needs review",
-};
 
 const TONES: Record<DataConfidence, string> = {
   actual: "bg-emerald-100 text-emerald-800 border-emerald-200",
@@ -34,13 +26,14 @@ export function DataConfidenceBadge({
   confidence: DataConfidence;
   className?: string;
 }) {
+  const label = useMessages().ui.confidence[confidence];
   return (
     <Badge
       variant="outline"
       className={cn("text-[10px] font-medium", TONES[confidence], className)}
-      title={LABELS[confidence]}
+      title={label}
     >
-      {LABELS[confidence]}
+      {label}
     </Badge>
   );
 }

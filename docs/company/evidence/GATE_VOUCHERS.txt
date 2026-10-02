@@ -1,4 +1,4 @@
-GATE vouchers 2026-09-24T17:21:22.891Z
+GATE vouchers 2026-09-30T20:18:58.144Z
 
 Warning: Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
 Using user devpatel (cu_a49260e5634911863371e053)
@@ -65,7 +65,7 @@ Using user devpatel (cu_a49260e5634911863371e053)
   ✓ Final TB balanced (79260000 == 79260000)
 
 ========================================
-DEMO COMPANY ID: 9d55fe55-5862-41df-b03d-50e3674f96ed
+DEMO COMPANY ID: 190766eb-a337-4821-a8b7-3ec882d82d19
 Open /company/select and choose "Demo Farm & Finance"
 ALL COMBINATION CHECKS PASSED
 ========================================
@@ -105,7 +105,7 @@ Warning: Version warning: Imagick was compiled against ImageMagick version 1808 
   ✓ original remains REVERSED after second reverse call
   ✓ original points to single reversal voucher
 == Voucher number seq past 9999 ==
-  ✓ next seq after 10000 is 10001 got PAY-20260924-00010001
+  ✓ next seq after 10000 is 10001 got PAY-20260930-00010001
 == TB still balanced ==
   ✓ trial balance debit=credit (29000000 == 29000000)
 == Deprecated purposes rejected ==
@@ -155,18 +155,24 @@ Warning: Version warning: Imagick was compiled against ImageMagick version 1808 
   ✓ payables permission from registry (view_payables)
   ✓ payables has handler
   ✓ payables runs (enabled → data)
-  ✓ receipts-payments resolve throws when disabled
-  ✓ receipts-payments → REPORT_DISABLED
-  ✓ project-report resolve throws when disabled
-  ✓ project-report → REPORT_DISABLED
-  ✓ business-report resolve throws when disabled
-  ✓ business-report → REPORT_DISABLED
-  ✓ area-report resolve throws when disabled
-  ✓ area-report → REPORT_DISABLED
-  ✓ category-report resolve throws when disabled
-  ✓ category-report → REPORT_DISABLED
-  ✓ user-activity resolve throws when disabled
-  ✓ user-activity → REPORT_DISABLED
+  ✓ receipts-payments permission from registry (view_cash_bank_books)
+  ✓ receipts-payments has handler
+  ✓ receipts-payments runs (enabled → data)
+  ✓ project-report permission from registry (view_day_book)
+  ✓ project-report has handler
+  ✓ project-report runs (enabled → data)
+  ✓ business-report permission from registry (view_day_book)
+  ✓ business-report has handler
+  ✓ business-report runs (enabled → data)
+  ✓ area-report permission from registry (view_day_book)
+  ✓ area-report has handler
+  ✓ area-report runs (enabled → data)
+  ✓ category-report permission from registry (view_day_book)
+  ✓ category-report has handler
+  ✓ category-report runs (enabled → data)
+  ✓ user-activity permission from registry (view_audit)
+  ✓ user-activity has handler
+  ✓ user-activity runs (enabled → data)
   ✓ unknown → REPORT_UNKNOWN
 == Purpose preview parity (non-deprecated) ==
   ✓ LOAN_RECEIVED yields 2 lines

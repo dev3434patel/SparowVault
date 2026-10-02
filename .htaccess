@@ -16,9 +16,11 @@ RewriteEngine On
 # -----------------------------------------------------------------------------
 # Skip in environments that don't terminate TLS (e.g. local php -S dev server).
 # In those, set SetEnv SV_SKIP_HTTPS=1 outside the rewrite block.
+# SV_SKIP_HTTPS is a server env set by the local package config only.
+# A client request header cannot set it. X-Forwarded-Proto is not trusted here;
+# a configured proxy must terminate TLS or set HTTPS itself.
 RewriteCond %{ENV:SV_SKIP_HTTPS} !=1
 RewriteCond %{HTTPS} !=on
-RewriteCond %{HTTP:X-Forwarded-Proto} !=https
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 # -----------------------------------------------------------------------------
@@ -44,9 +46,12 @@ RedirectMatch 403 "(?i)^/(\.git|data|backups|sql|php/config|node_modules|tests|r
 </FilesMatch>
 
 # -----------------------------------------------------------------------------
-# 3. Security headers (apply to everything we DO serve)
+# 3. Security headers for static responses. API header authority is PHP.
 # -----------------------------------------------------------------------------
 <IfModule mod_headers.c>
+  # Static responses only. /api/ responses get the same policy from PHP
+  # apply_security_headers(), so Apache must not add a second copy.
+  <If "%{REQUEST_URI} !~ m#^/api/#">
   # HSTS — 1 year, include subdomains. Only meaningful over HTTPS.
   Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
 
@@ -86,6 +91,7 @@ RedirectMatch 403 "(?i)^/(\.git|data|backups|sql|php/config|node_modules|tests|r
   # Strip Apache fingerprint headers that aid attackers.
   Header unset X-Powered-By
   Header always unset Server
+  </If>
 </IfModule>
 
 # -----------------------------------------------------------------------------

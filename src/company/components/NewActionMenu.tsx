@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/Button";
 
 import { companyNavigate, companyPath } from "@/company/routes";
 
+import { companyAllows } from "@/company/auth/companyCan";
+
 import { useCompanyStore } from "@/company/store/companyStore";
 
 import type { CompanyPermission } from "@/company/types";
@@ -50,13 +52,9 @@ const ACTIONS: Array<{
 
 
 
-function can(permissions: CompanyPermission[], need?: CompanyPermission) {
+function can(permissions: CompanyPermission[], state: "loading" | "ready" | "error", need?: CompanyPermission) {
 
-  if (!need) return true;
-
-  if (permissions.length === 0) return true;
-
-  return permissions.includes(need);
+  return companyAllows(state, permissions, need);
 
 }
 
@@ -67,6 +65,8 @@ export function NewActionMenu() {
   const { t } = useI18n();
 
   const permissions = useCompanyStore((s) => s.permissions);
+
+  const permissionsState = useCompanyStore((s) => s.permissionsState);
 
   const [open, setOpen] = useState(false);
 
@@ -120,7 +120,7 @@ export function NewActionMenu() {
 
 
 
-  const items = ACTIONS.filter((a) => can(permissions, a.permission));
+  const items = ACTIONS.filter((a) => can(permissions, permissionsState, a.permission));
 
 
 

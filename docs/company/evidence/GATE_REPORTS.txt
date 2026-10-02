@@ -1,13 +1,13 @@
-GATE reports 2026-09-24T17:21:27.640Z
+GATE reports 2026-09-30T20:19:01.215Z
 
  RUN  v4.1.11 D:/Claude/SparowVault
 
- ✓ src/company/services/__tests__/reportEngine.test.ts (4 tests) 14ms
+ ✓ src/company/services/__tests__/reportEngine.test.ts (4 tests) 16ms
 
  Test Files  1 passed (1)
       Tests  4 passed (4)
-   Start at  22:51:31
-   Duration  589ms (transform 86ms, setup 0ms, import 110ms, tests 14ms, environment 0ms)
+   Start at  01:49:03
+   Duration  374ms (transform 68ms, setup 0ms, import 93ms, tests 16ms, environment 0ms)
 
 
 Warning: Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0
@@ -75,7 +75,7 @@ Using user devpatel (cu_a49260e5634911863371e053)
   ✓ Final TB balanced (79260000 == 79260000)
 
 ========================================
-DEMO COMPANY ID: 35284fd2-a4e1-43a9-ba7b-3ad3ad5322c4
+DEMO COMPANY ID: d4a075f7-e801-4c70-8c77-0a0c43a0ba47
 Open /company/select and choose "Demo Farm & Finance"
 ALL COMBINATION CHECKS PASSED
 ========================================

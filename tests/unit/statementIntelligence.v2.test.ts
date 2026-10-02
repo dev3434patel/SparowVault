@@ -7,7 +7,7 @@ import {
   type StatementSourceRowInput,
 } from "@/services/statements/verifier";
 import { detectStatementIssuer, evaluateAccountMaskCollision } from "@/services/statements/issuer";
-import { layoutScorecard, supportLabelForBank, STATEMENT_TARGET_BANK_IDS } from "@/services/statements/layoutRegistry";
+import { layoutScorecard, supportLabelForBank, STATEMENT_TARGET_BANK_IDS, statementEvidenceInventory } from "@/services/statements/layoutRegistry";
 import { reportEconomicMonth } from "@/services/statements/reports";
 import { allocateEmiFromSchedule, emiAllocationFromNarration, isCreditCardStatementHeading } from "@/services/statements/cardDocument";
 import { draftMatchesFile, type StatementReviewDraft } from "@/services/statements/draft";
@@ -178,6 +178,12 @@ describe("layout registry truthfulness", () => {
     expect(scorecard.byStatus["verified-for-scope"] ?? 0).toBe(0);
     expect(supportLabelForBank("icici")).toMatch(/needs review/i);
     expect(supportLabelForBank("hdfc")).toMatch(/synthetic/i);
+    const inventory = statementEvidenceInventory();
+    expect(inventory.recognized).toBe(38);
+    expect(inventory.fixtureTested).toBe(5);
+    expect(inventory.verifiedForScope).toBe(0);
+    expect(inventory.registeredOnly).toBe(15);
+    expect(inventory.noLayoutSpec).toBe(18);
   });
 });
 

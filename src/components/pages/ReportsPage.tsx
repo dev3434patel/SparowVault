@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { PageHeader } from "@/components/layout/PageHeader";
+import { PersonalPageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import {
@@ -33,6 +33,8 @@ import {
   ledgerDiagnosticTotal,
 } from "@/services/ledgerDiagnostics";
 import { explainCategorySpend } from "@/services/financeLedgerExplain";
+import { parentCategoryTotals } from "@/services/personalBookWorkflows";
+import { planFeatureOff } from "@/services/modulePolicy";
 import { formatINR, formatPercent } from "@/lib/format";
 import {
   cardCreditLimitPaise,
@@ -61,8 +63,10 @@ import { SafeChart } from "@/components/charts/SafeChart";
 import { useCloudAppStore } from "@/store/cloudAppStore";
 import { buildCashflowSurvivalReport } from "@/services/cashflowSurvivalEngine";
 import { buildEmergencyFundIntel } from "@/services/emergencyFundEngine";
+import { useMessages } from "@/i18n/useMessages";
 
 export function ReportsPage() {
+  const copy = useMessages().copy.reports;
   const user = useAuthStore((s) => s.currentUser);
   const effectiveFeatures = useCloudAppStore((s) => s.effectiveFeatures);
   const transactions = useDataStore((s) => s.transactions);
@@ -140,6 +144,24 @@ export function ReportsPage() {
         amount: paiseToRupees(c.amountPaise),
       })),
     [catBreakdownRaw],
+  );
+  const parentTotals = useMemo(
+    () =>
+      parentCategoryTotals(
+        categories.map((category) => ({
+          id: category.id,
+          parentId: category.parentId,
+          name: category.name,
+        })),
+        thisMonth
+          .filter((tx) => tx.isDeleted !== 1 && tx.type === "expense")
+          .map((tx) => ({
+            id: tx.id,
+            categoryId: tx.categoryId,
+            amountPaise: expenseAmountPaise(tx),
+          })),
+      ),
+    [categories, thisMonth],
   );
 
   // Top merchants
@@ -330,16 +352,15 @@ export function ReportsPage() {
   if (effectiveFeatures.advanced_reports === false) {
     return (
       <div>
-        <PageHeader title="Reports & Analytics" description="Upgrade plan to unlock advanced reports." />
+        <PersonalPageHeader screen="reportsLocked" />
       </div>
     );
   }
 
   return (
     <div>
-      <PageHeader
-        title="Reports & Analytics"
-        description="Deep insights into your money flows, trends, and ratios."
+      <PersonalPageHeader
+        screen="reports"
         actions={
           <Select
             value={String(monthsBack)}
@@ -349,9 +370,9 @@ export function ReportsPage() {
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="3">Last 3 months</SelectItem>
-              <SelectItem value="6">Last 6 months</SelectItem>
-              <SelectItem value="12">Last 12 months</SelectItem>
+              <SelectItem value="3">{copy.last3}</SelectItem>
+              <SelectItem value="6">{copy.last6}</SelectItem>
+              <SelectItem value="12">{copy.last12}</SelectItem>
             </SelectContent>
           </Select>
         }
@@ -359,87 +380,87 @@ export function ReportsPage() {
 
       <Card className="mb-4 print:border print:shadow-none">
         <CardHeader>
-          <CardTitle>Report library</CardTitle>
+          <CardTitle>{copy.library}</CardTitle>
           <CardDescription>
-            Everyday summaries vs chartered-accountant exports. Cashflow, expense totals, and net worth are
-            separate lenses — do not mix card payments into expense totals when reconciling GST.
+            {copy.libraryBody}
           </CardDescription>
         </CardHeader>
         <CardContent className="grid gap-4 text-sm md:grid-cols-2">
           <div className="space-y-2 rounded-lg border border-border p-3">
-            <div className="font-medium">Normal reports (in app)</div>
+            <div className="font-medium">{copy.normalReports}</div>
             <ul className="list-inside list-disc text-muted-foreground">
-              <li>Where money went — category &amp; merchant tables below</li>
-              <li>Money left — resilience card (safe daily / emergency)</li>
-              <li>Bills coming — matches survival breakdown on dashboard</li>
-              <li>Debt summary — loan &amp; card sections in this page</li>
-              <li>Goals &amp; udhari — goal widgets + informal lending tables</li>
+              <li>{copy.whereMoney}</li>
+              <li>{copy.moneyLeft}</li>
+              <li>{copy.billsComing}</li>
+              <li>{copy.debtSummary}</li>
+              <li>{copy.goalsUdhari}</li>
             </ul>
           </div>
           <div className="space-y-3 rounded-lg border border-border p-3">
-            <div className="font-medium">CA workbook (Excel)</div>
+            <div className="font-medium">{copy.caWorkbook}</div>
             <p className="text-xs text-muted-foreground">
-              Includes transaction master, monthly cashflow, category ledger, account ledger, registers,
-              amortization per loan, interest paid, business/personal split, GST/tax flags, and bills-missing.
+              {copy.caBody}
             </p>
-            <Button
-              variant="outline"
-              className="w-full"
-              onClick={() => {
-                const { buffer, filename } = buildCAWorkbook({
-                  transactions,
-                  categories,
-                  accounts,
-                  cards,
-                  budgets,
-                  goals,
-                  goalContribs,
-                  loans,
-                  emis,
-                  udhari,
-                  investments,
-                  savingsContribs,
-                });
-                downloadBuffer(buffer, filename);
-              }}
-            >
-              <Download className="mr-2 h-4 w-4" />
-              Download CA workbook
-            </Button>
+            {planFeatureOff(effectiveFeatures, "ca_reports") ? (
+              <p className="text-sm text-muted-foreground">{copy.caLocked}</p>
+            ) : (
+              <Button
+                variant="outline"
+                className="w-full"
+                onClick={() => {
+                  const { buffer, filename } = buildCAWorkbook({
+                    transactions,
+                    categories,
+                    accounts,
+                    cards,
+                    budgets,
+                    goals,
+                    goalContribs,
+                    loans,
+                    emis,
+                    udhari,
+                    investments,
+                    savingsContribs,
+                  });
+                  downloadBuffer(buffer, filename);
+                }}
+              >
+                <Download className="mr-2 h-4 w-4" />
+                {copy.downloadCa}
+              </Button>
+            )}
           </div>
         </CardContent>
       </Card>
 
       <Card className="mb-4">
         <CardHeader>
-          <CardTitle>Cashflow &amp; resilience (Phase 10)</CardTitle>
-          <CardDescription>Survival window, emergency runway vs essentials — same engine as the dashboard.</CardDescription>
+          <CardTitle>{copy.cashflow}</CardTitle>
+          <CardDescription>{copy.cashflowBody}</CardDescription>
         </CardHeader>
         <CardContent className="grid gap-3 text-sm md:grid-cols-2">
           <div className="rounded-lg bg-surface-2 p-3">
-            <div className="text-xs text-muted-foreground">Safe daily (all commitments)</div>
+            <div className="text-xs text-muted-foreground">{copy.safeDaily}</div>
             <div className="text-lg font-semibold tabular-nums">
               {formatINR(paiseToRupees(resilience.survival.safeDailySpendPaise))}
             </div>
             {resilience.survival.udhariPayablePaise > 0 ? (
               <div className="mt-1 text-xs text-muted-foreground">
-                Excl. udhari: {formatINR(paiseToRupees(resilience.survival.safeDailyCorePaise))}/day ·{" "}
-                {resilience.survival.daysUntilNextIncome}d window
+                {copy.exclUdhari.replace("{core}", formatINR(paiseToRupees(resilience.survival.safeDailyCorePaise))).replace("{days}", String(resilience.survival.daysUntilNextIncome))}
               </div>
             ) : (
               <div className="mt-1 text-xs text-muted-foreground">
-                {resilience.survival.daysUntilNextIncome} day window
+                {copy.dayWindow.replace("{days}", String(resilience.survival.daysUntilNextIncome))}
               </div>
             )}
           </div>
           <div className="rounded-lg bg-surface-2 p-3">
-            <div className="text-xs text-muted-foreground">Emergency (essentials-based)</div>
+            <div className="text-xs text-muted-foreground">{copy.emergency}</div>
             <div className="text-lg font-semibold tabular-nums">
-              {resilience.emergency.monthsCovered.toFixed(1)} mo
+              {resilience.emergency.monthsCovered.toFixed(1)} {copy.monthsShort}
             </div>
             <div className="mt-1 text-xs text-muted-foreground">
-              Fund {formatINR(paiseToRupees(resilience.emergency.emergencyFundAvailablePaise))} · Essentials ~{" "}
-              {formatINR(paiseToRupees(resilience.emergency.monthlyEssentialPaise))}/mo
+              {copy.fundEssentials.replace("{fund}", formatINR(paiseToRupees(resilience.emergency.emergencyFundAvailablePaise))).replace("{essentials}", formatINR(paiseToRupees(resilience.emergency.monthlyEssentialPaise)))}
             </div>
           </div>
           <p className="text-xs text-muted-foreground md:col-span-2">
@@ -450,32 +471,31 @@ export function ReportsPage() {
 
       <Card className="mb-4 border-dashed">
         <CardHeader>
-          <CardTitle>Ledger (Phase 5)</CardTitle>
+          <CardTitle>{copy.ledger}</CardTitle>
           <CardDescription>
             {useLedgerViews
-              ? "Dashboard and report KPIs are using financial_events / financial_effects."
-              : "No usable ledger rows loaded yet; reports are using transaction fallback."}
+              ? copy.ledgerOn
+              : copy.ledgerFallback}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-2 text-sm">
           <div className="flex flex-wrap gap-6 tabular-nums">
             <span>
-              Ledger expense:{" "}
+              {copy.ledgerExpense}{" "}
               <strong>{formatINR(paiseToRupees(ledgerExpenseThisMonth), { decimals: 2 })}</strong>
             </span>
             <span>
-              Transaction roll-up:{" "}
+              {copy.txnRollup}{" "}
               <strong>{formatINR(paiseToRupees(mom.thisExpense), { decimals: 2 })}</strong>
             </span>
           </div>
           {ledgerExplainTopCategory && catBreakdownRaw[0] && (
             <div className="text-muted-foreground">
               <p className="font-medium text-foreground">
-                Explain top category ({catBreakdownRaw[0].categoryName})
+                {copy.explainTop.replace("{name}", catBreakdownRaw[0].categoryName)}
               </p>
               <p>
-                Included effects: {ledgerExplainTopCategory.included.length} · Excluded rows:{" "}
-                {ledgerExplainTopCategory.excluded.length}
+                {copy.includedEffects.replace("{included}", String(ledgerExplainTopCategory.included.length)).replace("{excluded}", String(ledgerExplainTopCategory.excluded.length))}
               </p>
               {ledgerExplainTopCategory.excluded.length > 0 && (
                 <ul className="mt-1 list-inside list-disc text-xs">
@@ -494,21 +514,21 @@ export function ReportsPage() {
       {ledgerDiagnostics ? (
         <Card className="mb-4">
           <CardHeader>
-            <CardTitle>Ledger Coverage Diagnostic</CardTitle>
+            <CardTitle>{copy.coverage}</CardTitle>
             <CardDescription>
               {ledgerDiagnosticTotal(ledgerDiagnostics) === 0
-                ? "No source-of-truth coverage gaps detected for the loaded user data."
-                : `${ledgerDiagnosticTotal(ledgerDiagnostics)} issue(s) need ledger cleanup.`}
+                ? copy.noGaps
+                : copy.issueCount.replace("{n}", String(ledgerDiagnosticTotal(ledgerDiagnostics)))}
             </CardDescription>
           </CardHeader>
           <CardContent className="grid gap-3 text-sm md:grid-cols-2 lg:grid-cols-3">
             {[
-              ["Transactions without financial event", ledgerDiagnostics.transactionsWithoutFinancialEvent],
-              ["Events without effects", ledgerDiagnostics.eventsWithoutEffects],
-              ["Effects with invalid target", ledgerDiagnostics.effectsWithInvalidTarget],
-              ["Credit-card tx missing card", ledgerDiagnostics.creditCardTransactionsMissingCard],
-              ["EMI tx missing loan", ledgerDiagnostics.emiTransactionsMissingLoan],
-              ["Udhari tx missing person", ledgerDiagnostics.udhariTransactionsMissingPerson],
+              [copy.gapEvent, ledgerDiagnostics.transactionsWithoutFinancialEvent],
+              [copy.gapEffects, ledgerDiagnostics.eventsWithoutEffects],
+              [copy.gapTarget, ledgerDiagnostics.effectsWithInvalidTarget],
+              [copy.gapCard, ledgerDiagnostics.creditCardTransactionsMissingCard],
+              [copy.gapEmi, ledgerDiagnostics.emiTransactionsMissingLoan],
+              [copy.gapUdhari, ledgerDiagnostics.udhariTransactionsMissingPerson],
             ].map(([label, rows]) => (
               <div key={label as string} className="rounded-lg border border-border p-3">
                 <div className="flex items-center justify-between gap-2">
@@ -524,7 +544,7 @@ export function ReportsPage() {
                     ))}
                   </ul>
                 ) : (
-                  <div className="mt-2 text-xs text-muted-foreground">Clear</div>
+                  <div className="mt-2 text-xs text-muted-foreground">{copy.clear}</div>
                 )}
               </div>
             ))}
@@ -534,18 +554,18 @@ export function ReportsPage() {
 
       <Tabs defaultValue="overview">
         <TabsList>
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="spending">Spending</TabsTrigger>
-          <TabsTrigger value="trends">Trends</TabsTrigger>
-          <TabsTrigger value="ratios">Ratios</TabsTrigger>
+          <TabsTrigger value="overview">{copy.overview}</TabsTrigger>
+          <TabsTrigger value="spending">{copy.spending}</TabsTrigger>
+          <TabsTrigger value="trends">{copy.trends}</TabsTrigger>
+          <TabsTrigger value="ratios">{copy.ratios}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview">
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
             <Card className="lg:col-span-2">
               <CardHeader>
-                <CardTitle>Income vs Expense</CardTitle>
-                <CardDescription>Monthly trend</CardDescription>
+                <CardTitle>{copy.incomeExpense}</CardTitle>
+                <CardDescription>{copy.monthlyTrend}</CardDescription>
               </CardHeader>
               <CardContent>
                 <SafeChart className="h-[300px]">
@@ -592,24 +612,24 @@ export function ReportsPage() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Month-over-Month</CardTitle>
-                <CardDescription>vs last month</CardDescription>
+                <CardTitle>{copy.mom}</CardTitle>
+                <CardDescription>{copy.vsLast}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-3">
                 <KpiRow
-                  label="Income"
+                  label={copy.income}
                   value={paiseToRupees(mom.thisIncome)}
                   change={incomeChange}
                   positiveGood
                 />
                 <KpiRow
-                  label="Expense"
+                  label={copy.expense}
                   value={paiseToRupees(mom.thisExpense)}
                   change={expenseChange}
                   positiveGood={false}
                 />
                 <KpiRow
-                  label="Savings"
+                  label={copy.savings}
                   value={paiseToRupees(mom.thisIncome - mom.thisExpense)}
                   change={
                     mom.lastIncome - mom.lastExpense > 0
@@ -629,15 +649,15 @@ export function ReportsPage() {
           <Card className="mt-4">
             <CardHeader className="flex-row items-center justify-between">
               <div>
-                <CardTitle>Year-over-Year Summary</CardTitle>
-                <CardDescription>Annual income vs expense</CardDescription>
+                <CardTitle>{copy.yoy}</CardTitle>
+                <CardDescription>{copy.yoyBody}</CardDescription>
               </div>
               <Button
                 size="sm"
                 variant="outline"
                 onClick={() => exportModuleToSheet("YoY_Summary", yoy)}
               >
-                <Download className="h-4 w-4" /> Export
+                <Download className="h-4 w-4" /> {copy.export}
               </Button>
             </CardHeader>
             <CardContent>
@@ -670,8 +690,15 @@ export function ReportsPage() {
           <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
             <Card>
               <CardHeader>
-                <CardTitle>Top Categories</CardTitle>
-                <CardDescription>This month</CardDescription>
+                <CardTitle>{copy.topCategories}</CardTitle>
+                <CardDescription>
+                  {copy.thisMonth}
+                  {parentTotals.length > 0
+                    ? `. ${copy.parentTotals} ${parentTotals
+                        .map((row) => `${row.name} ${formatINR(paiseToRupees(row.totalPaise), { decimals: 0 })}`)
+                        .join(", ")}`
+                    : ""}
+                </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="flex flex-col items-center gap-4 lg:flex-row">
@@ -727,8 +754,8 @@ export function ReportsPage() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Top Merchants</CardTitle>
-                <CardDescription>This month</CardDescription>
+                <CardTitle>{copy.topMerchants}</CardTitle>
+                <CardDescription>{copy.thisMonth}</CardDescription>
               </CardHeader>
               <CardContent>
                 <Table>
@@ -747,7 +774,7 @@ export function ReportsPage() {
                           colSpan={2}
                           className="text-center text-muted-foreground"
                         >
-                          No merchant data
+                          {copy.noMerchants}
                         </TableCell>
                       </TableRow>
                     ) : null}
@@ -758,23 +785,23 @@ export function ReportsPage() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Need vs Want</CardTitle>
+                <CardTitle>{copy.needWant}</CardTitle>
               </CardHeader>
               <CardContent>
                 <SplitBar
                   parts={[
                     {
-                      label: "Need",
+                      label: copy.need,
                       value: paiseToRupees(needWant.need),
                       color: "hsl(var(--income))",
                     },
                     {
-                      label: "Want",
+                      label: copy.want,
                       value: paiseToRupees(needWant.want),
                       color: "hsl(var(--expense))",
                     },
                     {
-                      label: "Unassigned",
+                      label: copy.unassigned,
                       value: paiseToRupees(needWant.unassigned),
                       color: "hsl(var(--muted-foreground))",
                     },
@@ -785,23 +812,23 @@ export function ReportsPage() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Fixed vs Variable</CardTitle>
+                <CardTitle>{copy.fixedVariable}</CardTitle>
               </CardHeader>
               <CardContent>
                 <SplitBar
                   parts={[
                     {
-                      label: "Fixed",
+                      label: copy.fixed,
                       value: paiseToRupees(fixedVar.fixed),
                       color: "hsl(var(--info))",
                     },
                     {
-                      label: "Variable",
+                      label: copy.variable,
                       value: paiseToRupees(fixedVar.variable),
                       color: "hsl(var(--warning))",
                     },
                     {
-                      label: "Unassigned",
+                      label: copy.unassigned,
                       value: paiseToRupees(fixedVar.unassigned),
                       color: "hsl(var(--muted-foreground))",
                     },
@@ -812,8 +839,8 @@ export function ReportsPage() {
 
             <Card className="lg:col-span-2">
               <CardHeader>
-                <CardTitle>Payment Mode Split</CardTitle>
-                <CardDescription>This month</CardDescription>
+                <CardTitle>{copy.paymentSplit}</CardTitle>
+                <CardDescription>{copy.thisMonth}</CardDescription>
               </CardHeader>
               <CardContent>
                 <SafeChart className="h-[240px]">
@@ -847,7 +874,7 @@ export function ReportsPage() {
         <TabsContent value="trends">
           <Card>
             <CardHeader>
-              <CardTitle>Net Cashflow Trend</CardTitle>
+              <CardTitle>{copy.netCashflow}</CardTitle>
             </CardHeader>
             <CardContent>
               <SafeChart className="h-[320px]">
@@ -913,23 +940,23 @@ export function ReportsPage() {
               return [
                 <RatioCard
                   key="sr"
-                  title="Savings Rate"
+                  title={copy.savingsRate}
                   value={formatPercent(savingsRate, 0)}
-                  target="> 20% healthy"
+                  target={copy.healthySavings}
                   good={savingsRate >= 20}
                 />,
                 <RatioCard
                   key="dti"
-                  title="Debt-to-Income"
+                  title={copy.dti}
                   value={formatPercent(dti, 0)}
-                  target="< 30% healthy"
+                  target={copy.healthyDebt}
                   good={dti < 30}
                 />,
                 <RatioCard
                   key="cu"
-                  title="Credit Utilization"
+                  title={copy.utilization}
                   value={formatPercent(util, 0)}
-                  target="< 30% healthy"
+                  target={copy.healthyDebt}
                   good={util < 30}
                 />,
               ];

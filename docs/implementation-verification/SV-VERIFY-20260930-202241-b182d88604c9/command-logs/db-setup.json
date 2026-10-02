@@ -1,0 +1,32 @@
+{
+  "ownerDbContainsTest": false,
+  "target": "sparowvault_test_svverify_b182d886",
+  "targetContainsTest": true,
+  "sentinel": "svverify_b182d886",
+  "host": "127.0.0.1",
+  "port": 3306,
+  "urlOnlyBypass": {
+    "name": "sparowvault_owner_books",
+    "containsTest": false,
+    "exitCode": 1,
+    "stderrTail": "✗ connect ECONNREFUSED 127.0.0.1:1\n",
+    "stdoutTail": "",
+    "refusedBeforeConnect": false
+  },
+  "ownerDbPresent": true,
+  "reset": {
+    "exitCode": 0,
+    "stdoutTail": [
+      "→ Connected to sparowvault_test_svverify_b182d886",
+      "→ Dropping all tables…",
+      "→ Applying sql\\production_schema.sql…",
+      "→ Applying sql\\migrations\\all_phases_combined.sql…",
+      "✓ Test DB reset (schema-only, no user data).",
+      ""
+    ],
+    "stderrTail": ""
+  },
+  "connectedDatabase": "sparowvault_test_svverify_b182d886",
+  "tableCount": 33,
+  "ownerTableCountAfter": 66
+}

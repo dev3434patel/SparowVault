@@ -28,6 +28,8 @@ export interface PendingTransactionFilters {
   dateFrom?: string;
   dateTo?: string;
   types?: TransactionType[];
+  /** Statement receipt: show only these imported transaction ids. */
+  ids?: string[];
 }
 
 export interface ConfirmRequest {

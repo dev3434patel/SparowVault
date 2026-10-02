@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { PageHeader } from "@/components/layout/PageHeader";
+import { PersonalPageHeader } from "@/components/layout/PageHeader";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { confirmSubscriptionPayment, createSubscriptionOrder, fetchPlans, getMySubscription } from "@/lib/cloud/saasClient";
 import { useUIStore } from "@/store/uiStore";
+import { useMessages } from "@/i18n/useMessages";
 
 declare global {
   interface Window {
@@ -12,10 +13,12 @@ declare global {
 }
 
 export function SubscriptionPage() {
+  const paymentsOn = import.meta.env.VITE_ENABLE_RAZORPAY === "true";
   const [plans, setPlans] = useState<Array<Record<string, unknown>>>([]);
   const [current, setCurrent] = useState<Record<string, unknown> | null>(null);
   const [loadingPlanId, setLoadingPlanId] = useState<number | null>(null);
   const toast = useUIStore((s) => s.toast);
+  const copy = useMessages().ui.subscription;
 
   useEffect(() => {
     fetchPlans().then(setPlans).catch(() => setPlans([]));
@@ -28,7 +31,7 @@ export function SubscriptionPage() {
       const script = document.createElement("script");
       script.src = "https://checkout.razorpay.com/v1/checkout.js";
       script.onload = () => resolve();
-      script.onerror = () => reject(new Error("Failed to load Razorpay checkout"));
+      script.onerror = () => reject(new Error(copy.scriptFailed));
       document.body.appendChild(script);
     });
   }
@@ -41,14 +44,14 @@ export function SubscriptionPage() {
         const latest = await getMySubscription();
         setCurrent(latest.subscription);
         toast({
-          title: "Downgrade scheduled",
-          description: out.message ?? "Your current paid period stays active until renewal.",
+          title: copy.downgrade,
+          description: out.message ?? copy.downgradeBody,
           kind: "success",
         });
         return;
       }
       if (!out.order || !out.razorpayKeyId) {
-        throw new Error("Payment order was not created");
+        throw new Error(copy.orderMissing);
       }
       await ensureRazorpayScript();
       const rz = new window.Razorpay!({
@@ -57,7 +60,7 @@ export function SubscriptionPage() {
         amount: out.order.amount,
         currency: out.order.currency,
         name: "SparowVault",
-        description: "Subscription payment",
+        description: copy.paymentDescription,
         handler: async (resp: Record<string, string>) => {
           await confirmSubscriptionPayment({
             razorpay_order_id: resp.razorpay_order_id,
@@ -66,12 +69,12 @@ export function SubscriptionPage() {
           });
           const latest = await getMySubscription();
           setCurrent(latest.subscription);
-          toast({ title: "Subscription activated", kind: "success" });
+          toast({ title: copy.activated, kind: "success" });
         },
       });
       rz.open();
     } catch (e) {
-      toast({ title: e instanceof Error ? e.message : "Unable to create order", kind: "error" });
+      toast({ title: e instanceof Error ? e.message : copy.orderFailed, kind: "error" });
     } finally {
       setLoadingPlanId(null);
     }
@@ -79,12 +82,12 @@ export function SubscriptionPage() {
 
   return (
     <div>
-      <PageHeader title="Subscription" description="View plans and manage your active subscription." />
+      <PersonalPageHeader screen="subscription" />
       {current ? (
         <Card className="mb-4">
-          <CardHeader><CardTitle>Current plan</CardTitle></CardHeader>
+          <CardHeader><CardTitle>{copy.currentPlan}</CardTitle></CardHeader>
           <CardContent className="text-sm text-muted-foreground">
-            {String(current.plan_name ?? "Unknown")} ({String(current.status ?? "pending")})
+            {String(current.plan_name ?? copy.unknown)} ({String(current.status ?? copy.pending)})
           </CardContent>
         </Card>
       ) : null}
@@ -95,9 +98,15 @@ export function SubscriptionPage() {
             <CardContent className="space-y-2">
               <div className="text-sm text-muted-foreground">{String(plan.description ?? "")}</div>
               <div className="text-lg font-semibold">Rs {String(plan.price_inr)}</div>
-              <Button loading={loadingPlanId === Number(plan.id)} onClick={() => buyPlan(Number(plan.id))}>
-                Buy {String(plan.code)}
-              </Button>
+              {paymentsOn ? (
+                <Button loading={loadingPlanId === Number(plan.id)} onClick={() => buyPlan(Number(plan.id))}>
+                  {copy.buy} {String(plan.code)}
+                </Button>
+              ) : (
+                <p className="text-xs text-muted-foreground">
+                  {copy.checkoutOff}
+                </p>
+              )}
             </CardContent>
           </Card>
         ))}

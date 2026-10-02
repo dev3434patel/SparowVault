@@ -1,0 +1,11 @@
+{
+  "releaseRun": "20261003-personal-os-0048c3",
+  "decision": "LOCAL_REMEDIATION_REQUIRED",
+  "sourceCommit": "6395ec9",
+  "artifactSha256": "664D1BC8DF2A713E6554CAC47314E6FF01C411B4324F446F51ECA69C07412D58",
+  "artifactPath": "release/hosting-bundle.zip",
+  "artifactNote": "Built by npm run host:package after the household and statement patches. Extract, OCR, and Personal restore were not run on this archive.",
+  "schemaMigration": "sql/migrations/20261003_personal_household_grants.sql",
+  "disposableDatabase": "sparowvault_test",
+  "ownerDatabaseMutated": false
+}

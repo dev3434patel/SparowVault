@@ -1,4 +1,4 @@
-PHASE_06 KEYBOARD 2026-09-24T18:45:37.948Z
+PHASE_06 KEYBOARD 2026-10-01T13:07:35.177Z
 BASE=http://localhost:5173 USER=cert_211549
 PASS login:focus-username
 PASS login:tab-to-submit
@@ -23,3 +23,16 @@ PASS sheet:tab-inside
 PASS sheet:escape-closes
 PASS logout:keyboard — http://localhost:5173/company/login
 KEYBOARD SUMMARY pass=22 fail=0 total=22
+
+--- AXE SCAN 2026-10-01T13:08:37.558Z ---
+PASS axe:login serious=0 total=0
+PASS axe:select-company serious=0 total=0
+PASS axe:dashboard serious=0 total=0
+PASS axe:parties serious=0 total=0
+PASS axe:vouchers serious=0 total=0
+PASS axe:quick-received serious=0 total=0
+PASS axe:receivables serious=0 total=0
+PASS axe:reports serious=0 total=0
+PASS axe:approvals serious=0 total=0
+PASS axe:settings serious=0 total=0
+AXE SUMMARY pages=10 serious_critical=0 pass=10

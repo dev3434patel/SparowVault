@@ -1,0 +1,20 @@
+{
+  "document": "RELEASE_APPROVAL",
+  "releaseRun": "20261003-personal-os-0048c3",
+  "approved": false,
+  "signedBy": null,
+  "staging": {
+    "target": null,
+    "access": null,
+    "authorized": false
+  },
+  "production": {
+    "target": null,
+    "artifactSha256": null,
+    "migrations": ["sql/migrations/20261003_personal_household_grants.sql"],
+    "rollout": null,
+    "rollbackAuthority": null,
+    "authorized": false
+  },
+  "note": "Unapproved. An agent must not sign this file."
+}

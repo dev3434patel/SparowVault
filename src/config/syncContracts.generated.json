@@ -1010,7 +1010,8 @@
         "customPaymentModes",
         "budgetThresholds",
         "quickAddDefaults",
-        "warningPreferences"
+        "warningPreferences",
+        "language"
       ],
       "hotFields": [
         "source_device_id",
@@ -1146,7 +1147,10 @@
         "tags",
         "notes",
         "sourceDeviceId",
-        "schemaVersion"
+        "schemaVersion",
+        "minimumDueEvidence",
+        "feesEvidence",
+        "interestEvidence"
       ],
       "hotFields": [
         "source_device_id",
@@ -1162,7 +1166,9 @@
         "userId must match authenticated user_id",
         "isDeleted must be 0, 1, true, or false",
         "payload must fit max row JSON size",
-        "statement money fields must be paise integers"
+        "opening, closing, retail, payments, and credits are paise integers",
+        "minimumDuePaise, feesPaise, and interestPaise are non-negative paise integers when observed and null when not_observed",
+        "estimated and user_confirmed must not replace source_observed"
       ]
     },
     {

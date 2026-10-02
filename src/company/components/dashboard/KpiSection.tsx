@@ -2,13 +2,11 @@ import { KpiCard } from "@/company/components/KpiCard";
 import { CompanyMoney } from "@/company/components/CompanyMoney";
 import { SkeletonKpiRow } from "@/company/components/CompanySkeleton";
 import { companyNavigate, companyPath } from "@/company/routes";
-import type { periodRange } from "@/company/lib/fy";
+import type { PeriodKind } from "@/company/hooks/useDashboardData";
 import { useI18n } from "@/company/i18n/react";
 
-type Range = ReturnType<typeof periodRange>;
-
 type KpiSectionProps = {
-  range: Range;
+  period: PeriodKind;
   loading: boolean;
   initialLoading: boolean;
   load: () => void | Promise<void>;
@@ -29,7 +27,7 @@ type KpiSectionProps = {
 };
 
 export function KpiSection({
-  range,
+  period,
   loading,
   initialLoading,
   load,
@@ -70,7 +68,7 @@ export function KpiSection({
                   <CompanyMoney paise={cashBankSplit.cash} className="text-[11px] font-medium" />
                 </>
               }
-              definition="Closing cash and bank ledger balances (as of today). Not profit."
+              definition={t("dashboard.kpiCashBank")}
               onClick={() => companyNavigate(companyPath("cash-bank"))}
             />
             <KpiCard
@@ -82,11 +80,11 @@ export function KpiSection({
               semantic={arOverdue > 0 ? "overdue" : "credit"}
               subline={
                 <>
-                  Overdue <CompanyMoney paise={arOverdue} semantic="overdue" className="text-[11px] font-medium" /> ·
-                  Due 7d <CompanyMoney paise={arSoon} className="text-[11px] font-medium" />
+                  {t("dashboard.overdueLabel")} <CompanyMoney paise={arOverdue} semantic="overdue" className="text-[11px] font-medium" /> ·
+                  {t("dashboard.due7d")} <CompanyMoney paise={arSoon} className="text-[11px] font-medium" />
                 </>
               }
-              definition="Open receivable bill outstanding after allocations."
+              definition={t("dashboard.kpiReceivables")}
               onClick={() => companyNavigate(companyPath("receivables"))}
             />
             <KpiCard
@@ -98,20 +96,22 @@ export function KpiSection({
               semantic={apOverdue > 0 ? "overdue" : "neutral"}
               subline={
                 <>
-                  Overdue <CompanyMoney paise={apOverdue} semantic="overdue" className="text-[11px] font-medium" /> ·
-                  Due 7d <CompanyMoney paise={apSoon} className="text-[11px] font-medium" />
+                  {t("dashboard.overdueLabel")} <CompanyMoney paise={apOverdue} semantic="overdue" className="text-[11px] font-medium" /> ·
+                  {t("dashboard.due7d")} <CompanyMoney paise={apSoon} className="text-[11px] font-medium" />
                 </>
               }
-              definition="Open payable bill outstanding after allocations."
+              definition={t("dashboard.kpiPayables")}
               onClick={() => companyNavigate(companyPath("payables"))}
             />
             <KpiCard
-              label="Net party position"
+              label={t("dashboard.netParty")}
               paise={ar - ap}
               loading={loading}
+              error={errs.ar || errs.ap}
+              onRetry={load}
               semantic={ar - ap >= 0 ? "profit" : "loss"}
-              subline="AR − AP across parties"
-              definition="Receivables minus payables. Not company profit or bank balance."
+              subline={t("dashboard.netPartySub")}
+              definition={t("dashboard.kpiNetParty")}
               onClick={() => companyNavigate(companyPath("parties"))}
             />
           </div>
@@ -120,7 +120,7 @@ export function KpiSection({
 
       <div className="space-y-2">
         <h2 className="text-xs font-semibold uppercase tracking-[0.08em] text-muted-foreground">
-          Period performance · {range.label}
+          {t("dashboard.kpiPeriod", { label: t(`dashboard.period.${period}`) })}
         </h2>
         {initialLoading ? (
           <SkeletonKpiRow count={5} />
@@ -133,15 +133,17 @@ export function KpiSection({
               error={errs.flow}
               onRetry={load}
               semantic="credit"
-              definition="Cash/bank inflows (receipts) in the selected period — not the same as P&L income."
+              definition={t("dashboard.kpiMoneyIn")}
               onClick={() => companyNavigate(companyPath("day-book"))}
             />
             <KpiCard
               label={t("dashboard.moneyOut")}
               paise={moneyOut}
               loading={loading}
+              error={errs.flow}
+              onRetry={load}
               semantic="debit"
-              definition="Cash/bank outflows (payments) in the selected period — not the same as P&L expense."
+              definition={t("dashboard.kpiMoneyOut")}
               onClick={() => companyNavigate(companyPath("day-book"))}
             />
             <KpiCard
@@ -151,23 +153,27 @@ export function KpiSection({
               error={errs.pnl}
               onRetry={load}
               semantic="profit"
-              definition="P&L income accounts for the selected period."
+              definition={t("dashboard.kpiIncome")}
               onClick={() => companyNavigate(companyPath("report-view", { reportKey: "profit-loss" }))}
             />
             <KpiCard
               label={t("dashboard.expense")}
               paise={expense}
               loading={loading}
+              error={errs.pnl}
+              onRetry={load}
               semantic="loss"
-              definition="P&L expense accounts for the selected period."
+              definition={t("dashboard.kpiExpense")}
               onClick={() => companyNavigate(companyPath("report-view", { reportKey: "profit-loss" }))}
             />
             <KpiCard
               label={t("dashboard.profit")}
               paise={Math.abs(profit)}
               loading={loading}
+              error={errs.pnl}
+              onRetry={load}
               semantic={profit >= 0 ? "profit" : "loss"}
-              definition="Income minus Expense for the selected period."
+              definition={t("dashboard.kpiProfit")}
               onClick={() => companyNavigate(companyPath("report-view", { reportKey: "profit-loss" }))}
             />
           </div>

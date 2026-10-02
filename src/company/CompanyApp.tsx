@@ -75,6 +75,12 @@ const AuditPage = lazy(() =>
 const ExportPage = lazy(() =>
   import("@/company/pages/ExportPage").then((m) => ({ default: m.ExportPage })),
 );
+const ModulesPage = lazy(() =>
+  import("@/company/pages/ModulesPage").then((m) => ({ default: m.ModulesPage })),
+);
+const InvoiceDocumentPage = lazy(() =>
+  import("@/company/pages/InvoiceDocumentPage").then((m) => ({ default: m.InvoiceDocumentPage })),
+);
 const SearchPage = lazy(() =>
   import("@/company/pages/SearchPage").then((m) => ({ default: m.SearchPage })),
 );
@@ -111,6 +117,12 @@ function CompanyRouter() {
     return () => window.removeEventListener("popstate", onPop);
   }, []);
 
+  useEffect(() => {
+    if (!currentUser) return;
+    if (pathToCompanyRoute(path).key !== "login") return;
+    companyNavigate(companyPath("select"), true);
+  }, [currentUser, path]);
+
   const route = pathToCompanyRoute(path);
 
   if (!currentUser) {
@@ -123,8 +135,11 @@ function CompanyRouter() {
   }
 
   if (route.key === "login") {
-    queueMicrotask(() => companyNavigate(companyPath("select"), true));
-    return null;
+    return (
+      <div className="flex min-h-screen items-center justify-center text-sm text-muted-foreground">
+        {t("common.loadingWorkspace")}
+      </div>
+    );
   }
 
   if (!hydrated) {
@@ -175,7 +190,7 @@ function CompanyRouter() {
       page = <DashboardPage />;
       break;
     case "day-book":
-      page = <ReportViewPage reportKey="day-book" />;
+      page = <ReportViewPage key="day-book" reportKey="day-book" />;
       break;
     case "parties":
       page = <PartiesPage startCreating={route.params.create === "1"} />;
@@ -220,7 +235,7 @@ function CompanyRouter() {
       page = <ReportsHubPage />;
       break;
     case "report-view":
-      page = <ReportViewPage reportKey={route.params.reportKey} />;
+      page = <ReportViewPage key={route.params.reportKey ?? ""} reportKey={route.params.reportKey ?? ""} />;
       break;
     case "masters":
     case "masters-business-units":
@@ -244,6 +259,12 @@ function CompanyRouter() {
       break;
     case "export":
       page = <ExportPage />;
+      break;
+    case "modules":
+      page = <ModulesPage />;
+      break;
+    case "invoices":
+      page = <InvoiceDocumentPage />;
       break;
     case "search":
       page = <SearchPage />;

@@ -4,13 +4,19 @@
 
 export type SyncOutboxState = "pending" | "syncing" | "synced" | "conflict" | "failed";
 
+/** Local apply of a server-committed statement import. Stored on the existing outbox, not a second job system. */
+export type StatementApplyPhase = "DELIVERY_UNKNOWN" | "SERVER_COMMITTED" | "LOCAL_APPLY_PENDING" | "LOCAL_APPLIED";
+
 export interface SyncOutboxItem {
   id: string;
   collection: string;
   entityId: string;
-  state: SyncOutboxState;
+  state: SyncOutboxState | StatementApplyPhase;
   updatedAt: string;
   error?: string;
+  userId?: string;
+  /** JSON receipt for statementImports. Absent on ordinary sync rows. */
+  detail?: string;
 }
 
 const LS_KEY = "sparowvault_sync_outbox_v1";
@@ -89,8 +95,29 @@ export function markSyncOutboxState(
 
 export function listPendingSyncOutbox(): SyncOutboxItem[] {
   return [...outbox.values()].filter(
-    (i) => i.state === "pending" || i.state === "failed" || i.state === "syncing" || i.state === "conflict",
+    (i) =>
+      i.state === "pending" ||
+      i.state === "failed" ||
+      i.state === "syncing" ||
+      i.state === "conflict" ||
+      i.state === "DELIVERY_UNKNOWN" ||
+      i.state === "SERVER_COMMITTED" ||
+      i.state === "LOCAL_APPLY_PENDING",
   );
+}
+
+export function upsertOutboxItem(item: SyncOutboxItem): SyncOutboxItem {
+  outbox.set(item.id, item);
+  persist();
+  return item;
+}
+
+export function readOutboxItem(id: string): SyncOutboxItem | undefined {
+  return outbox.get(id);
+}
+
+export function listOutboxByCollection(collection: string): SyncOutboxItem[] {
+  return [...outbox.values()].filter((item) => item.collection === collection);
 }
 
 export function pendingSyncCount(): number {

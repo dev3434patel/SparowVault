@@ -29,7 +29,12 @@ import { PaydayCashflowPanel } from "@/components/finance/PaydayCashflowPanel";
 import { buildCashflowSurvivalReport } from "@/services/cashflowSurvivalEngine";
 import { buildEmergencyFundIntel } from "@/services/emergencyFundEngine";
 import { summarizeGoalsAtRisk } from "@/services/goalEngine";
+import {
+  personalDashboardSections,
+  sharedFamilyKpis,
+} from "@/services/personalBookWorkflows";
 import { smartBudgetStatuses } from "@/services/smartBudgetEngine";
+import { useMessages } from "@/i18n/useMessages";
 import { formatDate, formatINR, formatINRCompact, formatPercent, formatRelativeDue } from "@/lib/format";
 import { endOfMonth, startOfMonth } from "date-fns";
 import {
@@ -368,12 +373,15 @@ export function DashboardPage() {
     );
   }, [aiSuggestions]);
 
+  const messages = useMessages();
+  const d = messages.ui.dashboard;
+  const kpi = messages.copy.dashboardKpi;
   const greeting = useMemo(() => {
     const h = today.getHours();
-    if (h < 12) return "Good morning";
-    if (h < 17) return "Good afternoon";
-    return "Good evening";
-  }, [today]);
+    if (h < 12) return messages.dashboard.morning;
+    if (h < 17) return messages.dashboard.afternoon;
+    return messages.dashboard.evening;
+  }, [today, messages]);
 
   const recentTx = transactions.slice(0, 6);
   const activeAlerts = alerts.filter((a) => !a.dismissed).slice(0, 4);
@@ -406,28 +414,28 @@ export function DashboardPage() {
   return (
     <div className="dashboard-print-root space-y-6 print:text-black">
       <PageHeader
-        title={`${greeting}, ${user?.displayName?.split(" ")[0] ?? "there"}.`}
-        description={`Here's your money snapshot for ${formatDate(today, "MMMM yyyy")}. KPI source: ${stats.calculationSource === "ledger" ? "ledger" : "transaction fallback"}.`}
+        title={`${greeting}, ${user?.displayName?.split(" ")[0] ?? d.there}.`}
+        description={`${messages.dashboard.snapshotFor} ${formatDate(today, "MMMM yyyy")}.`}
         actions={
           <>
             <Select value={dashboardMode} onValueChange={(v) => setDashboardMode(v as typeof dashboardMode)}>
               <SelectTrigger className="h-8 w-[130px] text-xs no-print">
-                <SelectValue placeholder="Mode" />
+                <SelectValue placeholder={d.mode} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="essential">Essential</SelectItem>
-                <SelectItem value="family">Family</SelectItem>
-                <SelectItem value="wealth">Wealth</SelectItem>
-                <SelectItem value="basic">Basic view</SelectItem>
-                <SelectItem value="normal">Normal view</SelectItem>
-                <SelectItem value="premium">Premium view</SelectItem>
+                <SelectItem value="essential">{messages.modes.essential}</SelectItem>
+                <SelectItem value="family">{messages.modes.family}</SelectItem>
+                <SelectItem value="wealth">{messages.modes.wealth}</SelectItem>
+                <SelectItem value="basic">{messages.modes.basic}</SelectItem>
+                <SelectItem value="normal">{messages.modes.normal}</SelectItem>
+                <SelectItem value="premium">{messages.modes.premium}</SelectItem>
               </SelectContent>
             </Select>
             <Button variant="outline" size="sm" onClick={() => setActive("reports")}>
-              <TrendingUp className="h-4 w-4" /> Reports
+              <TrendingUp className="h-4 w-4" /> {d.reports}
             </Button>
             <Button variant="outline" size="sm" onClick={() => setActive("export")}>
-              Export
+              {d.export}
             </Button>
           </>
         }
@@ -436,16 +444,15 @@ export function DashboardPage() {
       {isNewUser ? (
         <Card className="border-dashed border-primary/40 bg-primary/5">
           <CardHeader>
-            <CardTitle>Start with three basics</CardTitle>
+            <CardTitle>{d.startBasics}</CardTitle>
             <CardDescription>
-              Add one bank or cash account, review categories, then add your first income or expense. The dashboard
-              will become useful as soon as it has real records.
+              {d.startBasicsBody}
             </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-wrap gap-2">
-            <Button size="sm" onClick={() => setActive("accounts")}>Add account</Button>
-            <Button size="sm" variant="outline" onClick={() => setActive("categories")}>Review categories</Button>
-            <Button size="sm" variant="outline" onClick={() => setActive("transactions")}>Add transaction</Button>
+            <Button size="sm" onClick={() => setActive("accounts")}>{d.addAccount}</Button>
+            <Button size="sm" variant="outline" onClick={() => setActive("categories")}>{d.reviewCategories}</Button>
+            <Button size="sm" variant="outline" onClick={() => setActive("transactions")}>{d.addTransaction}</Button>
           </CardContent>
         </Card>
       ) : null}
@@ -454,11 +461,11 @@ export function DashboardPage() {
         <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
           <KpiCard
             icon={<Wallet className="h-4 w-4" />}
-            label="Money left (after bills in window)"
+            label={kpi.moneyLeft}
             value={formatINR(paiseToRupees(stats.survival.disposableAfterBillsPaise))}
             tone="info"
             explainSpec={{
-              title: "Money left (after bills in window)",
+              title: kpi.moneyLeft,
               formula:
                 "Cash in spendable accounts + expected income in window − EMIs, recurring bills, card minimums, goal auto-debits, and udhari payable counted in this window.",
               included: [
@@ -485,11 +492,11 @@ export function DashboardPage() {
           />
           <KpiCard
             icon={<IndianRupee className="h-4 w-4" />}
-            label="Safe daily spend (core)"
+            label={kpi.safeDaily}
             value={`${formatINR(paiseToRupees(stats.survival.safeDailyCorePaise))}/day`}
             tone="income"
             explainSpec={{
-              title: "Safe daily spend (core)",
+              title: kpi.safeDaily,
               formula:
                 "(Cash + expected inflow − dated bills excluding informal udhari lump) ÷ days in the window.",
               included: ["EMI, recurring bills, card minimums due in window", "Goal auto-debits scheduled"],
@@ -498,16 +505,16 @@ export function DashboardPage() {
           />
           <Card>
             <CardHeader className="pb-2">
-              <CardTitle className="text-base">Bills & dues</CardTitle>
-              <CardDescription>Quick checklist</CardDescription>
+              <CardTitle className="text-base">{d.bills}</CardTitle>
+              <CardDescription>{d.checklist}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-2 text-sm">
               <div className="flex justify-between border-b border-border py-1">
-                <span className="text-muted-foreground">Items in bill window</span>
+                <span className="text-muted-foreground">{d.billWindow}</span>
                 <span className="font-medium tabular-nums">{stats.billsDueCount}</span>
               </div>
               <div className="flex justify-between py-1">
-                <span className="text-muted-foreground">EMI due (this month)</span>
+                <span className="text-muted-foreground">{d.emiDue}</span>
                 <button
                   type="button"
                   className="font-medium tabular-nums text-primary hover:underline"
@@ -517,7 +524,7 @@ export function DashboardPage() {
                 </button>
               </div>
               <div className="flex justify-between py-1">
-                <span className="text-muted-foreground">Card statement balance</span>
+                <span className="text-muted-foreground">{d.cardBalance}</span>
                 <button
                   type="button"
                   className="font-medium tabular-nums text-primary hover:underline"
@@ -527,7 +534,7 @@ export function DashboardPage() {
                 </button>
               </div>
               <div className="flex justify-between py-1">
-                <span className="text-muted-foreground">Udhari you owe</span>
+                <span className="text-muted-foreground">{d.udhariOwe}</span>
                 <button
                   type="button"
                   className="font-medium tabular-nums text-primary hover:underline"
@@ -540,8 +547,8 @@ export function DashboardPage() {
           </Card>
           <Card className="md:col-span-2 lg:col-span-3">
             <CardHeader className="pb-2">
-              <CardTitle className="text-base">Top suggestion</CardTitle>
-              <CardDescription>From your suggestion center (rule-based)</CardDescription>
+              <CardTitle className="text-base">{d.topSuggestion}</CardTitle>
+              <CardDescription>{d.suggestionFrom}</CardDescription>
             </CardHeader>
             <CardContent className="text-sm">
               {topSuggestion ? (
@@ -573,12 +580,12 @@ export function DashboardPage() {
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
           <KpiCard
             icon={<ArrowUpRight className="h-4 w-4" />}
-            label="True income"
+            label={kpi.trueIncome}
             value={formatINR(paiseToRupees(stats.totalIncome))}
             tone="income"
             onClick={() => setActive("income")}
             explainSpec={{
-              title: "True income this month",
+              title: kpi.trueIncomeTitle,
               formula:
                 "Sum of genuine income effects from the ledger (salary, business, interest, etc.).",
               included: ["Income-category ledger effects dated this month"],
@@ -592,12 +599,12 @@ export function DashboardPage() {
           />
           <KpiCard
             icon={<ArrowDownRight className="h-4 w-4" />}
-            label="Consumption expense"
+            label={kpi.consumption}
             value={formatINR(paiseToRupees(stats.totalExpense))}
             tone="expense"
             onClick={() => setActive("expenses")}
             explainSpec={{
-              title: "Consumption expense this month",
+              title: kpi.consumptionTitle,
               formula:
                 "Sum of expense-category ledger effects (purchases, interest, fees, bad debt).",
               included: ["Recorded consumption and financing charges dated this month"],
@@ -618,12 +625,12 @@ export function DashboardPage() {
           />
           <KpiCard
             icon={<PiggyBank className="h-4 w-4" />}
-            label="Operating surplus"
+            label={kpi.surplus}
             value={formatINR(paiseToRupees(stats.net))}
             tone={stats.net >= 0 ? "income" : "expense"}
             sub={`${formatPercent(stats.rate)} of true income`}
             explainSpec={{
-              title: "Operating surplus",
+              title: kpi.surplus,
               formula: "True income − consumption expense. Money generated before reallocating among assets and liabilities.",
               included: ["Genuine income minus consumption and financing charges in P&L view"],
               excluded: ["Transfers, principal repayments, and asset moves — see net liquid change"],
@@ -631,13 +638,13 @@ export function DashboardPage() {
           />
           <KpiCard
             icon={<Wallet className="h-4 w-4" />}
-            label="Bank & cash"
+            label={kpi.bankCash}
             value={formatINRCompact(paiseToRupees(stats.bankEstimate + stats.cashInHand))}
             tone="info"
             sub={`Cash ${formatINRCompact(paiseToRupees(stats.cashInHand))}`}
             onClick={() => setActive("accounts")}
             explainSpec={{
-              title: "Bank & cash",
+              title: kpi.bankCash,
               formula:
                 "Sum of derived balances for non-cash spendable account types + cash-type accounts, from posted transactions.",
               included: ["Bank, UPI wallet, savings, current, etc. per account rules"],
@@ -658,11 +665,63 @@ export function DashboardPage() {
         />
       )}
 
+      {personalDashboardSections(dashboardMode).includes("essentials") ? (
+        <Card>
+          <CardHeader>
+            <CardTitle>{messages.modes.essential}</CardTitle>
+            <CardDescription>{d.essentialBody}</CardDescription>
+          </CardHeader>
+          <CardContent className="grid gap-3 sm:grid-cols-2">
+            <div>
+              <div className="text-xs text-muted-foreground">{messages.dashboard.bankAndCash}</div>
+              <div className="text-lg font-semibold">{formatINR(paiseToRupees(stats.bankEstimate + stats.cashInHand))}</div>
+            </div>
+            <div>
+              <div className="text-xs text-muted-foreground">{d.moneyLeft}</div>
+              <div className="text-lg font-semibold">{formatINR(paiseToRupees(stats.survival.disposableAfterBillsPaise))}</div>
+            </div>
+          </CardContent>
+        </Card>
+      ) : null}
+
+      {personalDashboardSections(dashboardMode).includes("family") ? (
+        <Card>
+          <CardHeader>
+            <CardTitle>{messages.modes.family}</CardTitle>
+            <CardDescription>{d.familyBody}</CardDescription>
+          </CardHeader>
+          <CardContent className="flex flex-wrap items-center justify-between gap-3">
+            <div className="text-lg font-semibold">
+              {formatINR(paiseToRupees(sharedFamilyKpis(transactions).surplusPaise))} surplus
+            </div>
+            <Button variant="outline" size="sm" onClick={() => setActive("household")}>{d.openHousehold}</Button>
+          </CardContent>
+        </Card>
+      ) : null}
+
+      {personalDashboardSections(dashboardMode).includes("wealth") ? (
+        <Card>
+          <CardHeader>
+            <CardTitle>{messages.modes.wealth}</CardTitle>
+            <CardDescription>
+              {d.wealthBody}
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <div className="text-xs text-muted-foreground">{d.netWorth}</div>
+              <div className="text-lg font-semibold">{formatINR(paiseToRupees(stats.netWorthPaise))}</div>
+            </div>
+            <Button variant="outline" size="sm" onClick={() => setActive("savings")}>{d.openWealth}</Button>
+          </CardContent>
+        </Card>
+      ) : null}
+
       {dashboardMode === "premium" ? (
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4 print:grid-cols-2">
           <KpiCard
             icon={<ShieldCheck className="h-4 w-4" />}
-            label="Net worth (approx.)"
+            label={kpi.netWorth}
             value={formatINRCompact(paiseToRupees(stats.netWorthPaise))}
             tone={stats.netWorthPaise >= 0 ? "income" : "expense"}
             explainSpec={{
@@ -675,11 +734,11 @@ export function DashboardPage() {
           />
           <KpiCard
             icon={<CreditCard className="h-4 w-4" />}
-            label="Debt to assets %"
+            label={kpi.debtAssets}
             value={formatPercent(stats.debtToAssetPct, 0)}
             tone={stats.debtToAssetPct > 60 ? "expense" : "info"}
             explainSpec={{
-              title: "Debt to assets",
+              title: kpi.debtAssetsTitle,
               formula: "(Total liabilities ÷ max(total assets,1)) × 100.",
               included: ["Loan outstanding principal", "Credit card outstanding"],
               excluded: ["Informal udhari in headline assets unless included elsewhere"],
@@ -687,11 +746,11 @@ export function DashboardPage() {
           />
           <KpiCard
             icon={<AlertCircle className="h-4 w-4" />}
-            label="Tax-flagged rows"
+            label={kpi.taxRows}
             value={String(stats.taxFlagCount)}
             tone="warning"
             explainSpec={{
-              title: "Tax-flagged transactions",
+              title: kpi.taxRowsTitle,
               formula: "Count of transactions in this month with taxFlag = yes.",
               included: ["Rows you marked tax-relevant"],
               excluded: ["Business expenses without tax flag"],
@@ -699,12 +758,12 @@ export function DashboardPage() {
           />
           <KpiCard
             icon={<Banknote className="h-4 w-4" />}
-            label="Business vs personal spend"
+            label={kpi.businessPersonal}
             value={`${formatINRCompact(paiseToRupees(stats.bizExpensePaise))} / ${formatINRCompact(paiseToRupees(stats.personalExpensePaise))}`}
             tone="info"
             sub={`Missing bills (biz): ${stats.missingBillCount}`}
             explainSpec={{
-              title: "Business vs personal expense",
+              title: kpi.businessPersonalTitle,
               formula: "Separate sums of expense transactions tagged business vs personal this month.",
               included: ["Expense type rows with matching tag"],
               excluded: ["Mixed tag split 50/50 — here counted only when explicitly personal or business"],
@@ -714,30 +773,54 @@ export function DashboardPage() {
       ) : null}
 
       {/* Phase 10 — survival, emergency, smart budget, goal risk */}
-      {dashboardMode !== "basic" ? (
+      {dashboardMode === "family" ? (
+        <Card>
+          <CardHeader>
+            <CardTitle>{messages.modes.family}</CardTitle>
+            <CardDescription>{d.familyShared}</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Button size="sm" onClick={() => setActive("household")}>{d.openHousehold}</Button>
+          </CardContent>
+        </Card>
+      ) : null}
+
+      {dashboardMode === "wealth" ? (
+        <Card>
+          <CardHeader>
+            <CardTitle>{messages.modes.wealth}</CardTitle>
+            <CardDescription>{d.wealthSeparate}</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Button size="sm" onClick={() => setActive("savings")}>{d.openSavings}</Button>
+          </CardContent>
+        </Card>
+      ) : null}
+
+      {dashboardMode !== "basic" && dashboardMode !== "essential" ? (
       <>
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
         <Card>
           <CardHeader>
-            <CardTitle>Cashflow survival</CardTitle>
-            <CardDescription>Until next income — safe daily spend (excludes credit limits)</CardDescription>
+            <CardTitle>{d.survival}</CardTitle>
+            <CardDescription>{d.survivalBody}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3 text-sm">
             <div className="grid grid-cols-2 gap-2">
               <div className="rounded-lg bg-surface-2 p-3">
-                <div className="text-xs text-muted-foreground">Headroom</div>
+                <div className="text-xs text-muted-foreground">{d.headroom}</div>
                 <div className="text-lg font-semibold tabular-nums text-income">
                   {formatINR(paiseToRupees(stats.survival.disposableAfterBillsPaise))}
                 </div>
               </div>
               <div className="rounded-lg bg-surface-2 p-3">
-                <div className="text-xs text-muted-foreground">Days in window</div>
+                <div className="text-xs text-muted-foreground">{d.daysWindow}</div>
                 <div className="text-lg font-semibold tabular-nums">
                   {stats.survival.daysUntilNextIncome}
                 </div>
               </div>
               <div className="rounded-lg bg-surface-2 p-3">
-                <div className="text-xs text-muted-foreground">Safe / day</div>
+                <div className="text-xs text-muted-foreground">{d.safeDay}</div>
                 <div className="text-lg font-semibold tabular-nums text-primary">
                   {formatINR(paiseToRupees(stats.survival.safeDailySpendPaise))}
                 </div>
@@ -749,7 +832,7 @@ export function DashboardPage() {
                 ) : null}
               </div>
               <div className="rounded-lg bg-surface-2 p-3">
-                <div className="text-xs text-muted-foreground">Cash in bank-style</div>
+                <div className="text-xs text-muted-foreground">{d.cashBank}</div>
                 <div className="text-lg font-semibold tabular-nums">
                   {formatINRCompact(paiseToRupees(stats.survival.cashAvailablePaise))}
                 </div>
@@ -757,7 +840,7 @@ export function DashboardPage() {
             </div>
             {stats.survival.breakdown.length > 0 ? (
               <div>
-                <div className="mb-1 text-xs font-medium text-muted-foreground">Bills in window</div>
+                <div className="mb-1 text-xs font-medium text-muted-foreground">{d.billsWindow}</div>
                 <ul className="max-h-28 space-y-1 overflow-y-auto text-xs">
                   {stats.survival.breakdown.slice(0, 6).map((b, i) => (
                     <li key={i} className="flex justify-between gap-2">
@@ -783,13 +866,13 @@ export function DashboardPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Safety &amp; goals</CardTitle>
-            <CardDescription>Emergency runway, budget pace, off-track goals</CardDescription>
+            <CardTitle>{d.safety}</CardTitle>
+            <CardDescription>{d.safetyBody}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4 text-sm">
             <div>
               <div className="mb-1 flex items-center justify-between">
-                <span className="text-muted-foreground">Emergency fund</span>
+                <span className="text-muted-foreground">{d.emergency}</span>
                 <Badge
                   variant={
                     stats.emergencyIntel.monthsCovered >= 6
@@ -816,7 +899,7 @@ export function DashboardPage() {
             </div>
             <div>
               <div className="mb-1 flex items-center justify-between">
-                <span className="text-muted-foreground">Budget pace (hottest category)</span>
+                <span className="text-muted-foreground">{d.budgetPace}</span>
                 {stats.worstSmartBudget ? (
                   <Badge
                     variant={
@@ -840,13 +923,13 @@ export function DashboardPage() {
                   {stats.worstSmartBudget.usageVsTimeRatio.toFixed(2)}×)
                 </div>
               ) : (
-                <div className="text-xs text-muted-foreground">No active monthly budgets.</div>
+                <div className="text-xs text-muted-foreground">{d.noBudgets}</div>
               )}
             </div>
             <div>
-              <div className="mb-1 text-muted-foreground">Goal risk</div>
+              <div className="mb-1 text-muted-foreground">{d.goalRisk}</div>
               {stats.goalsAtRisk.length === 0 ? (
-                <div className="text-xs text-success">All tracked goals look on pace.</div>
+                <div className="text-xs text-success">{d.goalsOnPace}</div>
               ) : (
                 <ul className="space-y-1 text-xs">
                   {stats.goalsAtRisk.map((g) => (
@@ -871,8 +954,8 @@ export function DashboardPage() {
         <Card className="lg:col-span-2">
           <CardHeader className="flex-row items-center justify-between">
             <div>
-              <CardTitle>Income vs Expense</CardTitle>
-              <CardDescription>Last 6 months</CardDescription>
+              <CardTitle>{d.incomeExpense}</CardTitle>
+              <CardDescription>{d.last6}</CardDescription>
             </div>
             <Badge variant="info">
               Avg exp/mo: {formatINRCompact(paiseToRupees(stats.avg6MoExpense))}
@@ -953,19 +1036,19 @@ export function DashboardPage() {
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
         <Card>
           <CardHeader>
-            <CardTitle>Upcoming & overdue</CardTitle>
-            <CardDescription>EMI, card dues, udhari</CardDescription>
+            <CardTitle>{d.upcoming}</CardTitle>
+            <CardDescription>{d.upcomingBody}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
             <DueRow
               icon={<Banknote className="h-4 w-4" />}
-              label="EMI this month"
+              label={kpi.emiMonth}
               value={formatINR(paiseToRupees(stats.emiThisMonth))}
               onClick={() => setActive("loans")}
             />
             <DueRow
               icon={<CreditCard className="h-4 w-4" />}
-              label="Card statement due"
+              label={kpi.cardDue}
               value={formatINR(paiseToRupees(stats.upcomingCCDue))}
               sub={
                 stats.ccHealth[0]?.nextDueDate
@@ -976,19 +1059,19 @@ export function DashboardPage() {
             />
             <DueRow
               icon={<IndianRupee className="h-4 w-4" />}
-              label="Udhari receivable"
+              label={kpi.udhariIn}
               value={formatINR(paiseToRupees(stats.udhariReceivable))}
               onClick={() => setActive("udhari")}
             />
             <DueRow
               icon={<IndianRupee className="h-4 w-4" />}
-              label="You owe in udhari"
+              label={kpi.udhariOut}
               value={formatINR(paiseToRupees(stats.udhariPayable))}
               onClick={() => setActive("udhari")}
             />
             <DueRow
               icon={<AlertCircle className="h-4 w-4" />}
-              label="Total liabilities"
+              label={kpi.liabilities}
               value={formatINR(paiseToRupees(stats.totalLiabilities))}
               tone="warning"
             />
@@ -998,8 +1081,8 @@ export function DashboardPage() {
         <Card>
           <CardHeader className="flex-row items-center justify-between">
             <div>
-              <CardTitle>Top spending categories</CardTitle>
-              <CardDescription>This month</CardDescription>
+              <CardTitle>{d.topSpend}</CardTitle>
+              <CardDescription>{d.thisMonth}</CardDescription>
             </div>
             <Button variant="ghost" size="sm" onClick={() => setActive("reports")}>
               View all <ArrowRight className="h-3 w-3" />
@@ -1071,7 +1154,7 @@ export function DashboardPage() {
         <Card>
           <CardHeader className="flex-row items-center justify-between">
             <div>
-              <CardTitle>Goal progress</CardTitle>
+              <CardTitle>{d.goalProgress}</CardTitle>
               <CardDescription>
                 {formatINRCompact(paiseToRupees(stats.totalGoalSaved))} of{" "}
                 {formatINRCompact(paiseToRupees(stats.totalGoalTarget))}
@@ -1121,7 +1204,7 @@ export function DashboardPage() {
         <Card className="lg:col-span-2">
           <CardHeader className="flex-row items-center justify-between">
             <div>
-              <CardTitle>Budget usage — this month</CardTitle>
+              <CardTitle>{d.budgetUsage}</CardTitle>
               <CardDescription>
                 {stats.budgetUsage > 0
                   ? `${formatPercent(stats.budgetUsage, 0)} used overall`
@@ -1139,8 +1222,8 @@ export function DashboardPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Alerts</CardTitle>
-            <CardDescription>Items that need attention</CardDescription>
+            <CardTitle>{d.alerts}</CardTitle>
+            <CardDescription>{d.alertsBody}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-2">
             {activeAlerts.length === 0 ? (
@@ -1177,8 +1260,8 @@ export function DashboardPage() {
         <Card className="lg:col-span-3">
           <CardHeader className="flex-row items-center justify-between">
             <div>
-              <CardTitle>Recent transactions</CardTitle>
-              <CardDescription>Latest 6 across all modules</CardDescription>
+              <CardTitle>{d.recent}</CardTitle>
+              <CardDescription>{d.recentBody}</CardDescription>
             </div>
             <Button variant="ghost" size="sm" onClick={() => setActive("transactions")}>
               View all <ArrowRight className="h-3 w-3" />
@@ -1351,6 +1434,7 @@ function HealthCard({
 }: {
   breakdown: ReturnType<typeof computeFinancialHealth>;
 }) {
+  const d = useMessages().ui.dashboard;
   const tone =
     breakdown.total >= 70
       ? "income"
@@ -1364,9 +1448,9 @@ function HealthCard({
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <ShieldCheck className="h-5 w-5 text-primary" />
-          Financial Health Score
+          {d.health}
         </CardTitle>
-        <CardDescription>Weighted across 7 dimensions</CardDescription>
+        <CardDescription>{d.healthBody}</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="flex items-end justify-between">

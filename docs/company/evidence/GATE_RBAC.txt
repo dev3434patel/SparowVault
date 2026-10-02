@@ -1,4 +1,4 @@
-GATE rbac 2026-09-24T17:21:33.932Z
+GATE rbac 2026-09-30T20:19:04.648Z
 ok php/helpers/company/authz.php
 
 Warning: Version warning: Imagick was compiled against ImageMagick version 1808 but version 1810 is loaded. Imagick will run but may behave surprisingly in Unknown on line 0

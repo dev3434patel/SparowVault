@@ -7,6 +7,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
+import { loadStatementEvidence } from "./statement-evidence-inventory.mjs";
 
 const root = process.cwd();
 const failures = [];
@@ -25,13 +26,21 @@ run("statement-units", process.platform === "win32" ? "npx.cmd" : "npx", [
   "run",
   "tests/unit/statementIntelligence.v2.test.ts",
   "tests/unit/statementParser.test.ts",
+  "tests/unit/statementLayoutMoney.test.ts",
 ]);
 
-const layoutsPath = path.join(root, "php", "config", "statement_layouts.json");
-const layouts = JSON.parse(fs.readFileSync(layoutsPath, "utf8"));
+const evidence = loadStatementEvidence(root);
+const layouts = { layouts: evidence.layouts };
 const verified = layouts.layouts.filter((l) => l.status === "verified-for-scope");
 if (verified.length === 0) {
   failures.push("verified-for-scope layouts: 0 (20-bank claim blocked)");
+}
+for (const gap of evidence.gaps) failures.push(gap);
+if (evidence.recognized !== evidence.banks.length) {
+  failures.push(`recognized bank count ${evidence.recognized} does not match statement_banks.json`);
+}
+if (evidence.fixtureTested + evidence.registeredOnly + evidence.noLayoutSpec + evidence.verifiedForScope !== evidence.recognized) {
+  failures.push("evidence classes do not add up to recognized banks");
 }
 
 const scorecardPath = path.join(root, "docs", "statements-v2", "BANK_LAYOUT_SCORECARD.json");
@@ -42,6 +51,18 @@ if (fs.existsSync(scorecardPath)) {
   }
   if ((scorecard.verifiedForScope ?? []).length > 0 && verified.length === 0) {
     failures.push("scorecard claims verified layouts that registry does not");
+  }
+  if (scorecard.recognized !== evidence.recognized) {
+    failures.push(`scorecard recognized ${scorecard.recognized} != ${evidence.recognized}`);
+  }
+  if (scorecard.fixtureTested !== evidence.fixtureTested) {
+    failures.push(`scorecard fixture-tested ${scorecard.fixtureTested} != ${evidence.fixtureTested}`);
+  }
+  if ((scorecard.verifiedForScope ?? []).length !== evidence.verifiedForScope) {
+    failures.push(`scorecard verified-for-scope ${(scorecard.verifiedForScope ?? []).length} != ${evidence.verifiedForScope}`);
+  }
+  if (scorecard.registeredOnly !== evidence.registeredOnly || scorecard.noLayoutSpec !== evidence.noLayoutSpec) {
+    failures.push("scorecard registered-only or no-layout-spec count does not match the registry");
   }
 }
 
@@ -54,7 +75,11 @@ const report = {
   generatedAt: new Date().toISOString(),
   ok: failures.length === 0,
   failures,
+  recognized: evidence.recognized,
+  fixtureTested: evidence.fixtureTested,
   verifiedForScopeCount: verified.length,
+  registeredOnly: evidence.registeredOnly,
+  noLayoutSpec: evidence.noLayoutSpec,
   blockedFor20BankClaim: true,
 };
 

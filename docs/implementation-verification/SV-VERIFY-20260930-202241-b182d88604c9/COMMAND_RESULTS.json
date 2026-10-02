@@ -1,0 +1,123 @@
+{
+  "runId": "SV-VERIFY-20260930-202241-b182d88604c9",
+  "commands": [
+    {
+      "name": "db-test-reset wrong name",
+      "exitCode": 2,
+      "note": "Refused sparowvault_owner_books before connect."
+    },
+    {
+      "name": "db-test-reset disposable",
+      "exitCode": 0,
+      "note": "sparowvault_test_svverify_b182d886, 33 tables before company migrations."
+    },
+    {
+      "name": "typecheck",
+      "exitCode": 0
+    },
+    {
+      "name": "lint",
+      "exitCode": 1
+    },
+    {
+      "name": "test",
+      "exitCode": 1,
+      "note": "2 failed, 581 passed, 81 files."
+    },
+    {
+      "name": "check:php",
+      "exitCode": 0,
+      "note": "142 files."
+    },
+    {
+      "name": "check:sql",
+      "exitCode": 0,
+      "note": "Static warnings, live rollback skipped."
+    },
+    {
+      "name": "company:test:php",
+      "exitCode": 0
+    },
+    {
+      "name": "company http-e2e script",
+      "exitCode": 0,
+      "note": "In-process database script, not a socket server."
+    },
+    {
+      "name": "company idor script",
+      "exitCode": 0
+    },
+    {
+      "name": "company export smoke",
+      "exitCode": 0
+    },
+    {
+      "name": "finance:gate:all",
+      "exitCode": 0,
+      "note": "Report bytes restored to the pre-gate snapshot."
+    },
+    {
+      "name": "statements:gate:strict",
+      "exitCode": 1,
+      "note": "verified-for-scope layouts 0. 20-bank claim stays blocked."
+    },
+    {
+      "name": "personal oracles",
+      "exitCode": 0,
+      "note": "7 tests passed after the harness called saveTransferLinkForTransaction with the user id."
+    },
+    {
+      "name": "company oracles",
+      "exitCode": 0,
+      "note": "37 checks, 5 raw mismatches. O07 revenue sign was the audit debit-minus-credit reading; credit is 1000000 paise."
+    },
+    {
+      "name": "package extract serve restore",
+      "exitCode": 0,
+      "note": "21 vouchers restored. Health 500. Secret pattern hits 0."
+    }
+  ],
+  "gatePoisoning": [
+    {
+      "id": "missing-evidence",
+      "pass": false,
+      "reasons": [
+        "missing evidence"
+      ]
+    },
+    {
+      "id": "stale-hash",
+      "pass": false,
+      "reasons": [
+        "stale hash"
+      ]
+    },
+    {
+      "id": "zero-tests",
+      "pass": false,
+      "reasons": [
+        "zero tests"
+      ]
+    },
+    {
+      "id": "failed-requirement",
+      "pass": false,
+      "reasons": [
+        "failed mandatory local requirement"
+      ]
+    },
+    {
+      "id": "blocked-bank",
+      "pass": false,
+      "reasons": [
+        "blocked bank scope claimed complete"
+      ]
+    },
+    {
+      "id": "complete-local",
+      "pass": true,
+      "reasons": []
+    }
+  ],
+  "gatePoisoningHonest": true
+}

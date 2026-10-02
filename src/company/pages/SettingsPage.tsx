@@ -3,7 +3,8 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Field } from "@/components/ui/Label";
 import { companyApi } from "@/company/api/client";
-import { PermissionGate } from "@/company/components/PermissionGate";
+import { ApiError } from "@/lib/apiClient";
+import { PermissionGate, useHasPermission } from "@/company/components/PermissionGate";
 import { PinConfirmDialog } from "@/company/components/PinConfirmDialog";
 import { useCompanyStore } from "@/company/store/companyStore";
 import { useI18n } from "@/company/i18n/react";
@@ -19,6 +20,21 @@ export function SettingsPage() {
   const [ok, setOk] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [reopenId, setReopenId] = useState<string | null>(null);
+  const canReopen = useHasPermission("reopen_period");
+  const canManageCompany = useHasPermission("manage_company");
+  const hydrateWorkspace = useCompanyStore((s) => s.hydrateWorkspace);
+  const [displayName, setDisplayName] = useState("");
+  const [gstin, setGstin] = useState("");
+  const [fyMonth, setFyMonth] = useState("4");
+  const [booksStart, setBooksStart] = useState("");
+  const [needImpactAck, setNeedImpactAck] = useState(false);
+
+  useEffect(() => {
+    setDisplayName(workspace?.displayName ?? "");
+    setGstin(workspace?.gstin ?? "");
+    setFyMonth(String(workspace?.financialYearStartMonth ?? 4));
+    setBooksStart(workspace?.booksStartDate ?? "");
+  }, [workspace?.displayName, workspace?.gstin, workspace?.financialYearStartMonth, workspace?.booksStartDate]);
 
   async function loadLocks() {
     if (!companyId) return;
@@ -54,12 +70,54 @@ export function SettingsPage() {
     }
   }
 
+  async function saveProfile(acknowledgeImpact: boolean) {
+    if (!companyId || !canManageCompany) return;
+    const month = Number(fyMonth);
+    if (!Number.isInteger(month) || month < 1 || month > 12) {
+      setErr("Financial year start month must be 1 to 12.");
+      return;
+    }
+    setBusy(true);
+    setErr(null);
+    setOk(null);
+    try {
+      await companyApi.updateWorkspaceProfile(companyId, {
+        displayName: displayName.trim(),
+        gstin: gstin.trim() ? gstin.trim().toUpperCase() : null,
+        financialYearStartMonth: month,
+        booksStartDate: booksStart.trim() || null,
+        ...(acknowledgeImpact ? { acknowledgeImpact: true } : {}),
+      });
+      await hydrateWorkspace(companyId);
+      setNeedImpactAck(false);
+      setOk("Profile saved");
+    } catch (error) {
+      if (error instanceof ApiError && error.code === "BOOKS_IMPACT") {
+        setNeedImpactAck(true);
+        setErr("Posted vouchers already use this financial year. Confirm the change. Posted vouchers stay as they are.");
+      } else {
+        setErr(error instanceof Error ? error.message : "Profile update failed");
+      }
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  async function onSaveProfile(e: React.FormEvent) {
+    e.preventDefault();
+    await saveProfile(false);
+  }
+
   function onReopen(lockId: string) {
     setReopenId(lockId);
   }
 
   async function confirmReopen(pin: string, reason: string) {
-    if (!companyId || !reopenId) return;
+    if (!companyId || !reopenId || !canReopen) {
+      setErr("Reopen needs the reopen period permission. A PIN alone does not reopen a lock.");
+      setReopenId(null);
+      return;
+    }
     setBusy(true);
     setErr(null);
     setOk(null);
@@ -120,9 +178,42 @@ export function SettingsPage() {
                 {workspace.gstEnabled ? workspace.gstin || "enabled" : "off"}
               </div>
               <div>
+                <span className="text-muted-foreground">GSTIN: </span>
+                {workspace.gstin || "—"}
+              </div>
+              <div>
                 <span className="text-muted-foreground">Status: </span>
                 {workspace.status}
               </div>
+              {canManageCompany ? (
+                <form className="space-y-2 pt-2" onSubmit={(e) => void onSaveProfile(e)}>
+                  <Field label="Display name">
+                    <Input value={displayName} onChange={(e) => setDisplayName(e.target.value)} required maxLength={255} />
+                  </Field>
+                  <Field label="Financial year start month">
+                    <Input value={fyMonth} onChange={(e) => { setFyMonth(e.target.value); setNeedImpactAck(false); }} inputMode="numeric" />
+                  </Field>
+                  <Field label="Books start">
+                    <Input type="date" value={booksStart} onChange={(e) => { setBooksStart(e.target.value); setNeedImpactAck(false); }} />
+                  </Field>
+                  <Field label="GSTIN">
+                    <Input
+                      value={gstin}
+                      onChange={(e) => setGstin(e.target.value.toUpperCase())}
+                      maxLength={15}
+                      placeholder="15 characters, optional"
+                    />
+                  </Field>
+                  <Button type="submit" size="sm" disabled={busy || !displayName.trim()}>
+                    Save profile
+                  </Button>
+                  {needImpactAck ? (
+                    <Button type="button" size="sm" variant="outline" disabled={busy} onClick={() => void saveProfile(true)}>
+                      Confirm impact and save
+                    </Button>
+                  ) : null}
+                </form>
+              ) : null}
             </>
           )}
         </div>
@@ -172,9 +263,13 @@ export function SettingsPage() {
                         </div>
                       </div>
                       {!released ? (
-                        <Button size="sm" variant="outline" disabled={busy} onClick={() => onReopen(id)}>
-                          {t("settings.reopen")}
-                        </Button>
+                        canReopen ? (
+                          <Button size="sm" variant="outline" disabled={busy} onClick={() => onReopen(id)}>
+                            {t("settings.reopen")}
+                          </Button>
+                        ) : (
+                          <span className="text-xs text-muted-foreground">Reopen permission required</span>
+                        )
                       ) : null}
                     </li>
                   );

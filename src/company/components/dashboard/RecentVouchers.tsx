@@ -10,9 +10,17 @@ type RecentVouchersProps = {
   initialLoading: boolean;
   topParties: TopParty[];
   recent: RecentVoucher[];
+  partiesError?: string | null;
+  recentError?: string | null;
 };
 
-export function RecentVouchers({ initialLoading, topParties, recent }: RecentVouchersProps) {
+export function RecentVouchers({
+  initialLoading,
+  topParties,
+  recent,
+  partiesError,
+  recentError,
+}: RecentVouchersProps) {
   const { t } = useI18n();
   return (
     <div className="grid gap-4 lg:grid-cols-2">
@@ -26,6 +34,8 @@ export function RecentVouchers({ initialLoading, topParties, recent }: RecentVou
       >
         {initialLoading ? (
           <SkeletonList rows={5} />
+        ) : partiesError ? (
+          <p className="text-sm text-destructive">{partiesError}</p>
         ) : topParties.length === 0 ? (
           <p className="text-sm text-muted-foreground">No receivable exposure.</p>
         ) : (
@@ -62,6 +72,8 @@ export function RecentVouchers({ initialLoading, topParties, recent }: RecentVou
       >
         {initialLoading ? (
           <SkeletonList rows={5} />
+        ) : recentError ? (
+          <p className="text-sm text-destructive">{recentError}</p>
         ) : recent.length === 0 ? (
           <p className="text-sm text-muted-foreground">No vouchers in this period.</p>
         ) : (

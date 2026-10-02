@@ -1,6 +1,10 @@
 {
-  "generatedAt": "2026-09-22T19:18:46.644Z",
+  "generatedAt": "2026-10-01T20:38:18.948Z",
   "vitestExitCode": 0,
+  "recognized": 38,
+  "fixtureTested": 5,
+  "registeredOnly": 15,
+  "noLayoutSpec": 18,
   "targetBanks": 20,
   "layoutCount": 20,
   "byStatus": {
@@ -8,6 +12,237 @@
     "registered": 15
   },
   "verifiedForScope": [],
+  "banks": [
+    {
+      "bankId": "kotak",
+      "evidenceClass": "fixture-tested",
+      "layoutId": "kotak.savings.numbered.v1.en-IN.INR.native_pdf",
+      "testName": "reconciles kotak.savings.numbered.v1.en-IN.INR.native_pdf"
+    },
+    {
+      "bankId": "hdfc",
+      "evidenceClass": "fixture-tested",
+      "layoutId": "hdfc.savings.generic.v1.en-IN.INR.native_pdf",
+      "testName": "reconciles hdfc.savings.generic.v1.en-IN.INR.native_pdf"
+    },
+    {
+      "bankId": "sbi",
+      "evidenceClass": "fixture-tested",
+      "layoutId": "sbi.savings.generic.v1.en-IN.INR.native_pdf",
+      "testName": "reconciles sbi.savings.generic.v1.en-IN.INR.native_pdf"
+    },
+    {
+      "bankId": "indusind",
+      "evidenceClass": "fixture-tested",
+      "layoutId": "indusind.savings.generic.v1.en-IN.INR.native_pdf",
+      "testName": "reconciles indusind.savings.generic.v1.en-IN.INR.native_pdf"
+    },
+    {
+      "bankId": "axis",
+      "evidenceClass": "fixture-tested",
+      "layoutId": "axis.savings.generic.v1.en-IN.INR.native_pdf",
+      "testName": "reconciles axis.savings.generic.v1.en-IN.INR.native_pdf"
+    },
+    {
+      "bankId": "icici",
+      "evidenceClass": "registered-only",
+      "layoutId": "icici.savings.registered.v0.en-IN.INR.native_pdf",
+      "testName": "icici stays registered-only"
+    },
+    {
+      "bankId": "idfc_first",
+      "evidenceClass": "registered-only",
+      "layoutId": "idfc_first.savings.registered.v0.en-IN.INR.native_pdf",
+      "testName": "idfc_first stays registered-only"
+    },
+    {
+      "bankId": "bob",
+      "evidenceClass": "registered-only",
+      "layoutId": "bob.savings.registered.v0.en-IN.INR.native_pdf",
+      "testName": "bob stays registered-only"
+    },
+    {
+      "bankId": "boi",
+      "evidenceClass": "registered-only",
+      "layoutId": "boi.savings.registered.v0.en-IN.INR.native_pdf",
+      "testName": "boi stays registered-only"
+    },
+    {
+      "bankId": "maharashtra",
+      "evidenceClass": "registered-only",
+      "layoutId": "maharashtra.savings.registered.v0.en-IN.INR.native_pdf",
+      "testName": "maharashtra stays registered-only"
+    },
+    {
+      "bankId": "canara",
+      "evidenceClass": "registered-only",
+      "layoutId": "canara.savings.registered.v0.en-IN.INR.native_pdf",
+      "testName": "canara stays registered-only"
+    },
+    {
+      "bankId": "central",
+      "evidenceClass": "no-layout-spec",
+      "layoutId": null,
+      "testName": "central stays no-layout-spec"
+    },
+    {
+      "bankId": "indian",
+      "evidenceClass": "no-layout-spec",
+      "layoutId": null,
+      "testName": "indian stays no-layout-spec"
+    },
+    {
+      "bankId": "iob",
+      "evidenceClass": "registered-only",
+      "layoutId": "iob.savings.registered.v0.en-IN.INR.native_pdf",
+      "testName": "iob stays registered-only"
+    },
+    {
+      "bankId": "pnb",
+      "evidenceClass": "registered-only",
+      "layoutId": "pnb.savings.registered.v0.en-IN.INR.native_pdf",
+      "testName": "pnb stays registered-only"
+    },
+    {
+      "bankId": "psb",
+      "evidenceClass": "no-layout-spec",
+      "layoutId": null,
+      "testName": "psb stays no-layout-spec"
+    },
+    {
+      "bankId": "uco",
+      "evidenceClass": "registered-only",
+      "layoutId": "uco.savings.registered.v0.en-IN.INR.native_pdf",
+      "testName": "uco stays registered-only"
+    },
+    {
+      "bankId": "union",
+      "evidenceClass": "registered-only",
+      "layoutId": "union.savings.registered.v0.en-IN.INR.native_pdf",
+      "testName": "union stays registered-only"
+    },
+    {
+      "bankId": "bandhan",
+      "evidenceClass": "registered-only",
+      "layoutId": "bandhan.savings.registered.v0.en-IN.INR.native_pdf",
+      "testName": "bandhan stays registered-only"
+    },
+    {
+      "bankId": "csb",
+      "evidenceClass": "no-layout-spec",
+      "layoutId": null,
+      "testName": "csb stays no-layout-spec"
+    },
+    {
+      "bankId": "city_union",
+      "evidenceClass": "no-layout-spec",
+      "layoutId": null,
+      "testName": "city_union stays no-layout-spec"
+    },
+    {
+      "bankId": "dcb",
+      "evidenceClass": "no-layout-spec",
+      "layoutId": null,
+      "testName": "dcb stays no-layout-spec"
+    },
+    {
+      "bankId": "dhanlaxmi",
+      "evidenceClass": "no-layout-spec",
+      "layoutId": null,
+      "testName": "dhanlaxmi stays no-layout-spec"
+    },
+    {
+      "bankId": "federal",
+      "evidenceClass": "registered-only",
+      "layoutId": "federal.savings.registered.v0.en-IN.INR.native_pdf",
+      "testName": "federal stays registered-only"
+    },
+    {
+      "bankId": "jk",
+      "evidenceClass": "no-layout-spec",
+      "layoutId": null,
+      "testName": "jk stays no-layout-spec"
+    },
+    {
+      "bankId": "karnataka",
+      "evidenceClass": "no-layout-spec",
+      "layoutId": null,
+      "testName": "karnataka stays no-layout-spec"
+    },
+    {
+      "bankId": "kvb",
+      "evidenceClass": "no-layout-spec",
+      "layoutId": null,
+      "testName": "kvb stays no-layout-spec"
+    },
+    {
+      "bankId": "nainital",
+      "evidenceClass": "no-layout-spec",
+      "layoutId": null,
+      "testName": "nainital stays no-layout-spec"
+    },
+    {
+      "bankId": "rbl",
+      "evidenceClass": "no-layout-spec",
+      "layoutId": null,
+      "testName": "rbl stays no-layout-spec"
+    },
+    {
+      "bankId": "south_indian",
+      "evidenceClass": "no-layout-spec",
+      "layoutId": null,
+      "testName": "south_indian stays no-layout-spec"
+    },
+    {
+      "bankId": "tmb",
+      "evidenceClass": "no-layout-spec",
+      "layoutId": null,
+      "testName": "tmb stays no-layout-spec"
+    },
+    {
+      "bankId": "yes",
+      "evidenceClass": "registered-only",
+      "layoutId": "yes.savings.registered.v0.en-IN.INR.native_pdf",
+      "testName": "yes stays registered-only"
+    },
+    {
+      "bankId": "idbi",
+      "evidenceClass": "registered-only",
+      "layoutId": "idbi.savings.registered.v0.en-IN.INR.native_pdf",
+      "testName": "idbi stays registered-only"
+    },
+    {
+      "bankId": "au",
+      "evidenceClass": "registered-only",
+      "layoutId": "au.savings.registered.v0.en-IN.INR.native_pdf",
+      "testName": "au stays registered-only"
+    },
+    {
+      "bankId": "jana",
+      "evidenceClass": "no-layout-spec",
+      "layoutId": null,
+      "testName": "jana stays no-layout-spec"
+    },
+    {
+      "bankId": "equitas",
+      "evidenceClass": "no-layout-spec",
+      "layoutId": null,
+      "testName": "equitas stays no-layout-spec"
+    },
+    {
+      "bankId": "ujjivan",
+      "evidenceClass": "no-layout-spec",
+      "layoutId": null,
+      "testName": "ujjivan stays no-layout-spec"
+    },
+    {
+      "bankId": "other",
+      "evidenceClass": "no-layout-spec",
+      "layoutId": null,
+      "testName": "other stays no-layout-spec"
+    }
+  ],
+  "evidenceGaps": [],
   "blockedRealCorpus": [
     {
       "layoutId": "kotak.savings.numbered.v1.en-IN.INR.native_pdf",

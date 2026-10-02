@@ -16,12 +16,21 @@ import {
   Download,
   Search,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useI18n } from "@/company/i18n/react";
 
 export function CompanyMobileNav({ activeKey }: { activeKey: CompanyNavKey }) {
   const { t } = useI18n();
   const [sheet, setSheet] = useState<"add" | "more" | null>(null);
+
+  useEffect(() => {
+    if (!sheet) return;
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setSheet(null);
+    }
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [sheet]);
 
   const items: Array<{
     key: CompanyNavKey | "more" | "add";
@@ -93,6 +102,9 @@ export function CompanyMobileNav({ activeKey }: { activeKey: CompanyNavKey }) {
       {sheet ? (
         <div className="fixed inset-0 z-40 bg-black/35 md:hidden" onClick={() => setSheet(null)}>
           <div
+            role="dialog"
+            aria-modal="true"
+            aria-label={sheet === "add" ? t("dashboard.quickActions") : t("common.more")}
             className="absolute inset-x-0 bottom-14 rounded-t-2xl border border-border bg-card p-4 shadow-[var(--shadow-elevated)]"
             onClick={(e) => e.stopPropagation()}
           >

@@ -2,6 +2,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { formatINR } from "@/lib/format";
 import { paiseToRupees } from "@/utils/money";
 import { calculateFreeCashUntilIncome } from "@/services/adaptiveModeEngine";
+import { useMessages } from "@/i18n/useMessages";
 
 export function PaydayCashflowPanel(props: {
   liquidAvailablePaise: number;
@@ -11,21 +12,22 @@ export function PaydayCashflowPanel(props: {
   daysUntilHorizon: number;
   onOpenBills?: () => void;
 }) {
+  const copy = useMessages().copy.payday;
   const { freeCashPaise, safeDailySpendPaise } = calculateFreeCashUntilIncome(props);
 
   const rows = [
-    { label: "Liquid available now", value: props.liquidAvailablePaise },
-    { label: "Reliable income before next payday", value: props.reliableExpectedIncomePaise },
-    { label: "Committed outflows before payday", value: -props.committedOutflowsPaise },
-    { label: "Safety buffer", value: -props.safetyBufferPaise },
+    { label: copy.liquid, value: props.liquidAvailablePaise },
+    { label: copy.reliable, value: props.reliableExpectedIncomePaise },
+    { label: copy.committed, value: -props.committedOutflowsPaise },
+    { label: copy.buffer, value: -props.safetyBufferPaise },
   ];
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Until next income</CardTitle>
+        <CardTitle>{copy.title}</CardTitle>
         <CardDescription>
-          Liquidity plan — not the same as operating surplus. Tap bills to review commitments.
+          {copy.body}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-3">
@@ -43,14 +45,14 @@ export function PaydayCashflowPanel(props: {
           </button>
         ))}
         <div className="border-t pt-3 flex items-center justify-between">
-          <span className="font-medium">Free cash</span>
+          <span className="font-medium">{copy.free}</span>
           <span className="tabular-nums text-lg font-semibold">
             {formatINR(paiseToRupees(freeCashPaise))}
           </span>
         </div>
         <div className="flex items-center justify-between text-sm">
           <span className="text-muted-foreground">
-            Safe daily spend ({props.daysUntilHorizon} days)
+            {copy.safeDaily.replace("{n}", String(props.daysUntilHorizon))}
           </span>
           <span className="tabular-nums font-semibold">
             {formatINR(paiseToRupees(safeDailySpendPaise))}

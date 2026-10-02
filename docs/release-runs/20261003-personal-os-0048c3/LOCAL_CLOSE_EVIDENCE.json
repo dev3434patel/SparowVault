@@ -1,0 +1,12 @@
+{
+  "source": "sparowvault_test",
+  "drill": "sparowvault_test_restore_0048c3",
+  "restoreOk": true,
+  "ocrOk": true,
+  "zipSha256": "664D1BC8DF2A713E6554CAC47314E6FF01C411B4324F446F51ECA69C07412D58",
+  "connectedWithoutSelectingOwner": true,
+  "tableCount": 35,
+  "mismatched": [],
+  "ocrCharacters": 1672,
+  "ocrSawAmount": true
+}
